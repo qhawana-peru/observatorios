@@ -4,6 +4,16 @@
 
 Este repositorio contiene todo lo necesario para operar los observatorios: los archivos originales descargados de fuentes oficiales, los datos procesados, el código que los valida y publica, la metodología y la bitácora de cambios. Está hecho para que otro equipo pueda continuarlo sin el equipo fundador.
 
+## De quién es esto
+
+De nadie en particular. Es un trabajo colectivo de las personas que deciden sumarse, y lo que se construye aquí no le pertenece a ninguna persona ni organización:
+
+- Todo se publica con licencias abiertas: cualquiera puede usarlo, adaptarlo y continuarlo, citando su origen.
+- Quien colabora acepta esas licencias al sumarse; nadie queda como dueño de una parte.
+- El historial registra quién aportó qué, para que el crédito sea colectivo y verificable.
+- Las organizaciones que apoyan la iniciativa lo hacen como aliadas, sin veto sobre lo que se publica ni acceso preferente a los datos.
+- Cuando llegue el momento, el observatorio se entrega completo a una universidad u organización de la sociedad civil que pueda sostenerlo.
+
 ## Observatorios
 
 | Observatorio | Pregunta | Estado |
