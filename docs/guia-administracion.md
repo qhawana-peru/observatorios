@@ -65,6 +65,13 @@ Para dar el permiso: entra al repositorio, **Settings › Collaborators and team
 
 Mientras opera el núcleo transitorio, pon a sus integrantes en `comite-editorial` y `datos`, y anótalo en `docs/bitacora-cambios.md`.
 
+## Paso 6b. Permitir que las automatizaciones abran propuestas
+
+Sin esto, la descarga de los lunes baja los archivos pero no puede abrir la propuesta para el comité.
+
+1. En la organización, **Settings › Actions › General › Workflow permissions**: elige **Read and write permissions** y marca **Allow GitHub Actions to create and approve pull requests**. Guarda.
+2. Repite lo mismo en el repositorio: **Settings › Actions › General**, misma sección.
+
 ## Paso 7. Publicar el sitio
 
 En el repositorio, **Settings › Pages › Build and deployment › Source:** elige **GitHub Actions**. La primera publicación sale sola en cuanto se apruebe el primer cambio; también puedes lanzarla desde **Actions › Publicar sitio › Run workflow**.
