@@ -32,7 +32,7 @@ El destino previsto es una universidad u organización de la sociedad civil. Par
 - **Licencias abiertas desde el primer día:** textos y datos con CC BY 4.0; código con licencia MIT. Quien colabora acepta esas licencias al sumarse, así nadie queda como dueño exclusivo de una parte.
 - **Cuentas institucionales, no personales:** repositorio, dominio, carpeta compartida y herramientas a nombre del observatorio, con al menos dos administradores.
 - **Sin datos personales en lo que se publica o transfiere:** los voluntarios se registran aparte, con lo mínimo, y ese registro no se publica ni forma parte de la transferencia.
-- **Identidad propia:** el observatorio lleva la identidad de Qhawana, sin marca de partidos, colectivos políticos ni empresas.
+- **Identidad propia:** el observatorio lleva solo la identidad de Qhawana.
 - **Documentado para que otro lo opere:** metodología, guías de descarga, diccionario de datos y bitácora de decisiones al día, para que un equipo nuevo continúe sin el equipo fundador.
 - **Herramientas reemplazables:** ninguna etapa depende de una sola herramienta o proveedor; si una herramienta de IA deja de estar disponible, el flujo sigue con otra o a mano.
 
@@ -172,7 +172,7 @@ En la fase 2 se agregan monitores territoriales (uno por región priorizada), un
 
 ## Gobernanza, riesgos y reglas de publicación
 
-**Independencia.** El observatorio es parte de Qhawana, iniciativa ciudadana sin filiación partidaria: ningún partido, colectivo político ni empresa decide qué se publica. Tiene comité editorial con al menos un integrante externo y metodología abierta.
+**Independencia.** El observatorio es parte de Qhawana, una iniciativa ciudadana. Su independencia se sostiene en el método y no en declaraciones: fuentes oficiales enlazadas, las mismas reglas para todos los gobiernos, un comité editorial con al menos un integrante externo y metodología abierta.
 
 **Núcleo transitorio.** Hasta el 22 de noviembre opera un núcleo de dos o tres personas, declarado como transitorio. Prepara la metodología y los datos, publica la convocatoria, conduce la selección y entrega sus funciones al equipo seleccionado. No publica cifras ni hallazgos hacia afuera.
 

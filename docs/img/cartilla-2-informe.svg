@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="640" height="330" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="24" y="34" font-size="18" font-weight="700" fill="#1f2328">Corte MEF del 2026-10-26  <tspan fill="#57606a" font-weight="400">#5</tspan></text>
+  <text x="24" y="62" font-size="13" fill="#0969da">Conversation</text>
+  <text x="130" y="62" font-size="13" fill="#57606a">Commits</text>
+  <text x="210" y="62" font-size="13" fill="#57606a">Checks</text>
+  <text x="280" y="62" font-size="13" fill="#57606a">Files changed</text>
+  <line x1="24" y1="70" x2="104" y2="70" stroke="#fd8c73" stroke-width="3"/>
+  <rect x="24" y="86" width="592" height="200" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="114" font-size="15" font-weight="700" fill="#1f2328">Validación del corte del 2026-10-26</text>
+  <rect x="44" y="126" width="520" height="30" rx="6" fill="#dafbe1"/>
+  <text x="56" y="146" font-size="14" font-weight="700" fill="#1a7f37">Resultado: todo cuadra. Puede pasar a revisión del comité.</text>
+  <text x="56" y="180" font-size="13" fill="#1f2328">1. ✓ Encabezado correcto   2. ✓ Total de control   3. ✓ Las partes suman</text>
+  <text x="56" y="204" font-size="13" fill="#1f2328">4. ✓ Páginas completas      5. ✓ Avance recalculado</text>
+  <text x="56" y="230" font-size="13" fill="#9a6700">6. ⚠ Cambios bruscos: Piura, PIM +14 %. Anotar en la propuesta.</text>
+  <text x="44" y="268" font-size="13" fill="#b4541a">Paso 2: lee el resultado. Si hay ⚠, mira si el analista dejó una explicación.</text>
+  <text x="24" y="314" font-size="12" fill="#57606a">Ilustración: los nombres de las pestañas aparecen en inglés en GitHub.</text>
+</svg>

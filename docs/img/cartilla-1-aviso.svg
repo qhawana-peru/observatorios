@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" font-family="Segoe UI, Arial, sans-serif">
+  <rect width="640" height="230" rx="12" fill="#f6f8fa" stroke="#d0d7de"/>
+  <text x="24" y="34" font-size="13" fill="#57606a">Tu correo · aviso de GitHub</text>
+  <rect x="24" y="48" width="592" height="160" rx="8" fill="#ffffff" stroke="#d0d7de"/>
+  <text x="44" y="78" font-size="13" fill="#57606a">De: qhawana-peru/observatorios</text>
+  <text x="44" y="104" font-size="16" font-weight="700" fill="#1f2328">Corte MEF del 2026-10-26 (PR #5)</text>
+  <text x="44" y="130" font-size="14" fill="#1f2328">Se solicita tu revisión (equipo comite-editorial).</text>
+  <rect x="44" y="152" width="250" height="38" rx="6" fill="#1f883d"/>
+  <text x="169" y="176" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">Ver la propuesta en GitHub</text>
+  <text x="310" y="176" font-size="13" fill="#b4541a">← paso 1: abre este enlace</text>
+</svg>

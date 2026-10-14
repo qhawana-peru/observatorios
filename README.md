@@ -1,6 +1,6 @@
 # Qhawana · Observatorios
 
-**Qhawana** (quechua: "lugar desde donde se mira") es una iniciativa ciudadana independiente que construye observatorios con datos públicos para mirar qué pasa en el Perú y qué hace el Estado al respecto. Ningún partido, colectivo político ni empresa decide qué se publica.
+**Qhawana** (quechua: "lugar desde donde se mira") es una iniciativa ciudadana que construye observatorios con datos públicos para mirar qué pasa en el Perú y qué hace el Estado al respecto. Cada cifra enlaza a su fuente oficial, el método es público y un comité editorial con reglas conocidas decide qué se publica.
 
 Este repositorio contiene todo lo necesario para operar los observatorios: los archivos originales descargados de fuentes oficiales, los datos procesados, el código que los valida y publica, la metodología y la bitácora de cambios. Está hecho para que otro equipo pueda continuarlo sin el equipo fundador.
 
@@ -35,7 +35,7 @@ docs/                       metodología, guías para el equipo y documentos de 
 ## Para el equipo
 
 - ¿Primera vez? Empieza por la [guía para el equipo](docs/guia-equipo.md). No necesitas saber programar.
-- ¿Eres del comité editorial? Lee la [guía del comité](docs/guia-comite.md).
+- ¿Eres del comité editorial? Empieza por la [cartilla de 5 minutos](docs/cartilla-comite.md) y luego la [guía del comité](docs/guia-comite.md).
 - ¿Administras las cuentas? Lee la [guía de administración](docs/guia-administracion.md).
 
 ## Correr las herramientas en tu computadora
