@@ -3,15 +3,15 @@
 # Ver docs/guia-administracion.md, paso 6.
 
 # Por defecto, todo cambio lo aprueba el comité editorial.
-*                         @qhawana/comite-editorial
+*                         @qhawana-peru/comite-editorial
 
 # Cifras, hechos y método: siempre el comité.
-/el-nino/fuentes/         @qhawana/comite-editorial
-/el-nino/datos/           @qhawana/comite-editorial
-/el-nino/config/          @qhawana/comite-editorial
-/docs/                    @qhawana/comite-editorial
+/el-nino/fuentes/         @qhawana-peru/comite-editorial
+/el-nino/datos/           @qhawana-peru/comite-editorial
+/el-nino/config/          @qhawana-peru/comite-editorial
+/docs/                    @qhawana-peru/comite-editorial
 
 # Herramientas y automatizaciones: el equipo de datos.
-/herramientas/            @qhawana/datos
-/sitio/                   @qhawana/datos
-/.github/                 @qhawana/datos
+/herramientas/            @qhawana-peru/datos
+/sitio/                   @qhawana-peru/datos
+/.github/                 @qhawana-peru/datos

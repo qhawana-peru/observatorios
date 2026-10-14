@@ -10,7 +10,7 @@ Copiar, redistribuir, adaptar y usar el material para cualquier fin, incluso com
 
 ## Cómo citar
 
-> Qhawana, Observatorio El Niño. Datos al [fecha de corte]. Fuente primaria: Ministerio de Economía y Finanzas, Consulta Amigable. Licencia CC BY 4.0. https://github.com/qhawana/observatorios
+> Qhawana, Observatorio El Niño. Datos al [fecha de corte]. Fuente primaria: Ministerio de Economía y Finanzas, Consulta Amigable. Licencia CC BY 4.0. https://github.com/qhawana-peru/observatorios
 
 ## Lo que no cubre esta licencia
 

@@ -30,7 +30,7 @@ La segunda persona administradora hace lo mismo con su propia cuenta.
 ## Paso 3. Crear la organización Qhawana
 
 1. Con tu cuenta abierta, ve a **github.com/organizations/plan** y elige el plan **Free**.
-2. Nombre de la organización: `qhawana` (si está tomado, `qhawana-pe`, y avísame para corregir las direcciones en el repositorio).
+2. Nombre de la organización: `qhawana-peru` (ya creada).
 3. Correo de contacto: el correo de Qhawana del paso 1.
 4. Cuando pregunte a quién pertenece, elige que es de una persona (tu cuenta). Más adelante se transfiere al receptor del observatorio.
 5. Invita a la segunda persona administradora con el rol **Owner**.
@@ -69,7 +69,7 @@ Mientras opera el núcleo transitorio, pon a sus integrantes en `comite-editoria
 
 En el repositorio, **Settings › Pages › Build and deployment › Source:** elige **GitHub Actions**. La primera publicación sale sola en cuanto se apruebe el primer cambio; también puedes lanzarla desde **Actions › Publicar sitio › Run workflow**.
 
-La dirección será `https://qhawana.github.io/observatorios/`. Un dominio propio se puede agregar después en esa misma pantalla.
+La dirección será `https://qhawana-peru.github.io/observatorios/`. Un dominio propio se puede agregar después en esa misma pantalla.
 
 ## Paso 8. La regla de cuatro ojos
 
@@ -95,7 +95,7 @@ Las automatizaciones (descarga de los lunes, registro de hechos) abren propuesta
 1. Crea una segunda cuenta de GitHub llamada `qhawana-bot` con el correo de Qhawana. GitHub permite una cuenta de máquina así por persona.
 2. Invítala a la organización y al equipo `analistas`.
 3. Con la sesión de `qhawana-bot` abierta: **Settings › Developer settings › Personal access tokens › Fine-grained tokens › Generate new token**.
-   - **Resource owner:** qhawana. **Repository access:** solo `observatorios`.
+   - **Resource owner:** qhawana-peru. **Repository access:** solo `observatorios`.
    - **Permissions:** Contents, Pull requests e Issues en **Read and write**.
    - **Expiration:** un año. Anota la fecha en un calendario compartido.
 4. Copia el código que aparece (solo se muestra una vez).
