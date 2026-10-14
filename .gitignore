@@ -1,0 +1,8 @@
+_site/
+__pycache__/
+*.pyc
+informe.md
+parcial.md
+cuerpo.md
+.DS_Store
+~$*

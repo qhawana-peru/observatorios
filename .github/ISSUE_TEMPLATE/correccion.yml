@@ -1,0 +1,29 @@
+name: Reportar un error
+description: ¿Encontraste una cifra o un dato equivocado en el sitio? Avísanos y lo corregimos en público.
+title: "Corrección: "
+labels: ["correccion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias. Toda corrección se revisa en un plazo de 48 horas y, si procede, se publica con fecha y qué cambió.
+  - type: textarea
+    id: donde
+    attributes:
+      label: Dónde está el error
+      description: Sección del sitio, región o fecha.
+    validations:
+      required: true
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué dice y qué debería decir
+    validations:
+      required: true
+  - type: input
+    id: fuente
+    attributes:
+      label: Fuente que respalda la corrección
+      placeholder: "https://..."
+    validations:
+      required: true

@@ -1,0 +1,52 @@
+# Cuando un hecho ya verificado recibe la etiqueta `listo-para-registrar`,
+# esta automatización abre una propuesta que lo agrega a la bitácora.
+# El comité la aprueba como cualquier otro cambio.
+name: Registrar hecho
+
+on:
+  issues:
+    types: [labeled]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  registrar:
+    if: github.event.label.name == 'listo-para-registrar'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Con el token del bot, las propuestas que abre esta automatización activan la validación.
+          token: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Agregar el hecho a la bitácora
+        env:
+          CUERPO: ${{ github.event.issue.body }}
+          NUMERO: ${{ github.event.issue.number }}
+        run: python herramientas/hecho_desde_issue.py
+      - name: Abrir la propuesta
+        env:
+          GH_TOKEN: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+          NUMERO: ${{ github.event.issue.number }}
+        run: |
+          rama="hecho-$NUMERO"
+          git config user.name "qhawana-bot"
+          git config user.email "qhawana-bot@users.noreply.github.com"
+          git checkout -b "$rama"
+          git add el-nino/datos/hechos.csv
+          git commit -m "Bitácora: hecho del formulario #$NUMERO"
+          git push -u origin "$rama" --force
+          gh pr create --base main --head "$rama" \
+            --title "Bitácora: hecho #$NUMERO" \
+            --body "Agrega a la bitácora el hecho registrado en #$NUMERO. Revisa que el texto coincida con la cita y la fuente primaria antes de aprobar. Cierra #$NUMERO."
+      - name: Avisar si el formulario tiene un problema
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+          NUMERO: ${{ github.event.issue.number }}
+        run: gh issue comment "$NUMERO" --body "No pude registrar este hecho. Revisa que la fecha tenga el formato AAAA-MM-DD y que el enlace empiece con https://, y vuelve a poner la etiqueta."

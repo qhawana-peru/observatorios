@@ -1,0 +1,68 @@
+# Revisión automática de cada propuesta de cambio.
+# Si la propuesta trae un corte del MEF, corre los seis controles y deja el
+# informe como comentario. Si algo falla, la propuesta no se puede aprobar.
+# Los datos abiertos se generan desde los archivos originales al publicar.
+name: Validar propuesta
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: validar-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  validar:
+    name: validar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Pruebas de las herramientas
+        run: python -m unittest discover -s herramientas/tests
+
+      - name: Buscar cortes nuevos o modificados
+        id: cortes
+        run: |
+          base="${{ github.event.pull_request.base.sha }}"
+          cortes=$(git diff --name-only "$base"...HEAD -- 'el-nino/fuentes/mef/' \
+                   | sed -n 's#^el-nino/fuentes/mef/\([0-9-]*\)/.*#\1#p' | sort -u | tr '\n' ' ')
+          echo "lista=$cortes" >> "$GITHUB_OUTPUT"
+          echo "Cortes en esta propuesta: ${cortes:-ninguno}"
+
+      - name: Correr los seis controles
+        id: controles
+        if: steps.cortes.outputs.lista != ''
+        run: |
+          estado=0
+          : > informe.md
+          for c in ${{ steps.cortes.outputs.lista }}; do
+            python herramientas/validar.py "el-nino/fuentes/mef/$c" --informe "parcial.md" || estado=1
+            cat parcial.md >> informe.md
+            echo "" >> informe.md
+          done
+          echo "estado=$estado" >> "$GITHUB_OUTPUT"
+
+      - name: Dejar el informe en la propuesta
+        if: steps.cortes.outputs.lista != ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh pr comment ${{ github.event.pull_request.number }} --body-file informe.md
+
+      - name: Resultado
+        if: steps.controles.outputs.estado == '1'
+        run: |
+          echo "::error::La validación encontró problemas. Revisa el comentario en la propuesta."
+          exit 1

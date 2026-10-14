@@ -1,0 +1,465 @@
+<title>Observatorio El Niño</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: cabecera con la pregunta → tres respuestas cortas → "Mira tu región" (selector + ficha) → ranking de los 26 pliegos → línea de tiempo y bitácora → cómo leer las cifras → pie Qhawana */
+:root{
+  --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
+  --sea:#11708a; --sea-soft:#d5ebf1; --obra:#0f8a6a; --obra-soft:#d3efe6; --gasto:#5b6fb0; --gasto-soft:#e0e5f5;
+  --sun:#c2560f; --sun-soft:#fbe6d6; --alert:#b4232f;
+  --m0:#9fb3bf; --m1:#d9a400; --m2:#e07a1f; --m3:#cc3a2f; --m4:#8e1d55;
+  --gov:#6b4fa3; --ctrl:#b4541a;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#08171d; --surface:#0f242c; --sunk:#132e38; --ink:#e4eff2; --muted:#9db4bc; --line:#24414c;
+  --sea:#5cc0dc; --sea-soft:#14394a; --obra:#4fd1a8; --obra-soft:#123b31; --gasto:#9aa9e6; --gasto-soft:#232c4c;
+  --sun:#f39a55; --sun-soft:#3e2614; --alert:#f26b72;
+  --m0:#5d7380; --m1:#f0c419; --m2:#f2913a; --m3:#ef5a4c; --m4:#d0548f;
+  --gov:#a68be0; --ctrl:#ef9a5a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#08171d; --surface:#0f242c; --sunk:#132e38; --ink:#e4eff2; --muted:#9db4bc; --line:#24414c;
+  --sea:#5cc0dc; --sea-soft:#14394a; --obra:#4fd1a8; --obra-soft:#123b31; --gasto:#9aa9e6; --gasto-soft:#232c4c;
+  --sun:#f39a55; --sun-soft:#3e2614; --alert:#f26b72;
+  --m0:#5d7380; --m1:#f0c419; --m2:#f2913a; --m3:#ef5a4c; --m4:#d0548f;
+  --gov:#a68be0; --ctrl:#ef9a5a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 64px}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:48px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,6vw,3.3rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.45rem,3.4vw,1.9rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.1rem;font-weight:700}
+p{margin:0}
+.muted{color:var(--muted)}
+.small{font-size:.86rem}
+.num{font-variant-numeric:tabular-nums}
+a{color:var(--sea);text-underline-offset:2px}
+:focus-visible{outline:3px solid var(--sea);outline-offset:2px;border-radius:4px}
+section{display:grid;gap:18px;min-width:0}
+.sec-head{display:grid;gap:6px;max-width:68ch}
+
+/* cabecera */
+.top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700}
+.brand svg{flex:none}
+.brand small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted)}
+.badge{font-size:.8rem;padding:4px 12px;border-radius:99px;background:var(--sun-soft);color:var(--sun);font-weight:700}
+.hero{display:grid;gap:14px}
+.hero .lede{font-size:1.15rem;max-width:62ch;color:var(--muted)}
+.wave{display:block;width:100%;height:28px;color:var(--sea);opacity:.5}
+
+/* tres respuestas */
+.answers{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.ans{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:8px;align-content:start;min-width:0}
+.ans .q{font-size:.9rem;color:var(--muted);font-weight:700}
+.ans .big{font-family:var(--display);font-size:2.2rem;font-weight:800;line-height:1}
+.ans .big small{font-size:1rem;font-weight:500;color:var(--muted)}
+.ans.sun .big{color:var(--sun)} .ans.sea .big{color:var(--sea)} .ans.obra .big{color:var(--obra)}
+
+/* barra de avance */
+.meter{display:grid;gap:6px}
+.track{height:14px;border-radius:99px;background:var(--sunk);overflow:hidden;display:flex}
+.track i{display:block;height:100%}
+.track .done{background:var(--sea)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:.85rem;color:var(--muted);align-items:center}
+.sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* tu región */
+.picker{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.picker label{font-weight:700}
+select{font:inherit;font-size:1rem;padding:10px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink);min-height:44px;max-width:100%}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:inherit;font-size:.88rem;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--surface);color:var(--ink);cursor:pointer;min-height:36px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ficha{background:var(--surface);border:1px solid var(--line);border-radius:calc(var(--r) + 4px);padding:clamp(18px,3vw,28px);display:grid;gap:22px}
+.ficha-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:baseline;justify-content:space-between}
+.ficha-head h3{font-size:1.5rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px}
+.block{display:grid;gap:12px;align-content:start;min-width:0}
+.block h4{margin:0;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.pct{font-family:var(--display);font-size:2.6rem;font-weight:800;line-height:1}
+.pct small{font-family:var(--body);font-size:.95rem;font-weight:400;color:var(--muted);margin-left:6px}
+.split{display:grid;gap:10px}
+.row2{display:grid;grid-template-columns:7.5rem 1fr 3.2rem;gap:10px;align-items:center;font-size:.92rem}
+.row2 .bar{height:10px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.row2 .bar i{display:block;height:100%;border-radius:99px}
+.row2 .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.note{font-size:.92rem;color:var(--muted)}
+.facts{display:grid;gap:10px}
+.fact{display:flex;gap:10px;align-items:flex-start;font-size:.95rem}
+.dot{flex:none;width:10px;height:10px;border-radius:50%;margin-top:.45em}
+.pill{display:inline-block;font-size:.78rem;font-weight:700;padding:2px 10px;border-radius:99px}
+.pill.ok{background:var(--obra-soft);color:var(--obra)}
+.pill.no{background:var(--sun-soft);color:var(--sun)}
+
+/* ranking */
+.rank-wrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px 0}
+.rank{list-style:none;margin:0;padding:0}
+.rank li{display:grid;grid-template-columns:minmax(0,11.5rem) 1fr 4.2rem;gap:12px;align-items:center;padding:7px 18px;font-size:.92rem}
+.rank li:nth-child(odd){background:color-mix(in srgb,var(--sunk) 45%,transparent)}
+.rank li.sel{outline:2px solid var(--sea);outline-offset:-2px;border-radius:8px}
+.rank .n{overflow-wrap:anywhere}
+.rank .bar{height:12px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.rank .bar i{display:block;height:100%;border-radius:99px;background:var(--sea)}
+.rank .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:700}
+.rank .v small{display:block;font-weight:400;color:var(--muted);font-size:.75rem}
+.rank .na{color:var(--muted);font-style:italic;font-size:.85rem}
+
+/* línea de tiempo */
+.chart-box{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:8px}
+svg text{font-family:var(--body);font-size:11px;fill:var(--muted)}
+svg .lane{font-family:var(--display);font-size:13px;font-weight:700;fill:var(--ink)}
+.log{list-style:none;margin:0;padding:0 0 0 4px;border-left:2px solid var(--line);display:grid;gap:18px}
+.entry{position:relative;padding-left:22px;min-width:0}
+.entry::before{content:"";position:absolute;left:-8px;top:7px;width:14px;height:14px;border-radius:50%;background:var(--sev);border:3px solid var(--bg)}
+.entry.future{opacity:.75}
+.entry.future::before{background:var(--bg);border:2px dashed var(--muted)}
+.ehead{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.edate{font-weight:700;font-variant-numeric:tabular-nums}
+.tag{font-size:.75rem;padding:1px 9px;border-radius:99px;border:1px solid currentColor}
+.t-peligro{color:var(--m3)} .t-respuesta{color:var(--gov)} .t-control{color:var(--ctrl)} .t-ejecucion{color:var(--sea)} .t-otro{color:var(--muted)}
+.t-prensa{color:var(--sun);background:var(--sun-soft);border-color:transparent}
+.etext{margin-top:4px;max-width:70ch}
+.echange{margin-top:3px;font-size:.92rem;color:var(--muted);max-width:70ch}
+.esrc{margin-top:4px;font-size:.85rem}
+.more{justify-self:start}
+
+/* glosario */
+.gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.term{background:var(--sea-soft);border-radius:var(--r);padding:16px 18px;display:grid;gap:4px}
+.term b{font-family:var(--display);font-size:1.05rem}
+.term span{font-size:.92rem}
+.method{display:grid;gap:10px;max-width:72ch;font-size:.95rem}
+.method li{margin-bottom:6px}
+
+footer{border-top:1px solid var(--line);padding-top:22px;display:grid;gap:10px;font-size:.88rem;color:var(--muted)}
+footer strong{color:var(--ink)}
+
+@media (max-width:560px){
+  .rank li{grid-template-columns:minmax(0,1fr) 3.8rem;row-gap:4px}
+  .rank .bar{grid-column:1 / -1;grid-row:2}
+  .row2{grid-template-columns:6.2rem 1fr 3rem}
+}
+@media (prefers-reduced-motion:no-preference){
+  .track i,.row2 .bar i,.rank .bar i{transition:width .5s ease}
+}
+</style>
+
+<div class="wrap">
+  <header class="hero">
+    <div class="top">
+      <div class="brand">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M4 20c3-3 6-3 9 0s6 3 9 0 6-3 9 0" fill="none" stroke="var(--sea)" stroke-width="2.4" stroke-linecap="round"/><circle cx="17" cy="12" r="3.2" fill="var(--sun)"/></svg>
+        <div>Observatorio El Niño<small>un observatorio de Qhawana</small></div>
+      </div>
+      <span class="badge" id="estado">Versión preliminar</span>
+    </div>
+    <h1>¿Qué hizo el Estado con el aviso de El Niño?</h1>
+    <p class="lede">Desde febrero hubo alerta oficial. Aquí puedes ver, con datos públicos, cuánto dinero para prevenir desastres se ha usado y dónde. Elige tu región más abajo.</p>
+    <svg class="wave" viewBox="0 0 400 28" preserveAspectRatio="none" aria-hidden="true"><path d="M0 14c25-12 50-12 75 0s50 12 75 0 50-12 75 0 50 12 75 0 50-12 75 0 50 12 25 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+  </header>
+
+  <section aria-labelledby="h-resumen">
+    <div class="sec-head">
+      <h2 id="h-resumen">Lo esencial, en tres respuestas</h2>
+      <p class="muted">Cifras del Ministerio de Economía al <b id="corte-largo">—</b>, para el programa de reducción de vulnerabilidad y atención de emergencias por desastres (PP 0068).</p>
+    </div>
+    <div class="answers">
+      <article class="ans sun">
+        <p class="q">¿Cuánto aviso hubo?</p>
+        <p class="big num">9 a 10 <small>meses</small></p>
+        <p>El ENFEN activó la alerta en febrero. Desde agosto pronostica un Niño Costero extraordinario, con el pico esperado entre noviembre y febrero.</p>
+      </article>
+      <article class="ans sea">
+        <p class="q">¿Cuánto del presupuesto se usó?</p>
+        <p class="big num" id="a-total">—</p>
+        <div class="meter"><div class="track" aria-hidden="true"><i class="done" id="a-total-bar"></i></div></div>
+        <p id="a-total-txt" class="small muted">—</p>
+      </article>
+      <article class="ans obra">
+        <p class="q">¿Cuánto es obra y cuánto gasto corriente?</p>
+        <p class="big num" id="a-obras">—</p>
+        <p id="a-obras-txt">—</p>
+      </article>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-region" id="region">
+    <div class="sec-head">
+      <h2 id="h-region">Mira tu región</h2>
+      <p class="muted">Cada región tiene dos actores: su gobierno regional y sus municipalidades. Aquí ves a los dos por separado.</p>
+    </div>
+    <div class="picker">
+      <label for="sel-region">Región</label>
+      <select id="sel-region"></select>
+    </div>
+    <div class="chips" role="group" aria-label="Atajos a la costa norte" id="quick"></div>
+    <article class="ficha" aria-live="polite">
+      <div class="ficha-head">
+        <h3 id="f-nombre">—</h3>
+        <span class="small muted">MEF, Consulta Amigable · corte <span class="corte-corto">—</span></span>
+      </div>
+      <div class="cols">
+        <div class="block">
+          <h4 id="f-gr-titulo">Gobierno regional</h4>
+          <p class="pct num" id="f-gr-pct">—</p>
+          <div class="split" id="f-gr-split"></div>
+          <p class="note" id="f-gr-note">—</p>
+        </div>
+        <div class="block">
+          <h4 id="f-mu-titulo">Municipalidades de la región</h4>
+          <p class="pct num" id="f-mu-pct">—</p>
+          <div class="split" id="f-mu-split"></div>
+          <p class="note" id="f-mu-note">—</p>
+        </div>
+        <div class="block">
+          <h4>Contexto</h4>
+          <div class="facts" id="f-facts"></div>
+        </div>
+      </div>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--obra)"></span>Obras (proyectos de inversión)</span>
+        <span><span class="sw" style="background:var(--gasto)"></span>Gasto corriente (actividades)</span>
+      </div>
+    </article>
+  </section>
+
+  <section aria-labelledby="h-rank">
+    <div class="sec-head">
+      <h2 id="h-rank">Los 26 gobiernos del nivel regional, de menor a mayor avance</h2>
+      <p class="muted">25 gobiernos regionales y la Municipalidad Metropolitana de Lima, que el MEF cuenta en el mismo nivel. A la derecha, cuánto dinero tienen asignado.</p>
+    </div>
+    <div class="chips" role="group" aria-label="Qué avance mostrar">
+      <button type="button" class="chip" data-mode="t" aria-pressed="true">Todo el programa</button>
+      <button type="button" class="chip" data-mode="p" aria-pressed="false">Solo obras</button>
+      <button type="button" class="chip" data-mode="a" aria-pressed="false">Solo gasto corriente</button>
+    </div>
+    <div class="rank-wrap"><ol class="rank" id="rank"></ol></div>
+    <p class="small muted" id="rank-note">—</p>
+  </section>
+
+  <section aria-labelledby="h-linea">
+    <div class="sec-head">
+      <h2 id="h-linea">Aviso, decisiones y gasto en el mismo calendario</h2>
+      <p class="muted">Arriba, lo que pronosticaba el ENFEN. Al medio, lo que decidió o advirtió el Estado. Abajo, cuánto del presupuesto se había usado en cada corte.</p>
+    </div>
+    <div class="chart-box"><svg id="lanes" viewBox="0 0 900 500" width="100%" style="min-width:680px" role="img" aria-label="Línea de tiempo de febrero de 2025 a marzo de 2027 con el pronóstico del ENFEN, las decisiones del Estado y el avance del gasto"></svg></div>
+    <div class="legend">
+      <span><span class="sw" style="background:var(--m3)"></span>Niño Costero</span>
+      <span><span class="sw" style="background:var(--sea)"></span>Niño global</span>
+      <span><span class="sw" style="background:var(--gov)"></span>Decisión del Ejecutivo</span>
+      <span><span class="sw" style="background:var(--ctrl)"></span>Control y alertas</span>
+      <span><span class="sw" style="background:var(--sunk);border:1px solid var(--line)"></span>Pico esperado</span>
+    </div>
+    <h3>Qué pasó, fecha por fecha</h3>
+    <div class="chips" role="group" aria-label="Filtrar la bitácora">
+      <button type="button" class="chip" data-f="todas" aria-pressed="true">Todo</button>
+      <button type="button" class="chip" data-f="peligro" aria-pressed="false">Pronóstico</button>
+      <button type="button" class="chip" data-f="respuesta" aria-pressed="false">Decisiones y alertas</button>
+      <button type="button" class="chip" data-f="ejecucion" aria-pressed="false">Gasto</button>
+    </div>
+    <ol class="log" id="log"></ol>
+    <button type="button" class="chip more" id="log-more">Ver todo</button>
+  </section>
+
+  <section aria-labelledby="h-leer">
+    <div class="sec-head">
+      <h2 id="h-leer">Cómo leer estas cifras</h2>
+    </div>
+    <div class="gloss">
+      <div class="term"><b>Presupuesto disponible</b><span>Lo que el MEF llama PIM: el dinero asignado hoy. Cambia casi a diario, por eso cada cifra lleva su fecha.</span></div>
+      <div class="term"><b>Usado</b><span>Lo que el MEF llama devengado: gasto ya comprometido y reconocido, con el bien o servicio entregado. Es la medida más firme de ejecución.</span></div>
+      <div class="term"><b>Obras</b><span>Proyectos de inversión: defensas ribereñas, drenaje, muros. Cada uno tiene un código único que se puede seguir en INFOBRAS.</span></div>
+      <div class="term"><b>Gasto corriente</b><span>Actividades: limpieza de cauces y quebradas, bienes de ayuda humanitaria, operación.</span></div>
+    </div>
+    <ul class="method">
+      <li><b>Un solo programa.</b> El PP 0068 cubre todos los peligros (lluvias, sismos, heladas), no solo El Niño, y hay recursos para El Niño que llegan por otras vías. Es la mejor aproximación pública, no una medida exacta.</li>
+      <li><b>Cifras que no son del MEF.</b> Lo que declaran autoridades con otras bases aparece en la bitácora como hecho, con su fuente. Las entradas marcadas <span class="tag t-prensa">prensa · por verificar</span> se reemplazarán por la fuente primaria.</li>
+      <li><b>Municipalidades por departamento.</b> Se agrupan según quién ejecuta el gasto. En Lima, incluyen a las municipalidades de Lima Metropolitana.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p><strong>Qhawana</strong> es una iniciativa ciudadana independiente, sin filiación partidaria. Ningún partido, colectivo político ni empresa decide qué se publica.</p>
+    <p>Fuentes: <a href="https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx" target="_blank" rel="noopener">MEF, Consulta Amigable</a> (<span class="corte-corto">—</span>) · <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">Comunicados ENFEN</a> · normas y notas enlazadas en la bitácora.</p>
+    <p>Textos y datos con licencia CC BY 4.0. <span id="pie-estado">Versión preliminar: nada aquí ha pasado todavía por el comité editorial.</span> Datos y método: <a href="__REPO__" target="_blank" rel="noopener">repositorio público</a>. Contacto: [correo por definir].</p>
+  </footer>
+</div>
+
+<script>
+const DATA = __DATOS__;
+const REG = DATA.regiones;
+const LV = DATA.niveles;
+const CORTE = DATA.corte_corto;
+document.querySelectorAll(".corte-corto").forEach(e=>e.textContent=DATA.corte_corto);
+document.getElementById("corte-largo").textContent=DATA.corte_largo;
+if(DATA.aprobado){document.getElementById("estado").textContent="Corte aprobado por el comité";document.getElementById("pie-estado").textContent="Cifras aprobadas por el comité editorial de Qhawana.";}
+
+const EXP = DATA.contexto.pronostico;
+const PLAN_OK = DATA.contexto.plan_aprobado;
+const NORTE = DATA.contexto.atajos;
+
+const fmtPct = (n,d) => d>0 ? (n/d*100).toFixed(1).replace(".",",") : null;
+const fmtM = v => "S/ " + (v/1e6).toLocaleString("es-PE",{maximumFractionDigits: v>=1e8?0:1}) + " M";
+const pctNum = (n,d) => d>0 ? n/d*100 : 0;
+
+/* --- tres respuestas --- */
+(function(){
+  const k=["E","M","R"];
+  const P=k.reduce((s,x)=>s+LV[x].t[0],0), D=k.reduce((s,x)=>s+LV[x].t[1],0);
+  const PP=k.reduce((s,x)=>s+LV[x].p[0],0), DP=k.reduce((s,x)=>s+LV[x].p[1],0);
+  document.getElementById("a-total").textContent = fmtPct(D,P)+" %";
+  document.getElementById("a-total-bar").style.width = pctNum(D,P)+"%";
+  document.getElementById("a-total-txt").textContent = `Usado ${fmtM(D)} de ${fmtM(P)} disponibles, sumando los tres niveles de gobierno.`;
+  document.getElementById("a-obras").textContent = Math.round(PP/P*100)+" % es obra";
+  document.getElementById("a-obras-txt").textContent =
+    `Del presupuesto, ${fmtM(PP)} son obras (van al ${fmtPct(DP,PP)} %). En las municipalidades las obras pesan ${Math.round(LV.M.p[0]/LV.M.t[0]*100)} %; en el gobierno nacional, solo ${Math.round(LV.E.p[0]/LV.E.t[0]*100)} %.`;
+})();
+
+/* --- mira tu región --- */
+const sel=document.getElementById("sel-region");
+const ordered=[...REG].sort((a,b)=>a.r.localeCompare(b.r,"es"));
+ordered.forEach(o=>{const op=document.createElement("option");op.value=o.c;op.textContent=o.r;sel.appendChild(op)});
+const quick=document.getElementById("quick");
+NORTE.forEach(n=>{const o=REG.find(x=>x.r===n);const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=n;b.dataset.c=o.c;b.setAttribute("aria-pressed","false");b.onclick=()=>{sel.value=o.c;showRegion(o.c)};quick.appendChild(b)});
+
+function splitRows(el, a, p){
+  const rows=[["Obras",p,"var(--obra)"],["Gasto corriente",a,"var(--gasto)"]];
+  el.innerHTML="";
+  rows.forEach(([lab,v,col])=>{
+    const d=document.createElement("div");d.className="row2";
+    const has=v[0]>0;
+    const pc=has?pctNum(v[1],v[0]):0;
+    d.innerHTML=`<span>${lab}</span><span class="bar" aria-hidden="true"><i style="width:${pc}%;background:${col}"></i></span><span class="v">${has?Math.round(pc)+" %":"—"}</span>`;
+    d.title= has ? `${lab}: usado ${fmtM(v[1])} de ${fmtM(v[0])}` : `${lab}: sin presupuesto en el programa`;
+    el.appendChild(d);
+  });
+}
+function showRegion(code){
+  const o=REG.find(x=>x.c===code); if(!o) return;
+  document.getElementById("f-nombre").textContent=o.r;
+  const isMML=o.c==="465";
+  document.getElementById("f-gr-titulo").textContent=isMML?"Municipalidad Metropolitana de Lima":(o.c==="464"?"Gobierno Regional del Callao":"Gobierno regional");
+  document.getElementById("f-gr-pct").innerHTML=`${fmtPct(o.t[1],o.t[0])} %<small>usado</small>`;
+  splitRows(document.getElementById("f-gr-split"),o.a,o.p);
+  const obraShare=o.t[0]>0?Math.round(o.p[0]/o.t[0]*100):0;
+  document.getElementById("f-gr-note").textContent = o.p[0]>0
+    ? `${fmtM(o.t[1])} usados de ${fmtM(o.t[0])}. El ${obraShare} % de su presupuesto es obra.`
+    : `${fmtM(o.t[1])} usados de ${fmtM(o.t[0])}. No tiene obras en este programa: todo es gasto corriente.`;
+  const m=o.m; const mp=[m[0]-m[2], m[1]-m[3]], ma=[m[2],m[3]];
+  document.getElementById("f-mu-titulo").textContent = (o.c==="463"||isMML) ? "Municipalidades del departamento de Lima" : "Municipalidades de la región";
+  document.getElementById("f-mu-pct").innerHTML=`${fmtPct(m[1],m[0])} %<small>usado</small>`;
+  splitRows(document.getElementById("f-mu-split"),ma,mp);
+  document.getElementById("f-mu-note").textContent=`${fmtM(m[1])} usados de ${fmtM(m[0])}, sumando todas sus municipalidades.`;
+  const f=document.getElementById("f-facts"); f.innerHTML="";
+  const add=(col,html)=>{const d=document.createElement("div");d.className="fact";d.innerHTML=`<span class="dot" style="background:${col}"></span><span>${html}</span>`;f.appendChild(d)};
+  add("var(--m3)", `<b>Pronóstico (ENFEN N° 17, 28 set):</b> ${EXP[o.r]||"el comunicado no la menciona entre las zonas con lluvias fuera de lo normal."}`);
+  if(!isMML) add("var(--gov)", `<b>Plan de gestión del riesgo al 27 de junio:</b> ${PLAN_OK.includes(o.r)?'<span class="pill ok">aprobado</span>':'<span class="pill no">no figuraba entre los aprobados</span>'} <span class="small muted">según el Ejecutivo</span>`);
+  const rk=rankOrder("t").findIndex(x=>x.c===o.c)+1;
+  add("var(--sea)", `<b>Puesto ${rk} de 26</b> en avance del nivel regional, contando desde el más lento.`);
+  document.querySelectorAll("#quick .chip").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.c===o.c)));
+  document.querySelectorAll("#rank li").forEach(li=>li.classList.toggle("sel",li.dataset.c===o.c));
+  try{localStorage.setItem("qh-nino-region",o.c)}catch(e){}
+}
+sel.addEventListener("change",()=>showRegion(sel.value));
+
+/* --- ranking --- */
+let mode="t";
+function rankOrder(k){
+  return [...REG].map(o=>({c:o.c,r:o.r,v:o[k],has:o[k][0]>0,pc:o[k][0]>0?o[k][1]/o[k][0]*100:null}))
+    .sort((a,b)=>(a.pc==null)-(b.pc==null)|| (a.pc??0)-(b.pc??0));
+}
+function drawRank(){
+  const el=document.getElementById("rank"); el.innerHTML="";
+  const col= mode==="p"?"var(--obra)":mode==="a"?"var(--gasto)":"var(--sea)";
+  rankOrder(mode).forEach(x=>{
+    const li=document.createElement("li"); li.dataset.c=x.c;
+    li.innerHTML = x.has
+      ? `<span class="n">${x.r}</span><span class="bar" aria-hidden="true"><i style="width:${x.pc}%;background:${col}"></i></span><span class="v">${x.pc.toFixed(1).replace(".",",")} %<small>${fmtM(x.v[0])}</small></span>`
+      : `<span class="n">${x.r}</span><span class="na">sin obras en el programa</span><span class="v">—</span>`;
+    li.style.cursor="pointer"; li.onclick=()=>{sel.value=x.c;showRegion(x.c);document.getElementById("region").scrollIntoView({behavior:"smooth",block:"start"})};
+    el.appendChild(li);
+  });
+  const R=LV.R, ica=REG.find(o=>o.c==="449");
+  const sinIca = (R.t[1]-ica.t[1])/(R.t[0]-ica.t[0])*100;
+  document.getElementById("rank-note").textContent = mode==="t"
+    ? `En conjunto, el nivel regional va en ${fmtPct(R.t[1],R.t[0])} %. Ica tiene ${Math.round(ica.t[0]/R.t[0]*100)} % del dinero de todo el nivel; sin Ica, el avance baja a ${sinIca.toFixed(1).replace(".",",")} %. Toca una fila para ver esa región arriba.`
+    : mode==="p" ? `Obras del nivel regional en conjunto: ${fmtPct(R.p[1],R.p[0])} % usado de ${fmtM(R.p[0])}. Toca una fila para ver esa región arriba.`
+    : `Gasto corriente del nivel regional en conjunto: ${fmtPct(R.a[1],R.a[0])} % usado de ${fmtM(R.a[0])}. Toca una fila para ver esa región arriba.`;
+  const cur=sel.value; document.querySelectorAll("#rank li").forEach(li=>li.classList.toggle("sel",li.dataset.c===cur));
+}
+document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll("[data-mode]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawRank()});
+drawRank();
+let start="461"; try{const s=localStorage.getItem("qh-nino-region"); if(s&&REG.some(o=>o.c===s)) start=s;}catch(e){}
+sel.value=start; showRegion(start);
+
+/* --- línea de tiempo y bitácora --- */
+const EB="https://enfen.imarpe.gob.pe";
+const C=["Neutro","Débil","Moderado","Fuerte","Extraordinario"], G=["Neutro","Débil","Moderado","Fuerte","Muy fuerte"];
+const E = DATA.hechos.map(h=>({id:h.id,f:h.franja,d:h.fecha,lbl:h.etiqueta_fecha,t:h.texto,ch:h.cambio,u:h.fuente_url,
+  src: h.fuente_tipo==="primaria"?"":h.fuente_tipo, c: h.costero===""?null:Number(h.costero), g: h.global===""?null:Number(h.global),
+  future: h.futuro==="si", pct: h.pct===""?null:Number(h.pct)}))
+  .concat(DATA.serie.map(s=>({id:"S"+s.fecha,f:"ejecucion",d:s.fecha,lbl:s.etiqueta,pct:s.pct,
+  t:`${String(s.pct).replace(".",",")} % usado: S/ ${Math.round(s.devengado/1e6).toLocaleString("es-PE")} millones de S/ ${Math.round(s.pim/1e6).toLocaleString("es-PE")} millones. Obras: ${fmtPct(s.dev_proy,s.pim_proy)} %; gasto corriente: ${fmtPct(s.dev_act,s.pim_act)} %.`,
+  ch:"Fuente: MEF, Consulta Amigable. Corte validado con los seis controles.",u:"__REPO__/tree/main/el-nino/fuentes/mef/"+s.fecha})));
+(function(){
+  const svg=document.getElementById("lanes"),W=900,L=150,R=20;
+  const t=s=>Date.parse(s)/864e5, t0=t("2025-02-01"), t1=t("2027-04-01");
+  const X=s=>L+(t(s)-t0)/(t1-t0)*(W-L-R);
+  const P={top:40,h:150}, Rr={top:224,h:104}, Ex={top:360,h:100};
+  const yM=v=>P.top+P.h-(v/4)*(P.h-10), yP=v=>Ex.top+Ex.h-(v/100)*Ex.h;
+  let h="";
+  h+=`<rect x="${X("2026-11-01")}" y="${P.top-12}" width="${X("2027-02-01")-X("2026-11-01")}" height="${Ex.top+Ex.h-P.top+12}" fill="var(--sunk)"/>`;
+  h+=`<text x="${(X("2026-11-01")+X("2027-02-01"))/2}" y="${P.top-18}" text-anchor="middle" style="fill:var(--ink)">pico esperado</text>`;
+  const mark=(d,lbl,col,dash)=>`<line x1="${X(d)}" x2="${X(d)}" y1="${P.top-8}" y2="${Ex.top+Ex.h}" stroke="${col}" stroke-width="1.25" ${dash?'stroke-dasharray="4 4"':''}/><text x="${X(d)-4}" y="${Ex.top+Ex.h+32}" text-anchor="end" style="fill:${col}">${lbl}</text>`;
+  h+=mark(DATA.corte,"último corte","var(--ink)",false);
+  h+=mark("2027-01-01","nuevas autoridades","var(--alert)",true);
+  [[P,"Pronóstico","ENFEN"],[Rr,"Decisiones","y alertas"],[Ex,"Gasto","% usado del PP 0068"]].forEach(([b,n,s])=>{
+    h+=`<line x1="${L}" x2="${W-R}" y1="${b.top+b.h}" y2="${b.top+b.h}" stroke="var(--line)"/>`;
+    h+=`<text class="lane" x="12" y="${b.top+18}">${n}</text><text x="12" y="${b.top+34}">${s}</text>`;
+  });
+  [1,2,3,4].forEach(v=>{h+=`<line x1="${L}" x2="${W-R}" y1="${yM(v)}" y2="${yM(v)}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="${L-6}" y="${yM(v)+4}" text-anchor="end">${["","débil","moderado","fuerte","máximo"][v]}</text>`});
+  const step=(k,col)=>{const p=E.filter(e=>e.f==="peligro"&&e[k]!=null&&!e.future);let d="";
+    p.forEach((e,i)=>{const x=X(e.d),y=yM(e[k]);d+=i?` H${x} V${y}`:`M${x} ${y}`});d+=` H${X(DATA.corte)}`;
+    return `<path d="${d}" fill="none" stroke="${col}" stroke-width="2.5"/>`+p.map(e=>`<circle cx="${X(e.d)}" cy="${yM(e[k])}" r="3" fill="${col}"><title>${e.lbl}: ${(k==="c"?C:G)[Math.round(e[k])]}</title></circle>`).join("")};
+  h+=step("g","var(--sea)")+step("c","var(--m3)");
+  const col={respuesta:"var(--gov)",control:"var(--ctrl)",otro:"var(--muted)"};
+  E.filter(e=>["respuesta","control","otro"].includes(e.f)).sort((a,b)=>a.d<b.d?-1:1).forEach((e,i)=>{const x=X(e.d),y=Rr.top+26+(i%3)*30,c=col[e.f];
+    const shape=e.f==="respuesta"?`<path d="M${x} ${y-7}l7 7l-7 7l-7 -7z" fill="${c}"/>`:e.f==="control"?`<circle cx="${x}" cy="${y}" r="6" fill="none" stroke="${c}" stroke-width="2"/>`:`<rect x="${x-5}" y="${y-5}" width="10" height="10" fill="${e.future?'none':c}" stroke="${c}" stroke-width="1.5"/>`;
+    h+=`<g><title>${e.lbl}: ${e.t}</title>${shape}</g>`;});
+  [0,50,100].forEach(v=>{h+=`<line x1="${L}" x2="${W-R}" y1="${yP(v)}" y2="${yP(v)}" stroke="var(--line)" stroke-dasharray="2 4"/><text x="${L-6}" y="${yP(v)+4}" text-anchor="end">${v} %</text>`});
+  const ex=E.filter(e=>e.f==="ejecucion");
+  ex.forEach((e,i)=>{const x=X(e.d),y=yP(e.pct);const sec=e.src==="secundaria";
+    h+=`<g><title>${e.lbl}: ${e.t}</title><circle cx="${x}" cy="${y}" r="5" fill="${sec?'var(--bg)':'var(--sea)'}" stroke="var(--sea)" stroke-width="2"/></g>`;
+    const last=e.d===DATA.corte; if(e.id!=="X6"&&(last||sec)) h+=`<text x="${x+8}" y="${y+(last?-8:4)}" style="fill:var(--ink)">${String(e.pct).replace(".",",")} %${sec?" (secundaria)":""}</text>`;});
+  const mm=["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
+  for(let y=2025;y<=2027;y++)for(let m=0;m<12;m++){const d=`${y}-${String(m+1).padStart(2,"0")}-01`;if(t(d)<t0||t(d)>t1)continue;
+    const x=X(d);h+=`<line x1="${x}" x2="${x}" y1="${Ex.top+Ex.h}" y2="${Ex.top+Ex.h+5}" stroke="var(--muted)"/>`;
+    if(m%3===0||m===1&&y===2025)h+=`<text x="${x}" y="${Ex.top+Ex.h+18}" text-anchor="middle">${mm[m]}${m===0||(y===2025&&m===1)?" "+String(y).slice(2):""}</text>`;}
+  svg.innerHTML=h;
+})();
+
+const FL={peligro:["Pronóstico","t-peligro"],respuesta:["Ejecutivo","t-respuesta"],control:["Control","t-control"],otro:["Contexto","t-otro"],ejecucion:["Gasto","t-ejecucion"]};
+const sevOf=e=>e.f==="peligro"?(e.c==null?"var(--m0)":`var(--m${Math.min(4,Math.round(e.c))})`):e.f==="respuesta"?"var(--gov)":e.f==="control"?"var(--ctrl)":e.f==="ejecucion"?"var(--sea)":"var(--m0)";
+let filt="todas", showAll=false;
+function renderLog(){
+  let Lg=E.filter(e=>filt==="todas"||e.f===filt||(filt==="respuesta"&&["control","otro"].includes(e.f)));
+  Lg.sort((a,b)=>a.d<b.d?1:-1);
+  const more=document.getElementById("log-more");
+  more.hidden = showAll || Lg.length<=8;
+  if(!showAll) Lg=Lg.slice(0,8);
+  document.getElementById("log").innerHTML=Lg.map(e=>{
+    const [n,cl]=FL[e.f];
+    const src=e.src==="prensa"?`<span class="tag t-prensa">prensa · por verificar</span>`:e.src==="secundaria"?`<span class="tag t-prensa">fuente secundaria</span>`:"";
+    return `<li class="entry${e.future?" future":""}" style="--sev:${sevOf(e)}"><div class="ehead"><span class="edate">${e.lbl}</span><span class="tag ${cl}">${n}</span>${src}</div><p class="etext">${e.t}</p>${e.ch?`<p class="echange">${e.ch}</p>`:""}<p class="esrc"><a href="${e.u}" target="_blank" rel="noopener">Ver la fuente</a></p></li>`}).join("");
+}
+document.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{filt=b.dataset.f;document.querySelectorAll("[data-f]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));renderLog()});
+document.getElementById("log-more").onclick=()=>{showAll=true;renderLog()};
+renderLog();
+</script>

@@ -1,0 +1,29 @@
+name: Tarea del equipo
+description: Una tarea acotada, con un responsable y una fecha.
+title: "Tarea: "
+labels: ["tarea"]
+body:
+  - type: textarea
+    id: que
+    attributes:
+      label: Qué hay que hacer
+      description: Lo bastante concreto para que alguien la tome sin preguntar.
+    validations:
+      required: true
+  - type: textarea
+    id: listo
+    attributes:
+      label: Cómo sabremos que está terminada
+    validations:
+      required: true
+  - type: input
+    id: fecha
+    attributes:
+      label: Fecha límite (AAAA-MM-DD)
+  - type: dropdown
+    id: rol
+    attributes:
+      label: Rol que la toma
+      options: ["Coordinación", "Comité editorial", "Finanzas públicas", "Peligro y riesgo", "Datos y herramientas", "Comunicación", "Legal y ética"]
+    validations:
+      required: true

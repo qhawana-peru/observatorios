@@ -1,0 +1,70 @@
+# Descarga automática del corte semanal del MEF (lunes 8:00 de Lima).
+# Abre una propuesta con los siete archivos; la validación corre sola y el
+# comité aprueba. Si el MEF no responde, abre un aviso para hacer la descarga
+# a mano según la Guía de descarga.
+name: Descargar corte del MEF
+
+on:
+  schedule:
+    - cron: "0 13 * * 1"   # lunes 13:00 UTC = 8:00 en Lima
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  descargar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Con el token del bot, las propuestas que abre esta automatización activan la validación.
+          token: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Fecha del corte
+        id: fecha
+        run: echo "hoy=$(TZ=America/Lima date +%F)" >> "$GITHUB_OUTPUT"
+
+      - name: Descargar los siete archivos
+        id: bajar
+        continue-on-error: true
+        run: python herramientas/descargar.py "${{ steps.fecha.outputs.hoy }}"
+
+      - name: Abrir la propuesta del corte
+        if: steps.bajar.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+        run: |
+          rama="corte-${{ steps.fecha.outputs.hoy }}"
+          git config user.name "qhawana-bot"
+          git config user.email "qhawana-bot@users.noreply.github.com"
+          git checkout -b "$rama"
+          git add el-nino/fuentes/mef
+          git commit -m "Corte MEF del ${{ steps.fecha.outputs.hoy }} (descarga automática)"
+          git push -u origin "$rama"
+          python herramientas/validar.py "el-nino/fuentes/mef/${{ steps.fecha.outputs.hoy }}" --informe informe.md || true
+          {
+            echo "Descarga automática de los siete archivos del PP 0068 desde la Consulta Amigable."
+            echo "Un miembro del comité debe revisar este informe y aprobar."
+            echo
+            cat informe.md
+          } > cuerpo.md
+          gh pr create --base main --head "$rama" \
+            --title "Corte MEF del ${{ steps.fecha.outputs.hoy }}" \
+            --body-file cuerpo.md
+
+      - name: Avisar si el MEF no respondió
+        if: steps.bajar.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+        run: |
+          gh label create descarga-manual --color D93F0B --description "El MEF no respondió; bajar a mano" --force
+          gh issue create \
+            --title "Descarga manual pendiente: corte del ${{ steps.fecha.outputs.hoy }}" \
+            --label "descarga-manual" \
+            --body "La descarga automática del MEF falló hoy. Quien tenga el turno de esta semana debe bajar los siete archivos a mano siguiendo docs/el-nino-guia-descarga-mef.md (los enlaces directos están en la sección 'Descarga con enlaces directos') y subirlos como propuesta."

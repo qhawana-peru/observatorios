@@ -1,0 +1,75 @@
+name: Registrar un hecho (El Niño)
+description: Un comunicado, decreto, alerta o informe oficial para la bitácora del observatorio.
+title: "Hecho: "
+labels: ["hecho", "el-nino"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Registra aquí cada hecho público que deba aparecer en la línea de tiempo.
+        **Solo fuentes primarias:** el documento oficial (ENFEN, El Peruano, Contraloría, Defensoría, gob.pe).
+        Si solo encontraste una nota de prensa, úsala como pista para buscar el documento oficial.
+        Cuando lo hayas verificado, pide a otra persona del equipo que le ponga la etiqueta `listo-para-registrar`.
+  - type: input
+    id: fecha
+    attributes:
+      label: Fecha del hecho
+      description: Fecha del documento, en formato AAAA-MM-DD.
+      placeholder: "2026-10-15"
+    validations:
+      required: true
+  - type: dropdown
+    id: franja
+    attributes:
+      label: Tipo de hecho
+      options:
+        - "peligro: pronóstico o comunicado del ENFEN"
+        - "respuesta: decisión del Ejecutivo o de un gobierno regional o local"
+        - "control: alerta de Contraloría o Defensoría"
+        - "otro: contexto (elecciones, cambio de autoridades)"
+    validations:
+      required: true
+  - type: textarea
+    id: texto
+    attributes:
+      label: Qué pasó, en lenguaje simple
+      description: Una o dos oraciones. Sin adjetivos sobre personas ni intenciones.
+      placeholder: "Decreto Supremo 097-2026-PCM: emergencia en 796 distritos por peligro inminente de lluvias."
+    validations:
+      required: true
+  - type: textarea
+    id: cambio
+    attributes:
+      label: Qué cambia frente a lo anterior (opcional)
+  - type: input
+    id: fuente_url
+    attributes:
+      label: Enlace a la fuente primaria
+      description: Enlace directo al documento oficial (PDF o página de la entidad).
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: textarea
+    id: cita
+    attributes:
+      label: Cita textual del documento
+      description: El fragmento exacto que respalda lo que escribiste, para que quien revise lo encuentre rápido.
+    validations:
+      required: true
+  - type: dropdown
+    id: costero
+    attributes:
+      label: Solo para comunicados ENFEN — magnitud del Niño Costero
+      options: ["no aplica", "0 neutro", "1 débil", "2 moderado", "3 fuerte", "4 extraordinario"]
+  - type: dropdown
+    id: global
+    attributes:
+      label: Solo para comunicados ENFEN — magnitud del Niño global
+      options: ["no aplica", "0 neutro", "1 débil", "2 moderado", "3 fuerte", "4 muy fuerte"]
+  - type: checkboxes
+    id: confirmo
+    attributes:
+      label: Confirmación
+      options:
+        - label: Abrí la fuente primaria y la cita está tal cual en el documento.
+          required: true

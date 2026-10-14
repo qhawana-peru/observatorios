@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Metodología del Observatorio El Niño
+    url: https://github.com/qhawana/observatorios/blob/main/docs/el-nino-documento-tecnico.md
+    about: Antes de reportar, revisa cómo se calcula cada cifra.

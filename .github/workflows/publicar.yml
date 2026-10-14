@@ -1,0 +1,47 @@
+# Publica el sitio cada vez que el comité aprueba un cambio (al entrar a main).
+name: Publicar sitio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: publicar
+  cancel-in-progress: false
+
+jobs:
+  construir:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Procesar los cortes desde sus archivos originales
+        run: |
+          shopt -s nullglob
+          for c in el-nino/fuentes/mef/*/; do
+            python herramientas/procesar.py "$c"
+          done
+      - name: Generar el sitio desde los datos
+        run: python herramientas/construir_sitio.py --salida _site
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  publicar:
+    needs: construir
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.despliegue.outputs.page_url }}
+    steps:
+      - id: despliegue
+        uses: actions/deploy-pages@v4

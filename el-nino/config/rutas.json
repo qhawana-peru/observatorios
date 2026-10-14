@@ -1,0 +1,17 @@
+{
+  "_descripcion": "Las siete descargas semanales del PP 0068 desde la Consulta Amigable del MEF. Cada enlace devuelve el mismo archivo que el botón Exportar. Rutas verificadas en pantalla el 14-10-2026. Para otro año, cambiar y= en 'base'.",
+  "base": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068",
+  "cola": "&y={anio}&cpage=1&psize=400",
+  "anio": 2026,
+  "tamano_pagina": 400,
+  "rutas": {
+    "D1": {"tramo": "&1=", "nivel": "todos", "tipo": "total", "incluye": "Actividades y Proyectos", "columna": "Nivel de Gobierno", "detalle": "niveles", "descripcion": "Total de control del día, por nivel de gobierno"},
+    "D2": {"tramo": "&1=R&2=99&3=&ap=Actividad", "nivel": "R", "tipo": "actividades", "incluye": "Sólo Actividades", "columna": "Pliego", "detalle": "GR-actividades", "descripcion": "Gasto corriente de cada pliego del nivel regional"},
+    "D3": {"tramo": "&1=R&2=99&3=&ap=Proyecto", "nivel": "R", "tipo": "proyectos", "incluye": "Sólo Proyectos", "columna": "Pliego", "detalle": "GR-proyectos", "descripcion": "Inversión de cada pliego del nivel regional"},
+    "D4": {"tramo": "&1=M&37=M&5=&ap=Actividad", "nivel": "M", "tipo": "actividades", "incluye": "Sólo Actividades", "columna": "Departamento", "detalle": "GL-actividades", "descripcion": "Gasto corriente de municipalidades, sumado por departamento"},
+    "D5": {"tramo": "&1=M&37=M&5=&ap=Proyecto", "nivel": "M", "tipo": "proyectos", "incluye": "Sólo Proyectos", "columna": "Departamento", "detalle": "GL-proyectos", "descripcion": "Inversión de municipalidades, sumada por departamento"},
+    "D6": {"tramo": "&1=E&2=&ap=Actividad", "nivel": "E", "tipo": "actividades", "incluye": "Sólo Actividades", "columna": "Sector", "detalle": "GN-actividades", "descripcion": "Gasto corriente del nivel nacional, por sector"},
+    "D7": {"tramo": "&1=E&2=&ap=Proyecto", "nivel": "E", "tipo": "proyectos", "incluye": "Sólo Proyectos", "columna": "Sector", "detalle": "GN-proyectos", "descripcion": "Inversión del nivel nacional, por sector"}
+  },
+  "pares": [["D2", "D3", "R"], ["D4", "D5", "M"], ["D6", "D7", "E"]]
+}
