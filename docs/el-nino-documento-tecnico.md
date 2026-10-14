@@ -1,6 +1,6 @@
 # Observatorio El Niño — Documento técnico
 
-13 de octubre de 2026 (revisado el 14 de octubre) · Pepe Díaz
+13 de octubre de 2026 (revisado el 14 de octubre) · Qhawana
 
 El observatorio responde una pregunta: **qué hizo el Estado, en cada nivel de gobierno, con el aviso que tuvo antes del Fenómeno El Niño 2026-2027.** Cruza el pronóstico oficial con las decisiones, el presupuesto y las obras, territorio por territorio, desde datos públicos verificables.
 

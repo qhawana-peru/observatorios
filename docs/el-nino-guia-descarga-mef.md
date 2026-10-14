@@ -1,6 +1,6 @@
 # Guía de descarga: Consulta Amigable del MEF
 
-13 de octubre de 2026 (revisado el 14 de octubre) · Pepe Díaz
+13 de octubre de 2026 (revisado el 14 de octubre) · Qhawana
 
 Cada lunes, el equipo de finanzas públicas descarga del MEF la ejecución del Programa Presupuestal 0068 en siete archivos, los revisa con seis controles y los entrega antes de las 12:00. Con esos archivos se actualiza la serie de ejecución y el tablero del observatorio.
 
