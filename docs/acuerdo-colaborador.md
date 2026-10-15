@@ -2,7 +2,7 @@
 
 > **Borrador para revisión de un abogado.** No firmar hasta que esté revisado.
 
-Yo, [NOMBRE], colaboro de forma voluntaria y sin pago con Qhawana, iniciativa ciudadana independiente de observatorios con datos públicos, en el rol de [ROL], desde el [FECHA].
+Yo, [NOMBRE], colaboro de forma voluntaria y sin pago con Qhawana, iniciativa ciudadana de observatorios con datos públicos, en el rol de [ROL], desde el [FECHA].
 
 1. **Licencia de lo que aporto.** Todo texto, dato, gráfico o documento que aporte a Qhawana lo publico bajo la licencia Creative Commons Atribución 4.0 Internacional, y todo código bajo la licencia MIT. Declaro que tengo derecho a aportarlo.
 2. **Crédito.** Mi nombre figura en el historial del repositorio y, si lo deseo, en la página del equipo. Puedo pedir figurar solo con iniciales.
