@@ -1,0 +1,1017 @@
+<style type="text/css">
+	
+body
+{
+	font-weight: normal;
+	font-size: 0.7em;
+	word-spacing: normal;
+	text-transform: none;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	letter-spacing: normal;
+	background-color: #ffffff;
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	left: 0px;
+	right: 0px;
+	border: 0px;
+}
+
+/* Panel Historial */
+#PnlHistory
+{    
+    background-color: #ffffff;
+}
+
+.History
+{
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+}
+
+.History tr
+{
+    height: 20px;
+}
+
+.History tr.alt
+{
+}
+
+.History td
+{
+    border-left: solid 1px #dddddd;
+    border-right: solid 1px #dddddd;
+}
+/* Panel Historial - Fin */
+
+/* Panel Datos */
+#PnlData
+{
+    background-color: #ffffff;
+}
+
+.MapTable
+{
+    background-color: #3a6ea5;
+    color: #ffffff;
+    border-collapse: collapse;
+    border-width: 0px;
+}
+
+.MapTable tr
+{
+    height: 18px;
+}
+
+.MapTable td
+{
+    border: solid 1px #dddddd;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.Data
+{    
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 0px;
+}
+
+.Data tr
+{
+    cursor: pointer;    
+    height: 22px;
+    text-align: right;
+}
+
+.Data tr.alt
+{
+}
+
+.Data tr.More
+{
+    text-align: left;
+    height: auto;
+    background-color: #f1f1f1;    
+}
+
+.Data tr.More td
+{
+    padding-left: 4px;
+}
+
+.Data td
+{
+    border: solid 1px #dddddd;
+}
+/* Panel Datos - Fin */
+
+/* Cabecera */
+#hd
+{
+    font-size: 8pt;   
+}
+
+#hd .title
+{
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: Verdana;
+}
+
+#hd .subtitle
+{
+    font-size: 8pt;
+    font-family: Verdana;
+}
+
+#hd .fecha
+{
+    font-size: 8pt;
+}
+
+#hd span.value
+{
+    font-size: 10pt;
+}
+
+/* Cabecera - End */
+</style><body>
+	<table id="hd">
+		<tr>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 22-octubre-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Actividades</span></b></td>
+		</tr>
+	</table>
+	<table id="ctl00_CPH1_Mt0" class="MapTable" width="100%">
+		<tr id="ctl00_CPH1_Mt0_Row0">
+			<td id="ctl00_CPH1_Mt0_td1" title="Concepto" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td1&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;">Departamento</td><td id="ctl00_CPH1_Mt0_td2" title="Presupuesto Institucional de Apertura" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td2&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">PIA</td><td id="ctl00_CPH1_Mt0_td3" title="Presupuesto Institucional Modificado" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td3&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">PIM</td><td id="ctl00_CPH1_Mt0_td9" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td9&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100">Certificación</td><td id="ctl00_CPH1_Mt0_td4" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td4&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100">Compromiso Anual</td><td id="ctl00_CPH1_Mt0_TableCell1" title="Ejecución de Gastos en las diferentes fases" colspan="3">
+                                Ejecución
+                                </td><td id="ctl00_CPH1_Mt0_td8" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td8&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="50">Avance %&nbsp;
+                            </td>
+		</tr><tr id="ctl00_CPH1_Mt0_Row1">
+			<td id="ctl00_CPH1_Mt0_td5" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td5&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100">Atención de Compromiso Mensual&nbsp;
+                            </td><td id="ctl00_CPH1_Mt0_td6" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td6&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">Devengado&nbsp;
+                            </td><td id="ctl00_CPH1_Mt0_td7" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td7&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">Girado&nbsp;
+                            </td>
+		</tr>
+	</table>
+                            <table class="Data" cellspacing="0" cellpadding="1">
+                        
+                            <tr id="tr0" onclick='kCod="01";tr_clk(0, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left" style="width: auto">
+                                    01: AMAZONAS
+                                    
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    2,516,476
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    7,765,955
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    5,706,181
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    5,446,964
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    5,376,072
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    4,854,048
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    4,822,153
+                                </td>
+                                <td style="white-space: nowrap; width: 50px">&nbsp;
+                                    62.5
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr1" onclick='kCod="02";tr_clk(1, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    02: ANCASH
+                                    
+                                </td>
+                                <td>
+                                    2,804,474
+                                </td>
+                                <td>
+                                    49,811,073
+                                </td>
+                                <td>
+                                    45,393,153
+                                </td>
+                                <td>
+                                    37,210,929
+                                </td>
+                                <td>
+                                    36,892,585
+                                </td>
+                                <td>
+                                    30,343,161
+                                </td>
+                                <td>
+                                    29,857,897
+                                </td>
+                                <td>&nbsp;
+                                    60.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr2" onclick='kCod="03";tr_clk(2, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    03: APURIMAC
+                                    
+                                </td>
+                                <td>
+                                    2,954,281
+                                </td>
+                                <td>
+                                    10,188,023
+                                </td>
+                                <td>
+                                    7,228,234
+                                </td>
+                                <td>
+                                    4,865,694
+                                </td>
+                                <td>
+                                    4,744,768
+                                </td>
+                                <td>
+                                    3,981,498
+                                </td>
+                                <td>
+                                    3,877,830
+                                </td>
+                                <td>&nbsp;
+                                    39.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr3" onclick='kCod="04";tr_clk(3, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    04: AREQUIPA
+                                    
+                                </td>
+                                <td>
+                                    4,550,928
+                                </td>
+                                <td>
+                                    100,018,516
+                                </td>
+                                <td>
+                                    87,098,930
+                                </td>
+                                <td>
+                                    50,416,022
+                                </td>
+                                <td>
+                                    49,644,757
+                                </td>
+                                <td>
+                                    40,399,625
+                                </td>
+                                <td>
+                                    38,549,209
+                                </td>
+                                <td>&nbsp;
+                                    40.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr4" onclick='kCod="05";tr_clk(4, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    05: AYACUCHO
+                                    
+                                </td>
+                                <td>
+                                    3,979,067
+                                </td>
+                                <td>
+                                    16,851,600
+                                </td>
+                                <td>
+                                    14,730,329
+                                </td>
+                                <td>
+                                    13,546,404
+                                </td>
+                                <td>
+                                    13,322,351
+                                </td>
+                                <td>
+                                    12,184,729
+                                </td>
+                                <td>
+                                    11,932,133
+                                </td>
+                                <td>&nbsp;
+                                    72.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr5" onclick='kCod="06";tr_clk(5, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    06: CAJAMARCA
+                                    
+                                </td>
+                                <td>
+                                    5,567,304
+                                </td>
+                                <td>
+                                    25,987,198
+                                </td>
+                                <td>
+                                    20,699,249
+                                </td>
+                                <td>
+                                    18,717,701
+                                </td>
+                                <td>
+                                    18,289,689
+                                </td>
+                                <td>
+                                    16,623,491
+                                </td>
+                                <td>
+                                    16,381,438
+                                </td>
+                                <td>&nbsp;
+                                    64.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr6" onclick='kCod="07";tr_clk(6, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    07: PROVINCIA CONSTITUCIONAL DEL CALLAO
+                                    
+                                </td>
+                                <td>
+                                    5,021,699
+                                </td>
+                                <td>
+                                    8,311,276
+                                </td>
+                                <td>
+                                    6,362,513
+                                </td>
+                                <td>
+                                    6,003,679
+                                </td>
+                                <td>
+                                    5,839,903
+                                </td>
+                                <td>
+                                    5,261,376
+                                </td>
+                                <td>
+                                    5,014,187
+                                </td>
+                                <td>&nbsp;
+                                    63.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr7" onclick='kCod="08";tr_clk(7, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    08: CUSCO
+                                    
+                                </td>
+                                <td>
+                                    7,756,388
+                                </td>
+                                <td>
+                                    40,926,839
+                                </td>
+                                <td>
+                                    33,299,474
+                                </td>
+                                <td>
+                                    28,999,119
+                                </td>
+                                <td>
+                                    28,855,548
+                                </td>
+                                <td>
+                                    23,303,591
+                                </td>
+                                <td>
+                                    22,858,249
+                                </td>
+                                <td>&nbsp;
+                                    56.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr8" onclick='kCod="09";tr_clk(8, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    09: HUANCAVELICA
+                                    
+                                </td>
+                                <td>
+                                    1,321,032
+                                </td>
+                                <td>
+                                    19,085,455
+                                </td>
+                                <td>
+                                    16,198,400
+                                </td>
+                                <td>
+                                    8,910,615
+                                </td>
+                                <td>
+                                    8,655,916
+                                </td>
+                                <td>
+                                    7,104,587
+                                </td>
+                                <td>
+                                    6,917,802
+                                </td>
+                                <td>&nbsp;
+                                    37.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr9" onclick='kCod="10";tr_clk(9, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    10: HUANUCO
+                                    
+                                </td>
+                                <td>
+                                    3,898,804
+                                </td>
+                                <td>
+                                    25,051,637
+                                </td>
+                                <td>
+                                    17,712,963
+                                </td>
+                                <td>
+                                    9,081,651
+                                </td>
+                                <td>
+                                    8,706,161
+                                </td>
+                                <td>
+                                    7,395,911
+                                </td>
+                                <td>
+                                    7,272,155
+                                </td>
+                                <td>&nbsp;
+                                    29.5
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr10" onclick='kCod="11";tr_clk(10, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    11: ICA
+                                    
+                                </td>
+                                <td>
+                                    3,204,064
+                                </td>
+                                <td>
+                                    31,849,833
+                                </td>
+                                <td>
+                                    30,305,763
+                                </td>
+                                <td>
+                                    26,217,541
+                                </td>
+                                <td>
+                                    25,220,769
+                                </td>
+                                <td>
+                                    24,457,070
+                                </td>
+                                <td>
+                                    24,322,239
+                                </td>
+                                <td>&nbsp;
+                                    76.8
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr11" onclick='kCod="12";tr_clk(11, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    12: JUNIN
+                                    
+                                </td>
+                                <td>
+                                    7,095,618
+                                </td>
+                                <td>
+                                    32,622,045
+                                </td>
+                                <td>
+                                    25,462,129
+                                </td>
+                                <td>
+                                    23,234,797
+                                </td>
+                                <td>
+                                    22,366,011
+                                </td>
+                                <td>
+                                    19,023,510
+                                </td>
+                                <td>
+                                    18,756,864
+                                </td>
+                                <td>&nbsp;
+                                    58.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr12" onclick='kCod="13";tr_clk(12, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    13: LA LIBERTAD
+                                    
+                                </td>
+                                <td>
+                                    6,698,265
+                                </td>
+                                <td>
+                                    16,590,609
+                                </td>
+                                <td>
+                                    13,624,978
+                                </td>
+                                <td>
+                                    12,881,906
+                                </td>
+                                <td>
+                                    12,551,295
+                                </td>
+                                <td>
+                                    11,537,777
+                                </td>
+                                <td>
+                                    11,460,589
+                                </td>
+                                <td>&nbsp;
+                                    69.5
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr13" onclick='kCod="14";tr_clk(13, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    14: LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    4,311,735
+                                </td>
+                                <td>
+                                    11,808,179
+                                </td>
+                                <td>
+                                    9,861,943
+                                </td>
+                                <td>
+                                    7,083,283
+                                </td>
+                                <td>
+                                    6,903,082
+                                </td>
+                                <td>
+                                    6,061,737
+                                </td>
+                                <td>
+                                    5,954,238
+                                </td>
+                                <td>&nbsp;
+                                    51.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr14" onclick='kCod="15";tr_clk(14, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    15: LIMA
+                                    
+                                </td>
+                                <td>
+                                    54,658,067
+                                </td>
+                                <td>
+                                    80,956,934
+                                </td>
+                                <td>
+                                    68,570,837
+                                </td>
+                                <td>
+                                    60,326,573
+                                </td>
+                                <td>
+                                    57,887,129
+                                </td>
+                                <td>
+                                    53,793,090
+                                </td>
+                                <td>
+                                    52,033,625
+                                </td>
+                                <td>&nbsp;
+                                    66.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr15" onclick='kCod="16";tr_clk(15, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    16: LORETO
+                                    
+                                </td>
+                                <td>
+                                    4,808,474
+                                </td>
+                                <td>
+                                    6,015,879
+                                </td>
+                                <td>
+                                    5,092,898
+                                </td>
+                                <td>
+                                    4,809,958
+                                </td>
+                                <td>
+                                    4,753,435
+                                </td>
+                                <td>
+                                    4,337,939
+                                </td>
+                                <td>
+                                    4,188,571
+                                </td>
+                                <td>&nbsp;
+                                    72.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr16" onclick='kCod="17";tr_clk(16, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    17: MADRE DE DIOS
+                                    
+                                </td>
+                                <td>
+                                    455,446
+                                </td>
+                                <td>
+                                    1,805,752
+                                </td>
+                                <td>
+                                    1,221,941
+                                </td>
+                                <td>
+                                    374,728
+                                </td>
+                                <td>
+                                    374,728
+                                </td>
+                                <td>
+                                    257,077
+                                </td>
+                                <td>
+                                    249,443
+                                </td>
+                                <td>&nbsp;
+                                    14.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr17" onclick='kCod="18";tr_clk(17, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    18: MOQUEGUA
+                                    
+                                </td>
+                                <td>
+                                    810,020
+                                </td>
+                                <td>
+                                    24,566,610
+                                </td>
+                                <td>
+                                    19,589,518
+                                </td>
+                                <td>
+                                    13,160,888
+                                </td>
+                                <td>
+                                    13,115,963
+                                </td>
+                                <td>
+                                    10,340,302
+                                </td>
+                                <td>
+                                    9,743,792
+                                </td>
+                                <td>&nbsp;
+                                    42.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr18" onclick='kCod="19";tr_clk(18, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    19: PASCO
+                                    
+                                </td>
+                                <td>
+                                    1,683,144
+                                </td>
+                                <td>
+                                    13,644,047
+                                </td>
+                                <td>
+                                    8,830,823
+                                </td>
+                                <td>
+                                    5,711,297
+                                </td>
+                                <td>
+                                    5,634,489
+                                </td>
+                                <td>
+                                    4,851,881
+                                </td>
+                                <td>
+                                    4,659,286
+                                </td>
+                                <td>&nbsp;
+                                    35.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr19" onclick='kCod="20";tr_clk(19, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    20: PIURA
+                                    
+                                </td>
+                                <td>
+                                    12,767,468
+                                </td>
+                                <td>
+                                    49,781,812
+                                </td>
+                                <td>
+                                    41,556,251
+                                </td>
+                                <td>
+                                    34,711,464
+                                </td>
+                                <td>
+                                    34,437,342
+                                </td>
+                                <td>
+                                    29,573,378
+                                </td>
+                                <td>
+                                    29,271,298
+                                </td>
+                                <td>&nbsp;
+                                    59.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr20" onclick='kCod="21";tr_clk(20, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    21: PUNO
+                                    
+                                </td>
+                                <td>
+                                    7,216,248
+                                </td>
+                                <td>
+                                    10,475,962
+                                </td>
+                                <td>
+                                    8,348,968
+                                </td>
+                                <td>
+                                    7,955,235
+                                </td>
+                                <td>
+                                    7,558,721
+                                </td>
+                                <td>
+                                    6,487,246
+                                </td>
+                                <td>
+                                    6,301,707
+                                </td>
+                                <td>&nbsp;
+                                    61.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr21" onclick='kCod="22";tr_clk(21, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    22: SAN MARTIN
+                                    
+                                </td>
+                                <td>
+                                    2,910,333
+                                </td>
+                                <td>
+                                    11,070,628
+                                </td>
+                                <td>
+                                    9,594,835
+                                </td>
+                                <td>
+                                    6,215,682
+                                </td>
+                                <td>
+                                    6,034,602
+                                </td>
+                                <td>
+                                    5,505,584
+                                </td>
+                                <td>
+                                    5,461,042
+                                </td>
+                                <td>&nbsp;
+                                    49.7
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr22" onclick='kCod="23";tr_clk(22, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    23: TACNA
+                                    
+                                </td>
+                                <td>
+                                    1,359,983
+                                </td>
+                                <td>
+                                    8,320,734
+                                </td>
+                                <td>
+                                    7,370,353
+                                </td>
+                                <td>
+                                    6,569,965
+                                </td>
+                                <td>
+                                    6,508,428
+                                </td>
+                                <td>
+                                    4,480,337
+                                </td>
+                                <td>
+                                    4,316,965
+                                </td>
+                                <td>&nbsp;
+                                    53.8
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr23" onclick='kCod="24";tr_clk(23, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    24: TUMBES
+                                    
+                                </td>
+                                <td>
+                                    901,072
+                                </td>
+                                <td>
+                                    7,450,077
+                                </td>
+                                <td>
+                                    6,633,211
+                                </td>
+                                <td>
+                                    5,754,979
+                                </td>
+                                <td>
+                                    5,649,749
+                                </td>
+                                <td>
+                                    5,049,603
+                                </td>
+                                <td>
+                                    3,898,878
+                                </td>
+                                <td>&nbsp;
+                                    67.8
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr24" onclick='kCod="25";tr_clk(24, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    25: UCAYALI
+                                    
+                                </td>
+                                <td>
+                                    6,411,401
+                                </td>
+                                <td>
+                                    10,695,276
+                                </td>
+                                <td>
+                                    8,539,181
+                                </td>
+                                <td>
+                                    7,843,978
+                                </td>
+                                <td>
+                                    6,440,779
+                                </td>
+                                <td>
+                                    5,630,370
+                                </td>
+                                <td>
+                                    5,520,832
+                                </td>
+                                <td>&nbsp;
+                                    52.6
+                                </td>
+                            </tr>
+                            
+                        
+                            </table>
+                        
+</body>
