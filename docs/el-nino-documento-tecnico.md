@@ -69,7 +69,7 @@ Cada indicador tiene una fuente primaria, una frecuencia de actualización y un 
 | Ejecución | PIM, certificado, devengado del PP 0068 por pliego y nivel | MEF, Consulta Amigable | Semanal |
 | Ejecución | Avance físico de obras de prevención | Invierte.pe, INFOBRAS | Mensual |
 | Control | Informes de control concurrente | Contraloría General | Al publicarse |
-| Impacto | Emergencias, damnificados, daños | INDECI (SINPAD, COEN) | Diaria en temporada |
+| Impacto | Emergencias, damnificados, daños (piloto costa norte desde el 23 oct) | INDECI: reportes del COEN en PDF; SINPAD | Diaria en temporada; revisión semanal |
 | Impacto | Dengue y otras enfermedades sensibles al clima | CDC-MINSA | Semanal |
 
 ### Reglas de medición
@@ -85,6 +85,21 @@ Límite declarado: el PP 0068 cubre todos los peligros (sismos, heladas, lluvias
 - **Cada dato lleva fecha de corte** además de la fecha de publicación.
 - **Las discrepancias no se resuelven especulando.** Hay dos casos. Si la prensa o un tercero da una cifra distinta a la de la fuente primaria, se publica la primaria con la nota "discrepancia por verificar". Si dos fuentes oficiales dan cifras distintas para lo mismo, se publican ambas y se explica la diferencia solo con lo que esté documentado (definición, cobertura, fecha de corte); si no hay explicación documentada, se dice así.
 - **Las comparaciones entre territorios usan tasas,** no montos absolutos: devengado sobre PIM, población expuesta sobre población total.
+
+### Reglas de la franja de impacto (emergencias)
+
+Decididas el 23 de octubre para el piloto en Tumbes, Piura, Lambayeque y La Libertad. Procedimiento en la [guía de emergencias](el-nino-guia-emergencias.md).
+
+- **Durante, no por.** La sección se llama "Emergencias registradas durante El Niño 2026-2027". El ENFEN y el SENAMHI atribuyen a El Niño costero el régimen de lluvias de la temporada, no cada evento; el observatorio no atribuye eventos uno por uno.
+- **Periodo.** Entran los eventos ocurridos desde el 1 de setiembre de 2026, inicio de la declaratoria por peligro inminente (DS N.º 124-2026-PCM). Se usa la fecha de ocurrencia, no la del reporte: el INDECI sigue actualizando en octubre eventos de enero y febrero, y contarlos inflaría la temporada. Los eventos anteriores se guardan en la tabla como excluidos, con el motivo.
+- **Peligros.** Lluvias intensas y sus efectos: inundación, huaico, deslizamiento, derrumbe, desborde, erosión y activación de quebradas. Vientos fuertes, oleajes, incendios y sismos quedan fuera.
+- **Fuente única por cifra: el PDF del reporte del COEN, archivado.** El INDECI reescribe la misma página web con cada actualización y a veces la deja en una dirección de meses atrás; el PDF de cada reporte lleva su número y no cambia. Ninguna fila entra sin su PDF guardado con huella en `el-nino/fuentes/indeci/`. Las cifras se leen del PDF, no de resúmenes automáticos (en la prueba del 23 de octubre, un resumen automático invirtió personas y viviendas en un reporte).
+- **Vacío no es cero.** Si el reporte describe un daño sin contarlo, la celda queda vacía y la página dice "sin cifras todavía".
+- **COEN y SINPAD.** Mientras una emergencia no está registrada en el SINPAD, o lo está con otra cifra, se muestran ambas con su fecha. No se elige.
+- **Errores en documentos oficiales.** Se registran como discrepancia por aclarar, con la evidencia, sin corregir el dato por cuenta propia. Primer caso: el reporte N.º 14810 (Lagunas, Piura) cita el DS N.º 140-2026-PCM, que es de déficit hídrico y no incluye a Piura; Lagunas sí figura en el DS N.º 124-2026-PCM.
+- **Gasto y daños se muestran lado a lado, sin relación causal.** Afirmar que un daño ocurrió por falta de ejecución requiere identificar la obra o actividad que lo habría evitado; las fuentes de esta sección no permiten hacerlo.
+- **Sumas regionales.** Se suman solo cifras del mismo tipo y se rotulan como preliminares. "Afectado" y "damnificado" se mantienen separados, con las definiciones del INDECI.
+- **Ausencia.** "Cero emergencias" se publica como "no encontramos reportes en el periodo revisado", porque la búsqueda del portal del INDECI no devuelve todos los reportes.
 
 ## Flujo de trabajo, automatización y verificación
 

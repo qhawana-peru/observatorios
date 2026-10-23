@@ -33,6 +33,9 @@ jobs:
       - name: Pruebas de las herramientas
         run: python -m unittest discover -s herramientas/tests
 
+      - name: Controles de la tabla de emergencias
+        run: python herramientas/validar_emergencias.py
+
       - name: Buscar cortes nuevos o modificados
         id: cortes
         run: |

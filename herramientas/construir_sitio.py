@@ -7,6 +7,8 @@ Uso:
 Lee:
   el-nino/datos/ejecucion_pp0068.csv   cortes validados del MEF
   el-nino/datos/hechos.csv             bitácora de pronósticos, decisiones y alertas
+  el-nino/datos/emergencias.csv        emergencias del COEN-INDECI (piloto costa norte)
+  el-nino/config/emergencias.json      alcance de esa tabla y declaratoria vigente
   el-nino/config/contexto.json         pronóstico por región y planes aprobados
   el-nino/config/sitio.json            estado de publicación y dirección del repositorio
 y escribe una página estática (index.html) más los datos abiertos en _site/datos/.
@@ -112,9 +114,33 @@ def construir_datos() -> dict:
         contexto = json.load(f)
     with open(os.path.join(EN, "config", "sitio.json"), encoding="utf-8") as f:
         sitio = json.load(f)
+    emergencias = construir_emergencias()
     return {"corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
             "aprobado": sitio.get("estado") == "publicado", "niveles": niveles, "regiones": regiones,
-            "serie": serie, "hechos": hechos, "contexto": contexto, "_repo": sitio.get("repositorio", "#")}
+            "serie": serie, "hechos": hechos, "emergencias": emergencias, "contexto": contexto, "_repo": sitio.get("repositorio", "#")}
+
+
+def construir_emergencias() -> dict:
+    with open(os.path.join(EN, "config", "emergencias.json"), encoding="utf-8") as f:
+        cfg = json.load(f)
+    filas = leer_csv(os.path.join(EN, "datos", "emergencias.csv"))
+    campos = ["personas_damnificadas", "personas_afectadas", "viviendas_inhabitables", "viviendas_afectadas",
+              "iiee_afectadas", "eess_afectados", "vias_afectadas_km"]
+    eventos = []
+    for r in filas:
+        if r["incluido"] != "si":
+            continue
+        e = {k: r[k] for k in ("id", "region", "provincia", "distritos", "fecha_ocurrencia", "evento", "reporte",
+                               "reporte_version", "fecha_reporte", "otros_danos", "evaluacion", "nota", "fuente_url", "archivo", "sinpad")}
+        e["etiqueta"] = etiqueta(r["fecha_ocurrencia"])
+        for c in campos:
+            e[c] = float(r[c]) if r[c] else None
+        eventos.append(e)
+    eventos.sort(key=lambda e: e["fecha_ocurrencia"], reverse=True)
+    excluidos = [r for r in filas if r["incluido"] == "no"]
+    return {"desde": cfg["desde"], "desde_largo": etiqueta(cfg["desde"], True), "revisado": cfg["revisado_hasta"],
+            "revisado_largo": etiqueta(cfg["revisado_hasta"], True), "regiones": cfg["regiones"], "decreto": cfg["decreto"],
+            "eventos": eventos, "excluidos": len(excluidos)}
 
 
 def main():
@@ -141,7 +167,7 @@ def main():
         f.write(pagina)
     destino = os.path.join(args.salida, "datos")
     os.makedirs(destino, exist_ok=True)
-    for nombre in ("ejecucion_pp0068.csv", "hechos.csv"):
+    for nombre in ("ejecucion_pp0068.csv", "hechos.csv", "emergencias.csv"):
         shutil.copy(os.path.join(EN, "datos", nombre), destino)
     print(f"Sitio generado en {args.salida} (corte {datos['corte']}, {len(datos['regiones'])} pliegos).")
 

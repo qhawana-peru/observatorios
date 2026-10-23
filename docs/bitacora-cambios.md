@@ -2,6 +2,12 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-10-23
+
+- **Nueva sección: emergencias registradas durante El Niño (piloto costa norte).** Reportes del COEN-INDECI de Tumbes, Piura, Lambayeque y La Libertad sobre lluvias y sus efectos ocurridos desde el 1 de setiembre. Diez emergencias incluidas (seis en Tumbes, cuatro en Piura), ninguna encontrada en Lambayeque ni La Libertad. Cada fila tiene el PDF original archivado con su huella. Reglas en el documento técnico y procedimiento en la guía de emergencias.
+- **Ocho reportes excluidos por fecha de ocurrencia.** Siete reportes de Piura publicados entre el 1 y el 22 de octubre corresponden a lluvias de enero y febrero de 2026, y uno de La Libertad a un deslizamiento del 27 de agosto. Quedan en la tabla con el motivo.
+- **Discrepancia por aclarar con INDECI.** El reporte N.º 14810 (Lagunas, Piura) cita el DS N.º 140-2026-PCM, que es de déficit hídrico y no incluye a Piura. Lagunas figura en el DS N.º 124-2026-PCM.
+- **Pendiente.** La declaratoria del DS N.º 124-2026-PCM vence el 30 de octubre; registrar si se prorroga.
 ## 2026-10-22
 
 - **Cortes del 19 y del 22 de octubre.** La descarga automática del lunes 19 y la lanzada a mano el jueves 22 llegaron al MEF y guardaron los siete archivos, pero no pudieron abrir la propuesta porque falta el permiso de la guía de administración (paso 6b). Se juntaron en una sola propuesta. Ambos pasan los seis controles. Avisos de cambio de PIM (>10 %) al 22: proyectos de los gobiernos regionales de Ica (+14 %), Junín (+30 %) y Moquegua (−28 %), y actividades municipales en Apurímac, Lambayeque (+16 % cada una) y Madre de Dios (+20 %). Al 19: proyectos municipales de Amazonas (+39 %).
