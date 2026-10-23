@@ -1,0 +1,6 @@
+{
+  "_ayuda": "estado: 'preliminar' mientras el comité editorial no apruebe el método y el primer corte; 'publicado' cuando lo apruebe. fecha_corte: fecha de la última consulta a SERFOR.",
+  "estado": "preliminar",
+  "fecha_corte": "2026-10-19",
+  "repositorio": "https://github.com/qhawana-peru/observatorios"
+}

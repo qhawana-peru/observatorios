@@ -2,6 +2,12 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-10-23
+
+- **Monitor de incendios forestales migrado al repositorio** (`incendios/`). Datos de SERFOR con corte al 19 de octubre de 2026 para Cusco y Cajamarca, proyección de temporada con el satélite Suomi NPP y método en `docs/incendios-metodologia.md`.
+- **Nueva regla editorial: pistas por verificar.** La prensa sigue sin ser fuente de cifras publicables. Desde hoy puede mostrarse solo como *pista por verificar*: en una sección aparte, con la etiqueta en cada tarjeta, fuera de resúmenes y cálculos, y con vencimiento de 30 días. Se suma el formulario **Verificar una pista**. Primeras 10 pistas registradas, vencen el 22 de noviembre de 2026.
+- **Portada nueva.** La raíz del sitio pasa a ser un menú con los tres observatorios. El Niño se mueve a `/el-nino/`; sus datos siguen también en `/datos/` para no romper enlaces.
+
 ## 2026-10-14
 
 - **Primer corte aprobado como piloto.** El corte del 14 de octubre (propuesta #1) lo aprobó y unió una sola persona del equipo fundador, antes de que existieran el comité editorial y la regla de cuatro ojos. Esa persona no preparó los datos: los bajó la descarga automática y los revisó el validador. El sitio se publicó ese día como versión preliminar. Desde la instalación del comité, ningún cambio entra sin la aprobación de un miembro que no lo preparó.

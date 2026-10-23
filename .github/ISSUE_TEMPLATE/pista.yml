@@ -1,0 +1,56 @@
+name: Verificar una pista (incendios)
+description: Encontraste la fuente oficial de una cifra que hoy figura como pista sin verificar.
+title: "Pista P00: "
+labels: ["pista", "incendios"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Gracias por sumarte. Una **pista** es una cifra de prensa que todavía no confirmamos con la fuente oficial.
+        Para verificarla necesitamos el **documento oficial**: reporte del COEN-INDECI, del COER, del gobierno regional, de SERFOR o una norma en El Peruano.
+        Otra nota de prensa no basta. Otra persona del equipo revisará tu aporte antes de publicarlo.
+  - type: input
+    id: pista
+    attributes:
+      label: Número de pista
+      description: Aparece en la tarjeta, por ejemplo P01.
+      placeholder: "P01"
+    validations:
+      required: true
+  - type: dropdown
+    id: resultado
+    attributes:
+      label: Qué encontraste
+      options:
+        - "La fuente oficial confirma la cifra de la pista"
+        - "La fuente oficial da otra cifra"
+        - "No encontré fuente oficial (la busqué en los lugares indicados)"
+    validations:
+      required: true
+  - type: input
+    id: cifra
+    attributes:
+      label: Cifra según la fuente oficial
+      description: Con su unidad y fecha de corte. Déjalo vacío si no encontraste fuente.
+      placeholder: "5 fallecidos al 15 de octubre de 2026"
+  - type: input
+    id: fuente_url
+    attributes:
+      label: Enlace al documento oficial
+      placeholder: "https://..."
+    validations:
+      required: true
+  - type: textarea
+    id: cita
+    attributes:
+      label: Cita textual o página del documento
+      description: El fragmento exacto que respalda la cifra, para que quien revise lo encuentre rápido.
+    validations:
+      required: true
+  - type: checkboxes
+    id: cuidados
+    attributes:
+      label: Cuidados
+      options:
+        - label: No incluí nombres ni datos de personas afectadas.
+          required: true

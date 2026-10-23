@@ -1,0 +1,297 @@
+<title>Monitor de incendios forestales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: cabecera → selector de región (las regiones no se mezclan) → lo que registra SERFOR → proyección (marco punteado) → pistas por verificar (zona aparte) → cómo leer → pie */
+:root{
+  --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
+  --fire:#c2410c; --fire-soft:#fde3d3; --ash:#b7c4c9; --sea:#11708a; --warn:#9a5b00; --warn-soft:#fbefd6; --alert:#b4232f;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#08171d; --surface:#0f242c; --sunk:#132e38; --ink:#e4eff2; --muted:#9db4bc; --line:#24414c;
+  --fire:#f58a4f; --fire-soft:#3d2216; --ash:#3d5560; --sea:#5cc0dc; --warn:#e8b04a; --warn-soft:#3a2c10; --alert:#f26b72; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#08171d; --surface:#0f242c; --sunk:#132e38; --ink:#e4eff2; --muted:#9db4bc; --line:#24414c;
+  --fire:#f58a4f; --fire-soft:#3d2216; --ash:#3d5560; --sea:#5cc0dc; --warn:#e8b04a; --warn-soft:#3a2c10; --alert:#f26b72; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 64px}
+.wrap{max-width:980px;margin:0 auto;display:grid;gap:44px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;text-wrap:balance}
+h1{font-size:clamp(2rem,6vw,3.2rem);font-weight:800;letter-spacing:-.02em}
+h2{font-size:clamp(1.4rem,3.4vw,1.85rem);font-weight:700}
+h3{font-size:1.08rem;font-weight:700}
+p{margin:0}
+a{color:var(--sea);text-underline-offset:2px}
+:focus-visible{outline:3px solid var(--sea);outline-offset:2px;border-radius:4px}
+.muted{color:var(--muted)} .small{font-size:.86rem} .num{font-variant-numeric:tabular-nums}
+section{display:grid;gap:18px;min-width:0}
+.sec-head{display:grid;gap:6px;max-width:68ch}
+.top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;color:var(--ink);text-decoration:none}
+.brand small{display:block;font-family:var(--body);font-weight:400;font-size:.8rem;color:var(--muted)}
+.badge{font-size:.8rem;padding:4px 12px;border-radius:99px;background:var(--warn-soft);color:var(--warn);font-weight:700}
+.lede{font-size:1.12rem;max-width:62ch;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);padding-block:8px;z-index:2}
+.tab{font:inherit;font-weight:700;border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 18px;border-radius:99px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:12px}
+.tile{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:grid;gap:4px;align-content:start;min-width:0}
+.tile .k{font-size:.85rem;color:var(--muted)}
+.tile .v{font-family:var(--display);font-size:clamp(1.5rem,3.2vw,2.1rem);white-space:nowrap;font-weight:700;line-height:1.05;font-variant-numeric:tabular-nums}
+.tile .v.bad{color:var(--alert)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,330px),1fr));gap:16px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;display:grid;gap:10px;min-width:0}
+.chart{position:relative;width:100%}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart text{fill:var(--muted);font-size:12px;font-family:var(--body)}
+.chart text.v{fill:var(--ink);font-weight:700}
+.tip{position:absolute;display:none;background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:4px 8px;font-size:.8rem;pointer-events:none;white-space:nowrap;box-shadow:0 4px 14px -6px rgb(0 0 0 / .3)}
+.proj{border:2px dashed var(--line);border-radius:var(--r);padding:20px;display:grid;gap:16px}
+.tag{justify-self:start;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--warn);border:1px solid var(--warn);border-radius:99px;padding:2px 10px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:var(--muted)}
+.legend i{display:inline-block;width:16px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+.pistas{background:var(--warn-soft);border-radius:var(--r);padding:20px;display:grid;gap:16px}
+.pista{background:var(--surface);border:1px dashed var(--warn);border-radius:12px;padding:16px;display:grid;gap:8px;min-width:0}
+.pista .cab{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;justify-content:space-between}
+.pista .sello{font-size:.74rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--warn)}
+.pista .preg{font-weight:700}
+.pista .meta{font-size:.82rem;color:var(--muted);overflow-wrap:anywhere}
+.btn{justify-self:start;display:inline-flex;gap:6px;align-items:center;font-weight:700;text-decoration:none;background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:99px;font-size:.9rem}
+.btn:hover{opacity:.9}
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+details summary{cursor:pointer;font-weight:700}
+details ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
+footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:20px}
+</style>
+<div class="wrap">
+  <header style="display:grid;gap:14px">
+    <div class="top">
+      <a class="brand" href="../">
+        <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true"><circle cx="17" cy="17" r="16" fill="none" stroke="currentColor" stroke-width="2"/><path d="M17 27c-6 0-9-4-8-9 1-3 3-5 4-9 2 2 3 4 3 7 1-1 2-3 2-6 4 3 7 8 6 11-1 4-3 6-7 6Z" fill="var(--fire)"/></svg>
+        <div>Monitor de incendios forestales<small>un observatorio de Qhawana</small></div>
+      </a>
+      <span class="badge" id="estado">Versión preliminar</span>
+    </div>
+    <h1>¿Dónde y cuánto se quema?</h1>
+    <p class="lede">Alertas, focos de calor y hectáreas quemadas con datos públicos de SERFOR, corte al <span id="corte">—</span>. Cada región se muestra por separado: sus cifras no se suman ni se comparan entre sí.</p>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Región">
+    <button class="tab" role="tab" id="tab-Cusco" aria-selected="true" data-reg="Cusco">Cusco</button>
+    <button class="tab" role="tab" id="tab-Cajamarca" aria-selected="false" data-reg="Cajamarca">Cajamarca</button>
+  </div>
+
+  <section aria-labelledby="h-serfor">
+    <div class="sec-head">
+      <h2 id="h-serfor">Lo que registra SERFOR en <span class="reg-nombre">—</span></h2>
+      <p class="muted small">SERFOR mantiene en su sistema solo las alertas de los últimos días y archiva las atendidas, por eso el número de alertas cambia con cada corte y no se compara con el anterior.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+    <div class="grid2">
+      <div class="card">
+        <h3>Focos de calor, 1 de enero al <span class="corte-dm">—</span></h3>
+        <p class="muted small" id="nota-focos">—</p>
+        <div class="chart" id="c-focos"></div>
+      </div>
+      <div class="card">
+        <h3>Alertas recientes por provincia</h3>
+        <p class="muted small" id="nota-prov">—</p>
+        <div class="chart" id="c-prov"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Hectáreas quemadas por año</h3>
+      <p class="muted small">Incendios forestales registrados por SERFOR, 2017 a 2025. La cifra de 2026 aún no está consolidada.</p>
+      <div class="chart" id="c-ha"></div>
+    </div>
+  </section>
+
+  <section class="proj" aria-labelledby="h-proj">
+    <span class="tag">Proyección · no es un dato</span>
+    <div class="sec-head">
+      <h2 id="h-proj">¿Lo peor ya pasó o todavía viene?</h2>
+      <p class="muted small">Comparamos 2026 con los años anteriores en la misma fecha, usando solo el satélite Suomi NPP, el único presente en toda la serie. Se excluye 2022 porque ese satélite tuvo una interrupción a mitad de año. Es una referencia histórica, no un pronóstico.</p>
+    </div>
+    <div class="tiles" id="tiles-proj"></div>
+    <div class="card">
+      <h3>Focos de calor acumulados en el año, semana a semana</h3>
+      <div class="legend"><span><i style="background:var(--ink)"></i>2026</span><span><i style="background:var(--fire)"></i><span id="ley-max">Año más alto</span></span><span><i style="background:var(--ash)"></i>Otros años</span></div>
+      <div class="chart" id="c-curvas"></div>
+    </div>
+    <p id="lectura">—</p>
+  </section>
+
+  <section class="pistas" id="pistas" aria-labelledby="h-pistas">
+    <span class="tag">Pistas sin verificar · no son datos de Qhawana</span>
+    <div class="sec-head">
+      <h2 id="h-pistas">Pistas por verificar</h2>
+      <p class="small">Estas cifras vienen de la prensa y todavía nadie las confirmó con la fuente oficial. No entran en ningún resumen ni cálculo. Si en 30 días nadie las verifica, se retiran. <strong>¿Nos ayudas?</strong> Busca la fuente oficial y propón la verificación: otra persona del equipo la revisa antes de publicarla.</p>
+    </div>
+    <div style="display:grid;gap:12px" id="lista-pistas"></div>
+  </section>
+
+  <section aria-labelledby="h-leer">
+    <h2 id="h-leer">Cómo leer estas cifras</h2>
+    <details><summary>Qué mide cada capa de SERFOR</summary><ul>
+      <li><strong>Alertas de incendio forestal:</strong> avisos recientes con su estado (alertado, confirmado, controlado, extinguido). Es una ventana móvil: las alertas atendidas pasan al histórico.</li>
+      <li><strong>Focos de calor:</strong> puntos calientes detectados por satélite. No todo foco es un incendio forestal: también aparecen quemas agrícolas.</li>
+      <li><strong>Hectáreas quemadas:</strong> registro de ocurrencias de incendios forestales, consolidado al cierre de cada año.</li>
+    </ul></details>
+    <details><summary>Por qué los años no siempre se comparan</summary><ul>
+      <li>SERFOR fue sumando satélites: hasta 2019 MODIS y Suomi NPP; desde 2020 NOAA-20; desde 2024 NOAA-21 y GOES. Un año reciente registra más focos aunque no haya más fuego.</li>
+      <li>La comparación 2026 frente a 2025 es razonable porque la mezcla de satélites es parecida. Para series largas usamos un solo satélite.</li>
+    </ul></details>
+    <details><summary>Qué no muestra este monitor</summary><ul>
+      <li>Incendios en pastizales o cultivos que no son cobertura forestal (por ejemplo, Oxamarca, en las pistas).</li>
+      <li>Cifras de daños (fallecidos, viviendas) mientras no tengan fuente oficial verificada: por ahora están en las pistas.</li>
+    </ul></details>
+  </section>
+
+  <footer>
+    <p><a href="../">← Volver a Qhawana</a></p>
+    <p>Fuente: <a href="https://sniffs.serfor.gob.pe/monitoreo/incendiosforestales/?view=hotspots" target="_blank" rel="noopener">SERFOR, Sistema de alertas tempranas de incendios forestales</a> · <a href="https://geo.serfor.gob.pe/geoservicios/rest/services/UFMS/Incendios_SAMIv21/MapServer" target="_blank" rel="noopener">servicio de datos</a>. Corte al <span class="corte-largo">—</span>.</p>
+    <p>Textos y datos con licencia CC BY 4.0. <span id="pie-estado">Versión preliminar: nada aquí ha pasado todavía por el comité editorial.</span> Datos abiertos en <a href="datos/">datos/</a>; método e historial en el <a href="__REPO__" target="_blank" rel="noopener">repositorio público</a>.</p>
+  </footer>
+</div>
+
+<script>
+const DATA = __DATOS__;
+const REPO = "__REPO__";
+const nf = new Intl.NumberFormat("es-PE");
+const f = n => nf.format(n);
+const compact = v => v >= 1000 ? (Math.round(v / 100) / 10).toLocaleString("es-PE") + " mil" : f(v);
+const NS = "http://www.w3.org/2000/svg";
+const el = (t, a, p, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; p && p.appendChild(e); return e; };
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const [, mm, dd] = DATA.corte.split("-");
+const MES = ["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
+document.getElementById("corte").textContent = DATA.corte_largo;
+document.querySelectorAll(".corte-largo").forEach(e => e.textContent = DATA.corte_largo);
+document.querySelectorAll(".corte-dm").forEach(e => e.textContent = `${+dd} de ${["enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"][+mm-1]}`);
+if (DATA.aprobado) { document.getElementById("estado").textContent = "Corte aprobado por el comité"; document.getElementById("pie-estado").textContent = "Cifras aprobadas por el comité editorial de Qhawana."; }
+
+function tip(box) { let t = box.querySelector(".tip"); if (!t) { t = document.createElement("div"); t.className = "tip"; box.appendChild(t); } return t; }
+function hover(node, box, text) {
+  const t = tip(box);
+  node.addEventListener("mousemove", e => { const r = box.getBoundingClientRect(); t.style.display = "block"; t.textContent = text; t.style.left = Math.max(0, Math.min(e.clientX - r.left + 10, r.width - t.offsetWidth - 4)) + "px"; t.style.top = (e.clientY - r.top - 34) + "px"; });
+  node.addEventListener("mouseleave", () => t.style.display = "none");
+}
+function tiles(id, items) {
+  const box = document.getElementById(id); box.innerHTML = "";
+  items.forEach(([k, v, s, bad]) => { const d = document.createElement("div"); d.className = "tile"; d.innerHTML = '<span class="k"></span><span class="v"></span><span class="k"></span>'; d.children[0].textContent = k; d.children[1].textContent = v; d.children[2].textContent = s; if (bad) d.children[1].classList.add("bad"); box.appendChild(d); });
+}
+function barras(id, datos, unidad, acento) {
+  const box = document.getElementById(id); box.innerHTML = "";
+  const W = Math.max(280, box.clientWidth || 600), H = 190, m = { t: 22, b: 24 };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, box);
+  const max = Math.max(...datos.map(d => d[1])), paso = W / datos.length, bw = Math.min(56, paso * .66);
+  el("line", { x1: 0, x2: W, y1: H - m.b, y2: H - m.b, stroke: css("--line") }, svg);
+  datos.forEach(([k, v], i) => {
+    const h = (H - m.t - m.b) * v / max, x = i * paso + (paso - bw) / 2, y = H - m.b - h, ac = acento.includes(i);
+    const r = el("rect", { x, y, width: bw, height: Math.max(1, h), rx: 4, fill: ac ? css("--fire") : css("--ash") }, svg);
+    hover(r, box, `${k}: ${f(v)} ${unidad}`);
+    el("text", { x: x + bw / 2, y: H - 6, "text-anchor": "middle" }, svg, k);
+    if (bw > 28 || ac) el("text", { class: "v", x: x + bw / 2, y: y - 6, "text-anchor": "middle" }, svg, compact(v));
+  });
+  svg.setAttribute("aria-label", datos.map(d => `${d[0]}: ${f(d[1])} ${unidad}`).join("; "));
+}
+function hbarras(id, datos, unidad) {
+  const box = document.getElementById(id); box.innerHTML = "";
+  const W = Math.max(280, box.clientWidth || 600), fila = 26, H = datos.length * fila + 6;
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, box);
+  const lw = Math.max(...datos.map(([n]) => { const t = el("text", {}, svg, n); const w = t.getComputedTextLength(); t.remove(); return w; }));
+  const izq = Math.ceil(lw) + 10, der = 48, max = Math.max(...datos.map(d => d[1]));
+  datos.forEach(([n, v], i) => {
+    const y = 3 + i * fila, w = Math.max(2, (W - izq - der) * v / max);
+    el("text", { x: izq - 8, y: y + fila / 2, dy: ".35em", "text-anchor": "end" }, svg, n);
+    const r = el("rect", { x: izq, y: y + 5, width: w, height: fila - 10, rx: 4, fill: i === 0 ? css("--fire") : css("--ash") }, svg);
+    hover(r, box, `${n}: ${f(v)} ${unidad}`);
+    el("text", { class: "v", x: izq + w + 6, y: y + fila / 2, dy: ".35em" }, svg, f(v));
+  });
+  svg.setAttribute("aria-label", datos.map(d => `${d[0]}: ${f(d[1])} ${unidad}`).join("; "));
+}
+function curvas(id, series, corteSem) {
+  const box = document.getElementById(id); box.innerHTML = "";
+  const W = Math.max(300, box.clientWidth || 700), H = 260, m = { t: 12, r: 52, b: 26, l: 46 };
+  const svg = el("svg", { viewBox: `0 0 ${W} ${H}`, role: "img" }, box);
+  const anios = Object.keys(series);
+  const max = Math.max(...anios.flatMap(a => series[a]));
+  const tope = anios.filter(a => a !== "2026").sort((a, b) => Math.max(...series[b]) - Math.max(...series[a]))[0];
+  document.getElementById("ley-max").textContent = `Año más alto de la serie (${tope})`;
+  const x = s => m.l + (s - 1) / 52 * (W - m.l - m.r), y = v => H - m.b - v / max * (H - m.t - m.b);
+  [0, .25, .5, .75, 1].forEach(p => { const v = Math.round(max * p); el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: css("--line") }, svg); el("text", { x: m.l - 6, y: y(v), dy: ".35em", "text-anchor": "end" }, svg, compact(v)); });
+  ["ene","mar","may","jul","set","nov"].forEach((t, i) => el("text", { x: x(1 + i * 8.7), y: H - 6, "text-anchor": "middle" }, svg, t));
+  el("line", { x1: x(corteSem), x2: x(corteSem), y1: m.t, y2: H - m.b, stroke: css("--muted"), "stroke-dasharray": "3 3" }, svg);
+  el("text", { x: x(corteSem) - 4, y: m.t + 10, "text-anchor": "end" }, svg, `${+dd} ${MES[+mm-1]}`);
+  const orden = anios.filter(a => a !== "2026" && a !== tope).concat([tope, "2026"]);
+  orden.forEach(a => {
+    const s = series[a], col = a === "2026" ? css("--ink") : a === tope ? css("--fire") : css("--ash");
+    el("path", { d: s.map((v, i) => `${i ? "L" : "M"}${x(i + 1)},${y(v)}`).join(""), fill: "none", stroke: col, "stroke-width": a === "2026" ? 2.6 : a === tope ? 2 : 1, "stroke-linecap": "round", "stroke-linejoin": "round" }, svg);
+    if (a === "2026" || a === tope) el("text", { class: "v", x: x(s.length) + 6, y: y(s[s.length - 1]), dy: ".35em" }, svg, a);
+  });
+  svg.setAttribute("aria-label", `Focos acumulados por semana; 2026 frente a ${anios.length - 1} años anteriores`);
+}
+
+function pintar(reg) {
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", String(b.dataset.reg === reg)));
+  document.querySelectorAll(".reg-nombre").forEach(e => e.textContent = reg);
+  const R = DATA.regiones[reg], A = R.alertas;
+  tiles("tiles", [
+    ["Alertas recientes en el sistema", f(A.alertas.v), A.alertas.periodo],
+    ["Confirmadas, sin controlar", f(A.confirmado.v), `Más ${f(A.alertado.v)} sin verificar`, true],
+    ["Extinguidas", f(A.extinguido.v), `Más ${f(A.controlado.v)} controladas`],
+    ["Focos de calor", f(A.focos_3d.v), A.focos_3d.periodo]
+  ]);
+  const fo = R.focos, prev = fo[fo.length - 2][1], act = fo[fo.length - 1][1];
+  document.getElementById("nota-focos").textContent = `Mismo periodo cada año. 2026 tiene ${Math.round((act / prev - 1) * 100)} % más focos que 2025 (comparación válida: misma mezcla de satélites). Con años anteriores, ver "Cómo leer".`;
+  barras("c-focos", fo, "focos", [fo.length - 1]);
+  document.getElementById("nota-prov").textContent = R.provincias.length ? R.provincias[0][2] : "—";
+  hbarras("c-prov", R.provincias.map(p => [p[0], p[1]]), "alertas");
+  const ha = R.hectareas, imax = ha.reduce((b, d, i) => d[1] > ha[b][1] ? i : b, 0);
+  barras("c-ha", ha, "ha", [imax]);
+  const P = R.proyeccion;
+  const items = [
+    [`Posición de 2026 al ${+dd} ${MES[+mm-1]}`, `${P.lugar}.º más alto`, `Entre ${P.anios} años comparables`],
+    ["Lo que suele faltar de temporada", `+${P.p25} a +${P.p75} %`, `Mitad central de los años. Mediana: +${P.mediana} %`],
+    ["Años extremos", `+${P.min} a +${P.max} %`, "El año más tranquilo y el más severo después de esta fecha"]
+  ];
+  if (P.semana) items.push(["Seguimiento: última semana", `+${String(P.semana.pct).replace(".", ",")} %`, `El ${+P.semana.desde.slice(8)} ${MES[+P.semana.desde.slice(5,7)-1]} proyectamos +${P.semana.bajo} a +${P.semana.alto} % para todo el resto de la temporada.`]);
+  tiles("tiles-proj", items);
+  curvas("c-curvas", R.curvas, R.curvas["2026"].length);
+  document.getElementById("lectura").textContent = `Lectura: al ${DATA.corte_largo}, ${reg} va en el ${P.lugar}.º lugar entre ${P.anios} años comparables. Si el resto de la temporada se comporta como en la mitad central de los años anteriores, faltaría sumar entre ${P.p25} % y ${P.p75} % más focos de los ya registrados. El clima de las próximas semanas puede llevarlo fuera de ese rango.`;
+  pistas(reg);
+}
+
+function pistas(reg) {
+  const box = document.getElementById("lista-pistas"); box.innerHTML = "";
+  const lista = DATA.pistas.filter(p => p.region === reg || p.region === "Perú");
+  if (!lista.length) { box.innerHTML = '<p class="small">No hay pistas vigentes para esta región.</p>'; return; }
+  lista.forEach(p => {
+    const d = document.createElement("article"); d.className = "pista";
+    const cab = document.createElement("div"); cab.className = "cab";
+    const sello = document.createElement("span"); sello.className = "sello"; sello.textContent = `Pista ${p.id} · sin verificar · vence ${p.vence.split("-").reverse().join("/")}`;
+    const tema = document.createElement("strong"); tema.textContent = `${p.region === "Perú" ? "Nacional" : p.region} · ${p.tema}`;
+    cab.append(tema, sello);
+    const dato = document.createElement("p"); dato.textContent = p.dato;
+    const preg = document.createElement("p"); preg.className = "preg"; preg.textContent = p.pregunta;
+    const meta = document.createElement("p"); meta.className = "meta";
+    meta.append(`Dice: ${p.fuente_original}, según ${p.medio} (${p.fecha_nota.split("-").reverse().join("/")}). Dónde verificar: ${p.donde_verificar}. Notas: `);
+    p.url.split(" ").forEach((u, i) => { if (i) meta.append(" · "); const a = document.createElement("a"); a.href = u; a.target = "_blank"; a.rel = "noopener"; a.textContent = new URL(u).hostname.replace("www.", ""); meta.append(a); });
+    const btn = document.createElement("a"); btn.className = "btn"; btn.target = "_blank"; btn.rel = "noopener";
+    btn.href = `${REPO}/issues/new?template=pista.yml&title=${encodeURIComponent(`Pista ${p.id}: ${p.region} · ${p.tema}`)}`;
+    btn.textContent = "Ayúdanos a verificar →";
+    d.append(cab, dato, preg, meta, btn); box.appendChild(d);
+  });
+}
+
+let actual = location.hash === "#cajamarca" ? "Cajamarca" : "Cusco";
+document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => { actual = b.dataset.reg; pintar(actual); }));
+pintar(actual);
+let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => pintar(actual), 150); });
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => pintar(actual));
+</script>
