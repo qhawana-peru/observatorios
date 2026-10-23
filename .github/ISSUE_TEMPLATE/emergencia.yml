@@ -1,0 +1,37 @@
+name: Reportar una emergencia (El Niño)
+description: Un reporte del COEN-INDECI sobre lluvias o sus efectos que falte en el observatorio.
+title: "Emergencia: "
+labels: ["emergencia", "el-nino"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Solo reportes del INDECI (COEN o COER). Si viste la emergencia en la prensa o en redes, busca primero el reporte en https://portal.indeci.gob.pe/emergencias/.
+        El equipo archiva el PDF original y copia las cifras siguiendo la guía de emergencias.
+  - type: input
+    id: pdf
+    attributes:
+      label: Enlace al PDF del reporte
+      placeholder: "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-....pdf"
+    validations:
+      required: true
+  - type: input
+    id: ocurrencia
+    attributes:
+      label: Fecha de ocurrencia (sección 1 del reporte)
+      description: No la fecha del reporte. Formato AAAA-MM-DD.
+      placeholder: "2026-10-20"
+    validations:
+      required: true
+  - type: input
+    id: lugar
+    attributes:
+      label: Región y distritos
+      placeholder: "Tumbes: La Cruz"
+    validations:
+      required: true
+  - type: textarea
+    id: comentario
+    attributes:
+      label: Algo que debamos saber
+      description: Por ejemplo, si el reporte contradice otro o al SINPAD.

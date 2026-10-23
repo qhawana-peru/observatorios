@@ -34,7 +34,8 @@ De nadie en particular. Es un trabajo colectivo de las personas que deciden suma
 ```
 el-nino/
   fuentes/mef/AAAA-MM-DD/   archivos originales del MEF, tal como se descargaron (no se editan)
-  datos/                    datos abiertos: ejecucion_pp0068.csv y hechos.csv
+  fuentes/indeci/AAAA-MM-DD/ reportes de emergencia del COEN-INDECI en PDF, tal como se descargaron
+  datos/                    datos abiertos: ejecucion_pp0068.csv, hechos.csv y emergencias.csv
   config/                   enlaces de descarga, contexto por región, estado del sitio
 herramientas/               programas en Python (solo biblioteca estándar) y sus pruebas
 sitio/                      plantilla de la página pública

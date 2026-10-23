@@ -1,0 +1,23 @@
+{
+  "_ayuda": "Reportes del COEN-INDECI que se archivan. Cada entrada es el PDF de un reporte (su nombre incluye el número). Al agregar una entrada en una rama, la automatización 'Descargar reportes de INDECI' baja el PDF original y lo guarda con su huella en el-nino/fuentes/indeci/. Ver docs/el-nino-guia-emergencias.md.",
+  "reportes": [
+    {"numero": "14589", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14589-20OCT2026-LLUVIAS-INTENSAS-EN-LA-PROVINCIA-DE-PIURA-PIURA-2.pdf"},
+    {"numero": "14720", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14720-22OCT2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-7.pdf"},
+    {"numero": "14810", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14810-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LAGUNAS-PIURA-1.pdf"},
+    {"numero": "13164", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13164-30SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-1.pdf"},
+    {"numero": "14554", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14554-20OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-2.pdf"},
+    {"numero": "13212", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-13212-1OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-ALTO-PIURA-1.pdf"},
+    {"numero": "14038", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/05/REPORTE-COMPLEMENTARIO-N.º-14038-13OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LALAQUIZ-PIURA-4.pdf"},
+    {"numero": "14037", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/05/REPORTE-COMPLEMENTARIO-N.º-14037-13OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-7.pdf"},
+    {"numero": "2421", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/04/INFORME-DE-EMERGENCIA-N.º-2421-9OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SONDOR-PIURA-4.pdf"},
+    {"numero": "13232", "region": "Piura", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/04/REPORTE-COMPLEMENTARIO-N.º-13232-1OCT2026-DERRUMBE-DE-CERRO-EN-EL-DISTRITO-DE-HUARMACA-PIURA-3.pdf"},
+    {"numero": "14800", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14800-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-1.pdf"},
+    {"numero": "14665", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14665-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MATAPALO-TUMBES-1.pdf"},
+    {"numero": "14667", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14667-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES1.pdf"},
+    {"numero": "1078", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-PRELIMINAR-N.º-1078-20OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES.pdf"},
+    {"numero": "14663", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14663-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-1.pdf"},
+    {"numero": "13112", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13112-28SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-1.pdf"},
+    {"numero": "13111", "region": "Tumbes", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13111-28SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf"},
+    {"numero": "11297", "region": "La Libertad", "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/08/REPORTE-COMPLEMENTARIO-N.º-11297-28AGO2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-PÍAS-LA-LIBERTAD-2.pdf"}
+  ]
+}
