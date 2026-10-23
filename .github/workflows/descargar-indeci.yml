@@ -1,0 +1,31 @@
+name: Descargar reportes de INDECI
+
+# Archiva los PDF de los reportes del COEN listados en el-nino/config/indeci_reportes.json.
+# Corre al cambiar esa lista en una propuesta (rama distinta de main) o a mano.
+on:
+  push:
+    branches-ignore: [main]
+    paths: [el-nino/config/indeci_reportes.json]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  descargar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Bajar y archivar los PDF
+        run: python herramientas/descargar_indeci.py "$(TZ=America/Lima date +%F)"
+      - name: Guardar los PDF en la misma rama
+        run: |
+          git config user.name "qhawana-bot"
+          git config user.email "qhawana-bot@users.noreply.github.com"
+          git add el-nino/fuentes/indeci
+          if git diff --cached --quiet; then echo "Nada nuevo que guardar."; exit 0; fi
+          git commit -m "INDECI: reportes archivados el $(TZ=America/Lima date +%F)"
+          git push

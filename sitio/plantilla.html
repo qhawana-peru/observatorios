@@ -4,7 +4,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
-/* Layout: cabecera con la pregunta → tres respuestas cortas → "Mira tu región" (selector + ficha) → ranking de los 26 pliegos → línea de tiempo y bitácora → cómo leer las cifras → pie Qhawana */
+/* Layout: cabecera con la pregunta → tres respuestas cortas → "Mira tu región" (selector + ficha) → ranking de los 26 pliegos → emergencias registradas (piloto costa norte) → línea de tiempo y bitácora → cómo leer las cifras → pie Qhawana */
 :root{
   --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
   --sea:#11708a; --sea-soft:#d5ebf1; --obra:#0f8a6a; --obra-soft:#d3efe6; --gasto:#5b6fb0; --gasto-soft:#e0e5f5;
@@ -130,6 +130,24 @@ svg .lane{font-family:var(--display);font-size:13px;font-weight:700;fill:var(--i
 .esrc{margin-top:4px;font-size:.85rem}
 .more{justify-self:start}
 
+/* emergencias */
+.alertbox{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;background:var(--sun-soft);color:var(--ink);border-radius:var(--r);padding:14px 18px;font-size:.95rem}
+.alertbox b{color:var(--sun)}
+.em-regs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.em-reg{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;display:grid;gap:6px;align-content:start;min-width:0;text-align:left;font:inherit;color:inherit;cursor:pointer}
+.em-reg[aria-pressed="true"]{outline:2px solid var(--sea);outline-offset:-2px}
+.em-reg h3{font-size:1.15rem}
+.em-reg .big{font-family:var(--display);font-size:2rem;font-weight:800;line-height:1;color:var(--m3)}
+.em-reg .big small{font-family:var(--body);font-size:.9rem;font-weight:400;color:var(--muted);margin-left:4px}
+.em-reg.none .big{color:var(--muted)}
+.em-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.em-item{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--m3);border-radius:var(--r);padding:14px 18px;display:grid;gap:6px;min-width:0}
+.em-item .ehead{gap:4px 12px}
+.em-nums{display:flex;flex-wrap:wrap;gap:6px}
+.em-nums span{font-size:.85rem;padding:2px 10px;border-radius:99px;background:var(--sunk);font-variant-numeric:tabular-nums}
+.em-nums span b{font-weight:700}
+.em-item .small{overflow-wrap:anywhere}
+.rules{margin:0;padding-left:1.2em;display:grid;gap:6px;font-size:.95rem;max-width:72ch}
 /* glosario */
 .gloss{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
 .term{background:var(--sea-soft);border-radius:var(--r);padding:16px 18px;display:grid;gap:4px}
@@ -244,6 +262,23 @@ footer strong{color:var(--ink)}
     <p class="small muted" id="rank-note">—</p>
   </section>
 
+  <section aria-labelledby="h-emerg" id="emergencias">
+    <div class="sec-head">
+      <h2 id="h-emerg">Emergencias registradas durante El Niño 2026-2027</h2>
+      <p class="muted">Piloto en la costa norte: <span id="em-regs-txt">—</span>. Reportes del Centro de Operaciones de Emergencia Nacional (COEN) del INDECI sobre lluvias y sus efectos ocurridos desde el <span id="em-desde">—</span>, revisados hasta el <span id="em-rev">—</span>.</p>
+    </div>
+    <p class="alertbox" id="em-decreto">—</p>
+    <div class="em-regs" id="em-regs" role="group" aria-label="Filtrar por región"></div>
+    <ol class="em-list" id="em-list"></ol>
+    <p class="small muted" id="em-excl">—</p>
+    <ul class="rules">
+      <li><b>Durante no es lo mismo que por.</b> El ENFEN y el SENAMHI atribuyen a El Niño costero el régimen de lluvias de esta temporada, no cada evento. Aquí se registra lo que ocurrió mientras el fenómeno está en curso.</li>
+      <li><b>Cifras preliminares.</b> El INDECI actualiza cada reporte mientras avanza la evaluación de daños. Mostramos la última versión archivada y guardamos el PDF original de cada una.</li>
+      <li><b>Un espacio vacío no es un cero.</b> Si el reporte describe un daño sin contarlo, no ponemos número.</li>
+      <li><b>Gasto y daños, uno al lado del otro.</b> Esta sección no dice que una emergencia ocurrió por falta de gasto: para eso haría falta saber qué obra o actividad habría evitado ese daño, y estas fuentes no lo dicen.</li>
+    </ul>
+  </section>
+
   <section aria-labelledby="h-linea">
     <div class="sec-head">
       <h2 id="h-linea">Aviso, decisiones y gasto en el mismo calendario</h2>
@@ -287,7 +322,7 @@ footer strong{color:var(--ink)}
 
   <footer>
     <p><strong>Qhawana</strong> es una iniciativa ciudadana que sigue, con datos públicos, lo que hace el Estado. Cada cifra enlaza a su fuente oficial, el método y los datos están abiertos para que cualquiera los revise, y un comité editorial con reglas públicas decide qué se publica.</p>
-    <p>Fuentes: <a href="https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx" target="_blank" rel="noopener">MEF, Consulta Amigable</a> (<span class="corte-corto">—</span>) · <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">Comunicados ENFEN</a> · normas y notas enlazadas en la bitácora.</p>
+    <p>Fuentes: <a href="https://apps5.mineco.gob.pe/transparencia/Navegador/default.aspx" target="_blank" rel="noopener">MEF, Consulta Amigable</a> (<span class="corte-corto">—</span>) · <a href="https://enfen.imarpe.gob.pe/comunicados/" target="_blank" rel="noopener">Comunicados ENFEN</a> · <a href="https://portal.indeci.gob.pe/emergencias/" target="_blank" rel="noopener">INDECI, reportes de emergencia</a> · normas y notas enlazadas en la bitácora.</p>
     <p>Textos y datos con licencia CC BY 4.0. <span id="pie-estado">Versión preliminar: nada aquí ha pasado todavía por el comité editorial.</span> Datos y método: <a href="__REPO__" target="_blank" rel="noopener">repositorio público</a>. Contacto: [correo por definir].</p>
   </footer>
 </div>
@@ -361,6 +396,8 @@ function showRegion(code){
   const add=(col,html)=>{const d=document.createElement("div");d.className="fact";d.innerHTML=`<span class="dot" style="background:${col}"></span><span>${html}</span>`;f.appendChild(d)};
   add("var(--m3)", `<b>Pronóstico (ENFEN N° 17, 28 set):</b> ${EXP[o.r]||"el comunicado no la menciona entre las zonas con lluvias fuera de lo normal."}`);
   if(!isMML) add("var(--gov)", `<b>Plan de gestión del riesgo al 27 de junio:</b> ${PLAN_OK.includes(o.r)?'<span class="pill ok">aprobado</span>':'<span class="pill no">no figuraba entre los aprobados</span>'} <span class="small muted">según el Ejecutivo</span>`);
+  if(DATA.emergencias.regiones.includes(o.r)){const ev=DATA.emergencias.eventos.filter(e=>e.region===o.r);const af=ev.map(e=>e.personas_afectadas).filter(v=>v!=null).reduce((a,b)=>a+b,0);
+    add("var(--m3)", ev.length?`<b>Emergencias por lluvias desde el ${DATA.emergencias.desde_largo.replace(/ de 2026$/,"")}:</b> ${ev.length}, con ${af.toLocaleString("es-PE")} personas afectadas según el INDECI. <a href="#emergencias">Ver detalle</a>`:`<b>Emergencias por lluvias desde el ${DATA.emergencias.desde_largo.replace(/ de 2026$/,"")}:</b> no encontramos reportes del INDECI en el periodo revisado.`);}
   const rk=rankOrder("t").findIndex(x=>x.c===o.c)+1;
   add("var(--sea)", `<b>Puesto ${rk} de 26</b> en avance del nivel regional, contando desde el más lento.`);
   document.querySelectorAll("#quick .chip").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.c===o.c)));
@@ -398,6 +435,50 @@ document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{mode=b.datase
 drawRank();
 let start="461"; try{const s=localStorage.getItem("qh-nino-region"); if(s&&REG.some(o=>o.c===s)) start=s;}catch(e){}
 sel.value=start; showRegion(start);
+
+
+/* --- emergencias --- */
+const EM=DATA.emergencias;
+const nf=v=>v==null?null:(Number.isInteger(v)?v.toLocaleString("es-PE"):String(v).replace(".",","));
+const sumK=(ev,k)=>{const xs=ev.map(e=>e[k]).filter(v=>v!=null);return xs.length?xs.reduce((a,b)=>a+b,0):null};
+const emOf=r=>EM.eventos.filter(e=>e.region===r);
+let emSel=null;
+(function(){
+  document.getElementById("em-regs-txt").textContent=EM.regiones.join(", ").replace(/, ([^,]*)$/," y $1");
+  document.getElementById("em-desde").textContent=EM.desde_largo;
+  document.getElementById("em-rev").textContent=EM.revisado_largo;
+  const d=EM.decreto, hoy=new Date(), vence=new Date(d.vence+"T23:59:59-05:00");
+  const dias=Math.ceil((vence-hoy)/864e5);
+  const [y,m,dd]=d.vence.split("-");
+  const cuando=dias>1?`vence el ${+dd} de ${["enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"][+m-1]} (en ${dias} días)`:dias>=0?"vence hoy o mañana":"venció el "+(+dd)+"/"+(+m)+"/"+y+"; revisa en El Peruano si se prorrogó";
+  document.getElementById("em-decreto").innerHTML=`<b>Declaratoria de emergencia</b><span>${d.texto} <a href="${d.url}" target="_blank" rel="noopener">${d.norma}</a> ${cuando}.</span>`;
+  const box=document.getElementById("em-regs");
+  EM.regiones.forEach(r=>{
+    const ev=emOf(r), b=document.createElement("button");
+    b.type="button"; b.className="em-reg"+(ev.length?"":" none"); b.setAttribute("aria-pressed","false"); b.dataset.r=r;
+    const af=sumK(ev,"personas_afectadas"), dm=sumK(ev,"personas_damnificadas"), vi=sumK(ev,"viviendas_afectadas"), ie=sumK(ev,"iiee_afectadas"), es=sumK(ev,"eess_afectados");
+    const det=[af!=null?`${nf(af)} personas afectadas`:null, dm?`${nf(dm)} damnificadas`:null, vi!=null?`${nf(vi)} viviendas afectadas`:null,
+               ie?`${nf(ie)} locales escolares`:null, es?`${nf(es)} establecimientos de salud`:null].filter(Boolean).join(" · ");
+    b.innerHTML=`<h3>${r}</h3><p class="big num">${ev.length}<small>${ev.length===1?"emergencia":"emergencias"}</small></p><p class="small muted">${ev.length?det:"No encontramos reportes del COEN sobre lluvias en el periodo revisado. Si conoces uno, repórtalo."}</p>`;
+    b.onclick=()=>{emSel=emSel===r?null:r;renderEm()};
+    box.appendChild(b);
+  });
+  document.getElementById("em-excl").innerHTML=`${EM.excluidos} reportes encontrados no se cuentan porque los eventos ocurrieron antes del ${EM.desde_largo}: sobre todo, lluvias de enero y febrero que el INDECI siguió actualizando en setiembre y octubre con fecha nueva. Están en la <a href="__REPO__/blob/main/el-nino/datos/emergencias.csv" target="_blank" rel="noopener">tabla abierta</a> con el motivo. El seguimiento de las otras regiones empieza después del piloto.`;
+  renderEm();
+})();
+function renderEm(){
+  document.querySelectorAll(".em-reg").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.r===emSel)));
+  const ev=EM.eventos.filter(e=>!emSel||e.region===emSel);
+  const lab=[["personas_damnificadas","damnificadas"],["personas_afectadas","personas afectadas"],["viviendas_inhabitables","viviendas inhabitables"],["viviendas_afectadas","viviendas afectadas"],["iiee_afectadas","locales escolares"],["eess_afectados","establecimientos de salud"],["vias_afectadas_km","km de vías"]];
+  document.getElementById("em-list").innerHTML=ev.map(e=>{
+    const nums=lab.filter(([k])=>e[k]!=null).map(([k,l])=>`<span><b>${nf(e[k])}</b> ${l}</span>`).join("");
+    const orig=e.archivo?` · <a href="__REPO__/blob/main/${encodeURI(e.archivo)}" target="_blank" rel="noopener">copia archivada</a>`:"";
+    return `<li class="em-item"><div class="ehead"><span class="edate">${e.etiqueta}</span><b>${e.distritos.replace(/; /g,", ")}</b><span class="small muted">${e.region}</span></div>
+      <p>${e.evento}.${e.otros_danos?` ${e.otros_danos}.`:""}</p>
+      ${nums?`<div class="em-nums">${nums}</div>`:`<p class="small muted">El reporte describe daños sin cifras todavía.</p>`}
+      ${e.nota?`<p class="small muted">${e.nota}</p>`:""}
+      <p class="small"><a href="${encodeURI(e.fuente_url)}" target="_blank" rel="noopener">${e.reporte}</a>${e.reporte_version?` (actualización N.º ${e.reporte_version})`:""} del ${e.fecha_reporte.split("-").reverse().join("/")}${orig} · ${e.evaluacion||""}</p></li>`}).join("");
+}
 
 /* --- línea de tiempo y bitácora --- */
 const EB="https://enfen.imarpe.gob.pe";
