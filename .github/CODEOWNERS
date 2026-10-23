@@ -9,6 +9,8 @@
 /el-nino/fuentes/         @qhawana-peru/comite-editorial
 /el-nino/datos/           @qhawana-peru/comite-editorial
 /el-nino/config/          @qhawana-peru/comite-editorial
+/incendios/datos/          @qhawana-peru/comite-editorial
+/incendios/config/         @qhawana-peru/comite-editorial
 /docs/                    @qhawana-peru/comite-editorial
 
 # Herramientas y automatizaciones: el equipo de datos.

@@ -19,8 +19,18 @@ De nadie en particular. Es un trabajo colectivo de las personas que deciden suma
 | Observatorio | Pregunta | Estado |
 | --- | --- | --- |
 | **El Niño** (`el-nino/`) | ¿Qué hizo el Estado con el aviso que tuvo antes del Fenómeno El Niño 2026-2027? | En operación (fase 1) |
-| Incendios forestales | ¿Dónde y cuánto se quema, y qué tan lejos está el fin de la temporada? | Por migrar a este repositorio |
+| **Incendios forestales** (`incendios/`) | ¿Dónde y cuánto se quema, y qué tan lejos está el fin de la temporada? | Prototipo (Cusco y Cajamarca), con pistas por verificar |
 | Contraste (criminalidad) | ¿Por qué las fuentes oficiales no coinciden, y qué compra el presupuesto de seguridad? | En diseño |
+
+## El sitio
+
+- `/` portada con el menú de observatorios.
+- `/el-nino/` Observatorio El Niño (los datos siguen disponibles también en `/datos/` para no romper enlaces anteriores).
+- `/incendios/` Monitor de incendios forestales.
+
+## Pistas por verificar
+
+Una **pista** es una cifra de prensa que todavía no tiene fuente oficial. Se muestra solo en una sección aparte, con su etiqueta en cada tarjeta, sin entrar en resúmenes ni cálculos, y vence a los 30 días si nadie la verifica. Cualquiera puede ayudar con el formulario **Verificar una pista**. La regla completa está en la [metodología de incendios](docs/incendios-metodologia.md).
 
 ## Cómo se publica una cifra
 
@@ -32,13 +42,16 @@ De nadie en particular. Es un trabajo colectivo de las personas que deciden suma
 ## Estructura
 
 ```
+incendios/
+  datos/                    datos abiertos de SERFOR y pistas.csv (cifras de prensa por verificar)
+  config/                   estado del sitio y fecha de corte
 el-nino/
   fuentes/mef/AAAA-MM-DD/   archivos originales del MEF, tal como se descargaron (no se editan)
   fuentes/indeci/AAAA-MM-DD/ reportes de emergencia del COEN-INDECI en PDF, tal como se descargaron
   datos/                    datos abiertos: ejecucion_pp0068.csv, hechos.csv y emergencias.csv
   config/                   enlaces de descarga, contexto por región, estado del sitio
 herramientas/               programas en Python (solo biblioteca estándar) y sus pruebas
-sitio/                      plantilla de la página pública
+sitio/                      plantillas de la portada y de cada observatorio
 docs/                       metodología, guías para el equipo y documentos de gobernanza
 .github/                    formularios, plantillas y automatizaciones
 ```

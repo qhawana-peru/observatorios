@@ -1,4 +1,4 @@
-"""Genera el sitio público del Observatorio El Niño a partir de los datos del repositorio.
+"""Genera el sitio público de Qhawana: portada, Observatorio El Niño y Monitor de incendios.
 
 Uso:
     python herramientas/construir_sitio.py            # escribe _site/
@@ -11,7 +11,8 @@ Lee:
   el-nino/config/emergencias.json      alcance de esa tabla y declaratoria vigente
   el-nino/config/contexto.json         pronóstico por región y planes aprobados
   el-nino/config/sitio.json            estado de publicación y dirección del repositorio
-y escribe una página estática (index.html) más los datos abiertos en _site/datos/.
+y escribe _site/el-nino/index.html con sus datos abiertos. Luego llama a sitio_incendios.py,
+que escribe _site/incendios/ y la portada (_site/index.html).
 """
 from __future__ import annotations
 
@@ -162,14 +163,20 @@ def main():
               'presupuesto de prevención por región, con datos públicos del MEF.">\n'
               '<style>:root{color-scheme:light}[hidden]{display:none!important}</style>\n'
               + cabeza + "\n</head>\n<body>\n" + cuerpo + "\n</body>\n</html>\n")
-    os.makedirs(args.salida, exist_ok=True)
-    with open(os.path.join(args.salida, "index.html"), "w", encoding="utf-8") as f:
+    # El Niño vive ahora en /el-nino/; la raíz es la portada con el menú de observatorios.
+    carpeta = os.path.join(args.salida, "el-nino")
+    os.makedirs(carpeta, exist_ok=True)
+    with open(os.path.join(carpeta, "index.html"), "w", encoding="utf-8") as f:
         f.write(pagina)
-    destino = os.path.join(args.salida, "datos")
-    os.makedirs(destino, exist_ok=True)
-    for nombre in ("ejecucion_pp0068.csv", "hechos.csv", "emergencias.csv"):
-        shutil.copy(os.path.join(EN, "datos", nombre), destino)
-    print(f"Sitio generado en {args.salida} (corte {datos['corte']}, {len(datos['regiones'])} pliegos).")
+    # Datos abiertos en /el-nino/datos/ y, por compatibilidad con enlaces ya compartidos, también en /datos/.
+    for destino in (os.path.join(carpeta, "datos"), os.path.join(args.salida, "datos")):
+        os.makedirs(destino, exist_ok=True)
+        for nombre in ("ejecucion_pp0068.csv", "hechos.csv", "emergencias.csv"):
+            shutil.copy(os.path.join(EN, "datos", nombre), destino)
+    print(f"El Niño generado en {carpeta} (corte {datos['corte']}, {len(datos['regiones'])} pliegos).")
+    import sitio_incendios
+    d = sitio_incendios.construir(args.salida)
+    print(f"Incendios generado (corte {d['corte']}, {len(d['pistas'])} pistas vigentes). Portada en {args.salida}/index.html.")
 
 
 if __name__ == "__main__":

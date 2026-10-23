@@ -1,0 +1,190 @@
+<title>Qhawana · Observatorios ciudadanos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
+<style>
+/* Layout: cabecera con el nombre y qué es Qhawana → tres tarjetas ilustradas (un observatorio cada una) → cómo sumarse → principios → pie */
+:root{
+  --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
+  --sea:#11708a; --sea-soft:#d5ebf1; --sun:#c2560f; --sun-soft:#fbe6d6;
+  --fire:#c2410c; --fire-soft:#fde3d3; --leaf:#3f7d4e; --leaf-soft:#dcefe0;
+  --dusk:#5b4fa3; --dusk-soft:#e6e2f6;
+  --display:"Bricolage Grotesque","Segoe UI",system-ui,sans-serif;
+  --body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --r:16px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#08171d; --surface:#0f242c; --sunk:#132e38; --ink:#e4eff2; --muted:#9db4bc; --line:#24414c;
+  --sea:#5cc0dc; --sea-soft:#14394a; --sun:#f39a55; --sun-soft:#3e2614;
+  --fire:#f58a4f; --fire-soft:#3d2216; --leaf:#7cc48a; --leaf-soft:#173323;
+  --dusk:#a99ce8; --dusk-soft:#2a2547; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#08171d; --surface:#0f242c; --sunk:#132e38; --ink:#e4eff2; --muted:#9db4bc; --line:#24414c;
+  --sea:#5cc0dc; --sea-soft:#14394a; --sun:#f39a55; --sun-soft:#3e2614;
+  --fire:#f58a4f; --fire-soft:#3d2216; --leaf:#7cc48a; --leaf-soft:#173323;
+  --dusk:#a99ce8; --dusk-soft:#2a2547; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1040px;margin:0 auto;display:grid;gap:56px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.08;text-wrap:balance}
+h1{font-size:clamp(2.6rem,8vw,4.6rem);font-weight:800;letter-spacing:-.03em}
+h2{font-size:clamp(1.45rem,3.4vw,1.9rem);font-weight:700}
+h3{font-size:1.35rem;font-weight:700}
+p{margin:0}
+a{color:var(--sea);text-underline-offset:2px}
+:focus-visible{outline:3px solid var(--sea);outline-offset:3px;border-radius:6px}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+
+/* cabecera */
+header{display:grid;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;font-size:1.05rem}
+.eye{flex:none;color:var(--ink)}
+.lede{font-size:1.2rem;max-width:60ch;color:var(--muted)}
+.lede em{font-style:normal;color:var(--ink);font-weight:700}
+.horizonte{display:block;width:100%;height:40px;color:var(--line)}
+
+/* tarjetas */
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:20px}
+.card{position:relative;display:grid;grid-template-rows:auto 1fr;background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--r);overflow:hidden;color:inherit;text-decoration:none;min-width:0;
+  transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease}
+a.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgb(13 42 53 / .45);border-color:var(--accent)}
+.card .art{aspect-ratio:16/9;max-width:100%;background:var(--soft);display:block}
+.card .art svg{display:block;width:100%;height:100%}
+.card .txt{display:grid;gap:10px;padding:20px 22px 22px;align-content:start}
+.chip{justify-self:start;font-size:.78rem;font-weight:700;letter-spacing:.02em;padding:3px 10px;border-radius:99px;background:var(--soft);color:var(--accent)}
+.q{color:var(--muted)}
+.go{margin-top:6px;font-weight:700;color:var(--accent);display:flex;align-items:center;gap:6px}
+.go span{transition:transform .2s ease}
+a.card:hover .go span{transform:translateX(4px)}
+.card.fuego{--accent:var(--fire);--soft:var(--fire-soft)}
+.card.nino{--accent:var(--sea);--soft:var(--sea-soft)}
+.card.contraste{--accent:var(--dusk);--soft:var(--dusk-soft)}
+.card.pronto{border-style:dashed}
+
+/* súmate */
+.sumate{display:grid;gap:18px}
+.acciones{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}
+.accion{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 18px;display:grid;gap:6px;color:inherit;text-decoration:none;min-width:0}
+.accion strong{font-family:var(--display);font-size:1.05rem}
+a.accion:hover{border-color:var(--sea)}
+
+/* principios */
+.principios{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:18px}
+.principio{display:grid;gap:6px;border-top:3px solid var(--line);padding-top:12px}
+.principio strong{font-family:var(--display)}
+
+footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:20px}
+
+@media (prefers-reduced-motion: no-preference){
+  .flama{transform-origin:50% 100%;animation:latido 3.2s ease-in-out infinite}
+  .ola{animation:vaiven 6s ease-in-out infinite}
+  @keyframes latido{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.06)}}
+  @keyframes vaiven{0%,100%{transform:translateX(0)}50%{transform:translateX(-12px)}}
+}
+</style>
+<div class="wrap">
+  <header>
+    <div class="brand">
+      <svg class="eye" width="40" height="40" viewBox="0 0 40 40" aria-hidden="true"><path d="M3 20c5-8 11-12 17-12s12 4 17 12c-5 8-11 12-17 12S8 28 3 20Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><circle cx="20" cy="20" r="6" fill="var(--sea)"/><circle cx="22" cy="18" r="1.8" fill="var(--bg)"/></svg>
+      Qhawana
+    </div>
+    <h1>Lugar desde donde se mira.</h1>
+    <p class="lede"><em>Qhawana</em> es una iniciativa ciudadana que mira, con datos públicos, qué pasa en el Perú y qué hace el Estado al respecto. Cada cifra enlaza a su fuente oficial y el método está a la vista para que cualquiera lo revise.</p>
+    <svg class="horizonte" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 L60 18 L95 26 L140 8 L185 24 L230 14 L270 28 L320 10 L360 22 L400 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+  </header>
+
+  <section aria-labelledby="h-obs" style="display:grid;gap:20px">
+    <h2 id="h-obs">Elige un observatorio</h2>
+    <div class="menu">
+
+      <a class="card fuego" href="incendios/">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--soft)"/>
+            <circle cx="250" cy="44" r="22" fill="var(--sun)" opacity=".35"/>
+            <path d="M0 150 L70 78 L112 118 L168 58 L236 132 L280 96 L320 128 L320 180 L0 180Z" fill="var(--accent)" opacity=".18"/>
+            <path d="M0 168 L54 120 L104 150 L150 104 L210 156 L262 122 L320 150 L320 180 L0 180Z" fill="var(--accent)" opacity=".3"/>
+            <g fill="var(--leaf)" opacity=".7"><path d="M40 160 l10-26 l10 26z"/><path d="M58 164 l8-20 l8 20z"/><path d="M262 158 l9-24 l9 24z"/><path d="M280 162 l7-18 l7 18z"/></g>
+            <g class="flama"><path d="M160 158c-26 0-38-18-34-40 3-14 13-22 16-38 9 9 13 19 12 30 6-6 9-14 9-24 18 15 30 34 28 50-2 14-12 22-31 22Z" fill="var(--accent)"/><path d="M160 158c-12 0-18-8-16-18 1-7 7-12 9-20 6 6 8 12 7 18 4-3 6-7 6-12 9 8 13 17 11 23-2 6-8 9-17 9Z" fill="var(--sun)"/></g>
+            <g fill="var(--accent)" opacity=".55"><circle cx="190" cy="74" r="2.4"/><circle cx="202" cy="58" r="1.8"/><circle cx="138" cy="66" r="2"/></g>
+          </svg>
+        </div>
+        <div class="txt">
+          <span class="chip">Prototipo · corte al __CORTE_INCENDIOS__</span>
+          <h3>Monitor de incendios forestales</h3>
+          <p class="q">¿Dónde y cuánto se quema en Cusco y Cajamarca, y qué tan lejos está el fin de la temporada?</p>
+          <p class="go">Entrar <span aria-hidden="true">→</span></p>
+        </div>
+      </a>
+
+      <a class="card nino" href="el-nino/">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--soft)"/>
+            <circle cx="96" cy="70" r="30" fill="var(--sun)" opacity=".85"/>
+            <g stroke="var(--sun)" stroke-width="3" stroke-linecap="round" opacity=".6"><path d="M96 26v-10M96 124v-8M52 70h-10M150 70h-10M65 39l-7-7M127 39l7-7"/></g>
+            <path d="M190 40c18-10 40-8 52 6 16-4 32 6 32 22H186c-12 0-14-20 4-28Z" fill="var(--accent)" opacity=".35"/>
+            <g stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity=".55"><path d="M206 80l-6 14M226 80l-6 14M246 80l-6 14"/></g>
+            <g class="ola"><path d="M-20 128c26-14 52-14 78 0s52 14 78 0 52-14 78 0 52 14 78 0 52-14 78 0 52 14 78 0V200H-20Z" fill="var(--accent)" opacity=".35"/>
+            <path d="M-20 146c26-12 52-12 78 0s52 12 78 0 52-12 78 0 52 12 78 0 52-12 78 0 52 12 78 0V200H-20Z" fill="var(--accent)" opacity=".7"/></g>
+          </svg>
+        </div>
+        <div class="txt">
+          <span class="chip">En operación · versión preliminar</span>
+          <h3>Observatorio El Niño</h3>
+          <p class="q">¿Qué hizo el Estado con el aviso que tuvo antes del Fenómeno El Niño 2026-2027?</p>
+          <p class="go">Entrar <span aria-hidden="true">→</span></p>
+        </div>
+      </a>
+
+      <a class="card contraste pronto" href="__REPO__#observatorios">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--soft)"/>
+            <g opacity=".85"><rect x="70" y="70" width="34" height="80" rx="6" fill="var(--accent)" opacity=".35"/><rect x="112" y="46" width="34" height="104" rx="6" fill="var(--accent)" opacity=".7"/>
+            <rect x="178" y="92" width="34" height="58" rx="6" fill="var(--accent)" opacity=".35"/><rect x="220" y="58" width="34" height="92" rx="6" fill="var(--accent)" opacity=".7"/></g>
+            <path d="M64 150h196" stroke="var(--accent)" stroke-width="2" opacity=".6"/>
+            <g transform="translate(150 52)"><circle r="26" fill="var(--surface)" stroke="var(--ink)" stroke-width="4" opacity=".9"/><path d="M18 18l22 22" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/><text x="0" y="8" text-anchor="middle" font-weight="800" font-size="24" fill="var(--accent)" style="font-family:var(--display)">≠</text></g>
+          </svg>
+        </div>
+        <div class="txt">
+          <span class="chip">En diseño</span>
+          <h3>Contraste</h3>
+          <p class="q">¿Por qué las fuentes oficiales sobre criminalidad no coinciden, y qué compra el presupuesto de seguridad?</p>
+          <p class="go">Ver en qué estamos <span aria-hidden="true">→</span></p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="sumate" aria-labelledby="h-sumate">
+    <div style="display:grid;gap:8px;max-width:64ch">
+      <h2 id="h-sumate">Súmate a verificar</h2>
+      <p class="muted">No hace falta saber programar. Cada observatorio tiene tareas pequeñas y concretas, y toda propuesta la revisa otra persona antes de publicarse.</p>
+    </div>
+    <div class="acciones">
+      <a class="accion" href="incendios/#pistas"><strong>Verifica una pista</strong><span class="muted small">Cifras de prensa sobre incendios que todavía nadie confirmó con la fuente oficial.</span></a>
+      <a class="accion" href="__REPO__/issues/new?template=hecho.yml"><strong>Registra un hecho</strong><span class="muted small">Un decreto, comunicado o alerta oficial sobre El Niño.</span></a>
+      <a class="accion" href="__REPO__/issues/new?template=correccion.yml"><strong>Reporta un error</strong><span class="muted small">Si una cifra está mal, la corregimos en público con fecha.</span></a>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-principios" style="display:grid;gap:18px">
+    <h2 id="h-principios">Cómo trabajamos</h2>
+    <div class="principios">
+      <div class="principio"><strong>Solo datos públicos</strong><p class="muted small">Fuentes oficiales abiertas, cada número citado con su fecha de corte. Nada de datos personales.</p></div>
+      <div class="principio"><strong>Cuatro ojos</strong><p class="muted small">Nada se publica sin que una segunda persona del comité editorial lo revise.</p></div>
+      <div class="principio"><strong>Pistas a la vista, no como datos</strong><p class="muted small">Lo que dice la prensa se muestra aparte, etiquetado y con fecha de vencimiento, hasta que alguien lo verifique.</p></div>
+      <div class="principio"><strong>Hecho para donarse</strong><p class="muted small">Licencias abiertas y documentación para que una universidad o la sociedad civil pueda continuarlo.</p></div>
+    </div>
+  </section>
+
+  <footer>
+    <p><strong>Qhawana</strong> (quechua: "lugar desde donde se mira") es una iniciativa ciudadana independiente, sin afiliación partidaria.</p>
+    <p>Textos y datos con licencia CC BY 4.0; código con licencia MIT. Datos, método e historial completo en el <a href="__REPO__" target="_blank" rel="noopener">repositorio público</a>.</p>
+  </footer>
+</div>
