@@ -2,6 +2,8 @@
 
 Para quien opera los observatorios, incluida la persona que los fundó. Cada manual es una tarea: qué se hace, cada cuánto, cuánto tarda, paso a paso y qué hacer si algo sale mal. No hace falta saber programar.
 
+**Si es tu primera vez en GitHub:** empieza por la sección *Cómo moverse en GitHub* del [manual 04](04-revisar-y-publicar.md).
+
 **Regla general:** nada entra al sitio sin una propuesta de cambio revisada por otra persona. Si un manual y la realidad no coinciden, sigue la realidad, anota la diferencia y corrige el manual en la misma propuesta.
 
 | Tarea | Frecuencia | Tiempo | Quién | Manual |

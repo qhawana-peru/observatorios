@@ -1,0 +1,49 @@
+# Aplica una consulta de SERFOR subida a incendios/cortes/ en una rama corte-incendios-*.
+# Quien hace el corte solo sube el JSON desde la web de GitHub; esta automatización
+# actualiza los CSV en la misma rama. Después se escribe la lectura del corte y se pide revisión.
+name: Actualizar incendios
+
+on:
+  push:
+    branches: ["corte-incendios-**"]
+    paths: ["incendios/cortes/*.json"]
+
+permissions:
+  contents: write
+
+jobs:
+  aplicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+          # Con la cuenta del bot, el nuevo commit vuelve a lanzar la validación.
+          token: ${{ secrets.QHAWANA_BOT_TOKEN || github.token }}
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Aplicar la consulta más reciente
+        run: |
+          archivo=$(git diff --name-only HEAD~1 HEAD -- 'incendios/cortes/*.json' | sort | tail -1)
+          if [ -z "$archivo" ]; then archivo=$(ls incendios/cortes/*.json | sort | tail -1); fi
+          echo "Consulta: $archivo"
+          python herramientas/actualizar_incendios.py "$archivo" | tee resumen.txt
+          {
+            echo "### Corte de incendios aplicado"
+            echo '```'
+            cat resumen.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Probar
+        run: |
+          pip install -q pytest
+          python -m pytest -q herramientas/tests/
+      - name: Guardar en la rama
+        run: |
+          git config user.name "qhawana-bot"
+          git config user.email "qhawana-bot@users.noreply.github.com"
+          git add incendios/datos incendios/config
+          git diff --cached --quiet && { echo "Sin cambios"; exit 0; }
+          git commit -m "Aplica la consulta de SERFOR (${GITHUB_REF_NAME#corte-incendios-})"
+          git push

@@ -4,6 +4,47 @@
 **Tiempo:** 10 a 20 minutos por propuesta.
 **Quién:** comité editorial (y datos para cambios técnicos).
 
+## Cómo moverse en GitHub (para no perderse)
+
+**La regla de oro:** antes de editar o subir cualquier cosa, mira el botón de rama. Si dice **main**, cámbialo a tu rama. Todo lo que se hace en **main** se publica sin revisión.
+
+### Volver a la portada del repositorio
+Desde cualquier página: arriba a la izquierda dice `qhawana-peru / observatorios`. Haz clic en **observatorios**.
+
+### Crear una rama nueva (antes de empezar un cambio)
+1. En la portada, haz clic en el botón de rama (dice **main** con una flechita), arriba de la lista de carpetas.
+2. Escribe el nombre de la rama nueva en el cuadro, sin espacios (por ejemplo `ajustes-24oct` o `corte-incendios-2026-10-30`).
+3. Haz clic en **Create branch: … from main**. El botón ya muestra el nombre de tu rama.
+
+### Cambiar a una rama que ya existe
+En la portada, botón de rama › elige la rama de la lista. Si no aparece, escribe parte de su nombre en el cuadro.
+
+### Abrir y editar un archivo
+1. Con el botón en tu rama, haz clic en las carpetas hasta llegar al archivo. También puedes usar el buscador **Go to file** (arriba de la lista de la izquierda) y escribir parte del nombre.
+2. Con el archivo abierto, haz clic en el **lápiz** ✏️ arriba a la derecha del texto ("Edit this file").
+3. Revisa que junto al nombre del archivo diga `in <tu rama>`. Si dice `in main`, cancela y vuelve a cambiar de rama.
+4. Para ir al final del texto: haz clic dentro y pulsa **Ctrl + End** (en Mac, **Cmd + flecha abajo**).
+
+### Crear un archivo nuevo o subir archivos
+Con el botón en tu rama, entra a la carpeta donde va el archivo y pulsa **Add file** (arriba a la derecha de la lista):
+- **Create new file:** escribes el nombre. Si pones `carpeta/archivo.md`, cada `/` crea una carpeta.
+- **Upload files:** arrastras archivos o carpetas. Ojo: Windows esconde las carpetas que empiezan con punto (como `.github`); esas se crean con *Create new file*.
+
+### Guardar (commit)
+Al pulsar **Commit changes...** aparece una ventana con dos opciones:
+- **Commit directly to the `<rama>` branch:** correcto si la rama es la tuya. **Nunca si dice main.**
+- **Create a new branch for this commit and start a pull request:** úsala si te olvidaste de crear la rama antes. Pon un nombre y pulsa **Propose changes**.
+
+### Abrir la propuesta (pull request)
+1. Pestaña **Pull requests** (arriba). Si acabas de guardar en tu rama, aparece una franja amarilla con el botón **Compare & pull request**: púlsalo.
+2. Si no aparece: **New pull request** › en **compare** elige tu rama (en **base** debe quedar `main`).
+3. Escribe un título claro y en la descripción qué cambiaste y por qué. Pulsa **Create pull request**.
+4. A la derecha, en **Reviewers**, elige a la persona que revisará.
+
+### Saber si algo funcionó
+- Abajo de la propuesta, los **checks**: círculo amarillo = corriendo; ✔ verde = bien; ✖ rojo = falló (haz clic en **Details** para ver por qué).
+- Pestaña **Actions:** lista de todas las automatizaciones, con su resultado.
+
 ## Qué revisar
 
 1. **Checks en verde.** Abajo de la propuesta, la validación (`validar`) y, si aplica, la automatización deben estar en verde. Si alguno está en rojo, no apruebes.
