@@ -2,6 +2,12 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-10-24: corte de incendios al 23 oct y manuales
+- Datos de SERFOR al 23 oct. Desde el 20 oct, los focos Suomi NPP en Cusco cayeron más de 90 % (de unos 73 a entre 2 y 4 por día) y Cajamarca no tiene alertas activas. La lectura publicada advierte que parte de la caída puede deberse a la nubosidad y que persisten focos en otras regiones.
+- SERFOR completa sus registros con retraso: los focos Suomi NPP de Cusco al 19 oct figuran hoy como 5294 (publicamos 5260). El seguimiento conserva la cifra publicada en cada corte.
+- Corte de incendios semiautomático (consulta en el navegador más automatización) y manuales de operación en `docs/manuales/`.
+- Se subió directo a main por error, el 24 oct, sin revisión de otra persona; la regla de cuatro ojos aún no estaba activa. La automatización se agrega aparte, en la propuesta `ajustes-24oct`.
+  
 ## 2026-10-23
 
 - **Monitor de incendios forestales migrado al repositorio** (`incendios/`). Datos de SERFOR con corte al 19 de octubre de 2026 para Cusco y Cajamarca, proyección de temporada con el satélite Suomi NPP y método en `docs/incendios-metodologia.md`.
@@ -24,3 +30,4 @@ Toda corrección, cambio de método o decisión editorial que afecte lo publicad
 - **Primer corte con archivos originales (14 de octubre, 17:05).** La descarga automática desde GitHub llegó al MEF y guardó los siete archivos con su huella digital en `el-nino/fuentes/mef/2026-10-14/`. Pasaron los seis controles y coinciden cifra por cifra con la carga inicial, que se había tomado de la exportación leída en el navegador.
 - **Dato del 13 de octubre (46,9 %).** Viene de una lectura en pantalla del MEF sin archivo guardado. Ese día el PIM total era S/ 4,763.4 M; el 14 de octubre, S/ 4,751.7 M. El cambio regional más visible es Tumbes (de S/ 73.3 M a S/ 58.2 M según las dos lecturas); queda por verificar si fue una modificación presupuestaria o un error de la lectura del 13.
 - **Bitácora de hechos.** Las entradas marcadas como `prensa` en `el-nino/datos/hechos.csv` están pendientes de reemplazo por su fuente primaria.
+
