@@ -1,6 +1,7 @@
 {
-  "_ayuda": "estado: 'preliminar' mientras el comité editorial no apruebe el método y el primer corte; 'publicado' cuando lo apruebe. fecha_corte: fecha de la última consulta a SERFOR.",
+  "_ayuda": "estado: 'preliminar' mientras el comité editorial no apruebe el método y el primer corte; 'publicado' cuando lo apruebe. fecha_corte: fecha de la última consulta a SERFOR. nota_corte: lectura breve del corte, se muestra arriba de las cifras; dejar vacía si no hace falta.",
   "estado": "preliminar",
-  "fecha_corte": "2026-10-19",
-  "repositorio": "https://github.com/qhawana-peru/observatorios"
+  "fecha_corte": "2026-10-23",
+  "repositorio": "https://github.com/qhawana-peru/observatorios",
+  "nota_corte": "Desde el 20 de octubre los focos de calor detectados por Suomi NPP cayeron más de 90 % en Cusco (unos 73 por día entre el 13 y el 19, frente a 2 a 4 por día entre el 20 y el 22) y siguieron bajos en Cajamarca, en coincidencia con el inicio de las lluvias. Parte de la caída puede deberse a la nubosidad, que impide al satélite ver el fuego. El 23 de octubre volvieron a aparecer focos en Cusco y persisten en Junín, Ucayali y la costa norte. Por eso no se da la temporada por terminada."
 }

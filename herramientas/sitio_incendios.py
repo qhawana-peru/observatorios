@@ -104,7 +104,7 @@ def construir_datos(hoy: date | None = None) -> dict:
             for r in alertas if r["region"] == "Perú"}
     vigentes = pistas_vigentes(pistas, hoy)
     return {"corte": sitio["fecha_corte"], "corte_largo": fecha_larga(sitio["fecha_corte"]),
-            "aprobado": sitio.get("estado") == "publicado", "regiones": regiones, "peru": peru,
+            "aprobado": sitio.get("estado") == "publicado", "nota": sitio.get("nota_corte", ""), "regiones": regiones, "peru": peru,
             "pistas": vigentes, "pistas_total": len(pistas), "_repo": sitio.get("repositorio", "#")}
 
 

@@ -4,11 +4,14 @@ Página pública: `/incendios/` del sitio de Qhawana. Método completo: [`docs/i
 
 ## Cómo actualizar un corte
 
-1. Consulta el servicio de SERFOR desde un navegador (ver metodología) y actualiza los CSV de `datos/` con la nueva fecha de corte.
-2. Cambia `fecha_corte` en `config/sitio.json`.
-3. Agrega una fila por región a `datos/seguimiento_proyeccion.csv` con los focos Suomi NPP al nuevo corte y el rango proyectado en ese momento.
-4. Revisa `datos/pistas.csv`: cambia el estado de las pistas verificadas y agrega las nuevas con `registrada` y `vence` (30 días).
-5. Abre una propuesta de cambio. Otra persona del comité la revisa antes de unirla.
+Paso a paso en [`docs/manuales/01-corte-incendios.md`](../docs/manuales/01-corte-incendios.md). En resumen:
+
+1. Desde un navegador, la consola en la página de SERFOR corre `herramientas/serfor_consulta.js` y descarga `serfor_AAAA-MM-DD.json`.
+2. Ese archivo se sube a `cortes/` en una rama `corte-incendios-AAAA-MM-DD`.
+3. La automatización **Actualizar incendios** corre `herramientas/actualizar_incendios.py`: reescribe los CSV, registra el rango publicado en el corte anterior, agrega el nuevo corte al seguimiento y cambia la fecha en `config/sitio.json`.
+4. Una persona escribe la lectura del corte (`nota_corte`) y otra del comité revisa la propuesta.
+
+Los cortes pasados no se reescriben: SERFOR completa sus registros con días de retraso, y el seguimiento guarda lo que se publicó en cada fecha.
 
 ## Cómo se verifica una pista
 

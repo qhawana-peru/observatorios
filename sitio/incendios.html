@@ -67,6 +67,7 @@ details{background:var(--surface);border:1px solid var(--line);border-radius:12p
 details summary{cursor:pointer;font-weight:700}
 details ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
 footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:20px}
+.nota-corte{margin:14px 0 0;padding:12px 14px;border-left:4px solid var(--fire);background:color-mix(in srgb,var(--fire) 8%,transparent);border-radius:6px;line-height:1.5;max-width:70ch}
 </style>
 <div class="wrap">
   <header style="display:grid;gap:14px">
@@ -79,6 +80,7 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
     </div>
     <h1>¿Dónde y cuánto se quema?</h1>
     <p class="lede">Alertas, focos de calor y hectáreas quemadas con datos públicos de SERFOR, corte al <span id="corte">—</span>. Cada región se muestra por separado: sus cifras no se suman ni se comparan entre sí.</p>
+    <p class="nota-corte" id="nota-corte" hidden></p>
   </header>
 
   <div class="tabs" role="tablist" aria-label="Región">
@@ -171,6 +173,7 @@ const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).
 const [, mm, dd] = DATA.corte.split("-");
 const MES = ["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
 document.getElementById("corte").textContent = DATA.corte_largo;
+if (DATA.nota) { const n = document.getElementById("nota-corte"); n.textContent = "Lectura del corte: " + DATA.nota.charAt(0).toLowerCase() + DATA.nota.slice(1); n.hidden = false; }
 document.querySelectorAll(".corte-largo").forEach(e => e.textContent = DATA.corte_largo);
 document.querySelectorAll(".corte-dm").forEach(e => e.textContent = `${+dd} de ${["enero","febrero","marzo","abril","mayo","junio","julio","agosto","setiembre","octubre","noviembre","diciembre"][+mm-1]}`);
 if (DATA.aprobado) { document.getElementById("estado").textContent = "Corte aprobado por el comité"; document.getElementById("pie-estado").textContent = "Cifras aprobadas por el comité editorial de Qhawana."; }
@@ -250,8 +253,8 @@ function pintar(reg) {
   const fo = R.focos, prev = fo[fo.length - 2][1], act = fo[fo.length - 1][1];
   document.getElementById("nota-focos").textContent = `Mismo periodo cada año. 2026 tiene ${Math.round((act / prev - 1) * 100)} % más focos que 2025 (comparación válida: misma mezcla de satélites). Con años anteriores, ver "Cómo leer".`;
   barras("c-focos", fo, "focos", [fo.length - 1]);
-  document.getElementById("nota-prov").textContent = R.provincias.length ? R.provincias[0][2] : "—";
-  hbarras("c-prov", R.provincias.map(p => [p[0], p[1]]), "alertas");
+  document.getElementById("nota-prov").textContent = R.provincias.length ? R.provincias[0][2] : `Sin alertas de SERFOR en ${reg} al ${DATA.corte_largo}.`;
+  if (R.provincias.length) hbarras("c-prov", R.provincias.map(p => [p[0], p[1]]), "alertas"); else document.getElementById("c-prov").innerHTML = "";
   const ha = R.hectareas, imax = ha.reduce((b, d, i) => d[1] > ha[b][1] ? i : b, 0);
   barras("c-ha", ha, "ha", [imax]);
   const P = R.proyeccion;
@@ -260,7 +263,7 @@ function pintar(reg) {
     ["Lo que suele faltar de temporada", `+${P.p25} a +${P.p75} %`, `Mitad central de los años. Mediana: +${P.mediana} %`],
     ["Años extremos", `+${P.min} a +${P.max} %`, "El año más tranquilo y el más severo después de esta fecha"]
   ];
-  if (P.semana) items.push(["Seguimiento: última semana", `+${String(P.semana.pct).replace(".", ",")} %`, `El ${+P.semana.desde.slice(8)} ${MES[+P.semana.desde.slice(5,7)-1]} proyectamos +${P.semana.bajo} a +${P.semana.alto} % para todo el resto de la temporada.`]);
+  if (P.semana) items.push(["Seguimiento: desde el corte anterior", `+${String(P.semana.pct).replace(".", ",")} %`, `El ${+P.semana.desde.slice(8)} ${MES[+P.semana.desde.slice(5,7)-1]} proyectamos +${P.semana.bajo} a +${P.semana.alto} % para todo el resto de la temporada.`]);
   tiles("tiles-proj", items);
   curvas("c-curvas", R.curvas, R.curvas["2026"].length);
   document.getElementById("lectura").textContent = `Lectura: al ${DATA.corte_largo}, ${reg} va en el ${P.lugar}.º lugar entre ${P.anios} años comparables. Si el resto de la temporada se comporta como en la mitad central de los años anteriores, faltaría sumar entre ${P.p25} % y ${P.p75} % más focos de los ya registrados. El clima de las próximas semanas puede llevarlo fuera de ese rango.`;

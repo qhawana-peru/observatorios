@@ -1,0 +1,248 @@
+{
+ "corte": "2026-10-23",
+ "regiones": {
+  "Cusco": {
+   "alertas_estado": [
+    {
+     "clave": 2,
+     "n": 11,
+     "desde": "2026-10-23",
+     "hasta": "2026-10-23"
+    },
+    {
+     "clave": 3,
+     "n": 6,
+     "desde": "2026-10-14",
+     "hasta": "2026-10-23"
+    },
+    {
+     "clave": 4,
+     "n": 37,
+     "desde": "2026-10-09",
+     "hasta": "2026-10-20"
+    }
+   ],
+   "alertas_provincia": [
+    {
+     "clave": "ANTA",
+     "n": 30,
+     "desde": 0,
+     "hasta": 0
+    },
+    {
+     "clave": "CANAS",
+     "n": 11,
+     "desde": 0,
+     "hasta": 0
+    },
+    {
+     "clave": "CHUMBIVILCAS",
+     "n": 6,
+     "desde": 0,
+     "hasta": 0
+    },
+    {
+     "clave": "CALCA",
+     "n": 5,
+     "desde": 0,
+     "hasta": 0
+    },
+    {
+     "clave": "CANCHIS",
+     "n": 2,
+     "desde": 0,
+     "hasta": 0
+    }
+   ],
+   "focos_3d": {
+    "clave": null,
+    "n": 21,
+    "desde": "2026-10-22",
+    "hasta": "2026-10-23"
+   },
+   "focos_anual": {
+    "2024": 17893,
+    "2025": 10122,
+    "2026": 17701
+   },
+   "npp": {
+    "2012": {
+     "hasta_corte": 3040,
+     "total_anio": 3172
+    },
+    "2013": {
+     "hasta_corte": 1799,
+     "total_anio": 1986
+    },
+    "2014": {
+     "hasta_corte": 2167,
+     "total_anio": 2429
+    },
+    "2015": {
+     "hasta_corte": 3012,
+     "total_anio": 3203
+    },
+    "2016": {
+     "hasta_corte": 3875,
+     "total_anio": 4250
+    },
+    "2017": {
+     "hasta_corte": 2058,
+     "total_anio": 2196
+    },
+    "2018": {
+     "hasta_corte": 2420,
+     "total_anio": 2596
+    },
+    "2019": {
+     "hasta_corte": 2706,
+     "total_anio": 2875
+    },
+    "2020": {
+     "hasta_corte": 5171,
+     "total_anio": 6031
+    },
+    "2021": {
+     "hasta_corte": 1990,
+     "total_anio": 2198
+    },
+    "2023": {
+     "hasta_corte": 1683,
+     "total_anio": 1754
+    },
+    "2024": {
+     "hasta_corte": 5046,
+     "total_anio": 5350
+    },
+    "2025": {
+     "hasta_corte": 2952,
+     "total_anio": 3371
+    },
+    "2026": {
+     "hasta_corte": 5313,
+     "total_anio": null
+    }
+   },
+   "npp_diario": {
+    "2026-10-13": 90,
+    "2026-10-14": 130,
+    "2026-10-15": 81,
+    "2026-10-16": 54,
+    "2026-10-17": 30,
+    "2026-10-18": 58,
+    "2026-10-19": 68,
+    "2026-10-20": 2,
+    "2026-10-21": 2,
+    "2026-10-22": 4,
+    "2026-10-23": 11,
+    "2026-10-09": 66,
+    "2026-10-10": 18,
+    "2026-10-11": 30,
+    "2026-10-12": 28
+   }
+  },
+  "Cajamarca": {
+   "alertas_estado": [],
+   "alertas_provincia": [],
+   "focos_3d": {
+    "clave": null,
+    "n": 3,
+    "desde": "2026-10-22",
+    "hasta": "2026-10-22"
+   },
+   "focos_anual": {
+    "2024": 18958,
+    "2025": 3288,
+    "2026": 12272
+   },
+   "npp": {
+    "2012": {
+     "hasta_corte": 1612,
+     "total_anio": 2068
+    },
+    "2013": {
+     "hasta_corte": 961,
+     "total_anio": 1879
+    },
+    "2014": {
+     "hasta_corte": 1105,
+     "total_anio": 1727
+    },
+    "2015": {
+     "hasta_corte": 1655,
+     "total_anio": 2261
+    },
+    "2016": {
+     "hasta_corte": 1565,
+     "total_anio": 5153
+    },
+    "2017": {
+     "hasta_corte": 485,
+     "total_anio": 1142
+    },
+    "2018": {
+     "hasta_corte": 1304,
+     "total_anio": 1768
+    },
+    "2019": {
+     "hasta_corte": 650,
+     "total_anio": 889
+    },
+    "2020": {
+     "hasta_corte": 1941,
+     "total_anio": 3136
+    },
+    "2021": {
+     "hasta_corte": 588,
+     "total_anio": 895
+    },
+    "2023": {
+     "hasta_corte": 1368,
+     "total_anio": 1726
+    },
+    "2024": {
+     "hasta_corte": 5390,
+     "total_anio": 7938
+    },
+    "2025": {
+     "hasta_corte": 1009,
+     "total_anio": 2254
+    },
+    "2026": {
+     "hasta_corte": 3794,
+     "total_anio": null
+    }
+   },
+   "npp_diario": {
+    "2026-10-09": 20,
+    "2026-10-10": 72,
+    "2026-10-11": 44,
+    "2026-10-12": 6,
+    "2026-10-13": 42,
+    "2026-10-14": 22,
+    "2026-10-15": 3,
+    "2026-10-16": 14,
+    "2026-10-17": 10,
+    "2026-10-18": 2,
+    "2026-10-19": 6,
+    "2026-10-20": 16,
+    "2026-10-21": 6,
+    "2026-10-22": 4
+   }
+  }
+ },
+ "peru": {
+  "alertas": {
+   "clave": null,
+   "n": 1913,
+   "desde": "2026-10-04",
+   "hasta": "2026-10-23"
+  },
+  "focos_3d": {
+   "clave": null,
+   "n": 155,
+   "desde": "2026-10-22",
+   "hasta": "2026-10-23"
+  }
+ }
+}

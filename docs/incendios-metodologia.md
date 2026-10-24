@@ -76,3 +76,5 @@ Estados posibles en `pistas.csv`: `sin verificar`, `verificada`, `corregida`, `d
 - Los incendios en pastizales o cultivos pueden no aparecer como alerta forestal (caso de Oxamarca, pista P07).
 - Las hectáreas de 2026 no están consolidadas por SERFOR.
 - Las cifras de daños (fallecidos, viviendas, afectados) no tienen todavía fuente oficial verificada: están en las pistas.
+- La nubosidad impide al satélite detectar fuego: en época de lluvias, una caída de focos puede ser en parte falta de visibilidad.
+- SERFOR completa sus registros con días de retraso (al 23 oct, los focos Suomi NPP de Cusco al 19 oct habían subido de 5260 a 5294). Por eso los cortes pasados no se reescriben: el seguimiento conserva lo publicado en cada fecha, y las revisiones grandes se anotan en la bitácora.
