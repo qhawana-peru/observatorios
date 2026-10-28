@@ -73,6 +73,41 @@ def proyeccion(historial, seguimiento, region):
             "semana": semana}
 
 
+def sin_tildes(x: str) -> str:
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFD", x.upper()) if unicodedata.category(c) != "Mn")
+
+
+def respuesta_pp0068() -> dict:
+    """PP 0068 del último corte del MEF por departamento: gobierno regional (D2+D3) y municipalidades (D4+D5).
+    Viene del Observatorio El Niño; el programa cubre todos los peligros, incluidos los incendios."""
+    ruta = os.path.join(RAIZ, "el-nino", "datos", "ejecucion_pp0068.csv")
+    if not os.path.exists(ruta):
+        return {}
+    filas = leer_csv_ruta(ruta)
+    corte = max(r["fecha_corte"] for r in filas)
+    out = {}
+    for r in filas:
+        if r["fecha_corte"] != corte or r["archivo"] not in ("D2", "D3", "D4", "D5"):
+            continue
+        n = r["nombre"]
+        if r["archivo"] in ("D2", "D3"):
+            if "DEPARTAMENTO DE " not in n:
+                continue  # Lima Metropolitana y Callao no son gobiernos regionales de departamento
+            dep, k = n.split("DEPARTAMENTO DE ")[1], "gr"
+        else:
+            dep, k = n, "mu"
+        o = out.setdefault(sin_tildes(dep), {"corte": corte, "gr": [0, 0], "mu": [0, 0]})
+        o[k][0] += int(r["pim"])
+        o[k][1] += int(r["devengado"])
+    return out
+
+
+def leer_csv_ruta(ruta):
+    with open(ruta, encoding="utf-8", newline="") as f:
+        return list(csv.DictReader(f))
+
+
 def construir_datos(hoy: date | None = None) -> dict:
     hoy = hoy or date.today()
     with open(os.path.join(INC, "config", "sitio.json"), encoding="utf-8") as f:
@@ -103,9 +138,18 @@ def construir_datos(hoy: date | None = None) -> dict:
     peru = {r["indicador"]: {"v": int(r["valor"]), "periodo": r["periodo"]}
             for r in alertas if r["region"] == "Perú"}
     vigentes = pistas_vigentes(pistas, hoy)
+    nacional = []
+    ruta_dep = os.path.join(INC, "datos", "serfor_departamentos.csv")
+    if os.path.exists(ruta_dep):
+        resp = respuesta_pp0068()
+        for r in leer_csv_ruta(ruta_dep):
+            p = resp.get(sin_tildes(r["departamento"]))
+            nacional.append({"dep": r["departamento"], "al": int(r["alertas"]), "act": int(r["alertas_activas"]),
+                             "f3": int(r["focos_3d"]), "fa": [int(r["focos_anio_menos2"]), int(r["focos_anio_menos1"]), int(r["focos_anio"])],
+                             "per": r["periodo_anual"], "pp": p})
     return {"corte": sitio["fecha_corte"], "corte_largo": fecha_larga(sitio["fecha_corte"]),
             "aprobado": sitio.get("estado") == "publicado", "nota": sitio.get("nota_corte", ""), "regiones": regiones, "peru": peru,
-            "pistas": vigentes, "pistas_total": len(pistas), "_repo": sitio.get("repositorio", "#")}
+            "nacional": nacional, "pistas": vigentes, "pistas_total": len(pistas), "_repo": sitio.get("repositorio", "#")}
 
 
 def envolver(plantilla: str, descripcion: str) -> str:
@@ -129,7 +173,7 @@ def construir(salida: str, hoy: date | None = None) -> dict:
     destino = os.path.join(salida, "incendios")
     os.makedirs(os.path.join(destino, "datos"), exist_ok=True)
     with open(os.path.join(destino, "index.html"), "w", encoding="utf-8") as f:
-        f.write(envolver(html, "Dónde y cuánto se quema en Cusco y Cajamarca, con datos públicos de SERFOR, "
+        f.write(envolver(html, "Dónde y cuánto se quema en el Perú, con detalle de Cusco y Cajamarca y datos públicos de SERFOR, "
                                "y qué cifras de prensa faltan verificar."))
     for nombre in os.listdir(os.path.join(INC, "datos")):
         if nombre.endswith(".csv"):
@@ -138,7 +182,7 @@ def construir(salida: str, hoy: date | None = None) -> dict:
         portada = f.read().replace("__REPO__", repo).replace("__CORTE_INCENDIOS__", datos["corte_largo"])
     with open(os.path.join(salida, "index.html"), "w", encoding="utf-8") as f:
         f.write(envolver(portada, "Qhawana: observatorios ciudadanos con datos públicos sobre incendios "
-                                  "forestales, El Niño y seguridad en el Perú."))
+                                  "forestales y El Niño en el Perú."))
     return datos
 
 

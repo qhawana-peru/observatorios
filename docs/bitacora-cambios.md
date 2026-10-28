@@ -10,6 +10,7 @@ Toda corrección, cambio de método o decisión editorial que afecte lo publicad
 - **ENFEN N.º 18 (16 oct) registrado.** Reemplaza la fila "próximo comunicado", que tenía fecha del 15. Pronóstico por región actualizado: caudales del Rímac y el Chillón sobre lo normal desde diciembre. Se agrega la fila del N.º 19 (30 oct).
 - **IGP, informe técnico 2026-08 (14 set):** el ICEN de julio llegó a 3,38 °C. No se publica su categoría, porque el informe la rotula "cálida fuerte" aunque el valor pasa de 3,0. Está por aclarar con el IGP.
 - Manual nuevo: `docs/manuales/06-fuentes-peligro-y-riesgo.md`.
+- **Incendios: panorama de todas las regiones.** La consulta a SERFOR (`serfor_consulta.js`) ahora trae alertas por estado, focos de 3 días y focos anuales de todos los departamentos, con pocas consultas agrupadas. La página muestra una tabla en orden alfabético (sin ranking, como pide el método) con el PP 0068 al lado. Aparece desde el primer corte que se haga con el script nuevo; los cortes anteriores no traen esos datos. La proyección sigue solo para Cusco y Cajamarca.
 
 ## 2026-10-24: corte de incendios al 23 oct y manuales
 - Datos de SERFOR al 23 oct. Desde el 20 oct, los focos Suomi NPP en Cusco cayeron más de 90 % (de unos 73 a entre 2 y 4 por día) y Cajamarca no tiene alertas activas. La lectura publicada advierte que parte de la caída puede deberse a la nubosidad y que persisten focos en otras regiones.

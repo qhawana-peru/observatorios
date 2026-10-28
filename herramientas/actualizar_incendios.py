@@ -86,6 +86,54 @@ def rango_publicado(historial: list[dict], region: str) -> tuple[int, int]:
     return round(cuantil(previas, .25)), round(cuantil(previas, .75))
 
 
+CAMPOS_DEP = ["fecha_corte", "departamento", "alertas", "alertas_activas", "alertas_desde", "alertas_hasta",
+              "focos_3d", "focos_anio_menos2", "focos_anio_menos1", "focos_anio", "periodo_anual"]
+
+
+def sin_tildes(x: str) -> str:
+    import unicodedata
+    return "".join(c for c in unicodedata.normalize("NFD", x.upper()) if unicodedata.category(c) != "Mn")
+
+
+def nombre_departamento(x: str) -> str:
+    n = x.title().replace(" De ", " de ").replace(" Del ", " del ")
+    return {"Apurimac": "Apurímac", "Ancash": "Áncash", "Huanuco": "Huánuco", "Junin": "Junín",
+            "San Martin": "San Martín"}.get(n, n)
+
+
+def panorama(D: dict, corte: date) -> list[dict]:
+    """Una fila por departamento: alertas recientes (activas = alertadas o confirmadas), focos de 3 días y
+    focos del 1 de enero a la fecha del corte en tres años. Departamentos sin nada no aparecen."""
+    anio = corte.year
+    filas = {}
+
+    def f(dep):
+        return filas.setdefault(dep, {"fecha_corte": corte.isoformat(), "departamento": nombre_departamento(dep),
+                                      "alertas": 0, "alertas_activas": 0, "alertas_desde": "", "alertas_hasta": "",
+                                      "focos_3d": 0, "focos_anio_menos2": 0, "focos_anio_menos1": 0, "focos_anio": 0,
+                                      "periodo_anual": f"1 ene al {corte.day} {MES_CORTO[corte.month - 1]}"})
+    for a in D["alertas_estado"]:
+        if not a["dep"]:
+            continue
+        r = f(a["dep"])
+        r["alertas"] += a["n"]
+        if a["estado"] in (1, 2):
+            r["alertas_activas"] += a["n"]
+        if a["desde"] and (not r["alertas_desde"] or a["desde"] < r["alertas_desde"]):
+            r["alertas_desde"] = a["desde"]
+        if a["hasta"] and a["hasta"] > r["alertas_hasta"]:
+            r["alertas_hasta"] = a["hasta"]
+    for dep, n in D["focos_3d"].items():
+        if dep:
+            f(dep)["focos_3d"] = n
+    for y, campo in ((anio - 2, "focos_anio_menos2"), (anio - 1, "focos_anio_menos1"), (anio, "focos_anio")):
+        for dep, n in D["focos_anual"].get(str(y), D["focos_anual"].get(y, {})).items():
+            if dep:
+                f(dep)[campo] = n
+    # Orden alfabético a propósito: el método no compara regiones entre sí (docs/incendios-metodologia.md).
+    return sorted(filas.values(), key=lambda r: sin_tildes(r["departamento"]))
+
+
 def actualizar(consulta: dict, nota: str | None = None) -> dict:
     corte = d(consulta["corte"])
     anio = corte.year
@@ -135,6 +183,10 @@ def actualizar(consulta: dict, nota: str | None = None) -> dict:
               "satelites": "todos", "focos": n}
              for reg, R in regiones.items() for y, n in sorted(R["focos_anual"].items())]
     escribir("serfor_focos_anual.csv", focos, list(focos[0]))
+
+    # 3b. Panorama nacional por departamento (cortes desde el 28 oct 2026; los anteriores no lo traen)
+    if "departamentos" in consulta:
+        escribir("serfor_departamentos.csv", panorama(consulta["departamentos"], corte), CAMPOS_DEP)
 
     # 4. Seguimiento: se fija el rango publicado en el corte anterior y se agrega el nuevo corte
     historial_previo = leer("serfor_historial_npp.csv")
