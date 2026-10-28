@@ -13,6 +13,7 @@ Para quien opera los observatorios, incluida la persona que los fundó. Cada man
 | Pistas por verificar | Cuando llega una verificación; revisión mensual | 10 min por pista | Comité editorial | [03-pistas.md](03-pistas.md) |
 | Revisar y aprobar una propuesta | Cada vez que hay una | 10–20 min | Comité editorial | [04-revisar-y-publicar.md](04-revisar-y-publicar.md) |
 | Personas, permisos y seguridad | Altas, bajas y revisión trimestral | 15 min | Administración | [05-administracion.md](05-administracion.md) |
+| ENFEN, IGP y CENEPRED (El Niño) | Quincenal, mensual y por versión | 10 min a 2 h | Peligro y riesgo | [06-fuentes-peligro-y-riesgo.md](06-fuentes-peligro-y-riesgo.md) |
 
 Documentos de fondo: la guía de administración (puesta en marcha de las cuentas), la guía de descarga del MEF, el documento técnico de El Niño y la metodología de incendios (`docs/incendios-metodologia.md`).
 

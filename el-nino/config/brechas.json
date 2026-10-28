@@ -1,0 +1,27 @@
+{
+  "_ayuda": "Territorios de la sección 'Brechas: exposición frente a respuesta'. Cada territorio junta la exposición del CENEPRED (por departamento, columna 'cenepred') con el presupuesto del PP 0068 (pliegos del nivel regional, 'pliegos', y municipalidades sumadas por departamento, 'municipal', con el nombre tal como lo trae el archivo D4 del MEF). 'plan' usa los nombres de contexto.json. 'emergencias' usa los nombres de emergencias.json; vacío si el territorio está fuera del piloto. Método en docs/el-nino-brechas.md.",
+  "revision": {
+    "estado": "sin_comite",
+    "texto": "Sección nueva, sin revisión del comité editorial. Las cifras del CENEPRED se transcribieron con lectura asistida por IA y se comprobaron sumando cada tabla contra su total impreso; falta que una persona las coteje con el PDF.",
+    "fecha": "2026-10-27"
+  },
+  "escenario_principal": "A",
+  "escenario_secundario": "B",
+  "territorios": [
+    {"id": "lima", "nombre": "Lima y Callao", "detalle": "Lima Metropolitana, Lima provincias y Callao",
+     "cenepred": ["LIMA", "CALLAO"], "pliegos": ["465", "463", "464"],
+     "municipal": ["LIMA", "PROVINCIA CONSTITUCIONAL DEL CALLAO"],
+     "plan": ["Lima Metropolitana", "Lima", "Callao"], "pronostico": "Lima Metropolitana", "emergencias": [],
+     "nota": "El CENEPRED reporta Lima como un solo departamento: no separa Lima Metropolitana de Lima provincias. El MEF sí los separa (Municipalidad Metropolitana y Gobierno Regional de Lima), por eso aquí se suman."},
+    {"id": "piura", "nombre": "Piura", "cenepred": ["PIURA"], "pliegos": ["457"], "municipal": ["PIURA"],
+     "plan": ["Piura"], "pronostico": "Piura", "emergencias": ["Piura"]},
+    {"id": "tumbes", "nombre": "Tumbes", "cenepred": ["TUMBES"], "pliegos": ["461"], "municipal": ["TUMBES"],
+     "plan": ["Tumbes"], "pronostico": "Tumbes", "emergencias": ["Tumbes"]},
+    {"id": "lambayeque", "nombre": "Lambayeque", "cenepred": ["LAMBAYEQUE"], "pliegos": ["452"], "municipal": ["LAMBAYEQUE"],
+     "plan": ["Lambayeque"], "pronostico": "Lambayeque", "emergencias": ["Lambayeque"]},
+    {"id": "la-libertad", "nombre": "La Libertad", "cenepred": ["LA LIBERTAD"], "pliegos": ["451"], "municipal": ["LA LIBERTAD"],
+     "plan": ["La Libertad"], "pronostico": "La Libertad", "emergencias": ["La Libertad"]},
+    {"id": "ica", "nombre": "Ica", "cenepred": ["ICA"], "pliegos": ["449"], "municipal": ["ICA"],
+     "plan": ["Ica"], "pronostico": "Ica", "emergencias": []}
+  ]
+}

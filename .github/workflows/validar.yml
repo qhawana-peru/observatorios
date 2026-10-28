@@ -36,6 +36,9 @@ jobs:
       - name: Controles de la tabla de emergencias
         run: python herramientas/validar_emergencias.py
 
+      - name: Controles de la exposición del CENEPRED
+        run: python herramientas/validar_cenepred.py
+
       - name: Buscar cortes nuevos o modificados
         id: cortes
         run: |

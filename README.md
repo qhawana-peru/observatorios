@@ -20,7 +20,6 @@ De nadie en particular. Es un trabajo colectivo de las personas que deciden suma
 | --- | --- | --- |
 | **El Niño** (`el-nino/`) | ¿Qué hizo el Estado con el aviso que tuvo antes del Fenómeno El Niño 2026-2027? | En operación (fase 1) |
 | **Incendios forestales** (`incendios/`) | ¿Dónde y cuánto se quema, y qué tan lejos está el fin de la temporada? | Prototipo (Cusco y Cajamarca), con pistas por verificar |
-| Contraste (criminalidad) | ¿Por qué las fuentes oficiales no coinciden, y qué compra el presupuesto de seguridad? | En diseño |
 
 ## El sitio
 
