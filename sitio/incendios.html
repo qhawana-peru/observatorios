@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
-/* Layout: cabecera → selector de región (las regiones no se mezclan) → lo que registra SERFOR → proyección (marco punteado) → pistas por verificar (zona aparte) → cómo leer → pie */
+/* Layout: cabecera → panorama nacional (todas las regiones, orden alfabético, sin ranking) → selector de región (las regiones no se mezclan) → lo que registra SERFOR → proyección (marco punteado) → pistas por verificar (zona aparte) → cómo leer → pie */
 :root{
   --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
   --fire:#c2410c; --fire-soft:#fde3d3; --ash:#b7c4c9; --sea:#11708a; --warn:#9a5b00; --warn-soft:#fbefd6; --alert:#b4232f;
@@ -68,6 +68,18 @@ details summary{cursor:pointer;font-weight:700}
 details ul{margin:10px 0 0;padding-left:20px;display:grid;gap:6px}
 footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px solid var(--line);padding-top:20px}
 .nota-corte{margin:14px 0 0;padding:12px 14px;border-left:4px solid var(--fire);background:color-mix(in srgb,var(--fire) 8%,transparent);border-radius:6px;line-height:1.5;max-width:70ch}
+
+/* panorama nacional */
+.nac-tools{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;font-size:.92rem}
+.nac-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.nac{width:100%;border-collapse:collapse;font-size:.9rem;min-width:620px}
+.nac th,.nac td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);font-variant-numeric:tabular-nums}
+.nac th:first-child,.nac td:first-child{text-align:left}
+.nac th{font-size:.78rem;color:var(--muted);font-weight:700;vertical-align:bottom}
+.nac tr.on td:first-child{font-weight:700}
+.nac .act{color:var(--fire);font-weight:700}
+.nac .up{color:var(--fire)} .nac .down{color:var(--sea)}
+.nac-vacio{padding:16px 18px;border:2px dashed var(--line);border-radius:var(--r);max-width:72ch}
 </style>
 <div class="wrap">
   <header style="display:grid;gap:14px">
@@ -79,9 +91,17 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
       <span class="badge" id="estado">Versión preliminar</span>
     </div>
     <h1>¿Dónde y cuánto se quema?</h1>
-    <p class="lede">Alertas, focos de calor y hectáreas quemadas con datos públicos de SERFOR, corte al <span id="corte">—</span>. Cada región se muestra por separado: sus cifras no se suman ni se comparan entre sí.</p>
+    <p class="lede">Alertas, focos de calor y hectáreas quemadas con datos públicos de SERFOR, corte al <span id="corte">—</span>. Cada región se compara solo con sus propios años anteriores, no con otras regiones.</p>
     <p class="nota-corte" id="nota-corte" hidden></p>
   </header>
+
+  <section aria-labelledby="h-nac" id="nacional">
+    <div class="sec-head">
+      <h2 id="h-nac">Todas las regiones</h2>
+      <p class="muted small">Departamentos con alertas o focos de calor en el sistema de SERFOR, en orden alfabético. Las regiones no se ordenan de mayor a menor porque su tamaño y su vegetación son muy distintos: cada una se compara con su propio año anterior. Al lado va lo que se puede medir de la respuesta: el presupuesto de prevención y emergencias (PP 0068) de su gobierno regional y sus municipalidades.</p>
+    </div>
+    <div id="nac-box"></div>
+  </section>
 
   <div class="tabs" role="tablist" aria-label="Región">
     <button class="tab" role="tab" id="tab-Cusco" aria-selected="true" data-reg="Cusco">Cusco</button>
@@ -295,6 +315,29 @@ function pistas(reg) {
 let actual = location.hash === "#cajamarca" ? "Cajamarca" : "Cusco";
 document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => { actual = b.dataset.reg; pintar(actual); }));
 pintar(actual);
+
+/* --- panorama nacional --- */
+(function () {
+  const box = document.getElementById("nac-box"), N = DATA.nacional || [];
+  if (!N.length) { box.innerHTML = `<p class="nac-vacio small">El panorama de todas las regiones aparece desde el próximo corte de SERFOR (la consulta se amplió el 28 de octubre de 2026).</p>`; return; }
+  const y = +DATA.corte.slice(0, 4), per = N[0].per;
+  const pct = (d, p) => p > 0 ? (d / p * 100).toFixed(1).replace(".", ",") + " %" : "—";
+  const vs = (a, b) => b > 0 ? Math.round((a / b - 1) * 100) : null;
+  let solo = true;
+  const pintarNac = () => {
+    const filas = N.filter(r => !solo || r.act > 0 || r.f3 > 0);
+    box.innerHTML = `<div class="nac-tools"><label><input type="checkbox" id="nac-solo" ${solo ? "checked" : ""}> Solo regiones con alertas activas o focos en los últimos 3 días</label><span class="muted small">${filas.length} de ${N.length} departamentos</span></div>
+    <div class="nac-wrap"><table class="nac"><thead><tr><th>Departamento</th><th>Alertas activas<br><span class="muted">(sin verificar o confirmadas)</span></th><th>Focos, últimos 3 días</th><th>Focos ${y}<br><span class="muted">${per}</span></th><th>Frente a ${y - 1}</th><th>PP 0068 usado<br><span class="muted">gob. regional</span></th><th>PP 0068 usado<br><span class="muted">municipalidades</span></th></tr></thead><tbody>
+    ${filas.map(r => { const c = vs(r.fa[2], r.fa[1]);
+      return `<tr class="${r.act ? "on" : ""}"><td>${r.dep}</td><td class="${r.act ? "act" : ""}">${f(r.act)}</td><td>${f(r.f3)}</td><td>${f(r.fa[2])}</td>
+      <td class="${c > 0 ? "up" : c < 0 ? "down" : ""}">${c == null ? "—" : (c > 0 ? "+" : "") + c + " %"}</td>
+      <td>${r.pp ? pct(r.pp.gr[1], r.pp.gr[0]) : "—"}</td><td>${r.pp ? pct(r.pp.mu[1], r.pp.mu[0]) : "—"}</td></tr>`; }).join("")}
+    </tbody></table></div>
+    <p class="muted small">Fuentes: SERFOR, capas 0, 2 y 3 del servicio de incendios (todos los satélites), corte al ${DATA.corte.split("-").reverse().join("/")}. MEF, Consulta Amigable, PP 0068${N.find(r => r.pp) ? ` al ${N.find(r => r.pp).pp.corte.split("-").reverse().join("/")}` : ""}: el programa cubre todos los peligros, no solo incendios. Lima: Gobierno Regional de Lima (provincias); Lima Metropolitana y Callao no figuran en esta columna.</p>`;
+    document.getElementById("nac-solo").onchange = e => { solo = e.target.checked; pintarNac(); };
+  };
+  pintarNac();
+})();
 let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => pintar(actual), 150); });
 matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => pintar(actual));
 </script>

@@ -33,6 +33,20 @@
   const out = { corte, consultado: new Date().toISOString(), servicio: BASE, regiones: {}, peru: {} };
   out.peru.alertas = (await agrupar(0, "1=1"))[0];
   out.peru.focos_3d = (await agrupar(2, "1=1"))[0];
+  // Panorama nacional: todos los departamentos, con pocas consultas agrupadas por NOMDEP.
+  console.log("Consultando todos los departamentos …");
+  const porDep = async (capa, where, campos) => (await q(capa, where,
+    `&outStatistics=${stats}&groupByFieldsForStatistics=${campos}`)).features.map(f => f.attributes);
+  out.departamentos = { alertas_estado: [], focos_3d: {}, focos_anual: {} };
+  for (const a of await porDep(0, "1=1", "NOMDEP,ESTADO"))
+    out.departamentos.alertas_estado.push({ dep: a.NOMDEP, estado: a.ESTADO, n: a.n,
+      desde: a.desde ? iso(a.desde) : null, hasta: a.hasta ? iso(a.hasta) : null });
+  for (const a of await porDep(2, "1=1", "NOMDEP")) out.departamentos.focos_3d[a.NOMDEP] = a.n;
+  for (const y of [anio - 2, anio - 1, anio]) {
+    out.departamentos.focos_anual[y] = {};
+    for (const a of await porDep(3, `FECHA>=DATE '${y}-01-01' AND FECHA<DATE '${manana(y)}'`, "NOMDEP"))
+      out.departamentos.focos_anual[y][a.NOMDEP] = a.n;
+  }
   for (const [dep, nombre] of Object.entries(REGIONES)) {
     console.log("Consultando", nombre, "…");
     const R = {};
