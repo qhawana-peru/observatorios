@@ -184,7 +184,7 @@ def actualizar(consulta: dict, nota: str | None = None) -> dict:
              for reg, R in regiones.items() for y, n in sorted(R["focos_anual"].items())]
     escribir("serfor_focos_anual.csv", focos, list(focos[0]))
 
-    # 3b. Panorama nacional por departamento (cortes desde el 28 oct 2026; los anteriores no lo traen)
+    # 3b. Panorama nacional por departamento (cortes desde el 27 oct 2026; los anteriores no lo traen)
     if "departamentos" in consulta:
         escribir("serfor_departamentos.csv", panorama(consulta["departamentos"], corte), CAMPOS_DEP)
 

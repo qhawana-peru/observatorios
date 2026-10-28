@@ -1,7 +1,7 @@
 {
   "_ayuda": "estado: 'preliminar' mientras el comité editorial no apruebe el método y el primer corte; 'publicado' cuando lo apruebe. fecha_corte: fecha de la última consulta a SERFOR. nota_corte: lectura breve del corte, se muestra arriba de las cifras; dejar vacía si no hace falta.",
   "estado": "preliminar",
-  "fecha_corte": "2026-10-26",
+  "fecha_corte": "2026-10-27",
   "repositorio": "https://github.com/qhawana-peru/observatorios",
-  "nota_corte": "Tras la caída del 20 al 22 de octubre, los focos de calor volvieron a aparecer. En Cusco, Suomi NPP detectó 22 focos el 23 de octubre y 24 el 25 (frente a 2 a 4 por día entre el 20 y el 22), y SERFOR registra 41 alertas confirmadas aún sin controlar; la provincia con más alertas es Calca (37). En Cajamarca aparecieron 22 alertas sin verificar, en Cutervo, Jaén y San Ignacio. En todo el país, la capa de focos de los últimos días suma 1538, la mayoría en la Amazonía (Ucayali, Madre de Dios y Loreto). La temporada no ha terminado."
+  "nota_corte": "En Cusco, las 61 alertas recientes figuran como extinguidas y el satélite Suomi NPP detectó 76 focos en los últimos 7 días, frente a 423 en los 7 días previos. En Cajamarca hay 28 alertas sin verificar, sobre todo en Cutervo y San Ignacio, y los focos de la semana subieron de 73 a 104. En el resto del país, las alertas activas se concentran en Loreto (31) y Ucayali (25), y la mayoría de los focos de los últimos días está en la Amazonía. Con las lluvias, las nubes pueden ocultar focos al satélite: la temporada no ha terminado."
 }

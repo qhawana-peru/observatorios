@@ -1,15 +1,15 @@
 fecha_corte,region,indicador,descripcion,valor,periodo,capa_serfor
-2026-10-26,Cusco,alertas,Alertas recientes en el sistema,61,9 al 25 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cusco,alertado,Sin verificar (alertado),0,9 al 25 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cusco,confirmado,Confirmadas,41,9 al 25 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cusco,controlado,Controladas,8,9 al 25 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cusco,extinguido,Extinguidas,12,9 al 25 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cusco,focos_3d,Focos de calor,67,25 al 26 de octubre,2: Focos de Calor
-2026-10-26,Cajamarca,alertas,Alertas recientes en el sistema,23,24 al 26 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cajamarca,alertado,Sin verificar (alertado),22,24 al 26 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cajamarca,confirmado,Confirmadas,0,24 al 26 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cajamarca,controlado,Controladas,0,24 al 26 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cajamarca,extinguido,Extinguidas,1,24 al 26 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Cajamarca,focos_3d,Focos de calor,63,25 al 26 de octubre,2: Focos de Calor
-2026-10-26,Perú,alertas,Alertas recientes en todo el país,1735,4 al 26 de octubre,0: Alerta de Incendio Forestal
-2026-10-26,Perú,focos_3d,Focos de calor en todo el país,1538,24 al 26 de octubre,2: Focos de Calor
+2026-10-27,Cusco,alertas,Alertas recientes en el sistema,61,9 al 25 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cusco,alertado,Sin verificar (alertado),0,9 al 25 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cusco,confirmado,Confirmadas,0,9 al 25 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cusco,controlado,Controladas,0,9 al 25 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cusco,extinguido,Extinguidas,61,9 al 25 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cusco,focos_3d,Focos de calor,2,25 al 26 de octubre,2: Focos de Calor
+2026-10-27,Cajamarca,alertas,Alertas recientes en el sistema,29,24 al 26 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cajamarca,alertado,Sin verificar (alertado),28,24 al 26 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cajamarca,confirmado,Confirmadas,0,24 al 26 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cajamarca,controlado,Controladas,0,24 al 26 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cajamarca,extinguido,Extinguidas,1,24 al 26 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Cajamarca,focos_3d,Focos de calor,77,25 al 27 de octubre,2: Focos de Calor
+2026-10-27,Perú,alertas,Alertas recientes en todo el país,1813,4 al 27 de octubre,0: Alerta de Incendio Forestal
+2026-10-27,Perú,focos_3d,Focos de calor en todo el país,1489,25 al 27 de octubre,2: Focos de Calor

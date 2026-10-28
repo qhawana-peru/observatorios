@@ -2,6 +2,10 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-10-27 (noche): corte de incendios con todas las regiones
+- Primer corte con el panorama nacional (SERFOR al 27 oct, 23:12). La consulta la corrió Claude en el navegador integrado de la computadora de Pepe; los totales por departamento cuadran con los nacionales (1 813 alertas y 1 489 focos de 3 días).
+- Cusco: las 61 alertas recientes figuran como extinguidas (el 26 oct había 41 confirmadas). Cajamarca: 28 alertas sin verificar.
+
 ## 2026-10-27: brechas, ENFEN N.º 18, IGP y retiro de Contraste
 - **Contraste retirado del sitio y del README** por decisión de Pepe. Su página de presentación usaba cifras de prensa como valores. Se retoma cuando El Niño tenga equipo.
 - **Nueva sección "Brechas" en El Niño**, para Lima y Callao, Piura, Tumbes, Lambayeque, La Libertad e Ica: población expuesta según el CENEPRED frente a la respuesta medible (PP 0068, plan de gestión del riesgo, emergencias). **Publicada sin revisión del comité**, con un recuadro que lo dice. Método en `docs/el-nino-brechas.md`.

@@ -8,7 +8,7 @@ Versión 1 · 23 de octubre de 2026 · Estado: preliminar, pendiente de aprobaci
 
 Cada región se presenta por separado. Sus cifras no se suman ni se comparan entre sí.
 
-**Panorama de todas las regiones (desde el 28 oct 2026).** Una tabla con todos los departamentos que tienen alertas o focos en el sistema de SERFOR. Va en orden alfabético y no en un ranking, para respetar la regla anterior: cada departamento se compara solo con su propio año anterior (focos del 1 de enero a la fecha del corte, todos los satélites). "Alertas activas" son las que están en estado 1 (sin verificar) o 2 (confirmada). La proyección de fin de temporada sigue solo para Cusco y Cajamarca, porque necesita revisar la serie Suomi NPP de cada región. Al lado se muestra el PP 0068 del último corte del MEF (gobierno regional y municipalidades del departamento), que cubre todos los peligros y no solo incendios. Archivo: `serfor_departamentos.csv`.
+**Panorama de todas las regiones (desde el 27 oct 2026).** Una tabla con todos los departamentos que tienen alertas o focos en el sistema de SERFOR. Va en orden alfabético y no en un ranking, para respetar la regla anterior: cada departamento se compara solo con su propio año anterior (focos del 1 de enero a la fecha del corte, todos los satélites). "Alertas activas" son las que están en estado 1 (sin verificar) o 2 (confirmada). La proyección de fin de temporada sigue solo para Cusco y Cajamarca, porque necesita revisar la serie Suomi NPP de cada región. Al lado se muestra el PP 0068 del último corte del MEF (gobierno regional y municipalidades del departamento), que cubre todos los peligros y no solo incendios. Archivo: `serfor_departamentos.csv`.
 
 ## Fuente primaria: SERFOR
 
