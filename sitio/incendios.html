@@ -319,7 +319,7 @@ pintar(actual);
 /* --- panorama nacional --- */
 (function () {
   const box = document.getElementById("nac-box"), N = DATA.nacional || [];
-  if (!N.length) { box.innerHTML = `<p class="nac-vacio small">El panorama de todas las regiones aparece desde el próximo corte de SERFOR (la consulta se amplió el 28 de octubre de 2026).</p>`; return; }
+  if (!N.length) { box.innerHTML = `<p class="nac-vacio small">El panorama de todas las regiones aparece desde el próximo corte de SERFOR (la consulta se amplió el 27 de octubre de 2026).</p>`; return; }
   const y = +DATA.corte.slice(0, 4), per = N[0].per;
   const pct = (d, p) => p > 0 ? (d / p * 100).toFixed(1).replace(".", ",") + " %" : "—";
   const vs = (a, b) => b > 0 ? Math.round((a / b - 1) * 100) : null;
