@@ -1,20 +1,21 @@
 {
   "_fuentes": {
-    "pronostico": "Comunicado Oficial ENFEN N° 17-2026 (28 set 2026)",
+    "pronostico": "Comunicado Oficial ENFEN N° 18-2026 (16 oct 2026)",
     "plan": "El Peruano, 27 jun 2026: el Ejecutivo informa los gobiernos regionales con plan de gestión del riesgo aprobado"
   },
   "pronostico": {
-    "Tumbes": "Lluvias y caudales sobre lo normal (río Tumbes).",
-    "Piura": "Lluvias sobre lo normal; suben los ríos Chira y Piura.",
-    "Lambayeque": "Lluvias sobre lo normal; sube el río La Leche.",
-    "La Libertad": "Lluvias sobre lo normal; sube el río Jequetepeque.",
+    "Tumbes": "Lluvias sobre lo normal; caudal del río Tumbes sobre lo normal desde noviembre.",
+    "Piura": "Lluvias sobre lo normal; ríos Chira y Piura sobre lo normal desde noviembre.",
+    "Lambayeque": "Lluvias sobre lo normal; río La Leche sobre lo normal desde noviembre.",
+    "La Libertad": "Lluvias sobre lo normal; río Jequetepeque sobre lo normal desde noviembre.",
     "Cajamarca": "Valles andinos del norte con lluvias sobre lo normal (cuenca del Jequetepeque).",
     "Áncash": "Costa con lluvias sobre lo normal.",
-    "Lima": "Costa central con lluvias sobre lo normal.",
-    "Lima Metropolitana": "Costa central con lluvias sobre lo normal.",
-    "Callao": "Costa central con lluvias sobre lo normal.",
-    "Arequipa": "Sierra sur con lluvias normales a inferiores.",
-    "Puno": "Lluvias y caudales bajo lo normal: riesgo de sequía."
+    "Lima": "Costa central con lluvias sobre lo normal en el verano 2027.",
+    "Lima Metropolitana": "Costa central con lluvias sobre lo normal en el verano 2027; ríos Rímac y Chillón sobre lo normal desde diciembre.",
+    "Callao": "Costa central con lluvias sobre lo normal en el verano 2027; ríos Rímac y Chillón sobre lo normal desde diciembre.",
+    "Arequipa": "Caudales de normales a inferiores.",
+    "Puno": "Lluvias y caudales bajo lo normal: riesgo de sequía.",
+    "Ica": "Caudales de normales a superiores en los ríos de Ica."
   },
   "plan_aprobado": [
     "Áncash",

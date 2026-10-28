@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
-/* Layout: cabecera con el nombre y qué es Qhawana → tres tarjetas ilustradas (un observatorio cada una) → cómo sumarse → principios → pie */
+/* Layout: cabecera con el nombre y qué es Qhawana → dos tarjetas ilustradas (un observatorio cada una) → cómo sumarse → principios → pie */
 :root{
   --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
   --sea:#11708a; --sea-soft:#d5ebf1; --sun:#c2560f; --sun-soft:#fbe6d6;
@@ -61,7 +61,6 @@ a.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px -18px rgb(13 42 5
 a.card:hover .go span{transform:translateX(4px)}
 .card.fuego{--accent:var(--fire);--soft:var(--fire-soft)}
 .card.nino{--accent:var(--sea);--soft:var(--sea-soft)}
-.card.contraste{--accent:var(--dusk);--soft:var(--dusk-soft)}
 .card.pronto{border-style:dashed}
 
 /* súmate */
@@ -140,23 +139,6 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
         </div>
       </a>
 
-      <a class="card contraste pronto" href="__REPO__#observatorios">
-        <div class="art" aria-hidden="true">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
-            <rect width="320" height="180" fill="var(--soft)"/>
-            <g opacity=".85"><rect x="70" y="70" width="34" height="80" rx="6" fill="var(--accent)" opacity=".35"/><rect x="112" y="46" width="34" height="104" rx="6" fill="var(--accent)" opacity=".7"/>
-            <rect x="178" y="92" width="34" height="58" rx="6" fill="var(--accent)" opacity=".35"/><rect x="220" y="58" width="34" height="92" rx="6" fill="var(--accent)" opacity=".7"/></g>
-            <path d="M64 150h196" stroke="var(--accent)" stroke-width="2" opacity=".6"/>
-            <g transform="translate(150 52)"><circle r="26" fill="var(--surface)" stroke="var(--ink)" stroke-width="4" opacity=".9"/><path d="M18 18l22 22" stroke="var(--ink)" stroke-width="7" stroke-linecap="round"/><text x="0" y="8" text-anchor="middle" font-weight="800" font-size="24" fill="var(--accent)" style="font-family:var(--display)">≠</text></g>
-          </svg>
-        </div>
-        <div class="txt">
-          <span class="chip">En diseño</span>
-          <h3>Contraste</h3>
-          <p class="q">¿Por qué las fuentes oficiales sobre criminalidad no coinciden, y qué compra el presupuesto de seguridad?</p>
-          <p class="go">Ver en qué estamos <span aria-hidden="true">→</span></p>
-        </div>
-      </a>
 
     </div>
   </section>

@@ -10,6 +10,8 @@ Lee:
   el-nino/datos/emergencias.csv        emergencias del COEN-INDECI (piloto costa norte)
   el-nino/config/emergencias.json      alcance de esa tabla y declaratoria vigente
   el-nino/config/contexto.json         pronóstico por región y planes aprobados
+  el-nino/datos/exposicion_cenepred.csv  población expuesta según los escenarios del CENEPRED
+  el-nino/config/brechas.json          territorios de la sección de brechas (Lima y regiones críticas)
   el-nino/config/sitio.json            estado de publicación y dirección del repositorio
 y escribe _site/el-nino/index.html con sus datos abiertos. Luego llama a sitio_incendios.py,
 que escribe _site/incendios/ y la portada (_site/index.html).
@@ -116,7 +118,8 @@ def construir_datos() -> dict:
     with open(os.path.join(EN, "config", "sitio.json"), encoding="utf-8") as f:
         sitio = json.load(f)
     emergencias = construir_emergencias()
-    return {"corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
+    brechas = construir_brechas(ult, emergencias)
+    return {"brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
             "aprobado": sitio.get("estado") == "publicado", "niveles": niveles, "regiones": regiones,
             "serie": serie, "hechos": hechos, "emergencias": emergencias, "contexto": contexto, "_repo": sitio.get("repositorio", "#")}
 
@@ -142,6 +145,63 @@ def construir_emergencias() -> dict:
     return {"desde": cfg["desde"], "desde_largo": etiqueta(cfg["desde"], True), "revisado": cfg["revisado_hasta"],
             "revisado_largo": etiqueta(cfg["revisado_hasta"], True), "regiones": cfg["regiones"], "decreto": cfg["decreto"],
             "eventos": eventos, "excluidos": len(excluidos)}
+
+
+def construir_brechas(ult, emergencias) -> dict:
+    """Junta, por territorio, la exposición del CENEPRED con el PP 0068 del último corte y las emergencias del piloto.
+
+    No calcula ningún índice: pone las cifras lado a lado (método en docs/el-nino-brechas.md)."""
+    with open(os.path.join(EN, "config", "brechas.json"), encoding="utf-8") as f:
+        cfg = json.load(f)
+    with open(os.path.join(EN, "config", "contexto.json"), encoding="utf-8") as f:
+        ctx = json.load(f)
+    expo = leer_csv(os.path.join(EN, "datos", "exposicion_cenepred.csv"))
+    estudios = {}
+    for r in expo:
+        estudios.setdefault(r["estudio"], {"titulo": r["titulo"], "fecha": r["fecha_estudio"], "insumos": r["insumos"],
+                                           "unidad": r["unidad"], "url": r["fuente_url"], "tablas": {}})
+        estudios[r["estudio"]]["tablas"][f'{r["peligro"]}|{r["nivel"]}'] = f'{r["tabla"]}, p. {r["pagina"]}'
+
+    def expo_de(estudio, deps):
+        out = {}
+        for r in expo:
+            if r["estudio"] != estudio or r["departamento"] not in deps:
+                continue
+            k = f'{r["peligro"]}|{r["nivel"]}'
+            o = out.setdefault(k, {"unidades": 0, "poblacion": 0, "viviendas": 0, "eess": 0, "iiee": 0, "deps": []})
+            for c in ("unidades", "poblacion", "viviendas", "eess", "iiee"):
+                o[c] += int(r[c]) if r[c] else 0
+            o["deps"].append(r["departamento"])
+        for o in out.values():
+            o["faltan"] = [d for d in deps if d not in o["deps"]]
+        return out
+
+    pliegos = {(r["archivo"], r["codigo"]): r for r in ult if r["archivo"] in ("D2", "D3")}
+    muni = {(r["archivo"], r["nombre"]): r for r in ult if r["archivo"] in ("D4", "D5")}
+    em_por_region = defaultdict(int)
+    for e in emergencias["eventos"]:
+        em_por_region[e["region"]] += 1
+    territorios = []
+    for t in cfg["territorios"]:
+        def suma(filas):
+            return [sum(r["pim"] for r in filas), sum(r["devengado"] for r in filas)]
+        gr_a = [pliegos[k] for k in (("D2", c) for c in t["pliegos"]) if k in pliegos]
+        gr_p = [pliegos[k] for k in (("D3", c) for c in t["pliegos"]) if k in pliegos]
+        mu_a = [muni[k] for k in (("D4", n) for n in t["municipal"]) if k in muni]
+        mu_p = [muni[k] for k in (("D5", n) for n in t["municipal"]) if k in muni]
+        nombres = sorted({titulo(r["nombre"]) for r in gr_a + gr_p})
+        en_piloto = [r for r in t["emergencias"] if r in emergencias["regiones"]]
+        territorios.append({
+            "id": t["id"], "nombre": t["nombre"], "detalle": t.get("detalle", ""), "nota": t.get("nota", ""),
+            "cenepred": t["cenepred"], "pliegos": nombres,
+            "expo": {e: expo_de(e, t["cenepred"]) for e in (cfg["escenario_principal"], cfg["escenario_secundario"])},
+            "gr": {"a": suma(gr_a), "p": suma(gr_p)}, "mu": {"a": suma(mu_a), "p": suma(mu_p)},
+            "plan": {p: p in ctx["plan_aprobado"] for p in t["plan"]},
+            "pronostico": ctx["pronostico"].get(t["pronostico"]),
+            "emergencias": None if not en_piloto else sum(em_por_region[r] for r in en_piloto),
+        })
+    return {"revision": cfg["revision"], "principal": cfg["escenario_principal"], "secundario": cfg["escenario_secundario"],
+            "estudios": estudios, "territorios": territorios, "fuente_pronostico": ctx["_fuentes"]["pronostico"]}
 
 
 def main():
@@ -171,7 +231,7 @@ def main():
     # Datos abiertos en /el-nino/datos/ y, por compatibilidad con enlaces ya compartidos, también en /datos/.
     for destino in (os.path.join(carpeta, "datos"), os.path.join(args.salida, "datos")):
         os.makedirs(destino, exist_ok=True)
-        for nombre in ("ejecucion_pp0068.csv", "hechos.csv", "emergencias.csv"):
+        for nombre in ("ejecucion_pp0068.csv", "hechos.csv", "emergencias.csv", "exposicion_cenepred.csv"):
             shutil.copy(os.path.join(EN, "datos", nombre), destino)
     print(f"El Niño generado en {carpeta} (corte {datos['corte']}, {len(datos['regiones'])} pliegos).")
     import sitio_incendios
