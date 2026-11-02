@@ -223,7 +223,8 @@ def actualizar(consulta: dict, nota: str | None = None) -> dict:
         total = R["npp"][str(anio)]["hasta_corte"]
         diario = {d(k): n for k, n in R["npp_diario"].items()}
         propias = [r for r in curvas if r["region"] == reg and r["anio"] == str(anio)]
-        ultima = max((int(r["semana"]) for r in propias), default=1)
+        # Se recalcula desde la última semana guardada; si el corte es anterior, la curva no pasa de él.
+        ultima = min(max((int(r["semana"]) for r in propias), default=1), semana_corte)
         valores = {}
         for k in range(ultima, semana_corte + 1):
             fin = min(date(anio, 1, 1) + timedelta(days=7 * k - 1), corte)

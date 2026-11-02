@@ -1,7 +1,7 @@
 {
   "_ayuda": "estado: 'preliminar' mientras el comité editorial no apruebe el método y el primer corte; 'publicado' cuando lo apruebe. fecha_corte: fecha de la última consulta a SERFOR. nota_corte: lectura breve del corte, se muestra arriba de las cifras; dejar vacía si no hace falta.",
   "estado": "preliminar",
-  "fecha_corte": "2026-10-27",
+  "fecha_corte": "2026-11-02",
   "repositorio": "https://github.com/qhawana-peru/observatorios",
-  "nota_corte": "En Cusco, las 61 alertas recientes figuran como extinguidas y el satélite Suomi NPP detectó 76 focos en los últimos 7 días, frente a 423 en los 7 días previos. En Cajamarca hay 28 alertas sin verificar, sobre todo en Cutervo y San Ignacio, y los focos de la semana subieron de 73 a 104. En el resto del país, las alertas activas se concentran en Loreto (31) y Ucayali (25), y la mayoría de los focos de los últimos días está en la Amazonía. Con las lluvias, las nubes pueden ocultar focos al satélite: la temporada no ha terminado."
+  "nota_corte": "Los focos bajaron con fuerza en la última semana: en Cusco, el satélite Suomi NPP detectó 10 focos en 7 días (78 la semana previa) y en Cajamarca 40 (antes 120). Cusco tiene 6 alertas recientes, 4 de ellas en Espinar; Cajamarca no tiene alertas en el sistema. El fuego se desplazó a la sierra central y sur: en todo el país hay 118 alertas sin verificar o confirmadas, sobre todo en Huánuco (22), Apurímac (18), Puno (14), Huancavelica y Junín (11 cada una) y Lima (9). Con las lluvias, las nubes pueden ocultar focos al satélite."
 }
