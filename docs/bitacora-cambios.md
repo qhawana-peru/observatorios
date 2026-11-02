@@ -2,6 +2,13 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-02: corte del MEF, ENFEN N.º 19 y corte de incendios (sin revisión de cuatro ojos)
+- **Publicado sin revisión de una segunda persona**, por decisión de Pepe, mientras no haya comité. Claude preparó y revisó; la propuesta la une Claude.
+- **MEF al 2 nov** (descarga automática lanzada a mano a las 00:00). Pasa los seis controles; avance total del PP 0068: 50,1 %. La automatización otra vez no pudo abrir la propuesta: falta el permiso de Actions (guía de administración, paso 6b).
+- **ENFEN N.º 19 (30 oct):** el tramo extraordinario del Niño Costero se alarga hasta febrero de 2027 (el N.º 18 decía enero). El pronóstico por región ya no menciona Ica ni Arequipa, así que se retiraron sus frases. Próximo comunicado: 13 nov.
+- **DS 124-2026-PCM:** vencía el 30 oct. No encontramos una prórroga publicada al 2 nov; la página lo muestra como vencido y pide revisar El Peruano. **Por verificar.**
+- **Incendios, SERFOR al 2 nov (00:00):** consulta hecha por Claude en el navegador integrado; los totales por departamento cuadran con los nacionales (205 alertas y 465 focos de 3 días). Focos en fuerte baja en Cusco y Cajamarca; las alertas activas se mueven a Huánuco, Apurímac, Puno, Huancavelica, Junín y Lima.
+
 ## 2026-10-27 (noche): corte de incendios con todas las regiones
 - Primer corte con el panorama nacional (SERFOR al 27 oct, 23:12). La consulta la corrió Claude en el navegador integrado de la computadora de Pepe; los totales por departamento cuadran con los nacionales (1 813 alertas y 1 489 focos de 3 días).
 - Cusco: las 61 alertas recientes figuran como extinguidas (el 26 oct había 41 confirmadas). Cajamarca: 28 alertas sin verificar.
