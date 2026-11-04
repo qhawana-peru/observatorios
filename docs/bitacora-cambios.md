@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-03: corte de incendios (sin revisión de cuatro ojos)
+- SERFOR al 3 nov (21:11). Los totales por departamento cuadran con los nacionales (38 alertas, 562 focos) y la serie diaria de Suomi NPP suma lo que reporta SERFOR. Publicado sin segunda persona, por decisión de Pepe.
+
 ## 2026-11-02: corte del MEF, ENFEN N.º 19 y corte de incendios (sin revisión de cuatro ojos)
 - **Publicado sin revisión de una segunda persona**, por decisión de Pepe, mientras no haya comité. Claude preparó y revisó; la propuesta la une Claude.
 - **MEF al 2 nov** (descarga automática lanzada a mano a las 00:00). Pasa los seis controles; avance total del PP 0068: 50,1 %. La automatización otra vez no pudo abrir la propuesta: falta el permiso de Actions (guía de administración, paso 6b).
