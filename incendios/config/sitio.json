@@ -1,7 +1,7 @@
 {
   "_ayuda": "estado: 'preliminar' mientras el comité editorial no apruebe el método y el primer corte; 'publicado' cuando lo apruebe. fecha_corte: fecha de la última consulta a SERFOR. nota_corte: lectura breve del corte, se muestra arriba de las cifras; dejar vacía si no hace falta.",
   "estado": "preliminar",
-  "fecha_corte": "2026-11-03",
+  "fecha_corte": "2026-11-13",
   "repositorio": "https://github.com/qhawana-peru/observatorios",
-  "nota_corte": "Los focos siguen bajos en las dos regiones con detalle: el satélite Suomi NPP detectó 16 focos en Cusco y 20 en Cajamarca en los últimos 7 días (76 y 124 la semana previa). Cusco tiene 6 alertas nuevas, en La Convención y Paucartambo; Cajamarca, ninguna. En todo el país hay 25 alertas sin verificar o confirmadas, sobre todo en Huánuco (8) y Cusco (6), y 562 focos en los últimos 3 días, 229 de ellos en Madre de Dios y 107 en Ucayali. Con las lluvias, las nubes pueden ocultar focos al satélite."
+  "nota_corte": "La temporada de incendios se apaga en casi todo el país: SERFOR registra 51 focos en los últimos 3 días en todo el Perú, frente a 562 el 3 de noviembre. Cusco no tiene alertas recientes. Cajamarca tiene 13: 10 ya extinguidas en Jaén y 3 confirmadas en San Marcos. En el país hay 15 alertas sin verificar o confirmadas, en Áncash (6), Huánuco (3), Puno (3) y Cajamarca (3). Aviso: SERFOR no registra focos del satélite Suomi NPP desde el 1 de noviembre, así que la proyección de fin de temporada queda congelada al 3 de noviembre; los demás satélites siguen reportando."
 }

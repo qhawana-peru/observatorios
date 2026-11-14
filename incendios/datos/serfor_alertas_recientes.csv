@@ -1,15 +1,15 @@
 fecha_corte,region,indicador,descripcion,valor,periodo,capa_serfor
-2026-11-03,Cusco,alertas,Alertas recientes en el sistema,6,2 al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cusco,alertado,Sin verificar (alertado),3,2 al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cusco,confirmado,Confirmadas,3,2 al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cusco,controlado,Controladas,0,2 al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cusco,extinguido,Extinguidas,0,2 al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cusco,focos_3d,Focos de calor,22,2 al 3 de noviembre,2: Focos de Calor
-2026-11-03,Cajamarca,alertas,Alertas recientes en el sistema,0,sin alertas en el sistema al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cajamarca,alertado,Sin verificar (alertado),0,sin alertas en el sistema al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cajamarca,confirmado,Confirmadas,0,sin alertas en el sistema al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cajamarca,controlado,Controladas,0,sin alertas en el sistema al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cajamarca,extinguido,Extinguidas,0,sin alertas en el sistema al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Cajamarca,focos_3d,Focos de calor,1,3 de noviembre,2: Focos de Calor
-2026-11-03,Perú,alertas,Alertas recientes en todo el país,38,1 al 3 de noviembre,0: Alerta de Incendio Forestal
-2026-11-03,Perú,focos_3d,Focos de calor en todo el país,562,1 al 3 de noviembre,2: Focos de Calor
+2026-11-13,Cusco,alertas,Alertas recientes en el sistema,0,sin alertas en el sistema al 13 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cusco,alertado,Sin verificar (alertado),0,sin alertas en el sistema al 13 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cusco,confirmado,Confirmadas,0,sin alertas en el sistema al 13 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cusco,controlado,Controladas,0,sin alertas en el sistema al 13 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cusco,extinguido,Extinguidas,0,sin alertas en el sistema al 13 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cusco,focos_3d,Focos de calor,0,sin focos al 13 de noviembre,2: Focos de Calor
+2026-11-13,Cajamarca,alertas,Alertas recientes en el sistema,13,11 al 12 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cajamarca,alertado,Sin verificar (alertado),0,11 al 12 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cajamarca,confirmado,Confirmadas,3,11 al 12 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cajamarca,controlado,Controladas,0,11 al 12 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cajamarca,extinguido,Extinguidas,10,11 al 12 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Cajamarca,focos_3d,Focos de calor,2,13 de noviembre,2: Focos de Calor
+2026-11-13,Perú,alertas,Alertas recientes en todo el país,42,11 al 13 de noviembre,0: Alerta de Incendio Forestal
+2026-11-13,Perú,focos_3d,Focos de calor en todo el país,51,13 de noviembre,2: Focos de Calor

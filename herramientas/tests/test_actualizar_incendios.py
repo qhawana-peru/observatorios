@@ -1,6 +1,7 @@
 """Pruebas del script que aplica una consulta de SERFOR a los datos del monitor."""
 import csv
 import json
+from datetime import date, timedelta
 import os
 import shutil
 import sys
@@ -46,6 +47,16 @@ class ActualizarIncendios(unittest.TestCase):
     def tearDown(self):
         ai.DATOS, ai.CONFIG = self._orig
         shutil.rmtree(self.tmp)
+
+    def test_npp_sin_datos_congela_proyeccion(self):
+        consulta = json.loads(json.dumps(self.consulta))
+        corte = date.fromisoformat(consulta["corte"])
+        consulta["satelites"] = {"N": {"ultimo": (corte - timedelta(days=10)).isoformat()}}
+        archivos = ("seguimiento_proyeccion.csv", "serfor_curvas_npp.csv", "serfor_historial_npp.csv")
+        antes = {a: open(os.path.join(self.datos, a), encoding="utf-8").read() for a in archivos}
+        ai.actualizar(consulta, "nota de prueba")
+        for a in archivos:
+            self.assertEqual(open(os.path.join(self.datos, a), encoding="utf-8").read(), antes[a], a)
 
     def test_aplica_corte(self):
         consulta, corte = self.consulta, self.consulta["corte"]

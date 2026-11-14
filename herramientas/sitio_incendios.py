@@ -147,7 +147,11 @@ def construir_datos(hoy: date | None = None) -> dict:
             nacional.append({"dep": r["departamento"], "al": int(r["alertas"]), "act": int(r["alertas_activas"]),
                              "f3": int(r["focos_3d"]), "fa": [int(r["focos_anio_menos2"]), int(r["focos_anio_menos1"]), int(r["focos_anio"])],
                              "per": r["periodo_anual"], "pp": p})
-    return {"corte": sitio["fecha_corte"], "corte_largo": fecha_larga(sitio["fecha_corte"]),
+    # La proyección usa solo Suomi NPP: su fecha es la del último corte en seguimiento, que puede ser anterior
+    # al corte general si el satélite deja de reportar (pasó desde el 1 nov 2026).
+    corte_npp = max(r["corte"] for r in leer_csv("seguimiento_proyeccion.csv"))
+    return {"corte_npp": corte_npp, "corte_npp_largo": fecha_larga(corte_npp),
+            "corte": sitio["fecha_corte"], "corte_largo": fecha_larga(sitio["fecha_corte"]),
             "aprobado": sitio.get("estado") == "publicado", "nota": sitio.get("nota_corte", ""), "regiones": regiones, "peru": peru,
             "nacional": nacional, "pistas": vigentes, "pistas_total": len(pistas), "_repo": sitio.get("repositorio", "#")}
 
