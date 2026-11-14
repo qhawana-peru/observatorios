@@ -190,7 +190,7 @@ const compact = v => v >= 1000 ? (Math.round(v / 100) / 10).toLocaleString("es-P
 const NS = "http://www.w3.org/2000/svg";
 const el = (t, a, p, txt) => { const e = document.createElementNS(NS, t); for (const k in a) e.setAttribute(k, a[k]); if (txt != null) e.textContent = txt; p && p.appendChild(e); return e; };
 const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const [, mm, dd] = DATA.corte.split("-");
+const [, mm, dd] = (DATA.corte_npp || DATA.corte).split("-");
 const MES = ["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
 document.getElementById("corte").textContent = DATA.corte_largo;
 if (DATA.nota) { const n = document.getElementById("nota-corte"); n.textContent = "Lectura del corte: " + DATA.nota.charAt(0).toLowerCase() + DATA.nota.slice(1); n.hidden = false; }
@@ -286,7 +286,7 @@ function pintar(reg) {
   if (P.semana) items.push(["Seguimiento: desde el corte anterior", `+${String(P.semana.pct).replace(".", ",")} %`, `El ${+P.semana.desde.slice(8)} ${MES[+P.semana.desde.slice(5,7)-1]} proyectamos +${P.semana.bajo} a +${P.semana.alto} % para todo el resto de la temporada.`]);
   tiles("tiles-proj", items);
   curvas("c-curvas", R.curvas, R.curvas["2026"].length);
-  document.getElementById("lectura").textContent = `Lectura: al ${DATA.corte_largo}, ${reg} va en el ${P.lugar}.º lugar entre ${P.anios} años comparables. Si el resto de la temporada se comporta como en la mitad central de los años anteriores, faltaría sumar entre ${P.p25} % y ${P.p75} % más focos de los ya registrados. El clima de las próximas semanas puede llevarlo fuera de ese rango.`;
+  document.getElementById("lectura").textContent = `${DATA.corte_npp && DATA.corte_npp !== DATA.corte ? `Proyección congelada al ${DATA.corte_npp_largo}: SERFOR no registra focos del satélite Suomi NPP desde el 1 de noviembre de 2026, y la serie larga solo usa ese satélite. ` : ""}Lectura: al ${DATA.corte_npp_largo || DATA.corte_largo}, ${reg} va en el ${P.lugar}.º lugar entre ${P.anios} años comparables. Si el resto de la temporada se comporta como en la mitad central de los años anteriores, faltaría sumar entre ${P.p25} % y ${P.p75} % más focos de los ya registrados. El clima de las próximas semanas puede llevarlo fuera de ese rango.`;
   pistas(reg);
 }
 

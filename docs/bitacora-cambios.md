@@ -2,6 +2,14 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-13: cortes atrasados del MEF, incendios y aviso sobre Suomi NPP (sin revisión de cuatro ojos)
+- **MEF: entran dos cortes**, el del 9 nov (descarga automática que no llegó a publicarse) y el del 13 nov (lanzado a mano). Ambos pasan los controles; las dos descargas volvieron a fallar solo al abrir la propuesta (paso 6b pendiente).
+- **El avance baja de 50,1 % a 49,6 % aunque el devengado sube S/ 95,8 M**, porque el PIM del PP 0068 creció S/ 245 M entre el 2 y el 13 nov. Casi todo en el nivel nacional (+S/ 161,5 M): sector Defensa +S/ 111,2 M y Salud +S/ 35,1 M, en actividades. **Por verificar** qué norma lo explica.
+- **ENFEN N.º 20:** previsto para el 13 nov; al cierre el PDF no estaba en el sitio del ENFEN. La prensa ya informa su contenido, pero por regla no se registra hasta tener el documento.
+- **Incendios, SERFOR al 13 nov:** 42 alertas y 51 focos de 3 días; totales cuadran.
+- **Suomi NPP sin datos desde el 1 nov 2026** en todo el país (consulta por satélite: último foco de NPP el 1 nov; NOAA-20, NOAA-21 y GOES siguen al 13 nov). Como la proyección usa solo NPP, se congelan en el 3 nov `seguimiento_proyeccion.csv`, `serfor_curvas_npp.csv` y `serfor_historial_npp.csv`, y la página lo dice. Sin esto, la página habría mostrado focos −100 % y una proyección falsa. Si NPP no vuelve, la proyección del próximo año necesita otra serie (NOAA-20 desde 2020).
+- **Semanas sin corte (4 al 12 nov):** no se pueden reconstruir. Las alertas recientes de SERFOR son una ventana móvil y el MEF solo entrega el acumulado del día. Lo acumulado (focos del año, devengado) sí queda al día con este corte.
+
 ## 2026-11-03: corte de incendios (sin revisión de cuatro ojos)
 - SERFOR al 3 nov (21:11). Los totales por departamento cuadran con los nacionales (38 alertas, 562 focos) y la serie diaria de Suomi NPP suma lo que reporta SERFOR. Publicado sin segunda persona, por decisión de Pepe.
 

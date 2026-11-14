@@ -188,52 +188,60 @@ def actualizar(consulta: dict, nota: str | None = None) -> dict:
     if "departamentos" in consulta:
         escribir("serfor_departamentos.csv", panorama(consulta["departamentos"], corte), CAMPOS_DEP)
 
-    # 4. Seguimiento: se fija el rango publicado en el corte anterior y se agrega el nuevo corte
-    historial_previo = leer("serfor_historial_npp.csv")
-    seguimiento = leer("seguimiento_proyeccion.csv")
-    if any(r["corte"] == corte.isoformat() for r in seguimiento):
-        raise SystemExit(f"El corte {corte} ya está en seguimiento_proyeccion.csv. "
-                         "Si hay que repetirlo, quita esas filas a mano y vuelve a correr.")
-    for reg, R in regiones.items():
-        filas = sorted((r for r in seguimiento if r["region"] == reg), key=lambda r: r["corte"])
-        if filas and not filas[-1]["rango_bajo_pct"]:
-            filas[-1]["rango_bajo_pct"], filas[-1]["rango_alto_pct"] = rango_publicado(historial_previo, reg)
-        seguimiento.append({"region": reg, "corte": corte.isoformat(),
-                            "focos_npp": R["npp"][str(anio)]["hasta_corte"],
-                            "rango_bajo_pct": "", "rango_alto_pct": ""})
-    orden = list(regiones)
-    seguimiento.sort(key=lambda r: (orden.index(r["region"]) if r["region"] in orden else 99, r["corte"]))
-    escribir("seguimiento_proyeccion.csv", seguimiento, ["region", "corte", "focos_npp", "rango_bajo_pct", "rango_alto_pct"])
+    # 4 a 6 usan solo Suomi NPP. Si el satélite lleva más de 7 días sin reportar en todo el país (pasó desde el
+    # 1 nov 2026), no se tocan: la proyección queda congelada en el último corte con datos y la página lo dice.
+    npp_ult = (consulta.get("satelites") or {}).get("N", {}).get("ultimo")
+    npp_vigente = not npp_ult or (corte - d(npp_ult)).days <= 7
+    if not npp_vigente:
+        print(f"AVISO: Suomi NPP sin datos desde {npp_ult}; la proyección no se actualiza en este corte.")
+        historial = leer("serfor_historial_npp.csv")
+    if npp_vigente:
+        # 4. Seguimiento: se fija el rango publicado en el corte anterior y se agrega el nuevo corte
+        historial_previo = leer("serfor_historial_npp.csv")
+        seguimiento = leer("seguimiento_proyeccion.csv")
+        if any(r["corte"] == corte.isoformat() for r in seguimiento):
+            raise SystemExit(f"El corte {corte} ya está en seguimiento_proyeccion.csv. "
+                             "Si hay que repetirlo, quita esas filas a mano y vuelve a correr.")
+        for reg, R in regiones.items():
+            filas = sorted((r for r in seguimiento if r["region"] == reg), key=lambda r: r["corte"])
+            if filas and not filas[-1]["rango_bajo_pct"]:
+                filas[-1]["rango_bajo_pct"], filas[-1]["rango_alto_pct"] = rango_publicado(historial_previo, reg)
+            seguimiento.append({"region": reg, "corte": corte.isoformat(),
+                                "focos_npp": R["npp"][str(anio)]["hasta_corte"],
+                                "rango_bajo_pct": "", "rango_alto_pct": ""})
+        orden = list(regiones)
+        seguimiento.sort(key=lambda r: (orden.index(r["region"]) if r["region"] in orden else 99, r["corte"]))
+        escribir("seguimiento_proyeccion.csv", seguimiento, ["region", "corte", "focos_npp", "rango_bajo_pct", "rango_alto_pct"])
 
-    # 5. Historial Suomi NPP a la fecha del corte
-    historial = []
-    for reg, R in regiones.items():
-        for y, v in sorted(R["npp"].items()):
-            h, t = v["hasta_corte"], v["total_anio"]
-            historial.append({"region": reg, "anio": y, "fecha_referencia": corte.strftime("%m-%d"),
-                              "hasta_corte": h, "total_anio": t if t is not None else "",
-                              "adicional_pct": round((t - h) / h * 100, 1) if t is not None and h else "",
-                              "satelite": "Suomi NPP"})
-    escribir("serfor_historial_npp.csv", historial, list(historial[0]))
+        # 5. Historial Suomi NPP a la fecha del corte
+        historial = []
+        for reg, R in regiones.items():
+            for y, v in sorted(R["npp"].items()):
+                h, t = v["hasta_corte"], v["total_anio"]
+                historial.append({"region": reg, "anio": y, "fecha_referencia": corte.strftime("%m-%d"),
+                                  "hasta_corte": h, "total_anio": t if t is not None else "",
+                                  "adicional_pct": round((t - h) / h * 100, 1) if t is not None and h else "",
+                                  "satelite": "Suomi NPP"})
+        escribir("serfor_historial_npp.csv", historial, list(historial[0]))
 
-    # 6. Curva 2026 por semana: la semana k termina el día 7k del año; la última llega al corte
-    curvas = leer("serfor_curvas_npp.csv")
-    semana_corte = math.ceil(corte.timetuple().tm_yday / 7)
-    for reg, R in regiones.items():
-        total = R["npp"][str(anio)]["hasta_corte"]
-        diario = {d(k): n for k, n in R["npp_diario"].items()}
-        propias = [r for r in curvas if r["region"] == reg and r["anio"] == str(anio)]
-        # Se recalcula desde la última semana guardada; si el corte es anterior, la curva no pasa de él.
-        ultima = min(max((int(r["semana"]) for r in propias), default=1), semana_corte)
-        valores = {}
-        for k in range(ultima, semana_corte + 1):
-            fin = min(date(anio, 1, 1) + timedelta(days=7 * k - 1), corte)
-            valores[k] = total - sum(n for dia, n in diario.items() if dia > fin)
-        curvas = [r for r in curvas if not (r["region"] == reg and r["anio"] == str(anio) and int(r["semana"]) >= ultima)]
-        curvas += [{"region": reg, "anio": str(anio), "semana": str(k), "acumulado": v, "satelite": "Suomi NPP"}
-                   for k, v in valores.items()]
-    curvas.sort(key=lambda r: (orden.index(r["region"]), int(r["anio"]), int(r["semana"])))
-    escribir("serfor_curvas_npp.csv", curvas, ["region", "anio", "semana", "acumulado", "satelite"])
+        # 6. Curva 2026 por semana: la semana k termina el día 7k del año; la última llega al corte
+        curvas = leer("serfor_curvas_npp.csv")
+        semana_corte = math.ceil(corte.timetuple().tm_yday / 7)
+        for reg, R in regiones.items():
+            total = R["npp"][str(anio)]["hasta_corte"]
+            diario = {d(k): n for k, n in R["npp_diario"].items()}
+            propias = [r for r in curvas if r["region"] == reg and r["anio"] == str(anio)]
+            # Se recalcula desde la última semana guardada; si el corte es anterior, la curva no pasa de él.
+            ultima = min(max((int(r["semana"]) for r in propias), default=1), semana_corte)
+            valores = {}
+            for k in range(ultima, semana_corte + 1):
+                fin = min(date(anio, 1, 1) + timedelta(days=7 * k - 1), corte)
+                valores[k] = total - sum(n for dia, n in diario.items() if dia > fin)
+            curvas = [r for r in curvas if not (r["region"] == reg and r["anio"] == str(anio) and int(r["semana"]) >= ultima)]
+            curvas += [{"region": reg, "anio": str(anio), "semana": str(k), "acumulado": v, "satelite": "Suomi NPP"}
+                       for k, v in valores.items()]
+        curvas.sort(key=lambda r: (orden.index(r["region"]), int(r["anio"]), int(r["semana"])))
+        escribir("serfor_curvas_npp.csv", curvas, ["region", "anio", "semana", "acumulado", "satelite"])
 
     # 7. Configuración del sitio
     with open(CONFIG, encoding="utf-8") as f:

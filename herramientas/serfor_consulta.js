@@ -47,6 +47,10 @@
     for (const a of await porDep(3, `FECHA>=DATE '${y}-01-01' AND FECHA<DATE '${manana(y)}'`, "NOMDEP"))
       out.departamentos.focos_anual[y][a.NOMDEP] = a.n;
   }
+  // Último foco por satélite en todo el país (para detectar si Suomi NPP deja de reportar)
+  out.satelites = {};
+  for (const a of await porDep(3, `FECHA>=DATE '${anio}-01-01'`, "SENSAT"))
+    out.satelites[a.SENSAT] = { n: a.n, ultimo: a.hasta ? iso(a.hasta) : null };
   for (const [dep, nombre] of Object.entries(REGIONES)) {
     console.log("Consultando", nombre, "…");
     const R = {};
