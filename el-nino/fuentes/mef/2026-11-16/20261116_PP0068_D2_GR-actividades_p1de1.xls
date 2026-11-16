@@ -1,0 +1,1051 @@
+<style type="text/css">
+	
+body
+{
+	font-weight: normal;
+	font-size: 0.7em;
+	word-spacing: normal;
+	text-transform: none;
+	font-family: Arial, Verdana, Helvetica, sans-serif;
+	letter-spacing: normal;
+	background-color: #ffffff;
+	padding: 0px;
+	margin: 0px;
+	height: 100%;
+	left: 0px;
+	right: 0px;
+	border: 0px;
+}
+
+/* Panel Historial */
+#PnlHistory
+{    
+    background-color: #ffffff;
+}
+
+.History
+{
+    width: 100%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border: solid 1px #dddddd;
+}
+
+.History tr
+{
+    height: 20px;
+}
+
+.History tr.alt
+{
+}
+
+.History td
+{
+    border-left: solid 1px #dddddd;
+    border-right: solid 1px #dddddd;
+}
+/* Panel Historial - Fin */
+
+/* Panel Datos */
+#PnlData
+{
+    background-color: #ffffff;
+}
+
+.MapTable
+{
+    background-color: #3a6ea5;
+    color: #ffffff;
+    border-collapse: collapse;
+    border-width: 0px;
+}
+
+.MapTable tr
+{
+    height: 18px;
+}
+
+.MapTable td
+{
+    border: solid 1px #dddddd;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.Data
+{    
+    width: 100%;
+    border-collapse: collapse;
+    border-width: 0px;
+}
+
+.Data tr
+{
+    cursor: pointer;    
+    height: 22px;
+    text-align: right;
+}
+
+.Data tr.alt
+{
+}
+
+.Data tr.More
+{
+    text-align: left;
+    height: auto;
+    background-color: #f1f1f1;    
+}
+
+.Data tr.More td
+{
+    padding-left: 4px;
+}
+
+.Data td
+{
+    border: solid 1px #dddddd;
+}
+/* Panel Datos - Fin */
+
+/* Cabecera */
+#hd
+{
+    font-size: 8pt;   
+}
+
+#hd .title
+{
+    font-size: 12pt;
+    font-weight: bold;
+    font-family: Verdana;
+}
+
+#hd .subtitle
+{
+    font-size: 8pt;
+    font-family: Verdana;
+}
+
+#hd .fecha
+{
+    font-size: 8pt;
+}
+
+#hd span.value
+{
+    font-size: 10pt;
+}
+
+/* Cabecera - End */
+</style><body>
+	<table id="hd">
+		<tr>
+			<td colspan="9"><div class='title'><img src='../Images/Transparencia.gif' alt='' height='40' /><br /><br />Consulta Amigable</div><div class='subtitle'>Consulta de Ejecución del Gasto</div><br /><div class='fecha'>Fecha de la Consulta: 16-noviembre-2026</div><br /><b>Año de Ejecución: <span class='value'>2026</span><br />Incluye: <span class='value'>Sólo Actividades</span></b></td>
+		</tr>
+	</table>
+	<table id="ctl00_CPH1_Mt0" class="MapTable" width="100%">
+		<tr id="ctl00_CPH1_Mt0_Row0">
+			<td id="ctl00_CPH1_Mt0_td1" title="Concepto" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td1&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;">Pliego</td><td id="ctl00_CPH1_Mt0_td2" title="Presupuesto Institucional de Apertura" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td2&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">PIA</td><td id="ctl00_CPH1_Mt0_td3" title="Presupuesto Institucional Modificado" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td3&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">PIM</td><td id="ctl00_CPH1_Mt0_td9" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td9&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100">Certificación</td><td id="ctl00_CPH1_Mt0_td4" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td4&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100">Compromiso Anual</td><td id="ctl00_CPH1_Mt0_TableCell1" title="Ejecución de Gastos en las diferentes fases" colspan="3">
+                                Ejecución
+                                </td><td id="ctl00_CPH1_Mt0_td8" rowspan="2" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td8&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="50">Avance %&nbsp;
+                            </td>
+		</tr><tr id="ctl00_CPH1_Mt0_Row1">
+			<td id="ctl00_CPH1_Mt0_td5" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td5&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100">Atención de Compromiso Mensual&nbsp;
+                            </td><td id="ctl00_CPH1_Mt0_td6" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td6&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">Devengado&nbsp;
+                            </td><td id="ctl00_CPH1_Mt0_td7" onclick="__doPostBack(&#39;ctl00$CPH1$Mt0$td7&#39;,&#39;&#39;)" onmouseover="this.style.backgroundColor = &#39;#568AC1&#39;;" onmouseout="this.style.backgroundColor = &#39;&#39;;" width="100" nowrap="nowrap">Girado&nbsp;
+                            </td>
+		</tr>
+	</table>
+                            <table class="Data" cellspacing="0" cellpadding="1">
+                        
+                            <tr id="tr0" onclick='kCod="440";tr_clk(0, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left" style="width: auto">
+                                    440: GOBIERNO REGIONAL DEL DEPARTAMENTO DE AMAZONAS
+                                    
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    4,142,663
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    6,803,516
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    6,659,020
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    6,637,619
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    6,487,645
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    6,079,879
+                                </td>
+                                <td style="white-space: nowrap; width: 100px">
+                                    6,036,156
+                                </td>
+                                <td style="white-space: nowrap; width: 50px">&nbsp;
+                                    89.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr1" onclick='kCod="441";tr_clk(1, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    441: GOBIERNO REGIONAL DEL DEPARTAMENTO DE ANCASH
+                                    
+                                </td>
+                                <td>
+                                    7,182,271
+                                </td>
+                                <td>
+                                    21,543,736
+                                </td>
+                                <td>
+                                    15,959,048
+                                </td>
+                                <td>
+                                    14,555,230
+                                </td>
+                                <td>
+                                    14,543,137
+                                </td>
+                                <td>
+                                    11,722,093
+                                </td>
+                                <td>
+                                    11,597,052
+                                </td>
+                                <td>&nbsp;
+                                    54.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr2" onclick='kCod="442";tr_clk(2, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    442: GOBIERNO REGIONAL DEL DEPARTAMENTO DE APURIMAC
+                                    
+                                </td>
+                                <td>
+                                    5,181,576
+                                </td>
+                                <td>
+                                    5,527,838
+                                </td>
+                                <td>
+                                    5,221,266
+                                </td>
+                                <td>
+                                    4,986,480
+                                </td>
+                                <td>
+                                    4,958,268
+                                </td>
+                                <td>
+                                    3,871,004
+                                </td>
+                                <td>
+                                    3,767,663
+                                </td>
+                                <td>&nbsp;
+                                    70.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr3" onclick='kCod="443";tr_clk(3, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    443: GOBIERNO REGIONAL DEL DEPARTAMENTO DE AREQUIPA
+                                    
+                                </td>
+                                <td>
+                                    5,266,222
+                                </td>
+                                <td>
+                                    30,025,676
+                                </td>
+                                <td>
+                                    27,817,730
+                                </td>
+                                <td>
+                                    16,539,845
+                                </td>
+                                <td>
+                                    16,455,702
+                                </td>
+                                <td>
+                                    14,135,055
+                                </td>
+                                <td>
+                                    13,960,757
+                                </td>
+                                <td>&nbsp;
+                                    47.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr4" onclick='kCod="444";tr_clk(4, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    444: GOBIERNO REGIONAL DEL DEPARTAMENTO DE AYACUCHO
+                                    
+                                </td>
+                                <td>
+                                    6,949,524
+                                </td>
+                                <td>
+                                    12,038,643
+                                </td>
+                                <td>
+                                    10,307,183
+                                </td>
+                                <td>
+                                    9,763,825
+                                </td>
+                                <td>
+                                    9,637,747
+                                </td>
+                                <td>
+                                    8,914,817
+                                </td>
+                                <td>
+                                    8,781,512
+                                </td>
+                                <td>&nbsp;
+                                    74.1
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr5" onclick='kCod="445";tr_clk(5, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    445: GOBIERNO REGIONAL DEL DEPARTAMENTO DE CAJAMARCA
+                                    
+                                </td>
+                                <td>
+                                    5,411,435
+                                </td>
+                                <td>
+                                    12,043,058
+                                </td>
+                                <td>
+                                    10,627,819
+                                </td>
+                                <td>
+                                    9,116,511
+                                </td>
+                                <td>
+                                    8,345,578
+                                </td>
+                                <td>
+                                    7,785,443
+                                </td>
+                                <td>
+                                    7,748,163
+                                </td>
+                                <td>&nbsp;
+                                    64.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr6" onclick='kCod="446";tr_clk(6, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    446: GOBIERNO REGIONAL DEL DEPARTAMENTO DE CUSCO
+                                    
+                                </td>
+                                <td>
+                                    8,467,833
+                                </td>
+                                <td>
+                                    8,580,567
+                                </td>
+                                <td>
+                                    7,928,820
+                                </td>
+                                <td>
+                                    7,890,755
+                                </td>
+                                <td>
+                                    7,587,834
+                                </td>
+                                <td>
+                                    6,552,941
+                                </td>
+                                <td>
+                                    6,428,619
+                                </td>
+                                <td>&nbsp;
+                                    76.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr7" onclick='kCod="447";tr_clk(7, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    447: GOBIERNO REGIONAL DEL DEPARTAMENTO DE HUANCAVELICA
+                                    
+                                </td>
+                                <td>
+                                    10,056,084
+                                </td>
+                                <td>
+                                    12,777,806
+                                </td>
+                                <td>
+                                    10,931,386
+                                </td>
+                                <td>
+                                    10,429,303
+                                </td>
+                                <td>
+                                    9,786,972
+                                </td>
+                                <td>
+                                    7,307,193
+                                </td>
+                                <td>
+                                    7,195,264
+                                </td>
+                                <td>&nbsp;
+                                    57.2
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr8" onclick='kCod="448";tr_clk(8, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    448: GOBIERNO REGIONAL DEL DEPARTAMENTO DE HUANUCO
+                                    
+                                </td>
+                                <td>
+                                    4,120,743
+                                </td>
+                                <td>
+                                    7,202,674
+                                </td>
+                                <td>
+                                    6,864,491
+                                </td>
+                                <td>
+                                    5,181,533
+                                </td>
+                                <td>
+                                    4,877,598
+                                </td>
+                                <td>
+                                    3,892,294
+                                </td>
+                                <td>
+                                    3,813,121
+                                </td>
+                                <td>&nbsp;
+                                    54.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr9" onclick='kCod="449";tr_clk(9, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    449: GOBIERNO REGIONAL DEL DEPARTAMENTO DE ICA
+                                    
+                                </td>
+                                <td>
+                                    15,788,576
+                                </td>
+                                <td>
+                                    306,191,211
+                                </td>
+                                <td>
+                                    305,582,726
+                                </td>
+                                <td>
+                                    305,157,222
+                                </td>
+                                <td>
+                                    297,353,505
+                                </td>
+                                <td>
+                                    265,145,420
+                                </td>
+                                <td>
+                                    263,895,120
+                                </td>
+                                <td>&nbsp;
+                                    86.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr10" onclick='kCod="450";tr_clk(10, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    450: GOBIERNO REGIONAL DEL DEPARTAMENTO DE JUNIN
+                                    
+                                </td>
+                                <td>
+                                    5,863,128
+                                </td>
+                                <td>
+                                    6,628,249
+                                </td>
+                                <td>
+                                    5,677,041
+                                </td>
+                                <td>
+                                    5,508,807
+                                </td>
+                                <td>
+                                    5,410,216
+                                </td>
+                                <td>
+                                    5,268,027
+                                </td>
+                                <td>
+                                    5,254,199
+                                </td>
+                                <td>&nbsp;
+                                    79.5
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr11" onclick='kCod="451";tr_clk(11, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    451: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LA LIBERTAD
+                                    
+                                </td>
+                                <td>
+                                    8,445,352
+                                </td>
+                                <td>
+                                    34,968,063
+                                </td>
+                                <td>
+                                    12,301,405
+                                </td>
+                                <td>
+                                    10,563,321
+                                </td>
+                                <td>
+                                    9,570,752
+                                </td>
+                                <td>
+                                    8,581,885
+                                </td>
+                                <td>
+                                    8,549,844
+                                </td>
+                                <td>&nbsp;
+                                    24.5
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr12" onclick='kCod="452";tr_clk(12, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    452: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LAMBAYEQUE
+                                    
+                                </td>
+                                <td>
+                                    7,030,197
+                                </td>
+                                <td>
+                                    31,983,473
+                                </td>
+                                <td>
+                                    24,692,139
+                                </td>
+                                <td>
+                                    24,266,526
+                                </td>
+                                <td>
+                                    21,827,041
+                                </td>
+                                <td>
+                                    15,796,604
+                                </td>
+                                <td>
+                                    15,759,207
+                                </td>
+                                <td>&nbsp;
+                                    49.4
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr13" onclick='kCod="453";tr_clk(13, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    453: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LORETO
+                                    
+                                </td>
+                                <td>
+                                    4,707,036
+                                </td>
+                                <td>
+                                    7,607,272
+                                </td>
+                                <td>
+                                    6,484,589
+                                </td>
+                                <td>
+                                    6,390,188
+                                </td>
+                                <td>
+                                    6,358,132
+                                </td>
+                                <td>
+                                    6,052,952
+                                </td>
+                                <td>
+                                    6,000,507
+                                </td>
+                                <td>&nbsp;
+                                    79.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr14" onclick='kCod="454";tr_clk(14, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    454: GOBIERNO REGIONAL DEL DEPARTAMENTO DE MADRE DE DIOS
+                                    
+                                </td>
+                                <td>
+                                    3,611,076
+                                </td>
+                                <td>
+                                    3,659,347
+                                </td>
+                                <td>
+                                    3,251,873
+                                </td>
+                                <td>
+                                    3,194,487
+                                </td>
+                                <td>
+                                    3,049,808
+                                </td>
+                                <td>
+                                    2,703,156
+                                </td>
+                                <td>
+                                    2,669,023
+                                </td>
+                                <td>&nbsp;
+                                    73.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr15" onclick='kCod="455";tr_clk(15, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    455: GOBIERNO REGIONAL DEL DEPARTAMENTO DE MOQUEGUA
+                                    
+                                </td>
+                                <td>
+                                    2,430,653
+                                </td>
+                                <td>
+                                    10,405,548
+                                </td>
+                                <td>
+                                    7,676,441
+                                </td>
+                                <td>
+                                    6,974,939
+                                </td>
+                                <td>
+                                    6,903,519
+                                </td>
+                                <td>
+                                    5,057,898
+                                </td>
+                                <td>
+                                    5,030,928
+                                </td>
+                                <td>&nbsp;
+                                    48.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr16" onclick='kCod="456";tr_clk(16, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    456: GOBIERNO REGIONAL DEL DEPARTAMENTO DE PASCO
+                                    
+                                </td>
+                                <td>
+                                    3,623,512
+                                </td>
+                                <td>
+                                    8,472,476
+                                </td>
+                                <td>
+                                    8,027,076
+                                </td>
+                                <td>
+                                    7,741,756
+                                </td>
+                                <td>
+                                    7,715,048
+                                </td>
+                                <td>
+                                    6,520,232
+                                </td>
+                                <td>
+                                    6,381,179
+                                </td>
+                                <td>&nbsp;
+                                    77.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr17" onclick='kCod="457";tr_clk(17, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    457: GOBIERNO REGIONAL DEL DEPARTAMENTO DE PIURA
+                                    
+                                </td>
+                                <td>
+                                    4,755,859
+                                </td>
+                                <td>
+                                    42,678,177
+                                </td>
+                                <td>
+                                    36,442,727
+                                </td>
+                                <td>
+                                    28,359,436
+                                </td>
+                                <td>
+                                    26,751,236
+                                </td>
+                                <td>
+                                    20,919,725
+                                </td>
+                                <td>
+                                    20,293,315
+                                </td>
+                                <td>&nbsp;
+                                    49.0
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr18" onclick='kCod="458";tr_clk(18, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    458: GOBIERNO REGIONAL DEL DEPARTAMENTO DE PUNO
+                                    
+                                </td>
+                                <td>
+                                    8,334,971
+                                </td>
+                                <td>
+                                    9,252,615
+                                </td>
+                                <td>
+                                    8,552,459
+                                </td>
+                                <td>
+                                    7,375,495
+                                </td>
+                                <td>
+                                    6,852,876
+                                </td>
+                                <td>
+                                    5,613,104
+                                </td>
+                                <td>
+                                    5,527,901
+                                </td>
+                                <td>&nbsp;
+                                    60.7
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr19" onclick='kCod="459";tr_clk(19, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    459: GOBIERNO REGIONAL DEL DEPARTAMENTO DE SAN MARTIN
+                                    
+                                </td>
+                                <td>
+                                    6,513,745
+                                </td>
+                                <td>
+                                    22,206,167
+                                </td>
+                                <td>
+                                    21,694,264
+                                </td>
+                                <td>
+                                    20,806,142
+                                </td>
+                                <td>
+                                    19,909,432
+                                </td>
+                                <td>
+                                    18,178,741
+                                </td>
+                                <td>
+                                    17,779,952
+                                </td>
+                                <td>&nbsp;
+                                    81.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr20" onclick='kCod="460";tr_clk(20, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    460: GOBIERNO REGIONAL DEL DEPARTAMENTO DE TACNA
+                                    
+                                </td>
+                                <td>
+                                    2,737,981
+                                </td>
+                                <td>
+                                    7,385,119
+                                </td>
+                                <td>
+                                    7,056,566
+                                </td>
+                                <td>
+                                    6,428,495
+                                </td>
+                                <td>
+                                    6,370,924
+                                </td>
+                                <td>
+                                    5,362,031
+                                </td>
+                                <td>
+                                    4,486,361
+                                </td>
+                                <td>&nbsp;
+                                    72.6
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr21" onclick='kCod="461";tr_clk(21, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    461: GOBIERNO REGIONAL DEL DEPARTAMENTO DE TUMBES
+                                    
+                                </td>
+                                <td>
+                                    2,776,011
+                                </td>
+                                <td>
+                                    60,322,631
+                                </td>
+                                <td>
+                                    57,068,378
+                                </td>
+                                <td>
+                                    52,162,870
+                                </td>
+                                <td>
+                                    52,123,596
+                                </td>
+                                <td>
+                                    51,463,298
+                                </td>
+                                <td>
+                                    51,390,385
+                                </td>
+                                <td>&nbsp;
+                                    85.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr22" onclick='kCod="462";tr_clk(22, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    462: GOBIERNO REGIONAL DEL DEPARTAMENTO DE UCAYALI
+                                    
+                                </td>
+                                <td>
+                                    5,101,054
+                                </td>
+                                <td>
+                                    5,201,598
+                                </td>
+                                <td>
+                                    4,256,675
+                                </td>
+                                <td>
+                                    4,072,411
+                                </td>
+                                <td>
+                                    4,044,879
+                                </td>
+                                <td>
+                                    3,790,986
+                                </td>
+                                <td>
+                                    3,755,590
+                                </td>
+                                <td>&nbsp;
+                                    72.9
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr23" onclick='kCod="463";tr_clk(23, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    463: GOBIERNO REGIONAL DEL DEPARTAMENTO DE LIMA
+                                    
+                                </td>
+                                <td>
+                                    7,407,804
+                                </td>
+                                <td>
+                                    9,321,718
+                                </td>
+                                <td>
+                                    8,405,876
+                                </td>
+                                <td>
+                                    8,377,623
+                                </td>
+                                <td>
+                                    7,996,020
+                                </td>
+                                <td>
+                                    6,925,848
+                                </td>
+                                <td>
+                                    6,908,143
+                                </td>
+                                <td>&nbsp;
+                                    74.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr24" onclick='kCod="464";tr_clk(24, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    464: GOBIERNO REGIONAL DE LA PROVINCIA CONSTITUCIONAL DEL CALLAO
+                                    
+                                </td>
+                                <td>
+                                    4,569,259
+                                </td>
+                                <td>
+                                    16,200,078
+                                </td>
+                                <td>
+                                    14,699,482
+                                </td>
+                                <td>
+                                    13,980,398
+                                </td>
+                                <td>
+                                    13,823,367
+                                </td>
+                                <td>
+                                    6,212,411
+                                </td>
+                                <td>
+                                    6,130,019
+                                </td>
+                                <td>&nbsp;
+                                    38.3
+                                </td>
+                            </tr>
+                            
+                        
+                            <tr class="alt" id="tr25" onclick='kCod="465";tr_clk(25, this)'
+                                onmouseover="tr_over(this)" onmouseout="tr_out(this)">
+                                
+                                <td align="left">
+                                    465: MUNICIPALIDAD METROPOLITANA DE LIMA
+                                    
+                                </td>
+                                <td>
+                                    10,411,171
+                                </td>
+                                <td>
+                                    10,465,287
+                                </td>
+                                <td>
+                                    9,962,460
+                                </td>
+                                <td>
+                                    9,562,141
+                                </td>
+                                <td>
+                                    9,521,516
+                                </td>
+                                <td>
+                                    8,499,015
+                                </td>
+                                <td>
+                                    8,471,876
+                                </td>
+                                <td>&nbsp;
+                                    81.2
+                                </td>
+                            </tr>
+                            
+                        
+                            </table>
+                        
+</body>
