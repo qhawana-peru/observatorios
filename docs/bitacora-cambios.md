@@ -2,6 +2,13 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17 · Salud: vista 5 «De qué morimos» (SINADEF)
+
+- Qué: nueva vista en /salud/ con la mortalidad proporcional por tres grandes grupos de causas (transmisibles/maternas/perinatales/nutricionales; no transmisibles; lesiones) más un bloque de causas mal definidas o sin código; por año (2017–2024), subgrupo, seguro, edad y departamento; calidad del registro y alertas de cobertura.
+- Fuente: archivo abierto del SINADEF (MINSA, ODC-By), actualizado el 15/09/2026 pero con registros solo hasta el 05/05/2024. 1 110 168 registros agregados en el navegador con `salud/sinadef_agregar.js` (sin guardar registros individuales); resumen con `salud/sinadef_resumen.py`.
+- Regla propia: causa básica aproximada (última causa con código válido A→D; lesiones por el campo «muerte violenta»). No son tasas. Celdas menores de 5 suprimidas en cortes por departamento, seguro y edad.
+- Revisión: sin revisión de cuatro ojos (suspendida); preparado, revisado y unido por Claude. Pruebas: 52 pasan.
+
 ## 2026-11-17: portada, texto de presentación (sin revisión de cuatro ojos)
 - Por decisión de Pepe ("decir lo que somos, no lo que no somos"), el pie de la portada queda: "Qhawana (quechua: «lugar desde donde se mira») es una iniciativa ciudadana independiente." Se retira "sin afiliación partidaria". No cambian cifras ni métodos.
 

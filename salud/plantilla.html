@@ -197,6 +197,27 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
   aside#panel{position:fixed;top:auto;left:0;right:0;bottom:0;width:auto;max-height:72vh;transform:translateY(105%)}
   .escena{overflow-x:auto} svg#map{min-width:900px}
 }
+/* ---- vista 5: de qué morimos ---- */
+#mort{padding:4px 2px 8px;color:#EAF0F8;display:grid;gap:14px}
+#mort .tira{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:760px){#mort .tira{grid-template-columns:repeat(2,1fr)}}
+#mort .k{background:rgba(255,255,255,.05);padding:8px 10px}
+#mort .k b{display:block;font:800 24px/1 var(--display);font-variant-numeric:tabular-nums}
+#mort .k span{font-size:12px;color:#B8C6DA;line-height:1.3;display:block;margin-top:3px}
+#mort .bloque{background:rgba(255,255,255,.035);padding:12px 14px}
+#mort h3{margin:0 0 2px;font:700 15px/1.25 var(--sans,system-ui);color:#F2F5FA}
+#mort .nota{margin:0 0 8px;font-size:12.5px;color:#B8C6DA;line-height:1.45}
+#mort .ley{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:12px;color:#D5DEEA;margin:2px 0 8px}
+#mort .ley i{display:inline-block;width:11px;height:11px;margin-right:5px;vertical-align:-1px}
+#mort svg{width:100%;height:auto;display:block}
+#mort .dos{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+@media(max-width:900px){#mort .dos{grid-template-columns:1fr}}
+#mort table{width:100%;border-collapse:collapse;font-size:12.5px}
+#mort th,#mort td{padding:4px 6px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+#mort td.n,#mort th.n{text-align:right;font-variant-numeric:tabular-nums}
+#mort .metodo{font-size:12.5px;color:#C9D6EA;line-height:1.5}
+#mort .metodo li{margin:3px 0}
+#mort select{background:var(--noche-3);color:#EAF0F8;border:1px solid rgba(255,255,255,.25);font:500 12px var(--mono);padding:3px 6px}
 </style>
 </head>
 <body>
@@ -220,6 +241,7 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
     <button data-v="dinero" aria-pressed="false"><span class="n">2</span>Cómo circula el dinero</button>
     <button data-v="bolsillo" aria-pressed="false"><span class="n">3</span>Dónde se filtra el bolsillo</button>
     <button data-v="mapa" aria-pressed="false"><span class="n">4</span>Dónde están los prestadores</button>
+    <button data-v="mortalidad" aria-pressed="false"><span class="n">5</span>De qué morimos</button>
     <button data-v="tabla" aria-pressed="false"><span class="n">≡</span>Tabla</button>
   </div>
   <div class="como">Pasa el cursor para ver relaciones · clic en un actor o una flecha para abrir su ficha</div>
@@ -253,6 +275,7 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
     <div id="geoUno"><div id="geoLienzo"><canvas id="geoCanvas" aria-label="Mapa de establecimientos de salud del Perú por red"></canvas><canvas id="geoLupa"></canvas><div id="geoLupaRot">Lupa · Lima y Callao</div><div id="geoTip"></div></div><div id="geoLado"><p class="geo-nota">Cargando 27 051 establecimientos…</p></div></div>
     <div id="geoMulti" hidden></div>
   </div>
+  <div id="mort" hidden></div>
   <div class="escena-pie"><div class="legend" id="legend"></div><span id="pieNota">Grosor uniforme: faltan las Cuentas Nacionales de Salud</span></div>
   <aside id="panel" aria-live="polite"><button class="close" aria-label="Cerrar ficha">×</button><div id="pbody"></div></aside>
 </section>
@@ -694,6 +717,8 @@ const VIEWS={
    legend:'<span>Barras: participación de cada grupo en el gasto de bolsillo total de 2019, no gasto por persona: un grupo pequeño pesa poco aunque cada persona pague mucho. FFAA y PNP vienen juntos en la fuente. «Otro seguro»: 2,2 %. Fuente: DIGEMID con ENAHO.</span>'},
  mapa:{rot:'4 · Dónde están los prestadores',lede:'Cada punto es un establecimiento registrado en RENIPRESS. Enciende y apaga redes, filtra por capacidad y compara: contar establecimientos no es lo mismo que contar hospitales.',
    legend:'<span>Tamaño: hospital general &gt; con internamiento &gt; sin internamiento</span><span>Anillo: ubicación aproximada (centro del distrito)</span><span>En «una red por mapa», naranja tenue = departamento sin esa red</span>'},
+ mortalidad:{rot:'5 · De qué morimos',lede:'Primera capa de «De qué nos enfermamos y morimos»: las defunciones del archivo abierto del SINADEF, en tres grandes grupos de causas, con la calidad y el atraso del registro a la vista. Las capas de enfermedad (encuestas del INEI) y de consultas (red pública) vendrán después.',
+   legend:'<span>Mortalidad proporcional: qué parte de las muertes registradas corresponde a cada grupo. No son tasas por habitante.</span>'},
  tabla:{rot:'Tabla',lede:'La misma información en tablas, legible sin interacción.'}
 };
 
@@ -878,6 +903,86 @@ function buildTable(){
     <table><thead><tr><th>Seguro</th><th class="n">% del total</th><th class="n">≈ Millones de soles</th></tr></thead><tbody>${[['EsSalud',37.2],['SIS',25.7],['Sin seguro',24.2],['Privado',7.5],['FFAA y PNP',3.1],['Otro seguro',2.2]].map(([a,b])=>`<tr><td>${a}</td><td class="n">${String(b).replace('.',',')}</td><td class="n">${fmt(Math.round(11297*b/100))}</td></tr>`).join('')}</tbody></table>`;
 }
 
+
+/* ---------- vista 5: de qué morimos (SINADEF) ---------- */
+const MORT=__MORT__;
+const MORTV=(()=>{
+  const G=MORT.grupos, GK=['I','II','III','X'], f1=v=>String(Math.round(v*10)/10).replace('.',','), pct=(a,b)=>b?a/b*100:0, nf=v=>String(v).replace(/\B(?=(\d{3})+(?!\d))/g,'\u202F');
+  let anio=MORT.ultimo, listo=false;
+  const R=document.getElementById('mort');
+  const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function barras100(filas,{w=640,etq=170,alto=22,gap=6}={}){ // filas: [{t, v:{I,II,III,X}, tot, sub}]
+    const h=filas.length*(alto+gap)+22; let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Distribución por grupo de causas">`;
+    const x0=etq, W=w-etq-56;
+    filas.forEach((f,i)=>{ const y=i*(alto+gap); let x=x0;
+      s+=`<text x="${etq-8}" y="${y+alto/2+4}" text-anchor="end" font-size="11.5" fill="#D5DEEA">${esc(f.t)}</text>`;
+      GK.forEach(k=>{ const p=pct(f.v[k]||0,f.tot); const ww=W*p/100; if(ww<=0) return;
+        s+=`<rect x="${x}" y="${y}" width="${Math.max(ww-2,0.5)}" height="${alto}" fill="${G[k].c}" rx="2"><title>${esc(f.t)} · ${G[k].n}: ${nf(f.v[k]||0)} (${f1(p)} %)</title></rect>`;
+        if(ww>34) s+=`<text x="${x+ww/2-1}" y="${y+alto/2+4}" text-anchor="middle" font-size="10.5" fill="#0C1D38" font-weight="600" pointer-events="none">${Math.round(p)}%</text>`;
+        x+=ww; });
+      s+=`<text x="${x0+W+6}" y="${y+alto/2+4}" font-size="10.5" fill="#9FB0C8" font-family="IBM Plex Mono, monospace">${nf(f.tot)}${f.sub?'*':''}</text>`;
+    });
+    return s+`</svg>`;
+  }
+  function ranking(lista,tot,w=660){ const alto=17,gap=5,etq=330; const max=Math.max(...lista.map(x=>x.n)); const h=lista.length*(alto+gap)+6;
+    let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Subgrupos de causas">`;
+    lista.forEach((x,i)=>{ const y=i*(alto+gap); const ww=(w-etq-70)*x.n/max;
+      s+=`<text x="${etq-8}" y="${y+alto/2+4}" text-anchor="end" font-size="11.5" fill="#D5DEEA">${esc(x.s)}</text>`;
+      s+=`<rect x="${etq}" y="${y}" width="${Math.max(ww,1)}" height="${alto}" fill="${G[x.g].c}" rx="2"><title>${esc(x.s)}: ${nf(x.n)} (${f1(pct(x.n,tot))} %)</title></rect>`;
+      s+=`<text x="${etq+ww+6}" y="${y+alto/2+4}" font-size="10.5" fill="#9FB0C8" font-family="IBM Plex Mono, monospace">${nf(x.n)} · ${f1(pct(x.n,tot))}%</text>`; });
+    return s+`</svg>`;
+  }
+  function ley(){ return `<div class="ley">${GK.map(k=>`<span><i style="background:${G[k].c}"></i>${G[k].n}</span>`).join('')}</div>`; }
+  function render(){
+    const A=MORT.porAnio[anio], tot=A.total, q=MORT.calidad[anio], parcial=anio===MORT.parcial;
+    const opts=MORT.anios.slice().reverse().map(a=>`<option value="${a}"${a===anio?' selected':''}>${a}${a===MORT.parcial?' (parcial)':''}</option>`).join('');
+    const anios=MORT.anios.map(a=>({t:String(a),v:MORT.porAnio[a],tot:MORT.porAnio[a].total,sub:a===MORT.parcial}));
+    const seg=MORT.ordenSeguro.filter(k=>MORT.seguro[anio][k]).map(k=>({t:k,v:MORT.seguro[anio][k],tot:MORT.seguro[anio][k].total}));
+    const eda=MORT.ordenEdad.filter(k=>MORT.edad[anio][k]).map(k=>({t:k==='<1'?'Menos de 1 año':k==='sin dato'?'Edad sin dato':k+' años',v:MORT.edad[anio][k],tot:MORT.edad[anio][k].total}));
+    const deps=Object.keys(MORT.dep[anio]).sort((a,b)=>a.localeCompare(b,'es'));
+    R.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><span class="nota" style="margin:0">Año: <select id="mortAnio" aria-label="Año">${opts}</select> ${parcial?'· año incompleto: el archivo abierto llega solo al '+MORT.hasta:''}</span><span class="nota" style="margin:0">SINADEF (MINSA), datos abiertos · registros hasta el ${MORT.hasta} · archivo actualizado el ${MORT.corte} · consulta ${MORT.consulta}</span></div>
+    <div class="tira">
+      <div class="k"><b>${nf(tot)}</b><span>defunciones en el archivo abierto, ${anio}${parcial?' (enero al '+MORT.hasta+')':''}</span></div>
+      <div class="k"><b>${f1(pct(A.II,tot))} %</b><span>por enfermedades no transmisibles (cáncer, corazón, diabetes, riñón…)</span></div>
+      <div class="k"><b>${f1(pct(A.I,tot))} %</b><span>por enfermedades transmisibles, maternas, perinatales y nutricionales</span></div>
+      <div class="k"><b>${f1(pct(A.X,tot))} %</b><span>con causa mal definida, poco informativa o sin código: el límite de lo que se puede saber</span></div>
+    </div>
+    <div class="bloque"><h3>Cómo cambió de qué morimos, ${MORT.anios[0]}–${MORT.anios[MORT.anios.length-1]}</h3><p class="nota">Cada barra suma el 100 % de las muertes registradas del año. El salto de 2020 y 2021 es la COVID-19 (grupo de transmisibles). * ${MORT.parcial}: solo enero al ${MORT.hasta}. La cifra a la derecha es lo que contiene el archivo, no el total de muertes del país.</p>${ley()}${barras100(anios,{w:1200,etq:60})}</div>
+    <div class="dos">
+      <div class="bloque"><h3>Las causas, por subgrupo · ${anio}</h3><p class="nota">Color = gran grupo. Las causas mal definidas o sin código se muestran al final: no son una enfermedad, son lo que el registro no permite saber.</p>${ranking(MORT.sub[anio],tot)}</div>
+      <div class="bloque"><h3>Según el seguro del fallecido · ${anio}</h3><p class="nota">Tal como figura en el certificado de defunción. Une esta vista con la de quién financia: qué enfermedades terminan en cada fondo.</p>${ley()}${barras100(seg,{w:560,etq:120})}</div>
+    </div>
+    <div class="dos">
+      <div class="bloque"><h3>Según la edad · ${anio}</h3><p class="nota">En los menores de un año pesan las causas perinatales; entre los 15 y 29 años, las lesiones.</p>${ley()}${barras100(eda,{w:560,etq:120})}</div>
+      <div class="bloque"><h3>Calidad del registro · ${anio}</h3><p class="nota">Antes de comparar causas, cuánto se puede confiar en ellas.</p>
+        <table><tbody>
+        <tr><td>Sin código CIE-10 en ninguna causa de la secuencia</td><td class="n">${nf(q.sinCodigo)}</td><td class="n">${f1(pct(q.sinCodigo,q.total))} %</td></tr>
+        <tr><td>Causa final en «síntomas y signos» (R00–R99)</td><td class="n">${nf(q.R)}</td><td class="n">${f1(pct(q.R,q.total))} %</td></tr>
+        <tr><td>Causa final poco informativa (sepsis, paro, insuficiencia respiratoria o cardiaca…)</td><td class="n">${nf(q.poco)}</td><td class="n">${f1(pct(q.poco,q.total))} %</td></tr>
+        <tr><td>Muertes violentas según el campo del certificado</td><td class="n">${nf(q.violentaCampo)}</td><td class="n">${f1(pct(q.violentaCampo,q.total))} %</td></tr>
+        </tbody></table></div>
+    </div>
+    <div class="bloque" style="border-left:3px solid #FF7A45"><h3>Antes de leer: el archivo abierto está atrasado e incompleto</h3>
+      <p class="nota">El archivo de datos abiertos del SINADEF se actualizó el ${MORT.corte}, pero sus registros terminan el ${MORT.hasta}: más de dos años de retraso. Además, en algunos departamentos el número de registros cae o salta de un año a otro de una forma que la mortalidad real no explica; lo que cambió es lo que llega al archivo. Por eso aquí se muestran proporciones y no tasas, y no se comparan totales entre años.</p>
+      <table><thead><tr><th>Departamento</th><th>Años</th><th class="n">Registros antes</th><th class="n">Registros después</th></tr></thead><tbody>
+      ${MORT.alertas.map(x=>`<tr><td>${esc(x.dep.charAt(0)+x.dep.slice(1).toLowerCase())}</td><td>${x.de} → ${x.a}</td><td class="n">${nf(x.n0)}</td><td class="n">${nf(x.n1)}</td></tr>`).join('')}
+      </tbody></table>
+      <p class="nota" style="margin-top:6px">Regla: departamentos con 500 registros o más cuyo total cae a menos de la mitad (o se duplica fuera de la pandemia) respecto del año anterior. Es una alerta para preguntar al MINSA, no una conclusión.</p></div>
+    <div class="bloque"><h3>Por departamento de domicilio · ${anio}</h3><p class="nota">En orden alfabético, no es un ranking. Un departamento con mucha causa mal definida o sin código no es «más sano»: su registro dice menos.</p>${ley()}${barras100(deps.map(d=>({t:d.charAt(0)+d.slice(1).toLowerCase(),v:MORT.dep[anio][d],tot:MORT.dep[anio][d].total})),{w:1200,etq:170,alto:16,gap:4})}</div>
+    <div class="bloque metodo"><h3>Cómo se calculó</h3><ul>
+      <li><b>Fuente:</b> «Información de Fallecidos del Sistema Informático Nacional de Defunciones - SINADEF» (MINSA), Plataforma Nacional de Datos Abiertos. Archivo actualizado el ${MORT.corte}, con registros del 1 de enero de 2017 al ${MORT.hasta}. ${nf(MORT.filas)} registros procesados. Datos preliminares, según el propio MINSA.</li>
+      <li><b>Causa básica aproximada (regla de Qhawana):</b> el archivo abierto trae hasta seis causas (A a F) con su código CIE-10, pero no la causa básica oficial. Se toma la última causa con código válido de la secuencia A→D (la que inició la cadena). Si el certificado marca accidente de tránsito, homicidio, suicidio u otro accidente, la muerte va a lesiones. Es una aproximación: la codificación oficial aplica reglas más finas de la OMS. ${MORT.notaEF}</li>
+      <li><b>Agrupación:</b> los tres grandes grupos que usa el estudio de carga de enfermedad (y la Política Nacional Multisectorial de Salud con el indicador AVISA): I. transmisibles, maternas, perinatales y nutricionales; II. no transmisibles; III. lesiones. Se agrega un cuarto bloque para lo que el registro no permite clasificar. La tabla de correspondencia de códigos está en el repositorio.</li>
+      <li><b>No son tasas:</b> es mortalidad proporcional. Las tasas ajustadas por edad necesitan la población por edad y departamento del INEI; quedan para la siguiente versión.</li>
+      <li><b>Privacidad:</b> se publican solo totales agregados; ningún dato de personas.</li>
+      <li><b>Datos:</b> <a href="datos/mortalidad_sinadef_resumen.json" style="color:#9FC7FF">resumen en JSON</a> · <a href="datos/mortalidad_sinadef_subgrupos.csv" style="color:#9FC7FF">subgrupos por año (CSV)</a> · <a href="__REPO__/blob/main/salud/sinadef_agregar.js" style="color:#9FC7FF">script de agregación</a> (corre en el navegador sobre el archivo público; no guarda registros individuales).</li>
+    </ul></div>`;
+    R.querySelector('#mortAnio').addEventListener('change',e=>{anio=+e.target.value;render()});
+  }
+  return {show(){ render(); }};
+})();
+
 /* ---------- navegación ---------- */
 function go(v,fromHash){
   if(!VIEWS[v]) v='formal';
@@ -890,8 +995,9 @@ function go(v,fromHash){
   document.getElementById('escena').style.display=isT?'none':'block'; document.getElementById('tablaView').style.display=isT?'block':'none';
   if(!fromHash){try{history.replaceState(null,'','#'+v)}catch(e){location.hash=v}}
   if(isT) return;
-  const isM=v==='mapa'; svg.style.display=isM?'none':'block'; document.getElementById('geo').hidden=!isM; document.getElementById('pieNota').style.display=isM?'none':'';
+  const isM=v==='mapa', isMo=v==='mortalidad'; svg.style.display=(isM||isMo)?'none':'block'; document.getElementById('geo').hidden=!isM; document.getElementById('mort').hidden=!isMo; document.getElementById('pieNota').style.display=(isM||isMo)?'none':'';
   if(isM){ panel.classList.remove('open'); GEO.show(); return; }
+  if(isMo){ panel.classList.remove('open'); MORTV.show(); return; }
   svg.setAttribute('viewBox','0 0 1240 '+({formal:712,dinero:790,bolsillo:885}[v]));
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   gE.style.opacity=0; gBars.style.opacity=0;
