@@ -3,7 +3,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap">
 <style>
-/* Layout: cabecera con el nombre y qué es Qhawana → dos tarjetas ilustradas (un observatorio cada una) → cómo sumarse → principios → pie */
+/* Layout: cabecera con el nombre y qué es Qhawana → tres tarjetas ilustradas (planificación, salud, El Niño) → observatorio en pausa → cómo sumarse → principios → pie */
 :root{
   --bg:#f2f6f7; --surface:#ffffff; --sunk:#e6eef0; --ink:#0d2a35; --muted:#4f6a74; --line:#cfdde2;
   --sea:#11708a; --sea-soft:#d5ebf1; --sun:#c2560f; --sun-soft:#fbe6d6;
@@ -64,6 +64,7 @@ a.card:hover .go span{transform:translateX(4px)}
 .card.plan{--accent:#E9B44C;--soft:#0C1D38}
 .card.salud{--accent:#5B8DEF;--soft:#0C1D38}
 .card.pronto{border-style:dashed}
+.archivo{margin-top:-6px}
 
 /* súmate */
 .sumate{display:grid;gap:18px}
@@ -93,53 +94,13 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
       Qhawana
     </div>
     <h1>Lugar desde donde se mira.</h1>
-    <p class="lede"><em>Qhawana</em> es una iniciativa ciudadana que mira, con datos públicos, qué pasa en el Perú y qué hace el Estado al respecto. Cada cifra enlaza a su fuente oficial y el método está a la vista para que cualquiera lo revise.</p>
+    <p class="lede"><em>Qhawana</em> es una iniciativa ciudadana que mira, con datos públicos, qué pasa en el Perú y qué hace el Estado al respecto. Hoy mira tres temas: los planes del Estado, el sistema de salud y la respuesta al Fenómeno El Niño. Cada cifra enlaza a su fuente oficial y el método está a la vista para que cualquiera lo revise.</p>
     <svg class="horizonte" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 L60 18 L95 26 L140 8 L185 24 L230 14 L270 28 L320 10 L360 22 L400 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
   </header>
 
   <section aria-labelledby="h-obs" style="display:grid;gap:20px">
     <h2 id="h-obs">Elige un observatorio</h2>
     <div class="menu">
-
-      <a class="card fuego" href="incendios/">
-        <div class="art" aria-hidden="true">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
-            <rect width="320" height="180" fill="var(--soft)"/>
-            <circle cx="250" cy="44" r="22" fill="var(--sun)" opacity=".35"/>
-            <path d="M0 150 L70 78 L112 118 L168 58 L236 132 L280 96 L320 128 L320 180 L0 180Z" fill="var(--accent)" opacity=".18"/>
-            <path d="M0 168 L54 120 L104 150 L150 104 L210 156 L262 122 L320 150 L320 180 L0 180Z" fill="var(--accent)" opacity=".3"/>
-            <g fill="var(--leaf)" opacity=".7"><path d="M40 160 l10-26 l10 26z"/><path d="M58 164 l8-20 l8 20z"/><path d="M262 158 l9-24 l9 24z"/><path d="M280 162 l7-18 l7 18z"/></g>
-            <g class="flama"><path d="M160 158c-26 0-38-18-34-40 3-14 13-22 16-38 9 9 13 19 12 30 6-6 9-14 9-24 18 15 30 34 28 50-2 14-12 22-31 22Z" fill="var(--accent)"/><path d="M160 158c-12 0-18-8-16-18 1-7 7-12 9-20 6 6 8 12 7 18 4-3 6-7 6-12 9 8 13 17 11 23-2 6-8 9-17 9Z" fill="var(--sun)"/></g>
-            <g fill="var(--accent)" opacity=".55"><circle cx="190" cy="74" r="2.4"/><circle cx="202" cy="58" r="1.8"/><circle cx="138" cy="66" r="2"/></g>
-          </svg>
-        </div>
-        <div class="txt">
-          <span class="chip">Prototipo · corte al __CORTE_INCENDIOS__</span>
-          <h3>Monitor de incendios forestales</h3>
-          <p class="q">¿Dónde y cuánto se quema en Cusco y Cajamarca, y qué tan lejos está el fin de la temporada?</p>
-          <p class="go">Entrar <span aria-hidden="true">→</span></p>
-        </div>
-      </a>
-
-      <a class="card nino" href="el-nino/">
-        <div class="art" aria-hidden="true">
-          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
-            <rect width="320" height="180" fill="var(--soft)"/>
-            <circle cx="96" cy="70" r="30" fill="var(--sun)" opacity=".85"/>
-            <g stroke="var(--sun)" stroke-width="3" stroke-linecap="round" opacity=".6"><path d="M96 26v-10M96 124v-8M52 70h-10M150 70h-10M65 39l-7-7M127 39l7-7"/></g>
-            <path d="M190 40c18-10 40-8 52 6 16-4 32 6 32 22H186c-12 0-14-20 4-28Z" fill="var(--accent)" opacity=".35"/>
-            <g stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity=".55"><path d="M206 80l-6 14M226 80l-6 14M246 80l-6 14"/></g>
-            <g class="ola"><path d="M-20 128c26-14 52-14 78 0s52 14 78 0 52-14 78 0 52 14 78 0 52-14 78 0 52 14 78 0V200H-20Z" fill="var(--accent)" opacity=".35"/>
-            <path d="M-20 146c26-12 52-12 78 0s52 12 78 0 52-12 78 0 52 12 78 0 52-12 78 0 52 12 78 0V200H-20Z" fill="var(--accent)" opacity=".7"/></g>
-          </svg>
-        </div>
-        <div class="txt">
-          <span class="chip">En operación · versión preliminar</span>
-          <h3>Observatorio El Niño</h3>
-          <p class="q">¿Qué hizo el Estado con el aviso que tuvo antes del Fenómeno El Niño 2026-2027?</p>
-          <p class="go">Entrar <span aria-hidden="true">→</span></p>
-        </div>
-      </a>
 
       <a class="card plan" href="planificacion/">
         <div class="art" aria-hidden="true">
@@ -184,19 +145,37 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
         </div>
       </a>
 
-
-
+      <a class="card nino" href="el-nino/">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="var(--soft)"/>
+            <circle cx="96" cy="70" r="30" fill="var(--sun)" opacity=".85"/>
+            <g stroke="var(--sun)" stroke-width="3" stroke-linecap="round" opacity=".6"><path d="M96 26v-10M96 124v-8M52 70h-10M150 70h-10M65 39l-7-7M127 39l7-7"/></g>
+            <path d="M190 40c18-10 40-8 52 6 16-4 32 6 32 22H186c-12 0-14-20 4-28Z" fill="var(--accent)" opacity=".35"/>
+            <g stroke="var(--accent)" stroke-width="3" stroke-linecap="round" opacity=".55"><path d="M206 80l-6 14M226 80l-6 14M246 80l-6 14"/></g>
+            <g class="ola"><path d="M-20 128c26-14 52-14 78 0s52 14 78 0 52-14 78 0 52 14 78 0 52-14 78 0 52 14 78 0V200H-20Z" fill="var(--accent)" opacity=".35"/>
+            <path d="M-20 146c26-12 52-12 78 0s52 12 78 0 52-12 78 0 52 12 78 0 52-12 78 0 52 12 78 0V200H-20Z" fill="var(--accent)" opacity=".7"/></g>
+          </svg>
+        </div>
+        <div class="txt">
+          <span class="chip">En operación · versión preliminar</span>
+          <h3>Observatorio El Niño</h3>
+          <p class="q">¿Qué hizo el Estado con el aviso que tuvo antes del Fenómeno El Niño 2026-2027?</p>
+          <p class="go">Entrar <span aria-hidden="true">→</span></p>
+        </div>
+      </a>
 
     </div>
+    <p class="muted small archivo">En pausa: <a href="incendios/">Monitor de incendios forestales</a> (corte al __CORTE_INCENDIOS__). Su página y sus datos siguen disponibles.</p>
   </section>
 
   <section class="sumate" aria-labelledby="h-sumate">
     <div style="display:grid;gap:8px;max-width:64ch">
       <h2 id="h-sumate">Súmate a verificar</h2>
-      <p class="muted">No hace falta saber programar. Cada observatorio tiene tareas pequeñas y concretas, y toda propuesta la revisa otra persona antes de publicarse.</p>
+      <p class="muted">No hace falta saber programar. Cada observatorio tiene tareas pequeñas y concretas, y cada aporte queda registrado en público con su fecha.</p>
     </div>
     <div class="acciones">
-      <a class="accion" href="incendios/#pistas"><strong>Verifica una pista</strong><span class="muted small">Cifras de prensa sobre incendios que todavía nadie confirmó con la fuente oficial.</span></a>
+      <a class="accion" href="__REPO__/issues/new?template=correccion.yml"><strong>Aporta un documento</strong><span class="muted small">¿Tienes el enlace a un plan o reporte que el museo marca como «no ubicado»? Envíalo y lo enlazamos.</span></a>
       <a class="accion" href="__REPO__/issues/new?template=hecho.yml"><strong>Registra un hecho</strong><span class="muted small">Un decreto, comunicado o alerta oficial sobre El Niño.</span></a>
       <a class="accion" href="__REPO__/issues/new?template=correccion.yml"><strong>Reporta un error</strong><span class="muted small">Si una cifra está mal, la corregimos en público con fecha.</span></a>
     </div>
@@ -206,7 +185,7 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
     <h2 id="h-principios">Cómo trabajamos</h2>
     <div class="principios">
       <div class="principio"><strong>Solo datos públicos</strong><p class="muted small">Fuentes oficiales abiertas, cada número citado con su fecha de corte. Nada de datos personales.</p></div>
-      <div class="principio"><strong>Cuatro ojos</strong><p class="muted small">Nada se publica sin que una segunda persona del comité editorial lo revise.</p></div>
+      <div class="principio"><strong>Revisión a la vista</strong><p class="muted small">Cada página dice si pasó por el comité editorial. Mientras el comité se instala, lo publicado lleva el aviso «sin revisión del comité» y cada cambio queda en la bitácora.</p></div>
       <div class="principio"><strong>Pistas a la vista, no como datos</strong><p class="muted small">Lo que dice la prensa se muestra aparte, etiquetado y con fecha de vencimiento, hasta que alguien lo verifique.</p></div>
       <div class="principio"><strong>Hecho para donarse</strong><p class="muted small">Licencias abiertas y documentación para que una universidad o la sociedad civil pueda continuarlo.</p></div>
     </div>

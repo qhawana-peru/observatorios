@@ -2,6 +2,11 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: portada reorganizada (sin revisión del comité ni de cuatro ojos)
+- **Orden de los observatorios**, por decisión de Pepe: Museo de la planificación, Observatorio del sistema de salud y Observatorio El Niño.
+- **Monitor de incendios forestales fuera del menú.** Queda en pausa al cierre de la temporada; su página y sus datos siguen en `/incendios/`, con un enlace discreto bajo las tarjetas, para no romper los enlaces ya compartidos. Sus pistas vencen el 22 nov.
+- **Textos corregidos:** el principio «Cuatro ojos» decía que nada se publica sin una segunda revisión, lo que hoy no se cumple; pasa a «Revisión a la vista» (cada página dice si pasó por el comité y cada cambio queda en la bitácora). «Verifica una pista» (incendios) se reemplaza por «Aporta un documento» (enlaces a planes o reportes no ubicados del museo).
+
 ## 2026-11-17: se publica el Observatorio del sistema de salud como versión preliminar (sin revisión del comité ni de cuatro ojos)
 - **Nuevo observatorio en `/salud/`**, por decisión de Pepe. Pregunta: ¿quién financia, quién atiende y quién termina pagando? Cinco vistas: diseño formal (rectoría del MINSA y supervisión de SUSALUD sobre todo el sistema; la SBS solo sobre las empresas de seguros), circulación del dinero (incluidos gasto de bolsillo y reembolsos), filtración del bolsillo, mapa de prestadores y tabla.
 - **Mapa de prestadores** con la descarga completa de RENIPRESS (SUSALUD) al 16/11/2026: 27 051 establecimientos. 7 003 (26 %, casi todos privados) no traen coordenadas y se ubican en el promedio de su distrito, marcados como aproximados. La descarga original no se sube porque trae datos personales (director, teléfono, RUC); se publica solo lo derivado (`salud/renipress.py`).
