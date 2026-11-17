@@ -1,8 +1,8 @@
-"""Piloto de la vitrina con indicadores y del primer hilo (anemia infantil).
+"""Piloto de la vitrina con indicadores y de los hilos (anemia infantil, pobreza monetaria y empleo adecuado).
 
-Regiones piloto: Cajamarca, Piura y Puno. Escribe cuatro CSV en catalogo/:
-objetivos.csv, indicadores.csv, hilo.csv y hallazgos.csv. Solo fuentes oficiales.
-Consulta: 16/11/2026.
+Regiones piloto: Cajamarca, Piura y Puno. Escribe en catalogo/: objetivos.csv, indicadores.csv, hilo.csv,
+hilos.csv, hilo_pendientes.csv, hallazgos.csv y las fichas de KPI. Solo fuentes oficiales.
+Consulta: 16/11/2026 (anemia y Cajamarca) y 17/11/2026 (pobreza y empleo).
 """
 import csv, os
 
@@ -15,6 +15,17 @@ PNMNNA_REP = "https://cdn.www.gob.pe/uploads/document/file/8221970/6869059-repor
 PMA = "https://observatorio.ceplan.gob.pe/ficha/t13"
 ENDES_PPR = "https://proyectos.inei.gob.pe/endes/2024/ppr2/indicadores_de_resultados_de_los_programas_presupuestales_endes_2024.pdf"
 INEI_2024 = "https://www.gob.pe/institucion/inei/noticias/1177022-el-67-4-de-los-ninos-menores-de-seis-meses-recibieron-lactancia-materna"
+
+# Fuentes de los hilos de pobreza y empleo (consulta: 17/11/2026)
+INEI_PERFIL = "https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1106/cap03.pdf"
+INEI_POB2020 = "https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/pobreza2020/Pobreza2020.pdf"
+INEI_NUEVA_MET = "https://proyectos.inei.gob.pe/iinei/srienaho/Descarga/DocumentosMetodologicos/2004-55/Informe-Tecnico-Pobreza.pdf"
+INEI_NOTA_2024 = "https://cdna.www.gob.pe/en/institucion/inei/noticias/1164173-pobreza-monetaria-afecto-al-27-6-de-la-poblacion-del-pais-en-el-ano-2024"
+PNDIS_2030 = "https://cdn.www.gob.pe/uploads/document/file/4090334/PNDIS%20al%202030.pdf.pdf"
+CONGRESO_IND = "https://www3.congreso.gob.pe/Docs/DGP/GestionInformacionEstadistica/files/carp-geo-2026/ago-26-indicadores-estadisticos-senado.pdf"
+BICENTENARIO = "https://cdn.www.gob.pe/uploads/document/file/6787686/5879883-el-plan-bicentenario-el-peru-hacia-el-2021.pdf"
+PEDN_METAS = "https://peru2050.ceplan.gob.pe/metas/"
+INEI_EMPLEO_0412 = "https://www.inei.gob.pe/media/MenuRecursivo/publicaciones_digitales/Est/Lib1105/libro.pdf"
 
 ON = {"ON1": "ON1 · Capacidades de las personas", "ON2": "ON2 · Gestión sostenible del territorio",
       "ON3": "ON3 · Competitividad y productividad", "ON4": "ON4 · Sociedad justa y Estado efectivo"}
@@ -49,7 +60,7 @@ INDICADORES = [
     I("OER.04", "IND.01.OER.04", "Estudiantes de 2.º de secundaria con rendimiento satisfactorio en lectura y matemática", "", 2021, 5.0, "2023=5.7;2024=6.07", "2023=;2024=", "%", "", ""),
     I("OER.04", "IND.02.OER.04", "Estudiantes de 2.º y 4.º de primaria con rendimiento satisfactorio en lectura y matemática", "", 2020, 16.7, "2023=21.17;2024=22.14", "2023=;2024=", "%", "", ""),
     I("OER.05", "IND.01.OER.05", "Población de 15 años y más con percepción de inseguridad", "", 2021, 83.5, "2023=86.6;2024=81.2", "2023=83;2024=", "%", "", ""),
-    I("OER.06", "IND.01.OER.06", "PEA ocupada adecuadamente empleada", "", 2021, 37.8, "2023=34.34;2024=34.99", "2023=31.35;2024=31.98", "%", "", ""),
+    I("OER.06", "IND.01.OER.06", "PEA ocupada adecuadamente empleada", "", 2021, 37.8, "2023=34.34;2024=34.99", "2023=31.35;2024=31.98", "%", "", "empleo"),
     I("OER.06", "IND.02.OER.06", "Tasa de desempleo", "", 2020, 4.7, "2023=3.1;2024=3.1", "2023=4.1;2024=4.1", "%", "", ""),
     I("OER.07", "IND.01.OER.07", "Población adulta que considera buena o muy buena la gestión del Gobierno Regional", "", 2021, 30.3, "2023=34.15;2024=36.08", "2023=22;2024=24.5", "%", "", ""),
     I("OER.08", "IND.01.OER.08", "Inversión privada en investigación, desarrollo e innovación", "", 2022, 0.0, "2023=2.27;2024=4.54", "2023=;2024=", "%", "", ""),
@@ -61,32 +72,74 @@ INDICADORES = [
     I("OER.13", "IND.01.OER.13", "Índice de infraestructura", "", 2022, 4.7, "2023=4.73;2024=4.75", "2023=4.4;2024=5.4", "índice", "", ""),
 ]
 
-# Hilo de la anemia infantil.
-# serie, etiqueta, plan_id, tipo (meta | medido | meta-otra), ámbito, población, criterio, puntos, fuente, url, nota
+# Hilos. Cada fila: hilo, serie, etiqueta, plan_id, tipo (meta | medido | meta-otra), ámbito, población, criterio, puntos, fuente, url, nota
 HILO = [
-    ("pedn", "PEDN al 2050", "pedn", "meta", "Perú", "6 a 35 meses", "Fijada antes del cambio de criterio de 2024", "2021=38.8;2026=30;2030=22;2040=21;2050=20",
+    ("anemia", "pedn", "PEDN al 2050", "pedn", "meta", "Perú", "6 a 35 meses", "Fijada antes del cambio de criterio de 2024", "2021=38.8;2026=30;2030=22;2040=21;2050=20",
      "PEDN al 2050, indicadores (CEPLAN), AE 1.2.3", PEDN_IND, "Copia del documento oficial; falta enlazar la de CEPLAN. La RPCD 046-2026/CEPLAN/PCD modificó 26 fichas: por verificar si esta fue una."),
-    ("pndis", "Política de Desarrollo e Inclusión Social", "pn-40", "meta", "Perú", "6 a 35 meses", "Fijada antes del cambio de criterio de 2024", "2021=38.8;2024=36.8;2030=32.3",
+    ("anemia", "pndis", "Política de Desarrollo e Inclusión Social", "pn-40", "meta", "Perú", "6 a 35 meses", "Fijada antes del cambio de criterio de 2024", "2021=38.8;2024=36.8;2030=32.3",
      "Reporte de cumplimiento 2024 de la PNDIS (MIDIS), indicador IOP.01.02", PNDIS_REP, "Valor 2024 reportado: 43,7 %."),
-    ("pmanemia", "Plan Multisectorial contra la Anemia 2024-2030", "", "meta", "Perú", "menores de 36 meses", "", "2030=37.2",
+    ("anemia", "pmanemia", "Plan Multisectorial contra la Anemia 2024-2030", "", "meta", "Perú", "menores de 36 meses", "", "2030=37.2",
      "Observatorio Nacional de Prospectiva (CEPLAN), ficha T13", PMA, "Norma de aprobación del plan por confirmar."),
-    ("pnmnna", "Política de Niñas, Niños y Adolescentes", "pn-38", "meta", "Perú", "6 a 35 meses", "", "2024=38.9",
+    ("anemia", "pnmnna", "Política de Niñas, Niños y Adolescentes", "pn-38", "meta", "Perú", "6 a 35 meses", "", "2024=38.9",
      "Reporte de cumplimiento 2024 de la PNMNNA (MIMP), indicador IOP.01.03", PNMNNA_REP, "Solo ubicamos la meta 2024; valor 2024 reportado: 43,7 %."),
-    ("endes-363", "ENDES · criterio anterior", "", "medido", "Perú", "6 a 35 meses", "RM 363-2022-MINSA", "2019=40.1;2020=40;2021=38.8;2022=42.4;2023=43.1;2024=43.7",
+    ("anemia", "endes-363", "ENDES · criterio anterior", "", "medido", "Perú", "6 a 35 meses", "RM 363-2022-MINSA", "2019=40.1;2020=40;2021=38.8;2022=42.4;2023=43.1;2024=43.7",
      "INEI, Indicadores de resultados de los programas presupuestales, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
-    ("endes-251", "ENDES · criterio OMS 2024", "", "medido", "Perú", "6 a 35 meses", "RM 251-2024-MINSA", "2019=31.4;2020=30.4;2021=28.4;2022=33.5;2023=34.6;2024=35.3",
+    ("anemia", "endes-251", "ENDES · criterio OMS 2024", "", "medido", "Perú", "6 a 35 meses", "RM 251-2024-MINSA", "2019=31.4;2020=30.4;2021=28.4;2022=33.5;2023=34.6;2024=35.3",
      "INEI, Indicadores de resultados de los programas presupuestales, ENDES 2024, cuadro 06.1A", ENDES_PPR, "El INEI usa este criterio en su nota de prensa de la ENDES 2024."),
-    ("caj-363", "ENDES · criterio anterior", CAJ, "medido", "Cajamarca", "6 a 35 meses", "RM 363-2022-MINSA", "2019=28.7;2020=33.8;2021=32.9;2022=38.2;2023=34.9;2024=38.4", "INEI, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
-    ("caj-251", "ENDES · criterio OMS 2024", CAJ, "medido", "Cajamarca", "6 a 35 meses", "RM 251-2024-MINSA", "2019=31.7;2020=36.8;2021=32.3;2022=35.7;2023=32.5;2024=40.6", "INEI, ENDES 2024, cuadro 06.1A", ENDES_PPR, ""),
-    ("caj-pdrc", "Meta del PDRC (6 a 59 meses)", CAJ, "meta-otra", "Cajamarca", "6 a 59 meses", "Fuente no indicada", "2021=20;2023=18.3;2024=17.4",
+    ("anemia", "caj-363", "ENDES · criterio anterior", CAJ, "medido", "Cajamarca", "6 a 35 meses", "RM 363-2022-MINSA", "2019=28.7;2020=33.8;2021=32.9;2022=38.2;2023=34.9;2024=38.4", "INEI, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
+    ("anemia", "caj-251", "ENDES · criterio OMS 2024", CAJ, "medido", "Cajamarca", "6 a 35 meses", "RM 251-2024-MINSA", "2019=31.7;2020=36.8;2021=32.3;2022=35.7;2023=32.5;2024=40.6", "INEI, ENDES 2024, cuadro 06.1A", ENDES_PPR, ""),
+    ("anemia", "caj-pdrc", "Meta del PDRC (6 a 59 meses)", CAJ, "meta-otra", "Cajamarca", "6 a 59 meses", "Fuente no indicada", "2021=20;2023=18.3;2024=17.4",
      "Informe de evaluación del PDRC Cajamarca, periodos 2023-2024 (oct 2025)", EVAL_CAJ, "Valores reportados por el propio informe: 25,8 % (2023) y 27,6 % (2024). Otro grupo de edad: no se compara con las líneas de ENDES."),
-    ("piu-363", "ENDES · criterio anterior", "pdrc-19", "medido", "Piura", "6 a 35 meses", "RM 363-2022-MINSA", "2019=43.8;2020=43.2;2021=36.7;2022=38;2023=39.7;2024=42.4", "INEI, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
-    ("piu-251", "ENDES · criterio OMS 2024", "pdrc-19", "medido", "Piura", "6 a 35 meses", "RM 251-2024-MINSA", "2019=32.9;2020=34.1;2021=28.5;2022=28.9;2023=33.2;2024=35.4", "INEI, ENDES 2024, cuadro 06.1A", ENDES_PPR, ""),
-    ("pun-363", "ENDES · criterio anterior", "pdrc-20", "medido", "Puno", "6 a 35 meses", "RM 363-2022-MINSA", "2019=69.9;2020=69.4;2021=70.4;2022=67.2;2023=70.4;2024=76", "INEI, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
-    ("pun-251", "ENDES · criterio OMS 2024", "pdrc-20", "medido", "Puno", "6 a 35 meses", "RM 251-2024-MINSA", "2019=42.8;2020=38.8;2021=34;2022=39.2;2023=46.4;2024=53.1", "INEI, ENDES 2024, cuadro 06.1A", ENDES_PPR, ""),
+    ("anemia", "piu-363", "ENDES · criterio anterior", "pdrc-19", "medido", "Piura", "6 a 35 meses", "RM 363-2022-MINSA", "2019=43.8;2020=43.2;2021=36.7;2022=38;2023=39.7;2024=42.4", "INEI, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
+    ("anemia", "piu-251", "ENDES · criterio OMS 2024", "pdrc-19", "medido", "Piura", "6 a 35 meses", "RM 251-2024-MINSA", "2019=32.9;2020=34.1;2021=28.5;2022=28.9;2023=33.2;2024=35.4", "INEI, ENDES 2024, cuadro 06.1A", ENDES_PPR, ""),
+    ("anemia", "pun-363", "ENDES · criterio anterior", "pdrc-20", "medido", "Puno", "6 a 35 meses", "RM 363-2022-MINSA", "2019=69.9;2020=69.4;2021=70.4;2022=67.2;2023=70.4;2024=76", "INEI, ENDES 2024, cuadro 06A", ENDES_PPR, ""),
+    ("anemia", "pun-251", "ENDES · criterio OMS 2024", "pdrc-20", "medido", "Puno", "6 a 35 meses", "RM 251-2024-MINSA", "2019=42.8;2020=38.8;2021=34;2022=39.2;2023=46.4;2024=53.1", "INEI, ENDES 2024, cuadro 06.1A", ENDES_PPR, ""),
+
+    # ---- Hilo de pobreza monetaria (2004-2025). Una sola serie vigente del INEI, armada con sus ediciones oficiales:
+    # 2004-2012 (Perfil de la pobreza 2004-2012), 2013-2020 (Evolución de la pobreza 2009-2020), 2021 (citado por la PNDIS al 2030)
+    # y 2022-2025 (citado por el Congreso). Donde las ediciones se superponen (2009-2012), las cifras coinciden.
+    ("pobreza", "pob-vigente", "INEI · metodología vigente", "", "medido", "Perú", "toda la población", "Vigente (canasta ENAHO 2010)",
+     "2004=58.7;2005=55.6;2006=49.1;2007=42.4;2008=37.3;2009=33.5;2010=30.8;2011=27.8;2012=25.8;2013=23.9;2014=22.7;2015=21.8;2016=20.7;2017=21.7;2018=20.5;2019=20.2;2020=30.1;2021=25.9;2022=27.5;2023=29;2024=27.6;2025=25.7",
+     "INEI, Perfil de la pobreza 2004-2012 (gráfico 3.1); Evolución de la pobreza monetaria 2009-2020 (cuadro 3.1); PNDIS al 2030 (2021, cita a la ENAHO); Congreso, indicadores estadísticos, ago 2026 (2022-2025, cita al INEI)", INEI_POB2020,
+     "2020: encuesta por teléfono durante el confinamiento, con cuestionario reducido (INEI). Falta enlazar como fuente directa el informe técnico del INEI 2016-2025."),
+    ("pobreza", "pob-anterior", "INEI · metodología anterior", "", "medido", "Perú", "toda la población", "Anterior (canasta ENAHO 1997, Censo 1993)",
+     "2004=48.6;2009=34.8;2010=31.3",
+     "INEI, Evolución de la pobreza 2004-2010. Nueva metodología (gráfico 4)", INEI_NUEVA_MET,
+     "Solo los años que el INEI publica para comparar ambas metodologías."),
+    ("pobreza", "bic-pobreza", "Plan Bicentenario (serie anterior)", "", "meta-otra", "Perú", "toda la población", "Línea de base con la metodología anterior",
+     "2009=34.8;2021=10",
+     "Plan Bicentenario: el Perú hacia el 2021 (DS 054-2011-PCM), objetivo nacional A, objetivo específico 4, p. 52", BICENTENARIO,
+     "Meta: menos de 10 % al 2021. La tabla no indica el año de la línea de base; el texto y el gráfico 1.7 la ubican en 2009."),
+    ("pobreza", "pedn-pobreza", "PEDN al 2050", "pedn", "meta", "Perú", "toda la población", "",
+     "2050=3",
+     "CEPLAN, Perú 2050: metas del PEDN", PEDN_METAS,
+     "Solo ubicamos la meta al 2050; la línea de base y las metas intermedias están por catalogar."),
+    ("pobreza", "ext-vigente", "INEI · metodología vigente", "", "medido", "Perú", "toda la población", "Vigente (canasta ENAHO 2010)",
+     "2004=16.4;2005=15.8;2006=13.8;2007=11.2;2008=10.9;2009=9.5;2010=7.6;2011=6.3;2012=6;2013=4.7;2014=4.3;2015=4.1;2016=3.8;2017=3.8;2018=2.8;2019=2.9;2020=5.1;2021=;2022=5;2023=5.7;2024=5.5;2025=4.7",
+     "INEI, Perfil de la pobreza 2004-2012 (gráfico 3.4); Evolución de la pobreza monetaria 2009-2020 (gráfico 3.5); Congreso, ago 2026 (2022-2025, cita al INEI)", INEI_POB2020,
+     "2021 sin dato: la PNDIS cita 2,1 %, cifra por cotejar con el informe técnico del INEI."),
+    ("pobreza", "bic-extrema", "Plan Bicentenario (serie anterior)", "", "meta-otra", "Perú", "toda la población", "Línea de base con la metodología anterior",
+     "2008=12.6;2021=5",
+     "Plan Bicentenario (DS 054-2011-PCM), objetivo específico 4, p. 52", BICENTENARIO,
+     "La tabla no indica el año: el gráfico 1.7 del plan ubica 12,6 % en 2008, y el texto da 11,5 % para 2009."),
+    # ---- Hilo de empleo adecuado
+    ("empleo", "emp-inei", "INEI · empleo adecuado", "", "medido", "Perú", "población ocupada", "INEI (ENAHO)",
+     "2004=22.2;2005=21.3;2006=27.4;2007=32.7;2008=36.9;2009=40;2010=42.3;2011=44.8;2012=48.1",
+     "INEI, Evolución de los indicadores de empleo e ingreso por departamento 2004-2012 (resumen ejecutivo, p. 20)", INEI_EMPLEO_0412,
+     "Serie 2013-2025 por enlazar. El INEI rotula la base como población ocupada en el gráfico y como PEA en el texto."),
+    ("empleo", "bic-adecuado", "Plan Bicentenario (MTPE-ENAHO)", "", "meta-otra", "Perú", "PEA total", "MTPE-ENAHO: PEA empleada adecuadamente ÷ PEA total",
+     "2009=51.6;2021=75",
+     "Plan Bicentenario (DS 054-2011-PCM), eje 4, objetivo específico 5, indicador 16, p. 177", BICENTENARIO,
+     "Otra medición que la del INEI para el mismo año: no se compara con la línea del INEI."),
+    ("empleo", "caj-emp-meta", "Meta del PDRC", CAJ, "meta-otra", "Cajamarca", "PEA ocupada", "Fuente no indicada",
+     "2021=37.8;2023=34.34;2024=34.99",
+     "Informe de evaluación del PDRC Cajamarca, periodos 2023-2024 (oct 2025), IND.01.OER.06", EVAL_CAJ, ""),
+    ("empleo", "caj-emp-rep", "Reportado por el gobierno regional", CAJ, "medido", "Cajamarca", "PEA ocupada", "Reportado por la entidad",
+     "2023=31.35;2024=31.98",
+     "Informe de evaluación del PDRC Cajamarca, periodos 2023-2024 (oct 2025), IND.01.OER.06", EVAL_CAJ, "Valor que reporta el propio gobierno regional."),
 ]
 
-# Hallazgos: id, ámbito (hilo:anemia o plan_id), tipo, título, observamos, por qué puede pasar, pregunta abierta, fuentes "título|url;;título|url"
+# Hallazgos: id, ámbito (hilo:<id> o plan_id), tipo, título, observamos, por qué puede pasar, pregunta abierta, fuentes "título|url;;título|url"
 HALLAZGOS = [
     ("h-metas", "hilo:anemia", "metas", "Cuatro metas nacionales para la misma anemia",
      "Para la anemia en niñas y niños pequeños, los instrumentos nacionales fijan metas distintas: el PEDN espera 22 % en 2030; la Política de Desarrollo e Inclusión Social, 32,3 %; el Plan Multisectorial contra la Anemia, 37,2 % (en menores de 36 meses). Para 2024, la Política de Desarrollo e Inclusión Social esperaba 36,8 % y la de Niñas, Niños y Adolescentes, 38,9 %.",
@@ -113,6 +166,53 @@ HALLAZGOS = [
      "Varios indicadores dependen de encuestas nacionales que publican con rezago o que no tienen representatividad regional cada año.",
      "¿Qué indicadores podrían cambiarse por otros con dato anual disponible, sin perder lo que se quiere medir?",
      "Informe de evaluación del PDRC Cajamarca 2023-2024|" + EVAL_CAJ),
+
+    ("h-bic-serie", "hilo:pobreza", "medicion", "La meta de pobreza del Plan Bicentenario se fijó con una serie que el INEI reemplazó",
+     "El Plan Bicentenario (DS 054-2011-PCM) fijó para 2021 una pobreza menor al 10 % y una pobreza extrema de 5 %, con líneas de base de 34,8 % y 12,6 % (fuente INEI). Esas cifras son de la metodología anterior del INEI. Con la metodología vigente, el INEI recalculó la pobreza de 2009 en 33,5 % y la de 2004 pasó de 48,6 % a 58,7 %. Con la serie vigente, la pobreza fue 20,2 % en 2019 y 25,9 % en 2021. En el propio plan, la base de la pobreza extrema (12,6 %) corresponde a 2008 según su gráfico, mientras el texto da 11,5 % para 2009.",
+     "El INEI actualizó su metodología: la canasta pasó a basarse en la ENAHO 2010 en lugar de la de 1997, y las proyecciones de población, en el Censo 2007 en lugar del de 1993. El plan se formuló con las cifras oficiales de entonces. No ubicamos una versión aprobada del plan que reexpresara sus metas con la nueva serie. Por eso el museo no calcula la distancia entre la meta y el resultado: no miden con la misma serie (regla 4 del método).",
+     "¿Con qué serie se evaluó la meta de pobreza del Plan Bicentenario? Cuando cambia la forma de medir, ¿quién debe reexpresar las metas vigentes, y cómo se hará con las del PEDN al 2050?",
+     "Plan Bicentenario, p. 52|" + BICENTENARIO + ";;INEI, Evolución de la pobreza 2004-2010. Nueva metodología|" + INEI_NUEVA_MET + ";;INEI, Evolución de la pobreza monetaria 2009-2020|" + INEI_POB2020 + ";;PNDIS al 2030 (pobreza 2021)|" + PNDIS_2030),
+    ("h-bic-empleo", "hilo:empleo", "medicion", "Dos cifras de empleo adecuado para el mismo año",
+     "El Plan Bicentenario midió el empleo adecuado de 2009 en 51,6 % (fuente MTPE-ENAHO, PEA empleada adecuadamente entre PEA total) y fijó una meta de 75 % para 2021. Para el mismo año, el INEI publica una tasa de empleo adecuado de 40,0 %. El plan también fijó una meta de trabajo asalariado de 60 % para 2021, desde una base de 42,7 %.",
+     "Las dos cifras salen de la ENAHO, pero pueden usar distinta definición de empleo adecuado (umbral de ingresos u horas), distinto ámbito o distinta base. El plan no publica la ficha técnica del indicador. Por eso el museo no compara la meta con la serie del INEI.",
+     "¿Qué definición de empleo adecuado usó el Plan Bicentenario y con qué serie se evaluó? ¿Usan la misma la Política Nacional de Empleo Decente y los planes regionales?",
+     "Plan Bicentenario, p. 177|" + BICENTENARIO + ";;INEI, Evolución de los indicadores de empleo e ingreso por departamento 2004-2012|" + INEI_EMPLEO_0412),
+    ("h-caj-empleo", "hilo:empleo", "meta-base", "Cajamarca fijó metas de empleo adecuado por debajo de su línea de base",
+     "El PDRC Cajamarca al 2033 sigue la PEA ocupada adecuadamente empleada. Su línea de base es 37,8 % (2021) y sus metas son 34,34 % (2023) y 34,99 % (2024), es decir, menores que el punto de partida. El gobierno regional reporta 31,35 % y 31,98 %. El informe de evaluación no indica la fuente del dato.",
+     "Una meta menor que la línea de base puede reflejar que se esperaba una caída tras 2021, o un cambio de fuente entre la línea de base y las metas. El informe no lo explica.",
+     "¿Qué supuesto llevó a fijar metas menores que la línea de base? ¿De qué fuente sale el dato, y es comparable con el que publica el INEI para Cajamarca?",
+     "Informe de evaluación del PDRC Cajamarca 2023-2024|" + EVAL_CAJ),
+]
+
+
+# Hilos: id, nombre, pregunta, texto de presentación, estado
+HILOS = [
+    ("anemia", "Anemia infantil", "¿Hablan el mismo idioma los planes sobre anemia infantil?",
+     "Seguimos un mismo problema por todos los niveles de planificación: el PEDN, las políticas nacionales, un plan multisectorial y los planes regionales piloto (Cajamarca, Piura y Puno).", "piloto"),
+    ("pobreza", "Pobreza monetaria", "¿Qué metas de pobreza se puso el Estado y con qué serie se miden?",
+     "La serie oficial del INEI desde 2004, las metas del Plan Bicentenario (al 2021, ya vencido) y del PEDN al 2050. Las metas de las políticas nacionales y de los planes regionales están por catalogar.", "piloto"),
+    ("empleo", "Empleo adecuado", "¿Qué metas de empleo se puso el Estado y miden lo mismo que el INEI?",
+     "El empleo adecuado según el INEI, la meta del Plan Bicentenario y la del plan regional de Cajamarca. La informalidad y la Política Nacional de Empleo Decente están por catalogar.", "piloto"),
+]
+
+# Lo que falta en cada hilo, a la vista: hilo, pieza, qué falta, estado
+PENDIENTES = [
+    ("pobreza", "INEI, informe técnico 2016-2025", "Enlazarlo como fuente directa de 2021-2025 (hoy: la PNDIS para 2021 y el Congreso para 2022-2025, ambos citando al INEI)", "Por cotejar"),
+    ("pobreza", "Pobreza extrema 2021", "La PNDIS cita 2,1 %; cotejar con el informe técnico del INEI antes de graficarla", "Por cotejar"),
+    ("pobreza", "PEDN al 2050", "Línea de base y metas intermedias de pobreza monetaria (solo ubicamos la meta de 3 % al 2050)", "Por catalogar"),
+    ("pobreza", "Política de Desarrollo e Inclusión Social al 2030", "Indicadores y metas de pobreza (fichas en la sección 6.2 y el anexo 7 del documento)", "Por catalogar"),
+    ("pobreza", "Acuerdo Nacional, Política de Estado 10", "Indicador de pobreza en su reporte de seguimiento", "Por catalogar"),
+    ("pobreza", "PDRC Cajamarca", "No tiene indicador de pobreza entre los 19 de su informe de evaluación 2023-2024", "Revisado"),
+    ("pobreza", "PDRC Piura y Puno", "Indicador de pobreza, si lo tienen", "Por catalogar"),
+    ("pobreza", "Plan Bicentenario", "Informe de evaluación final de CEPLAN, si existe", "Por ubicar"),
+    ("pobreza", "Grupos de departamentos", "Grupos estadísticamente semejantes del INEI, con sus intervalos, en lugar de cifras sueltas por departamento", "Por catalogar"),
+    ("pobreza", "Pobreza urbana y rural, vulnerabilidad", "Series 2004-2025 del INEI", "Por enlazar"),
+    ("empleo", "INEI, empleo adecuado 2013-2025", "Serie nacional y de Cajamarca (Evolución de los indicadores de empleo e ingreso por departamento)", "Por enlazar"),
+    ("empleo", "Informalidad", "El INEI publica más de una medición (encuesta de empleo nacional y cuenta satélite de la economía informal); se explican juntas, con una persona de estadística", "Por catalogar"),
+    ("empleo", "Política Nacional de Empleo Decente (DS 013-2021-TR)", "Indicadores, metas y reporte de cumplimiento", "Por catalogar"),
+    ("empleo", "PEDN al 2050", "Metas de desempleo (menos de 5 %) y empleo formal (duplicarlo) al 2050: líneas de base por catalogar", "Por catalogar"),
+    ("empleo", "Plan Bicentenario, trabajo asalariado", "Meta de 60 % al 2021 (base 42,7 %): falta la serie oficial para mostrarla", "Por enlazar"),
+    ("empleo", "Planilla electrónica (MTPE)", "Contraste del empleo formal registrado con la ENAHO", "Por catalogar"),
 ]
 
 
@@ -200,6 +300,8 @@ if __name__ == "__main__":
     escribir("indicadores.csv", ["plan_id", "objetivo", "codigo", "indicador", "poblacion", "lb_anio", "lb_valor", "metas", "obtenidos", "unidad", "fuente_dato", "hilo", "avance_reportado"], [i + (AVANCE.get(i[2], ""),) for i in INDICADORES])
     escribir("kpis.csv", ["codigo", "nivel", "nombre", "pregunta", "formula", "fuente", "frecuencia", "desagregacion", "advertencias", "estado", "donde"], KPIS)
     escribir("kpis_descartados.csv", ["nombre", "razon"], DESCARTADOS)
-    escribir("hilo.csv", ["serie", "etiqueta", "plan_id", "tipo", "ambito", "poblacion", "criterio", "puntos", "fuente", "url", "nota"], HILO)
+    escribir("hilo.csv", ["hilo", "serie", "etiqueta", "plan_id", "tipo", "ambito", "poblacion", "criterio", "puntos", "fuente", "url", "nota"], HILO)
+    escribir("hilos.csv", ["id", "nombre", "pregunta", "texto", "estado"], HILOS)
+    escribir("hilo_pendientes.csv", ["hilo", "pieza", "falta", "estado"], PENDIENTES)
     escribir("hallazgos.csv", ["id", "ambito", "tipo", "titulo", "observamos", "por_que", "pregunta", "fuentes"], HALLAZGOS)
-    print("piloto:", len(OBJETIVOS), "objetivos,", len(INDICADORES), "indicadores,", len(HILO), "series,", len(HALLAZGOS), "hallazgos")
+    print("piloto:", len(OBJETIVOS), "objetivos,", len(INDICADORES), "indicadores,", len(HILO), "series en", len(HILOS), "hilos,", len(HALLAZGOS), "hallazgos,", len(PENDIENTES), "pendientes")

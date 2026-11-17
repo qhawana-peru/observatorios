@@ -19,7 +19,16 @@ Responden a la pregunta del museo: qué se propuso el Estado, cómo se conectan 
 ## Estados
 
 - **Activo:** se calcula con todo el catálogo en cada corte.
-- **Piloto:** se calcula solo donde ya hay datos (hoy, Cajamarca y el hilo de anemia).
+- **Piloto:** se calcula solo donde ya hay datos (hoy, Cajamarca y los hilos).
+
+## Hilos
+
+Un hilo sigue un mismo indicador por todos los planes que le ponen meta, frente a la serie oficial. Hay tres: anemia infantil, pobreza monetaria (2004-2025) y empleo adecuado. Reglas propias:
+
+- **Una meta fijada sobre otra serie o con otra definición se dibuja punteada y rotulada «serie anterior» u «otra medición», y no se calcula su distancia con la serie vigente** (regla 4). Es el caso del Plan Bicentenario, cuyas metas de pobreza se fijaron con la metodología del INEI anterior a la actualización de 2012, y de su meta de empleo adecuado (fuente MTPE-ENAHO).
+- **Las series del INEI se arman con sus ediciones oficiales** y se anota qué edición respalda cada tramo. Si un año no se pudo cotejar con el INEI, queda sin dato.
+- **Lo que falta se publica** en `hilo_pendientes.csv` y en el panel de cada hilo.
+- **El Plan Bicentenario no se suma al catálogo de planes vigentes**: aparece solo en los hilos, como plan cerrado (2011-2021).
 - **En revisión:** definido; le falta un insumo o una validación externa.
 - **Etapa 2:** requiere cruzar planes con presupuesto (MEF).
 

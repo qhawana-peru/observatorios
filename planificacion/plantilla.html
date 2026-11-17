@@ -251,6 +251,16 @@ main { max-width: 1280px; margin: 0 auto; padding: 12px 20px 24px; display: grid
 .leyenda-h { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: #D5DEEA; margin: 4px 0 6px; }
 .leyenda-h i { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 5px; }
 .leyenda-h i.d { border-top-style: dashed; }
+.sel-hilo { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 10px; }
+.sel-hilo button { font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .06em; padding: 6px 12px; border: 1px solid rgba(255,255,255,.35); background: transparent; color: #D5DEEA; cursor: pointer; }
+.sel-hilo button[aria-pressed="true"] { background: var(--multi); border-color: var(--multi); color: #fff; }
+.sel-hilo button:focus-visible { outline: 2px solid var(--oro); outline-offset: 2px; }
+.pend { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; font-size: 13px; }
+.pend li { display: grid; grid-template-columns: 96px 1fr; gap: 2px 10px; padding: 6px 0; border-top: 1px dashed var(--linea); }
+.pend li b { grid-column: 2; }
+.pend li > span:last-child { grid-column: 2; color: var(--tinta-2); }
+.pend .pe { grid-row: 1 / span 2; font: 500 10.5px var(--mono); text-transform: uppercase; color: var(--aviso); align-self: start; }
+.pend .pe.ok { color: var(--ok); }
 .multi3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
 @media (max-width: 700px) { .multi3 { grid-template-columns: 1fr; } }
 .hz { border: 1px solid var(--linea); background: var(--superficie); padding: 12px 14px; display: grid; gap: 8px; border-left: 4px solid var(--multi-osc); }
@@ -333,7 +343,7 @@ th { font: 500 11.5px var(--mono); text-transform: uppercase; color: var(--tinta
 </head>
 <body>
 <div class="aviso" role="note">
-  <span><a href="../" style="color:inherit">← Qhawana</a> · <b>VERSIÓN PRELIMINAR</b> · sin revisión del comité · las cifras del piloto (Cajamarca y el hilo de anemia) están en cotejo con sus documentos</span>
+  <span><a href="../" style="color:inherit">← Qhawana</a> · <b>VERSIÓN PRELIMINAR</b> · sin revisión del comité · las cifras del piloto (Cajamarca y los hilos) están en cotejo con sus documentos</span>
   <span>Corte del catálogo: __CORTE__ · <a href="__REPO__/tree/main/planificacion/catalogo" style="color:inherit">datos abiertos</a> · <a href="__REPO__/issues/new?template=correccion.yml" style="color:var(--oro)">reporta un error</a></span>
 </div>
 
@@ -397,7 +407,8 @@ const P = D.piezas, porId = Object.fromEntries(P.map(p => [p.id, p]));
 const SEC = D.sectores, secPor = Object.fromEntries(SEC.map(s => [s.cod, s]));
 const NEC = D.necesidades, necPor = Object.fromEntries(NEC.map(n => [n.cod, n]));
 const EJE_COLOR = { principal: "var(--oro)", sectorial: "var(--sector-osc)", territorial: "var(--terr-osc)", multi: "var(--multi-osc)" };
-const st = { vista: "edificio", foco: { tipo: "principal" }, pieza: "pgg" };
+const st = { vista: "edificio", foco: { tipo: "principal" }, pieza: "pgg", hilo: "anemia" };
+const hiloPor = Object.fromEntries(D.hilos.map(x => [x.id, x]));
 
 const NS = "http://www.w3.org/2000/svg";
 const svg = document.getElementById("escena");
@@ -625,9 +636,12 @@ function pintarPanel() {
     ["nuevo", "ampliado", "vencido"].forEach(g => { const q = P.filter(p => p.generacion === g); if (q.length) h += `<div class="grupo-t">${GEN_TXT[g]} · ${q.length}</div><div class="chips">${q.map(p => `<button class="chip" data-reg="${p.id}">${esc(p.region)}${p.norma_pendiente ? " *" : ""}</button>`).join("")}</div>`; });
     h += `<p class="det">* Norma de aprobación por confirmar. La evaluación de los planes regionales del año 2025 no es exigible: CEPLAN exoneró por única vez a los gobiernos regionales y locales.</p>`;
   } else if (f.tipo === "vista-hilos") {
-    h += cabecera("multi", "Hilos · un indicador a través de los planes", "¿Hablan el mismo idioma los planes sobre anemia infantil?", "Seguimos un mismo problema por todos los niveles de planificación: el PEDN, las políticas nacionales, un plan multisectorial y los planes regionales piloto (Cajamarca, Piura y Puno). Cada hallazgo compara documentos oficiales y termina en una pregunta, no en una calificación.");
-    h += D.hallazgos.map(tarjetaHallazgo).join("");
-    h += `<p class="det">Piloto al ${D.corte}. Fuentes de las líneas: INEI (ENDES) y los documentos de cada plan, enlazados en cada hallazgo.</p>`;
+    const hi = hiloPor[st.hilo];
+    h += cabecera("multi", "Hilos · un indicador a través de los planes", hi.pregunta, esc(hi.texto) + " Cada hallazgo compara documentos oficiales y termina en una pregunta, no en una calificación.");
+    h += D.hallazgos.filter(x => st.hilo === "anemia" ? !x.ambito.startsWith("hilo:") || x.ambito === "hilo:anemia" : x.ambito === "hilo:" + st.hilo).map(tarjetaHallazgo).join("");
+    const pend = D.pendientes.filter(x => x.hilo === st.hilo);
+    if (pend.length) h += `<div class="grupo-t">Lo que falta en este hilo</div><ul class="pend">${pend.map(x => `<li><span class="pe ${x.estado === "Revisado" ? "ok" : ""}">${esc(x.estado)}</span><b>${esc(x.pieza)}</b><span>${esc(x.falta)}</span></li>`).join("")}</ul>`;
+    h += `<p class="det">Piloto al ${D.corte}. Las fuentes de cada línea están en los hallazgos y en <code>hilo.csv</code> de los datos abiertos.</p>`;
   } else if (f.tipo === "region") {
     const p = porId[f.cod];
     h += cabecera("territorial", "Ala territorial · región", p.region, esc(p.actores), "");
@@ -646,14 +660,17 @@ function pintarPanel() {
 
 
 /* ---------- Hilos ---------- */
-const TIPO_HZ = { metas: "Metas que no conversan", medicion: "Distinta forma de medir", "hilo-suelto": "Hilo suelto", "sin-dato": "Sin dato" };
+const TIPO_HZ = { metas: "Metas que no conversan", medicion: "Distinta forma de medir", "hilo-suelto": "Hilo suelto", "sin-dato": "Sin dato", "meta-base": "Meta por debajo de la base" };
 function tarjetaHallazgo(x) {
   return `<article class="hz"><span class="tipo">${TIPO_HZ[x.tipo] || x.tipo}</span><h5>${esc(x.titulo)}</h5>
     <dl><dt>Lo que observamos</dt><dd>${esc(x.observamos)}</dd><dt>Por qué puede pasar</dt><dd>${esc(x.por_que)}</dd><dt>Pregunta abierta</dt><dd class="preg">${esc(x.pregunta)}</dd></dl>
     <ul class="f">${x.fuentes.map(f => `<li><a href="${f.u}">${esc(f.t)}</a></li>`).join("")}</ul></article>`;
 }
-const COL_H = { pedn: "#BC8418", pndis: "#1B97A3", pmanemia: "#E2589B", pnmnna: "#5E9A2A", m363: "#E4EAF3", m251: "#8FA3BF", otra: "#B8C6DA" };
-function colorSerie(s) { return s.tipo === "medido" ? (s.criterio.includes("363") ? COL_H.m363 : COL_H.m251) : s.tipo === "meta-otra" ? COL_H.otra : COL_H[s.serie] || "#ccc"; }
+const COL_H = { pedn: "#BC8418", pndis: "#1B97A3", pmanemia: "#E2589B", pnmnna: "#5E9A2A", "pedn-pobreza": "#BC8418", "bic-pobreza": "#E2589B", "bic-extrema": "#E2589B", "bic-adecuado": "#E2589B", m363: "#E4EAF3", m251: "#8FA3BF", otra: "#B8C6DA" };
+function colorSerie(s) {
+  if (s.tipo === "medido") return (s.criterio.includes("363") || s.criterio.startsWith("Vigente") || s.criterio.startsWith("INEI")) ? COL_H.m363 : COL_H.m251;
+  return COL_H[s.serie] || (s.tipo === "meta-otra" ? COL_H.otra : "#ccc");
+}
 function grafico(series, o) {
   const W = o.w, H = o.h, m = { l: 30, r: o.r ?? 118, t: 12, b: 22 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
   const corte = o.corte || 2031, x1 = o.x1 || 2050, frac = o.x1 > corte ? .8 : 1;
@@ -674,24 +691,57 @@ function grafico(series, o) {
   etiquetas.forEach(e => s += `<text x="${o.etqX ? o.etqX : e.x + 7}" y="${e.y + 3.5}" font-size="10" fill="${e.c}" font-family="IBM Plex Sans, system-ui, sans-serif">${esc(e.t)}</text>`);
   return s + `</svg>`;
 }
-const CORTO_H = { pedn: "PEDN", pndis: "PNDIS", pmanemia: "Plan anemia", pnmnna: "PNMNNA" };
+const CORTO_H = { pedn: "PEDN", pndis: "PNDIS", pmanemia: "Plan anemia", pnmnna: "PNMNNA", "pedn-pobreza": "meta PEDN", "bic-pobreza": "meta Bicentenario", "bic-extrema": "meta Bicentenario", "bic-adecuado": "meta Bicentenario", "pob-vigente": "INEI vigente", "pob-anterior": "INEI anterior", "ext-vigente": "INEI vigente", "emp-inei": "INEI", "caj-emp-meta": "meta PDRC", "caj-emp-rep": "reportado" };
+const f2 = v => String(v).replace(".", ",");
+const serieH = id => D.hilo.find(s => s.serie === id);
+const leyendaH = ss => `<div class="leyenda-h">${ss.map(s => `<span><i class="${s.tipo === "medido" ? "" : "d"}" style="border-color:${colorSerie(s)}"></i>${esc(s.etiqueta)}${s.tipo === "medido" ? "" : " (meta)"}</span>`).join("")}</div>`;
+const notasH = ss => ss.filter(s => s.nota).map(s => `<li>${esc(s.etiqueta)}: ${esc(s.nota)}</li>`).join("");
+function selectorHilos() {
+  return `<div class="sel-hilo" role="group" aria-label="Elegir hilo">${D.hilos.map(x => `<button data-hilo="${x.id}" aria-pressed="${x.id === st.hilo}">${esc(x.nombre)}</button>`).join("")}</div>`;
+}
 function vistaHilos() {
   svg.style.display = "none";
-  document.getElementById("pie-izq").textContent = "HILOS · ANEMIA INFANTIL";
+  if (!hiloPor[st.hilo]) st.hilo = "anemia";
+  document.getElementById("pie-izq").textContent = "HILOS · " + hiloPor[st.hilo].nombre.toUpperCase();
   document.getElementById("pie-der").textContent = "Pasa el cursor por un punto para ver su valor";
-  const H = D.hilo, nac = H.filter(s => s.ambito === "Perú");
+  R.innerHTML = selectorHilos() + ({ anemia: hiloAnemia, pobreza: hiloPobreza, empleo: hiloEmpleo })[st.hilo]();
+  R.querySelectorAll("[data-hilo]").forEach(b => b.addEventListener("click", () => { st.hilo = b.dataset.hilo; history.replaceState(null, "", "#hilos-" + st.hilo); render(); }));
+}
+function hiloAnemia() {
+  const H = D.hilo.filter(s => s.hilo === "anemia"), nac = H.filter(s => s.ambito === "Perú");
   const leyenda = nac.map(s => `<span><i class="${s.tipo === "medido" ? "" : "d"}" style="border-color:${colorSerie(s)}"></i>${esc(s.etiqueta)}${s.tipo === "medido" ? " (medido)" : " (meta)"}</span>`).join("");
   const reg = ["Cajamarca", "Piura", "Puno"].map(r => {
     const ss = H.filter(s => s.ambito === r), y1 = r === "Puno" ? 80 : 50;
     const nota = r === "Cajamarca" ? "La meta del PDRC usa otro grupo de edad (6 a 59 meses) y no indica fuente: no se compara con ENDES." : "Metas del PDRC por catalogar: no pudimos abrir el documento completo.";
     return `<div class="graf"><h4>${r}</h4><p>${nota}</p>${grafico(ss, { w: 260, h: 190, x0: 2019, x1: 2025, y1, paso: r === "Puno" ? 20 : 10, r: 8, ticks: [2019, 2022, 2025], aria: "Anemia infantil en " + r, corto: s => s.tipo === "medido" ? (s.criterio.includes("363") ? "anterior" : "OMS 2024") : "meta PDRC", etqX: null })}</div>`;
   }).join("");
-  const KH = D.kpiHilo, pedn = KH.D4.ritmo[0], f2 = v => String(v).replace(".", ",");
-  R.innerHTML = `<div class="tira">${kpi(KH.A4.n, "A4 · instrumentos nacionales con meta para este indicador")}${kpi(f2(KH.A4.rango) + " pp", `A4 · distancia entre metas al 2030 (${f2(KH.A4.min2030)} % a ${f2(KH.A4.max2030)} %)`)}${kpi("−" + f2(pedn.exigido) + " pp/año", "D4 · ritmo que exige el PEDN entre 2021 y 2030")}${kpi("+" + f2(KH.D4.observado["RM 363-2022-MINSA"]) + " pp/año", "D4 · ritmo observado 2019-2024 (ENDES, criterio anterior)")}</div>
+  const KH = D.kpiHilo, pedn = KH.D4.ritmo[0];
+  return `<div class="tira">${kpi(KH.A4.n, "A4 · instrumentos nacionales con meta para este indicador")}${kpi(f2(KH.A4.rango) + " pp", `A4 · distancia entre metas al 2030 (${f2(KH.A4.min2030)} % a ${f2(KH.A4.max2030)} %)`)}${kpi("−" + f2(pedn.exigido) + " pp/año", "D4 · ritmo que exige el PEDN entre 2021 y 2030")}${kpi("+" + f2(KH.D4.observado["RM 363-2022-MINSA"]) + " pp/año", "D4 · ritmo observado 2019-2024 (ENDES, criterio anterior)")}</div>
     <div class="graf"><h4>Anemia en niñas y niños de 6 a 35 meses: lo medido y lo que se propuso cada plan</h4><p>Perú. Líneas continuas: lo que mide la ENDES con cada criterio. Líneas punteadas: metas de cada instrumento. Pasa el cursor por un punto para ver el valor.</p>
     <div class="leyenda-h">${leyenda}</div><p style="margin:0 0 4px">Etiquetas: PNDIS = Política de Desarrollo e Inclusión Social; PNMNNA = Política de Niñas, Niños y Adolescentes; anterior / OMS 2024 = criterio de medición de la ENDES.</p>${grafico(nac, { w: 620, h: 300, x0: 2019, x1: 2050, corte: 2031, y1: 50, paso: 10, ticks: [2019, 2022, 2025, 2028, 2031, 2040, 2050], aria: "Anemia infantil en el Perú, medida y metas", r: 92, corto: s => s.tipo === "medido" ? (s.criterio.includes("363") ? "anterior" : "OMS 2024") : CORTO_H[s.serie] })}</div>
     <div class="multi3">${reg}</div>
     <p style="margin:0;font-size:12px;color:#B8C6DA">Fuentes: INEI, ENDES 2024 (cuadros 06A y 06.1A); PEDN al 2050; reportes de cumplimiento 2024 de la PNDIS y la PNMNNA; CEPLAN, ficha T13; Informe de evaluación del PDRC Cajamarca 2023-2024. La ENDES 2025 está por enlazar desde el INEI.</p>`;
+}
+function hiloPobreza() {
+  const K = D.kpiHilo.pobreza, tot = ["pob-vigente", "pob-anterior", "bic-pobreza", "pedn-pobreza"].map(serieH), ext = ["ext-vigente", "bic-extrema"].map(serieH);
+  const corto = s => CORTO_H[s.serie] || s.etiqueta;
+  return `<div class="tira">${kpi(f2(K.anterior_2009) + " / " + f2(K.vigente_2009), "Pobreza 2009 según el INEI (%): metodología anterior / vigente")}${kpi("< " + f2(K.meta_bic) + " %", "Meta del Plan Bicentenario al 2021, sobre la serie anterior")}${kpi(f2(K.v2019) + " / " + f2(K.v2021), "INEI, serie vigente (%): 2019 / 2021")}${kpi(f2(K.meta_pedn_2050) + " %", "Meta del PEDN al 2050 (línea de base por catalogar)")}</div>
+    <div class="graf"><h4>Pobreza monetaria total, 2004-2025: lo medido y lo que se propusieron los planes</h4><p>Perú, porcentaje de la población. Líneas continuas: series del INEI (vigente y anterior). Punteadas: metas. La meta del Plan Bicentenario usa la serie anterior: por eso el museo no calcula su distancia con la serie vigente. Después de 2026 la escala se comprime.</p>
+    ${leyendaH(tot)}${grafico(tot, { w: 620, h: 300, x0: 2004, x1: 2050, corte: 2026, y1: 60, paso: 10, ticks: [2004, 2009, 2014, 2019, 2021, 2025, 2050], aria: "Pobreza monetaria en el Perú, series del INEI y metas", r: 125, corto })}</div>
+    <div class="graf"><h4>Pobreza extrema, 2004-2025</h4><p>Perú. 2021 sin dato hasta cotejarlo con el INEI. La meta del Plan Bicentenario (5 % al 2021) también se fijó con la serie anterior.</p>
+    ${leyendaH(ext)}${grafico(ext, { w: 620, h: 210, x0: 2004, x1: 2025, corte: 2025, y1: 20, paso: 5, ticks: [2004, 2008, 2012, 2016, 2021, 2025], aria: "Pobreza extrema en el Perú", r: 112, corto })}</div>
+    <ul style="margin:0;font-size:12px;color:#B8C6DA;padding-left:18px">${notasH([...tot, ...ext])}</ul>
+    <p style="margin:0;font-size:12px;color:#B8C6DA">Fuentes: INEI, Perfil de la pobreza 2004-2012; Evolución de la pobreza monetaria 2009-2020; Evolución de la pobreza 2004-2010, nueva metodología; PNDIS al 2030 (2021) y Congreso de la República, ago 2026 (2022-2025), ambos citando al INEI; Plan Bicentenario (DS 054-2011-PCM); CEPLAN, metas del PEDN al 2050.</p>`;
+}
+function hiloEmpleo() {
+  const K = D.kpiHilo.empleo, nac = ["emp-inei", "bic-adecuado"].map(serieH), caj = ["caj-emp-meta", "caj-emp-rep"].map(serieH);
+  const corto = s => CORTO_H[s.serie] || s.etiqueta;
+  return `<div class="tira">${kpi(f2(K.bic_2009) + " %", "Empleo adecuado 2009 según el Plan Bicentenario (MTPE-ENAHO)")}${kpi(f2(K.inei_2009) + " %", "Empleo adecuado 2009 según el INEI")}${kpi(f2(K.meta_bic) + " %", "Meta del Plan Bicentenario al 2021, sobre su propia medición")}</div>
+    <div class="graf"><h4>Empleo adecuado: dos mediciones para el mismo año</h4><p>Perú, porcentaje. Línea continua: serie del INEI (2004-2012; lo demás, por enlazar). Punteada: línea de base y meta del Plan Bicentenario, que usa otra medición. No se comparan entre sí.</p>
+    ${leyendaH(nac)}${grafico(nac, { w: 620, h: 260, x0: 2004, x1: 2021, corte: 2021, y1: 80, paso: 20, ticks: [2004, 2009, 2012, 2016, 2021], aria: "Empleo adecuado en el Perú, INEI y meta del Plan Bicentenario", r: 135, corto })}</div>
+    <div class="multi3"><div class="graf"><h4>Cajamarca</h4><p>Meta del PDRC y valor que reporta el gobierno regional. Fuente del dato no indicada.</p>${leyendaH(caj)}${grafico(caj, { w: 260, h: 190, x0: 2021, x1: 2024, corte: 2024, y1: 50, paso: 10, r: 8, ticks: [2021, 2024], aria: "Empleo adecuado en Cajamarca, meta y reportado", corto, etqX: null })}</div></div>
+    <ul style="margin:0;font-size:12px;color:#B8C6DA;padding-left:18px">${notasH([...nac, ...caj])}</ul>
+    <p style="margin:0;font-size:12px;color:#B8C6DA">Fuentes: INEI, Evolución de los indicadores de empleo e ingreso por departamento 2004-2012; Plan Bicentenario (DS 054-2011-PCM), p. 177; Informe de evaluación del PDRC Cajamarca 2023-2024.</p>`;
 }
 function sparkInd(ind) {
   const pts = [ind.lb, ...ind.metas, ...ind.obt].filter(p => p.v != null).map(p => p.v);
@@ -714,7 +764,7 @@ function seccionObjetivos(p) {
     <div class="resumen-ind">${[["D1", "con línea de base y año"], ["D2", "con fuente declarada en el informe"], ["A1", "objetivos con vínculo declarado al PEDN"], ["G3", "indicadores con dato en el último periodo"], ["G4", "metas del último año alcanzadas, según el propio informe"]].map(([k, t]) => `<div><code>${k}</code><b>${p.kpi[k][0]}<small style="font-size:13px"> de ${p.kpi[k][1]}</small></b><span>${t}</span></div>`).join("")}<div><code>¿Cómo se calcula?</code><span><a href="#tabla">Fichas de los indicadores</a></span></div></div>
     <div class="ley-ind" style="margin:8px 0 4px"><span>○ - - meta (● línea de base)</span><span style="color:#3F7A1F">● — valor reportado</span><span style="color:#B3261E">s/d sin dato</span></div>
     ${p.objetivos.map(o => `<details class="obj"${o.ind.some(i => i.hilo) ? " open" : ""}><summary><code>${esc(o.cod)}</code><span>${esc(o.enun)}</span>${o.on ? `<span class="on-chip" title="${esc(D.on[o.on])}">↑ ${esc(o.on)}</span>` : `<span class="on-chip suelto" title="El informe no declara un objetivo nacional">sin hilo</span>`}</summary>
-      ${o.ind.map(i => { const u = ultimo(i), m = i.metas[i.metas.length - 1]; return `<div class="ind"><span>${esc(i.nombre)}<span class="det">Base ${i.lb.a}: ${String(i.lb.v).replace(".", ",")} · meta ${m.a}: ${String(m.v).replace(".", ",")} · ${u ? "reportado " + u.a + ": " + String(u.v).replace(".", ",") : "sin dato reportado"}${i.unidad === "%" ? " (%)" : ""}${i.hilo ? ` · <a href="#hilos">ver hilo de anemia</a>` : ""}</span></span>${sparkInd(i)}</div>`; }).join("")}</details>`).join("")}
+      ${o.ind.map(i => { const u = ultimo(i), m = i.metas[i.metas.length - 1]; return `<div class="ind"><span>${esc(i.nombre)}<span class="det">Base ${i.lb.a}: ${String(i.lb.v).replace(".", ",")} · meta ${m.a}: ${String(m.v).replace(".", ",")} · ${u ? "reportado " + u.a + ": " + String(u.v).replace(".", ",") : "sin dato reportado"}${i.unidad === "%" ? " (%)" : ""}${i.hilo && hiloPor[i.hilo] ? ` · <a href="#hilos-${i.hilo}">ver hilo de ${esc(hiloPor[i.hilo].nombre.toLowerCase())}</a>` : ""}</span></span>${sparkInd(i)}</div>`; }).join("")}</details>`).join("")}
     <p class="det">Fuente: <a href="${p.objetivos[0].url}">informe de evaluación del plan</a>. Enunciados abreviados por Qhawana; el vínculo con el PEDN es el que declara el informe.</p></div>`;
 }
 
@@ -752,7 +802,7 @@ function pintarMigas() {
   const f = st.foco, partes = [["edificio", "Museo"]];
   if (st.vista === "sectores") partes.push(["sectores", "Ala sectorial"]);
   if (st.vista === "territorio") partes.push(["territorio", "Ala territorial"]);
-  if (st.vista === "hilos") partes.push(["hilos", "Hilos · anemia infantil"]);
+  if (st.vista === "hilos") partes.push(["hilos", "Hilos · " + hiloPor[st.hilo].nombre.toLowerCase()]);
   if (st.vista === "edificio" && f.tipo === "principal") partes.push([null, "Atrio"]);
   if (f.tipo === "necesidad") partes.push([null, necPor[f.cod].nombre]);
   if (f.tipo === "sector") partes.push([null, secPor[f.cod].nombre]);
@@ -788,7 +838,7 @@ function cambiarVista(v) {
   mostrar(true); st.vista = v;
   st.foco = v === "sectores" ? { tipo: "vista-sectores" } : v === "territorio" ? { tipo: "vista-territorio" } : v === "hilos" ? { tipo: "vista-hilos" } : { tipo: "principal" };
   if (v === "edificio") st.pieza = "pgg";
-  marcarTabs(); render(); if (location.hash !== "#" + v) history.replaceState(null, "", "#" + v);
+  marcarTabs(); render(); const hh = v === "hilos" ? "#hilos-" + st.hilo : "#" + v; if (location.hash !== hh) history.replaceState(null, "", hh);
 }
 function enfocar(f, pieza) {
   st.foco = f;
@@ -808,9 +858,10 @@ function mostrar(museo) { document.getElementById("vista-museo").hidden = !museo
 function marcarTabs() { document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.vista)); }
 document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => irVista(b.dataset.v)));
 document.getElementById("nav").hidden = false;
-const h0 = location.hash.slice(1);
-irVista(["edificio", "sectores", "territorio", "hilos", "tabla"].includes(h0) ? h0 : "edificio");
-window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h !== st.vista && ["edificio", "sectores", "territorio", "hilos", "tabla"].includes(h)) irVista(h); });
+const VISTAS = ["edificio", "sectores", "territorio", "hilos", "tabla"];
+function leerHash() { const h = location.hash.slice(1), m = h.match(/^hilos-([a-z]+)$/); if (m && hiloPor[m[1]]) { st.hilo = m[1]; return "hilos"; } return VISTAS.includes(h) ? h : null; }
+irVista(leerHash() || "edificio");
+window.addEventListener("hashchange", () => { const prev = st.hilo, v = leerHash(); if (v && (v !== st.vista || st.hilo !== prev)) { if (v === st.vista) render(); else irVista(v); } });
 </script>
 </body>
 </html>

@@ -19,7 +19,8 @@ El sitio completo lo genera `herramientas/construir_sitio.py`, que llama a `buil
 - `planes.csv`: cada pieza (plan, política o instrumento), con eje, nivel, actores, norma y horizonte.
 - `versiones.csv`, `reportes.csv`, `notas.csv`, `fuentes.csv`, `articulacion.csv`, `dimensiones.csv`.
 - `sectores.csv` (19), `multisectorial.csv` (sectores involucrados que declara cada política), `necesidades.csv` (12, agrupación editorial de Qhawana), `necesidad_plan.csv`, `notas_necesidad.csv`.
-- Piloto: `objetivos.csv`, `indicadores.csv` (Cajamarca), `hilo.csv` (anemia infantil), `hallazgos.csv`.
+- Piloto: `objetivos.csv`, `indicadores.csv` (Cajamarca), `hallazgos.csv`.
+- Hilos: `hilos.csv` (anemia infantil, pobreza monetaria y empleo adecuado), `hilo.csv` (cada serie medida o meta, con su hilo, fuente y nota) y `hilo_pendientes.csv` (lo que falta catalogar en cada hilo, a la vista).
 - Indicadores del museo: `kpis.csv` y `kpis_descartados.csv`. Método en [docs/planificacion-metodologia.md](../docs/planificacion-metodologia.md).
 
 ## Reglas

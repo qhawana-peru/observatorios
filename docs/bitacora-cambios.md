@@ -2,6 +2,15 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17 · Museo: hilos de pobreza monetaria y empleo adecuado
+
+- Qué: la vista «Hilos» pasa a tener tres hilos con selector (anemia infantil, pobreza monetaria y empleo adecuado), por decisión de Pepe (pobreza y empleo como hilos del museo, no como observatorio aparte; periodo 2004-2025; pobreza monetaria como medida principal; Plan Bicentenario como caso de cierre). El hilo de anemia no cambia.
+- Pobreza: serie vigente del INEI 2004-2025 (ediciones 2004-2012 y 2009-2020; 2021 citado por la PNDIS al 2030 y 2022-2025 por el Congreso, ambos citando al INEI, por cotejar con el informe técnico 2016-2025), serie anterior del INEI (2004, 2009 y 2010), metas del Plan Bicentenario y meta del PEDN al 2050. Pobreza extrema 2021 sin dato hasta cotejarla.
+- Empleo: empleo adecuado del INEI 2004-2012, meta del Plan Bicentenario (otra medición) y meta y valor reportado del PDRC Cajamarca.
+- Tres hallazgos nuevos: la meta de pobreza del Plan Bicentenario se fijó con una serie que el INEI reemplazó; dos cifras de empleo adecuado para 2009; Cajamarca fijó metas de empleo adecuado por debajo de su línea de base.
+- Regla: no se calcula la distancia entre una meta y una serie distinta a la suya. Lo que falta, en `hilo_pendientes.csv`.
+- Revisión: sin revisión de cuatro ojos (suspendida); preparado, revisado y unido por Claude. Pruebas: 55 pasan.
+
 ## 2026-11-17 · Salud: corrección de la vista 5 y nuevo nombre «Mortalidad»
 
 - Qué: los gráficos de mortalidad aparecían debajo de las otras pestañas después de visitarla (la regla `display:grid` anulaba el atributo `hidden`). Se agrega `#mort[hidden]{display:none}` y una prueba. La pestaña pasa a llamarse «Mortalidad», a pedido de Pepe.
