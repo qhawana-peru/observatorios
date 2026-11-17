@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: portada, texto de presentación (sin revisión de cuatro ojos)
+- Por decisión de Pepe ("decir lo que somos, no lo que no somos"), el pie de la portada queda: "Qhawana (quechua: «lugar desde donde se mira») es una iniciativa ciudadana independiente." Se retira "sin afiliación partidaria". No cambian cifras ni métodos.
+
 ## 2026-11-17: salud, población sin seguro y gasto de bolsillo en el diseño formal (sin revisión de cuatro ojos)
 - **"No afiliados" pasa a "Sin seguro (con derecho al SIS)"**, por observación de Pepe. Desde el DU 017-2019 todo residente sin otro seguro tiene derecho al SIS, así que la norma ya no prevé esa población. La ficha muestra las dos cifras oficiales del INEI, que no coinciden: 5,2 % sin seguro en el Censo 2025 y 8,9 % en la ENAHO de enero a marzo de 2025 (censo frente a encuesta trimestral; seguro autodeclarado en ambas).
 - **"Ninguna" pasa a "Pago directo (sin IAFAS)"** y el régimen "Gasto directo" a **"Sin aseguramiento"**: el pago directo no es un régimen.
