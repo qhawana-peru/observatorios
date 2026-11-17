@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: salud, el FISSAL muestra su población (sin revisión del comité ni de cuatro ojos)
+- En el diseño formal, al seleccionar el FISSAL no se encendía ninguna población: la línea de afiliación solo unía a «Residentes sin otro seguro» con el SIS. Se agrega la línea con el FISSAL y la ficha aclara que no tiene población propia: cubre a los afiliados al SIS cuando tienen una enfermedad de alto costo. Observación de Pepe.
+
 ## 2026-11-17 · Museo: hilos de pobreza monetaria y empleo adecuado
 
 - Qué: la vista «Hilos» pasa a tener tres hilos con selector (anemia infantil, pobreza monetaria y empleo adecuado), por decisión de Pepe (pobreza y empleo como hilos del museo, no como observatorio aparte; periodo 2004-2025; pobreza monetaria como medida principal; Plan Bicentenario como caso de cierre). El hilo de anemia no cambia.

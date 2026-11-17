@@ -586,7 +586,7 @@ const N = [
   pistas:[{t:'El bolsillo se filtra por medicamentos sin stock que se compran en farmacias cercanas. Falta cuantificarlo con fuente oficial.',s:'petrera'}],
   norm:['Ley 27657 (2002): fusiona el SEG y el SMI en el SIS','DL 1163 (2013)','DU 017-2019: afiliación de todo residente sin seguro']},
  {id:'fissal',t:'FISSAL',st:'Alto costo',c:'sub',w:96,A:[318,Y.ase],B:[225,270],v:'ABC',kind:'IAFAS pública · alto costo',
-  d:'La única IAFAS pública creada para una función, el alto costo, y no para una población. Es un órgano desconcentrado del SIS y solo atiende a sus afiliados. Cubre los siete cánceres más frecuentes, la enfermedad renal crónica, las enfermedades raras y huérfanas y trasplantes renales, hepáticos y de progenitores hematopoyéticos.',
+  d:'La única IAFAS pública creada para una función, el alto costo, y no para una población. Es un órgano desconcentrado del SIS y solo atiende a sus afiliados: no tiene población propia, sino que cubre a los afiliados al SIS cuando tienen una enfermedad de alto costo. Cubre los siete cánceres más frecuentes, la enfermedad renal crónica, las enfermedades raras y huérfanas y trasplantes renales, hepáticos y de progenitores hematopoyéticos.',
   pistas:[{t:'510 837 atenciones a 141 313 asegurados hasta julio de 2026. Es una nota del diario oficial: falta el reporte primario del SIS.',s:'ep26f'},{t:'Compra prestaciones de alto costo (como hemodiálisis) a IPRESS privadas: por confirmar con contratos o tarifario publicados.'}],
   norm:['Ley 27656 (2002): crea el Fondo Intangible Solidario de Salud','Ley 29761 (2011): unidad ejecutora e IAFAS de alto costo','DL 1163 (2013)']},
  {id:'ffaa',t:'IAFAS FFAA',st:'FOSPEME · FOSMAR · FOSFAP',c:'esp',A:[L[1],Y.ase],B:[360,270],v:'ABC',kind:'IAFAS pública · contributivo especial',
@@ -666,7 +666,7 @@ const NI={}; N.forEach(n=>{n.w=n.w||128;n.h=n.h||50;n.B=n.B||n.A;NI[n.id]=n});
 const EA=[
  ['cminsa','sis','form'],['cminsa','fissal','form'],['mindef','ffaa','form'],['mininter','saludpol','form'],['mtpe','essalud','form'],['cnone','eps','form'],['cnone','priv','form'],
  ['sis','pminsa','form'],['fissal','pminsa','form'],['ffaa','pffaa','form'],['saludpol','ppnp','form'],['essalud','pessalud','form'],['eps','pclin','form'],['priv','pclin','form'],['ninguna','pany','form'],
- ['psis','sis','sup'],['pmil','ffaa','sup'],['ppol','saludpol','sup'],['ptrab','essalud','sup'],['ptrab','eps','sup'],['ppriv','priv','sup'],['pnone','ninguna','sup'],
+ ['psis','sis','sup'],['psis','fissal','sup'],['pmil','ffaa','sup'],['ppol','saludpol','sup'],['ptrab','essalud','sup'],['ptrab','eps','sup'],['ppriv','priv','sup'],['pnone','ninguna','sup'],
  ['rect','cminsa','sup'],['rect','mindef','sup'],['rect','mininter','sup'],['rect','mtpe','sup'],['rect','cnone','sup'],
  ['susalud','sis','sup'],['susalud','pminsa','sup'],['susalud','pffaa','sup'],['susalud','ppnp','sup'],['susalud','pessalud','sup'],['susalud','pclin','sup'],['susalud','fissal','sup'],['susalud','ffaa','sup'],['susalud','saludpol','sup'],['susalud','essalud','sup'],['susalud','eps','sup'],['susalud','priv','sup'],
  ['sbs','priv','sup']
