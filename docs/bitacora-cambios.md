@@ -2,6 +2,13 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: cortes del MEF del 16 y 17 nov, nueva declaratoria y diseño compartido con el museo (sin revisión de cuatro ojos)
+- **MEF: entran los cortes del 16 nov** (descarga del lunes, no publicada) **y del 17 nov** (lanzado a mano). Ambos pasan los seis controles. Al 17 nov: PIM S/ 5,106.6 M, devengado S/ 2,554.9 M (50,0 %). Nacional 41,0 %, municipal 54,9 %, regional 73,1 %. Avisos de cambio de PIM: proyectos del Gobierno Regional de Tumbes de S/ 4.4 M a 5.5 M (16 nov) y a 8.7 M (17 nov), +99 % en dos cortes; actividades municipales de Lambayeque +21 % (16 nov).
+- **Nueva declaratoria:** DS N.º 149-2026-PCM (3 nov), 60 días, 1,380 distritos de 191 provincias en 24 departamentos y el Callao. Se registra con la nota de El Peruano; falta enlazar la norma y su anexo, y confirmar si prorroga el DS N.º 124-2026-PCM (vencido el 30 oct) o es una declaratoria nueva. Entre el 31 oct y el 2 nov no hubo declaratoria vigente ubicada.
+- **ENFEN N.º 20 (13 nov):** el PDF oficial está publicado en el portal de la Dirección de Hidrografía y Navegación, pero su lectura automática está bloqueada. Su contenido no se publica hasta leerlo en el documento. Las fichas regionales siguen mostrando el pronóstico por región del N.º 17.
+- **Emergencias (INDECI):** sin actualizar desde el 23 oct. El portal del INDECI no fue accesible en esta actualización; la sección lo dice con su fecha de revisión.
+- **Diseño:** la página de El Niño adopta la paleta y la tipografía del museo de la planificación (noche azul institucional, oro, turquesa, verde andino y magenta; Big Shoulders Display, IBM Plex Sans e IBM Plex Mono), con modo oscuro. No cambian cifras ni método.
+
 ## 2026-11-13: cortes atrasados del MEF, incendios y aviso sobre Suomi NPP (sin revisión de cuatro ojos)
 - **MEF: entran dos cortes**, el del 9 nov (descarga automática que no llegó a publicarse) y el del 13 nov (lanzado a mano). Ambos pasan los controles; las dos descargas volvieron a fallar solo al abrir la propuesta (paso 6b pendiente).
 - **El avance baja de 50,1 % a 49,6 % aunque el devengado sube S/ 95,8 M**, porque el PIM del PP 0068 creció S/ 245 M entre el 2 y el 13 nov. Casi todo en el nivel nacional (+S/ 161,5 M): sector Defensa +S/ 111,2 M y Salud +S/ 35,1 M, en actividades. **Por verificar** qué norma lo explica.
