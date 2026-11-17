@@ -185,8 +185,8 @@ def construir(salida: str, hoy: date | None = None) -> dict:
     with open(os.path.join(RAIZ, "sitio", "portada.html"), encoding="utf-8") as f:
         portada = f.read().replace("__REPO__", repo).replace("__CORTE_INCENDIOS__", datos["corte_largo"])
     with open(os.path.join(salida, "index.html"), "w", encoding="utf-8") as f:
-        f.write(envolver(portada, "Qhawana: observatorios ciudadanos con datos públicos sobre incendios "
-                                  "forestales y El Niño en el Perú."))
+        f.write(envolver(portada, "Qhawana: observatorios ciudadanos con datos públicos sobre los planes del Estado, "
+                                  "el sistema de salud y El Niño en el Perú."))
     return datos
 
 
