@@ -24,6 +24,7 @@ import csv
 import json
 import os
 import shutil
+from datetime import date, timedelta
 from collections import defaultdict
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -119,8 +120,9 @@ def construir_datos() -> dict:
     with open(os.path.join(EN, "config", "sitio.json"), encoding="utf-8") as f:
         sitio = json.load(f)
     emergencias = construir_emergencias()
-    brechas = construir_brechas(ult, emergencias)
-    return {"brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
+    avisos = construir_avisos()
+    brechas = construir_brechas(ult, emergencias, avisos)
+    return {"avisos": avisos, "brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
             "aprobado": sitio.get("estado") == "publicado", "niveles": niveles, "regiones": regiones,
             "serie": serie, "hechos": hechos, "emergencias": emergencias, "contexto": contexto, "_repo": sitio.get("repositorio", "#")}
 
@@ -148,7 +150,62 @@ def construir_emergencias() -> dict:
             "eventos": eventos, "excluidos": len(excluidos)}
 
 
-def construir_brechas(ult, emergencias) -> dict:
+UMBRAL_AREA = 5.0  # % del departamento bajo el nivel para contar el día (método en docs/el-nino-avisos.md)
+
+
+def construir_avisos(hoy: date | None = None) -> dict:
+    """Avisos del SENAMHI desde el 1 set 2026.
+
+    Lluvia: por departamento y día, el nivel más alto que cubre al menos UMBRAL_AREA % de su superficie, entre todos
+    los avisos de ese día. Ríos: lista de avisos hidrológicos con su estación, cuenca y departamento."""
+    hoy = hoy or date.today()
+    filas = leer_csv(os.path.join(EN, "datos", "avisos_senamhi_lluvia.csv"))
+    rios = leer_csv(os.path.join(EN, "datos", "avisos_senamhi_rios.csv"))
+    nivel = {}
+    avisos = {}
+    for r in filas:
+        avisos[r["aviso"]] = (r["nivel_aviso"], r["inicio"], r["fin"])
+        lv = 4 if float(r["pct_area_rojo"]) >= UMBRAL_AREA else 3 if float(r["pct_area_naranja_o_mas"]) >= UMBRAL_AREA \
+            else 2 if float(r["pct_area_amarillo_o_mas"]) >= UMBRAL_AREA else 0
+        k = (r["departamento"], r["fecha"])
+        if lv > nivel.get(k, 0):
+            nivel[k] = lv
+    desde = "2026-09-01"
+    fechas = sorted({f for _, f in nivel})
+    ultimo = max(fechas)
+    dias = []
+    d = date.fromisoformat(desde)
+    while d <= date.fromisoformat(ultimo):
+        dias.append(d.isoformat())
+        d += timedelta(days=1)
+    deps = sorted({dep for dep, _ in nivel})
+    matriz = {dep: "".join(str(nivel.get((dep, f), 0)) for f in dias) for dep in deps}
+    resumen = {}
+    for dep, cad in matriz.items():
+        pasado = cad[: sum(1 for f in dias if f <= hoy.isoformat())]
+        resumen[dep] = {"dias2": sum(c >= "2" for c in pasado), "dias3": sum(c >= "3" for c in pasado), "dias4": sum(c == "4" for c in pasado)}
+    hoy_s = hoy.isoformat()
+    return {
+        "desde": desde, "hoy": hoy_s, "dias": dias, "matriz": matriz, "resumen": resumen, "umbral": UMBRAL_AREA,
+        "lluvia": {"total": len(avisos), "rojos": sum(v[0] == "ROJO" for v in avisos.values()),
+                   "naranjas": sum(v[0] == "NARANJA" for v in avisos.values()),
+                   "vigentes": sorted([{"n": k, "nivel": v[0], "inicio": v[1], "fin": v[2]} for k, v in avisos.items() if v[2] >= hoy_s],
+                                      key=lambda x: x["inicio"])},
+        "rios": {"total": len(rios), "rojos": sum(r["nivel"] == "ROJO" for r in rios),
+                 "vigentes": sum(r["fin"] >= hoy_s for r in rios),
+                 "lista": [{k: r[k] for k in ("aviso", "rio", "estacion", "tipo", "inicio", "fin", "nivel", "departamento", "cuenca")}
+                           for r in sorted(rios, key=lambda r: (r["inicio"], r["aviso"]), reverse=True)]},
+    }
+
+
+def dias_territorio(avisos: dict, deps: list) -> dict:
+    """Días (hasta hoy) en que al menos uno de los departamentos tuvo aviso de lluvia naranja o rojo; sin contar dos veces."""
+    n = sum(1 for f in avisos["dias"] if f <= avisos["hoy"])
+    nivel = [max((int(avisos["matriz"].get(d, "0" * len(avisos["dias"]))[i]) for d in deps), default=0) for i in range(n)]
+    return {"naranja": sum(v >= 3 for v in nivel), "rojo": sum(v == 4 for v in nivel), "desde": avisos["desde"]}
+
+
+def construir_brechas(ult, emergencias, avisos=None) -> dict:
     """Junta, por territorio, la exposición del CENEPRED con el PP 0068 del último corte y las emergencias del piloto.
 
     No calcula ningún índice: pone las cifras lado a lado (método en docs/el-nino-brechas.md)."""
@@ -200,6 +257,7 @@ def construir_brechas(ult, emergencias) -> dict:
             "plan": {p: p in ctx["plan_aprobado"] for p in t["plan"]},
             "pronostico": ctx["pronostico"].get(t["pronostico"]),
             "emergencias": None if not en_piloto else sum(em_por_region[r] for r in en_piloto),
+            "avisos_lluvia": None if not avisos else dias_territorio(avisos, t["cenepred"]),
         })
     return {"revision": cfg["revision"], "principal": cfg["escenario_principal"], "secundario": cfg["escenario_secundario"],
             "estudios": estudios, "territorios": territorios, "fuente_pronostico": ctx["_fuentes"]["pronostico"]}
