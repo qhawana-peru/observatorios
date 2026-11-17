@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: ilustraciones nuevas en la portada (sin revisión del comité ni de cuatro ojos)
+- Por pedido de Pepe, las tarjetas del museo y de salud dejan de parecer organigramas. Museo: fachada de museo de noche, con frontón dorado, un plan iluminado en la entrada y estandartes turquesa y verde (sus alas sectorial y territorial). Salud: un electrocardiograma que termina en una moneda (S/) que cae a un bolsillo, por la pregunta de quién termina pagando. Animaciones suaves que se apagan si el usuario pidió reducir el movimiento. No cambian datos ni textos.
+
 ## 2026-11-17: portada reorganizada (sin revisión del comité ni de cuatro ojos)
 - **Orden de los observatorios**, por decisión de Pepe: Museo de la planificación, Observatorio del sistema de salud y Observatorio El Niño.
 - **Monitor de incendios forestales fuera del menú.** Queda en pausa al cierre de la temporada; su página y sus datos siguen en `/incendios/`, con un enlace discreto bajo las tarjetas, para no romper los enlaces ya compartidos. Sus pistas vencen el 22 nov.
