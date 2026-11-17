@@ -3,9 +3,9 @@
 Uso:
     python3 salud/build.py --salida _site/salud
 
-Escribe <salida>/index.html desde plantilla.html (inyecta el resumen de RENIPRESS),
+Escribe <salida>/index.html desde plantilla.html (inyecta el resumen de RENIPRESS y el de mortalidad del SINADEF),
 copia los datos del mapa a <salida>/geo/ y los datos abiertos a <salida>/datos/.
-Los datos se regeneran con renipress.py desde una descarga completa de RENIPRESS.
+Los datos se regeneran con renipress.py (RENIPRESS) y con sinadef_agregar.js + sinadef_resumen.py (SINADEF).
 """
 from __future__ import annotations
 
@@ -26,6 +26,10 @@ def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
     with open(os.path.join(AQUI, "datos", RESUMEN), encoding="utf-8") as f:
         resumen = json.load(f)
     html = html.replace("__RENI__", json.dumps(resumen, ensure_ascii=False, separators=(",", ":")))
+    with open(os.path.join(AQUI, "datos", "mortalidad_sinadef_resumen.json"), encoding="utf-8") as f:
+        mort = json.load(f)
+    html = html.replace("__MORT__", json.dumps(mort, ensure_ascii=False, separators=(",", ":")))
+    html = html.replace("__REPO__", repo)
     with open(os.path.join(salida, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)
     for carpeta in ("geo", "datos"):

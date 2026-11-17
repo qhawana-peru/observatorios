@@ -65,3 +65,29 @@ class TestSalud(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestMortalidad(unittest.TestCase):
+    def test_grupos_cuadran_con_el_total_y_la_calidad(self):
+        r = cargar("datos", "mortalidad_sinadef_resumen.json")
+        crudo = cargar("datos", "mortalidad_sinadef_agregados.json")
+        self.assertEqual(sum(v["total"] for v in crudo["G"].values()), crudo["filas"])
+        for a in r["anios"]:
+            t = r["porAnio"][str(a)]
+            self.assertEqual(t["I"] + t["II"] + t["III"] + t["X"], t["total"])
+            self.assertEqual(t["total"], r["calidad"][str(a)]["total"])
+            self.assertEqual(sum(x["n"] for x in r["sub"][str(a)]), t["total"])
+
+    def test_celdas_pequenas_suprimidas(self):
+        r = cargar("datos", "mortalidad_sinadef_resumen.json")
+        for corte in ("dep", "seguro", "edad"):
+            for tabla in r[corte].values():
+                for fila in tabla.values():
+                    for g in ("I", "II", "III", "X"):
+                        self.assertFalse(0 < fila[g] < 5, (corte, fila))
+
+    def test_el_anio_parcial_y_el_corte_estan_declarados(self):
+        r = cargar("datos", "mortalidad_sinadef_resumen.json")
+        self.assertIn(r["parcial"], r["anios"])
+        self.assertNotEqual(r["ultimo"], r["parcial"])
+        self.assertRegex(r["hasta"], r"^\d\d/\d\d/\d{4}$")
