@@ -94,6 +94,8 @@ def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
     for r in leer("objetivos.csv"):
         objetivos[r["plan_id"]].append({"cod": r["codigo"], "enun": r["enunciado"], "on": r["objetivo_nacional"], "url": r["evidencia_url"], "ind": inds[(r["plan_id"], r["codigo"])]})
     hilo = [dict(r, puntos=puntos(r["puntos"])) for r in leer("hilo.csv")]
+    hilos = leer("hilos.csv")
+    pendientes = leer("hilo_pendientes.csv")
     hallazgos = [dict(r, fuentes=[dict(zip(("t", "u"), f.split("|", 1))) for f in r["fuentes"].split(";;") if f]) for r in leer("hallazgos.csv")]
 
     piezas = []
@@ -184,8 +186,9 @@ def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
                     "A1": [sum(1 for o in p["objetivos"] if o["on"]), len(p["objetivos"])],
                     "G3": [len(con), len(ind)],
                     "G4": [sum(1 for i in con if (i["avance"] or 0) >= 100), len(con)]}
-    # Hilo
-    metas_nac = [s for s in hilo if s["ambito"] == "Perú" and s["tipo"] == "meta"]
+    # Hilos. Anemia: A4 y D4 como en la v7. Pobreza y empleo: solo lo que la regla 4 permite (sin restar series distintas).
+    anemia = [s for s in hilo if s["hilo"] == "anemia"]
+    metas_nac = [s for s in anemia if s["ambito"] == "Perú" and s["tipo"] == "meta"]
     m2030 = [pt["v"] for s in metas_nac for pt in s["puntos"] if pt["a"] == 2030]
     ritmo = []
     for s in metas_nac:
@@ -194,12 +197,20 @@ def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
             lb, m = pts[0], next(pt for pt in pts if pt["a"] == 2030)
             ritmo.append({"serie": s["etiqueta"], "exigido": round((lb["v"] - m["v"]) / (m["a"] - lb["a"]), 2)})
     obs = {}
-    for s in hilo:
+    for s in anemia:
         if s["ambito"] == "Perú" and s["tipo"] == "medido":
             p0, p1 = s["puntos"][-6], s["puntos"][-1]
             obs[s["criterio"]] = round((p1["v"] - p0["v"]) / (p1["a"] - p0["a"]), 2)
+    serie = lambda sid: next(s for s in hilo if s["serie"] == sid)
+    valor_en = lambda sid, a: next((pt["v"] for pt in serie(sid)["puntos"] if pt["a"] == a), None)
+    ult = lambda sid: [pt for pt in serie(sid)["puntos"] if pt["v"] is not None][-1]
     kpi_hilo = {"A4": {"n": len(metas_nac), "min2030": min(m2030), "max2030": max(m2030), "rango": round(max(m2030) - min(m2030), 1)},
-                "D4": {"ritmo": ritmo, "observado": obs}}
+                "D4": {"ritmo": ritmo, "observado": obs},
+                "pobreza": {"meta_bic": valor_en("bic-pobreza", 2021), "lb_bic": valor_en("bic-pobreza", 2009),
+                            "anterior_2009": valor_en("pob-anterior", 2009), "vigente_2009": valor_en("pob-vigente", 2009),
+                            "v2019": valor_en("pob-vigente", 2019), "v2021": valor_en("pob-vigente", 2021), "ultimo": ult("pob-vigente"),
+                            "meta_pedn_2050": valor_en("pedn-pobreza", 2050)},
+                "empleo": {"bic_2009": valor_en("bic-adecuado", 2009), "inei_2009": valor_en("emp-inei", 2009), "meta_bic": valor_en("bic-adecuado", 2021)}}
 
     est_txt = {"activo": "Activo", "piloto": "Piloto", "revision": "En revisión", "etapa2": "Etapa 2"}
     tarjetas = "".join(f'<div class="kpi-c"><code>{k}</code><b>{html.escape(v[0])}</b><span>{html.escape(v[1])}</span></div>' for k, v in valor.items())
@@ -216,14 +227,14 @@ def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
         if f["nivel"] not in niveles_k: niveles_k.append(f["nivel"])
     metodo = ('<section class="metodo"><h2>Indicadores del museo · corte ' + CORTE_TXT + '</h2>'
               '<p>Miden el sistema de planificación, no califican entidades: se muestran como cifras y distribuciones, nunca como listas ordenadas. '
-              'Cada indicador tiene su ficha. Los marcados como piloto se calculan solo donde ya hay datos (Cajamarca y el hilo de anemia).</p>'
+              'Cada indicador tiene su ficha. Los marcados como piloto se calculan solo donde ya hay datos (Cajamarca y los hilos).</p>'
               f'<div class="kpi-grid">{tarjetas}</div><p class="det-m">G1 por tipo de plan:</p><ul class="det-m">{g1}</ul>'
               '<h3>Fichas</h3>' + "".join(f'<h4>{html.escape(n)}</h4>' + "".join(ficha_html(f) for f in fichas if f["nivel"] == n) for n in niveles_k)
               + '<h3>Indicadores descartados</h3><ul>' + "".join(f'<li><b>{html.escape(d["nombre"])}.</b> {html.escape(d["razon"])}</li>' for d in descart) + '</ul></section>')
     tabla = metodo + tabla
 
     datos = {"corte": CORTE_TXT, "estados": ESTADOS, "piezas": piezas, "dimensiones": DIMS, "sectores": sectores,
-             "necesidades": necesidades, "niveles": NIVELES, "mapa": json.load(open(MAPA)), "cepal": CEPAL_PERU, "hilo": hilo, "hallazgos": hallazgos, "kpiHilo": kpi_hilo, "kpiSis": {k: list(v[:2]) for k, v in valor.items()},
+             "necesidades": necesidades, "niveles": NIVELES, "mapa": json.load(open(MAPA)), "cepal": CEPAL_PERU, "hilo": hilo, "hilos": hilos, "pendientes": pendientes, "hallazgos": hallazgos, "kpiHilo": kpi_hilo, "kpiSis": {k: list(v[:2]) for k, v in valor.items()},
              "on": {"ON1": "Capacidades de las personas", "ON2": "Gestión sostenible del territorio", "ON3": "Competitividad y productividad", "ON4": "Sociedad justa y Estado efectivo"}}
     pl = open(os.path.join(BASE, "plantilla.html"), encoding="utf-8").read()
     out = (pl.replace("__CORTE__", CORTE_TXT).replace("__CONTADORES__", cont_html).replace("__LEYENDA__", leyenda)

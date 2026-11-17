@@ -1,0 +1,17 @@
+hilo,pieza,falta,estado
+pobreza,"INEI, informe técnico 2016-2025","Enlazarlo como fuente directa de 2021-2025 (hoy: la PNDIS para 2021 y el Congreso para 2022-2025, ambos citando al INEI)",Por cotejar
+pobreza,Pobreza extrema 2021,"La PNDIS cita 2,1 %; cotejar con el informe técnico del INEI antes de graficarla",Por cotejar
+pobreza,PEDN al 2050,Línea de base y metas intermedias de pobreza monetaria (solo ubicamos la meta de 3 % al 2050),Por catalogar
+pobreza,Política de Desarrollo e Inclusión Social al 2030,Indicadores y metas de pobreza (fichas en la sección 6.2 y el anexo 7 del documento),Por catalogar
+pobreza,"Acuerdo Nacional, Política de Estado 10",Indicador de pobreza en su reporte de seguimiento,Por catalogar
+pobreza,PDRC Cajamarca,No tiene indicador de pobreza entre los 19 de su informe de evaluación 2023-2024,Revisado
+pobreza,PDRC Piura y Puno,"Indicador de pobreza, si lo tienen",Por catalogar
+pobreza,Plan Bicentenario,"Informe de evaluación final de CEPLAN, si existe",Por ubicar
+pobreza,Grupos de departamentos,"Grupos estadísticamente semejantes del INEI, con sus intervalos, en lugar de cifras sueltas por departamento",Por catalogar
+pobreza,"Pobreza urbana y rural, vulnerabilidad",Series 2004-2025 del INEI,Por enlazar
+empleo,"INEI, empleo adecuado 2013-2025",Serie nacional y de Cajamarca (Evolución de los indicadores de empleo e ingreso por departamento),Por enlazar
+empleo,Informalidad,"El INEI publica más de una medición (encuesta de empleo nacional y cuenta satélite de la economía informal); se explican juntas, con una persona de estadística",Por catalogar
+empleo,Política Nacional de Empleo Decente (DS 013-2021-TR),"Indicadores, metas y reporte de cumplimiento",Por catalogar
+empleo,PEDN al 2050,Metas de desempleo (menos de 5 %) y empleo formal (duplicarlo) al 2050: líneas de base por catalogar,Por catalogar
+empleo,"Plan Bicentenario, trabajo asalariado","Meta de 60 % al 2021 (base 42,7 %): falta la serie oficial para mostrarla",Por enlazar
+empleo,Planilla electrónica (MTPE),Contraste del empleo formal registrado con la ENAHO,Por catalogar

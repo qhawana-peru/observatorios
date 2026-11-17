@@ -47,3 +47,27 @@ def test_pagina_se_genera(tmp_path):
     datos = json.loads(re.search(r'<script id="datos" type="application/json">(.*?)</script>', html, re.S).group(1).replace("<\\/", "</"))
     assert len(datos["piezas"]) == len(leer("planes.csv"))
     assert (tmp_path / "datos" / "kpis.csv").exists()
+
+
+def test_hilos_coherentes():
+    hilos = {h["id"] for h in leer("hilos.csv")}
+    assert {"anemia", "pobreza", "empleo"} <= hilos
+    ids = {p["id"] for p in leer("planes.csv")}
+    for s in leer("hilo.csv"):
+        assert s["hilo"] in hilos, s["serie"]
+        assert s["tipo"] in {"meta", "meta-otra", "medido"}, s["serie"]
+        assert s["url"].startswith("http") and s["fuente"].strip(), s["serie"]
+        assert not s["plan_id"] or s["plan_id"] in ids, s["serie"]
+    for h in leer("hallazgos.csv"):
+        if h["ambito"].startswith("hilo:"):
+            assert h["ambito"][5:] in hilos, h["id"]
+    assert {p["hilo"] for p in leer("hilo_pendientes.csv")} <= hilos
+
+
+def test_pobreza_serie_vigente_y_regla_4():
+    """La serie vigente cubre 2004-2025 y ninguna meta sobre otra serie se marca como comparable."""
+    s = {r["serie"]: r for r in leer("hilo.csv")}
+    anios = [int(x.split("=")[0]) for x in s["pob-vigente"]["puntos"].split(";")]
+    assert anios[0] == 2004 and anios[-1] >= 2025 and anios == sorted(anios)
+    for sid in ("bic-pobreza", "bic-extrema", "bic-adecuado"):
+        assert s[sid]["tipo"] == "meta-otra", sid

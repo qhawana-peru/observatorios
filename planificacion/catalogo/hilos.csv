@@ -1,0 +1,4 @@
+id,nombre,pregunta,texto,estado
+anemia,Anemia infantil,¿Hablan el mismo idioma los planes sobre anemia infantil?,"Seguimos un mismo problema por todos los niveles de planificación: el PEDN, las políticas nacionales, un plan multisectorial y los planes regionales piloto (Cajamarca, Piura y Puno).",piloto
+pobreza,Pobreza monetaria,¿Qué metas de pobreza se puso el Estado y con qué serie se miden?,"La serie oficial del INEI desde 2004, las metas del Plan Bicentenario (al 2021, ya vencido) y del PEDN al 2050. Las metas de las políticas nacionales y de los planes regionales están por catalogar.",piloto
+empleo,Empleo adecuado,¿Qué metas de empleo se puso el Estado y miden lo mismo que el INEI?,"El empleo adecuado según el INEI, la meta del Plan Bicentenario y la del plan regional de Cajamarca. La informalidad y la Política Nacional de Empleo Decente están por catalogar.",piloto
