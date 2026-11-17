@@ -2,6 +2,12 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: avisos del SENAMHI de lluvias y ríos (sin revisión de cuatro ojos)
+- Nueva sección en El Niño: 37 avisos de lluvia (10 rojos) y 87 avisos de ríos (8 rojos) desde el 1 set 2026, con calendario por departamento y lista de avisos de ríos recientes. Sugerencia externa de monitorear lluvias; se descartó Meteored (privado, pronóstico de modelo) y se usaron los avisos oficiales.
+- Cada aviso de lluvia se cruza con los límites del INEI que publica el SENAMHI: un día cuenta si al menos el 5 % del departamento está bajo ese nivel. El nivel máximo de cada mapa coincide con el de la tabla del SENAMHI en los 37 avisos.
+- Las fichas de Brechas suman "días con aviso de lluvia naranja o rojo".
+- Herramientas nuevas: `senamhi_avisos.js` (consulta en navegador) y `procesar_avisos_senamhi.py`. Método en `docs/el-nino-avisos.md`; manual 06, parte D.
+
 ## 2026-11-17: salud, el FISSAL muestra su población (sin revisión del comité ni de cuatro ojos)
 - En el diseño formal, al seleccionar el FISSAL no se encendía ninguna población: la línea de afiliación solo unía a «Residentes sin otro seguro» con el SIS. Se agrega la línea con el FISSAL y la ficha aclara que no tiene población propia: cubre a los afiliados al SIS cuando tienen una enfermedad de alto costo. Observación de Pepe.
 

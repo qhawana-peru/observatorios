@@ -8,6 +8,7 @@
 |---|---|---|---|
 | Comunicado ENFEN | Quincenal (el próximo es el 30 oct 2026) | 10 min | `el-nino/datos/hechos.csv` y `el-nino/config/contexto.json` |
 | Informe técnico IGP | Mensual | 10 min | `el-nino/datos/hechos.csv` |
+| Avisos del SENAMHI (lluvia y ríos) | Semanal en temporada de lluvias | 10 min | `el-nino/datos/avisos_senamhi_*.csv` |
 | Escenario de riesgo CENEPRED | Cuando el CENEPRED publique una versión nueva | 1 a 2 horas | `el-nino/datos/exposicion_cenepred.csv` |
 
 **Regla de oro:** el pronunciamiento oficial sobre El Niño es el del ENFEN. El IGP es un insumo técnico y el CENEPRED estima el riesgo. Si dos de ellos difieren, se muestran ambos y se explica la diferencia. No se elige uno.
@@ -52,6 +53,16 @@ Es la tarea más delicada: cada cifra de exposición sale de aquí.
 ### Qué hacer si las versiones no coinciden
 
 Es lo normal: cada estudio usa otro pronóstico y otra unidad (distrito o centro poblado). No se corrige ni se promedia. Se muestra la versión vigente y se explica la diferencia en `docs/el-nino-brechas.md`.
+
+## D. Avisos del SENAMHI (10 min)
+
+El SENAMHI no responde a servidores fuera del Perú: se hace desde un navegador en el Perú. El detalle está en `docs/el-nino-avisos.md`.
+
+1. Abre https://www.senamhi.gob.pe/?p=aviso-meteorologico, abre la consola (F12) y corre el **PASO 1** de `herramientas/senamhi_avisos.js`. Copia el resultado.
+2. Abre https://idesep.senamhi.gob.pe/geoserver/ows?service=WFS&request=GetCapabilities, pega el resultado en `AVISOS` del **PASO 2** y córrelo. Tarda 1 o 2 minutos y descarga `avisos_lluvia_AAAA-MM-DD.txt`.
+3. Abre https://www.senamhi.gob.pe/?p=avisos-hidrologicos y corre el **PASO 3**. Descarga `avisos_rios_AAAA-MM-DD.txt`.
+4. Con los dos archivos, datos corre `python herramientas/procesar_avisos_senamhi.py <lluvia> <rios>` y abre la propuesta.
+5. Si el programa avisa "Estaciones sin ubicar" con una estación nueva, búscala en el mapa de estaciones del SENAMHI y agrégala a `EST` en `procesar_avisos_senamhi.py`, con su departamento, provincia y cuenca.
 
 ## Qué puede salir mal
 
