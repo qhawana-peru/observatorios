@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Museo de la planificación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* Escenario nocturno azul institucional; tres ejes con color propio: oro (planes de país), turquesa (sectorial), verde andino (territorial); magenta para lo multisectorial. */
+  --noche: #0C1D38;
+  --noche-2: #142C52;
+  --noche-3: #1E3B68;
+  --papel: #EEF1F6;
+  --superficie: #FFFFFF;
+  --tinta: #12223C;
+  --tinta-2: #4A5B74;
+  --linea: #C9D2DE;
+  --oro: #E9B44C;
+  --oro-osc: #9A6B12;
+  --sector: #22B5C2;
+  --sector-osc: #0B7581;
+  --terr: #8CC152;
+  --terr-osc: #3F7A1F;
+  --multi: #E2589B;
+  --multi-osc: #A8286A;
+  --enlace: #1F5FBF;
+  --ok: #1F7A4D;
+  --aviso: #B86A00;
+  --mal: #B3261E;
+  --neutro: #7D8899;
+  --display: "Big Shoulders Display", "Arial Narrow", sans-serif;
+  --cuerpo: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--papel); color: var(--tinta); font: 15px/1.55 var(--cuerpo); }
+a { color: var(--enlace); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--enlace); outline-offset: 2px; }
+
+.aviso { background: var(--noche); color: #C9D6EA; font: 500 12px/1.4 var(--mono); padding: 8px 20px; display: flex; gap: 16px; flex-wrap: wrap; justify-content: space-between; }
+.aviso b { color: var(--oro); font-weight: 500; }
+
+header.cab { background: linear-gradient(180deg, var(--noche) 0%, var(--noche-2) 100%); color: #EAF0F8; }
+.cab-in { max-width: 1280px; margin: 0 auto; padding: 26px 20px 18px; display: grid; gap: 14px; }
+.marca { font: 500 12px var(--mono); color: #9FB3CF; letter-spacing: .08em; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
+.marca i { display: inline-flex; gap: 3px; }
+.marca i span { width: 9px; height: 9px; display: block; }
+h1 { font: 800 clamp(40px, 6vw, 74px)/.92 var(--display); text-transform: uppercase; margin: 2px 0 4px; text-wrap: balance; letter-spacing: .01em; }
+h1 em { font-style: normal; color: var(--oro); }
+.tesis { max-width: 66ch; color: #C3D0E3; margin: 0; font-size: 16px; }
+.contadores { display: flex; gap: 8px; flex-wrap: wrap; }
+.cont { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); padding: 7px 12px; display: flex; align-items: baseline; gap: 8px; }
+.cont b { font: 800 24px/1 var(--display); font-variant-numeric: tabular-nums; color: #fff; }
+.cont span { font-size: 12.5px; color: #B8C6DA; }
+.cont.corte { border-style: dashed; }
+.cont.corte b { font: 500 13px var(--mono); color: var(--oro); }
+
+.nav { max-width: 1280px; margin: 0 auto; padding: 12px 20px 0; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+.tabs { display: flex; gap: 0; border: 1.5px solid var(--tinta); background: var(--superficie); }
+.tabs button { border: 0; background: transparent; padding: 8px 14px; cursor: pointer; font: 500 13px var(--mono); display: flex; gap: 8px; align-items: center; }
+.tabs button i { width: 10px; height: 10px; display: inline-block; }
+.tabs button[aria-pressed="true"] { background: var(--tinta); color: #fff; }
+.migas { font: 500 12.5px var(--mono); color: var(--tinta-2); display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.migas button { border: 0; background: none; padding: 0; color: var(--enlace); cursor: pointer; font: inherit; text-decoration: underline; }
+
+main { max-width: 1280px; margin: 0 auto; padding: 12px 20px 24px; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+
+#lienzo { transform-origin: 50% 30%; will-change: transform; }
+.escena { overflow: hidden; background: radial-gradient(120% 90% at 50% 20%, var(--noche-3) 0%, var(--noche) 70%); border-radius: 4px; padding: 10px; position: sticky; top: 10px; box-shadow: 0 18px 40px -20px rgba(12,29,56,.6); }
+.escena svg { width: 100%; height: auto; display: block; }
+.escena-pie { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font: 11.5px var(--mono); color: #9FB3CF; padding: 6px 4px 0; border-top: 1px solid rgba(255,255,255,.1); }
+
+/* SVG */
+.t-luz { fill: #EAF0F8; }
+.t-suave { fill: #9FB3CF; }
+.t-rot { font: 800 15px var(--display); letter-spacing: .07em; text-transform: uppercase; }
+.t-sub { font: 400 10.5px var(--mono); }
+.t-min { font: 500 9px var(--mono); }
+.suelo { fill: rgba(255,255,255,.035); stroke: rgba(255,255,255,.08); }
+.suelo-l { stroke: rgba(255,255,255,.06); }
+.cara { stroke: rgba(8,18,36,.55); stroke-width: .8; stroke-linejoin: round; transition: filter .2s, opacity .2s; }
+.atr-t { fill: #F4CB72; } .atr-l { fill: #C7922E; } .atr-r { fill: #A9771D; }
+.sec-t { fill: #5BD3DD; } .sec-l { fill: #1B9AA6; } .sec-r { fill: #127C87; }
+.ter-t { fill: #B4DD84; } .ter-l { fill: #77AC3F; } .ter-r { fill: #5C8F2A; }
+.obra-t, .obra-l, .obra-r { fill: rgba(255,255,255,.05); stroke: rgba(255,255,255,.35); stroke-dasharray: 3 3; }
+.bloque { cursor: pointer; }
+.bloque:hover .cara, .bloque:focus-visible .cara { filter: brightness(1.18); }
+.bloque:focus { outline: none; }
+.bloque.apagado .cara { opacity: .35; }
+.ventana { fill: rgba(8,18,36,.55); }
+.ventana.luz { fill: #FFF3C4; filter: url(#brillo); animation: encender .4s ease-out both; }
+@keyframes encender { from { fill: rgba(8,18,36,.55); } }
+.faro { fill: #FFE7A3; filter: url(#brillo); animation: faro 3s ease-in-out infinite; transform-origin: center; }
+@keyframes faro { 50% { opacity: .55; } }
+.hilo { fill: none; stroke: var(--oro); stroke-width: 1.4; stroke-dasharray: 4 7; opacity: .75; animation: fluir 1.4s linear infinite; }
+.hilo.sec { stroke: var(--sector); } .hilo.ter { stroke: var(--terr); } .hilo.mul { stroke: var(--multi); stroke-dasharray: 2 5; }
+.hilo.tenue { opacity: .12; animation: none; }
+.hilo.vivo { opacity: 1; stroke-width: 2.4; }
+@keyframes fluir { to { stroke-dashoffset: -22; } }
+.aparece { animation: aparecer .6s ease-out both; }
+@keyframes aparecer { from { opacity: 0; transform: translateY(8px); } }
+.nodo { cursor: pointer; }
+.nodo rect.base, .nodo path.base { transition: fill .2s, stroke .2s; }
+.nec rect.base { fill: rgba(34,181,194,.10); stroke: rgba(91,211,221,.55); stroke-width: 1.2; }
+.nec:hover rect.base, .nec.sel rect.base { fill: rgba(34,181,194,.28); stroke: #8BE6EE; }
+.nec.sel rect.base { stroke-width: 2.2; }
+.lamp { stroke: rgba(8,18,36,.6); stroke-width: .6; }
+.lamp.on { fill: #FFF3C4; filter: url(#brillo); }
+.lamp.off { fill: rgba(255,255,255,.12); }
+.lamp.warn { fill: #F0A030; }
+.sect path.base { fill: rgba(255,255,255,.07); stroke: rgba(255,255,255,.35); }
+.sect.activo path.base { fill: rgba(34,181,194,.35); stroke: #8BE6EE; }
+.sect.multi path.base { fill: rgba(226,88,155,.30); stroke: #F39AC5; }
+.sect.lleno path.top { fill: #5BD3DD; }
+.depto { fill: rgba(140,193,82,.10); stroke: rgba(180,221,132,.55); stroke-width: .8; cursor: pointer; transition: fill .2s; }
+.depto:hover, .depto.sel { fill: rgba(140,193,82,.45); stroke: #D6F0B5; stroke-width: 1.6; }
+.depto.g-nuevo { fill: rgba(140,193,82,.62); }
+.depto.g-ampliado { fill: rgba(140,193,82,.22); }
+.depto.g-vencido { fill: rgba(240,160,48,.55); stroke: #F7C77A; }
+.gen { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; }
+.gen i { width: 12px; height: 12px; display: inline-block; border: 1px solid rgba(255,255,255,.5); }
+.mml { fill: var(--oro); stroke: #fff; stroke-width: 1.2; cursor: pointer; }
+
+
+/* Plano del museo y tableros de resumen */
+.resumen { color: #EAF0F8; display: grid; gap: 12px; }
+.resumen:empty { display: none; }
+.plano-t { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; padding: 4px 4px 0; }
+.plano-t b { font: 800 18px var(--display); letter-spacing: .08em; text-transform: uppercase; }
+.plano-t span { font: 400 11.5px var(--mono); color: #9FB3CF; }
+.sala { border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.035); padding: 12px; position: relative; }
+.sala-cab { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.sala-cab h3 { margin: 0; font: 800 17px var(--display); letter-spacing: .07em; text-transform: uppercase; }
+.sala-cab small { font: 400 11px var(--mono); color: #9FB3CF; }
+.sala.atrio { border-top: 3px solid var(--oro); }
+.sala.sec { border-top: 3px solid var(--sector); }
+.sala.ter { border-top: 3px solid var(--terr); }
+.sala.sotano { border-style: dashed; border-color: rgba(255,255,255,.25); padding: 9px 12px; font-size: 13px; color: #B8C6DA; }
+.cadena { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+.eslabon { text-align: left; background: rgba(233,180,76,.08); border: 1px solid rgba(233,180,76,.45); color: inherit; padding: 8px 9px 9px; cursor: pointer; display: grid; gap: 3px; position: relative; margin-right: 14px; transition: background .2s, transform .2s; }
+.eslabon:last-child { margin-right: 0; }
+.eslabon:not(:last-child)::after { content: "→"; position: absolute; right: -14px; top: 50%; transform: translateY(-50%); width: 14px; text-align: center; color: var(--oro); font: 600 13px var(--mono); }
+.eslabon:hover, .eslabon[aria-pressed="true"] { background: rgba(233,180,76,.2); transform: translateY(-2px); }
+.eslabon .rol { font: 500 9.5px var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--oro); }
+.eslabon .n { font-weight: 600; font-size: 13.5px; line-height: 1.2; }
+.eslabon .a { font: 400 11px var(--mono); color: #9FB3CF; }
+.foco { display: inline-flex; align-items: center; gap: 5px; font: 500 10.5px var(--mono); color: #C9D6EA; }
+.foco i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.4); }
+.foco i.on { background: #FFF3C4; box-shadow: 0 0 6px #FFE7A3; border-color: #FFF3C4; }
+.foco i.warn { background: #F0A030; border-color: #F0A030; }
+.bifurca { height: 22px; position: relative; margin: 0 12%; border: 1.5px solid rgba(233,180,76,.55); border-bottom: 0; border-radius: 6px 6px 0 0; }
+.bifurca::before { content: ""; position: absolute; left: 50%; top: -12px; height: 12px; border-left: 1.5px solid rgba(233,180,76,.55); }
+.bifurca span { position: absolute; left: 50%; top: -9px; transform: translateX(-50%); background: var(--noche-2); padding: 0 6px; font: 400 10.5px var(--mono); color: #C9D6EA; white-space: nowrap; }
+.alas { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+@media (max-width: 640px) { .alas, .cadena { grid-template-columns: 1fr; } .eslabon { margin: 0 0 10px; } .eslabon::after { display: none; } }
+.kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 10px; }
+.kpis.cuatro { grid-template-columns: repeat(4, 1fr); }
+.kpi { background: rgba(255,255,255,.05); padding: 6px 8px; }
+.kpi b { display: block; font: 800 22px/1 var(--display); font-variant-numeric: tabular-nums; }
+.kpi span { font-size: 11.5px; color: #B8C6DA; line-height: 1.25; display: block; margin-top: 2px; }
+.barras { display: grid; gap: 3px; margin: 2px 0 8px; }
+.barra { display: grid; grid-template-columns: 112px 1fr; align-items: center; gap: 6px; font-size: 11.5px; cursor: pointer; }
+.barra:hover .et { color: #fff; }
+.barra .et { color: #C9D6EA; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.barra .pista { display: flex; gap: 2px; height: 13px; }
+.barra .seg { height: 100%; border-radius: 0 4px 4px 0; font: 500 9.5px/13px var(--mono); color: #0C1D38; text-align: center; min-width: 13px; }
+.barra .seg.s { background: #1B97A3; border-radius: 0; color: #fff; }
+.barra .seg.m { background: #E2589B; color: #fff; }
+.barra .seg:last-child { border-radius: 0 4px 4px 0; }
+.ley { display: flex; gap: 12px; font-size: 11px; color: #B8C6DA; margin-bottom: 8px; }
+.ley i { width: 10px; height: 10px; display: inline-block; margin-right: 4px; vertical-align: -1px; }
+.niv { display: grid; gap: 5px; margin-bottom: 8px; }
+.niv div { display: grid; grid-template-columns: 1fr 70px; gap: 6px; align-items: center; font-size: 11.5px; color: #C9D6EA; }
+.niv .bar { height: 7px; background: rgba(255,255,255,.08); border-radius: 4px; overflow: hidden; grid-column: 1 / -1; }
+.niv .bar i { display: block; height: 100%; background: var(--terr); }
+.niv em { font-style: normal; font: 400 10.5px var(--mono); color: #9FB3CF; text-align: right; }
+.mini-mapa { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: start; }
+.mini-mapa svg { width: 110px; height: auto; }
+.entrar { background: transparent; border: 1px solid currentColor; padding: 6px 12px; cursor: pointer; font: 500 12px var(--mono); width: 100%; margin-top: 4px; transition: background .2s; }
+.sala.sec .entrar { color: #8BE6EE; } .sala.sec .entrar:hover { background: rgba(34,181,194,.18); }
+.sala.ter .entrar { color: #C6E8A0; } .sala.ter .entrar:hover { background: rgba(140,193,82,.18); }
+.tira { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
+@media (max-width: 640px) { .tira, .kpis.cuatro { grid-template-columns: repeat(2, 1fr); } }
+
+/* Panel */
+.panel { display: grid; gap: 14px; }
+.cab-panel { border-left: 6px solid var(--eje, var(--oro)); padding: 2px 0 2px 14px; }
+.cab-panel .num { font: 500 12px var(--mono); color: var(--tinta-2); text-transform: uppercase; letter-spacing: .08em; }
+.cab-panel h2 { font: 800 34px/1 var(--display); text-transform: uppercase; margin: 4px 0 6px; text-wrap: balance; }
+.cab-panel p { margin: 0 0 4px; color: var(--tinta-2); max-width: 62ch; }
+.grupo-t { font: 500 11.5px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--tinta-2); margin: 2px 0 6px; }
+.tarjetas { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 8px; }
+.tarjeta { text-align: left; background: var(--superficie); border: 1px solid var(--linea); border-top: 3px solid var(--eje, var(--oro)); padding: 9px 11px; cursor: pointer; display: grid; gap: 5px; transition: transform .15s, box-shadow .15s; }
+.tarjeta.pendiente { border-style: dashed; border-top-style: solid; }
+.tarjeta:hover { transform: translateY(-2px); box-shadow: 0 6px 16px -8px rgba(12,29,56,.45); }
+.tarjeta[aria-pressed="true"] { box-shadow: 0 0 0 2px var(--eje, var(--oro)); }
+.tarjeta .tipo { font: 500 10.5px var(--mono); color: var(--tinta-2); text-transform: uppercase; }
+.tarjeta .nom { font-weight: 600; line-height: 1.25; font-size: 14px; }
+.estado { display: inline-flex; align-items: center; gap: 6px; font: 500 11px var(--mono); padding: 2px 8px; border: 1px solid currentColor; width: max-content; white-space: nowrap; border-radius: 99px; }
+.estado::before { width: 1em; text-align: center; }
+.e-ubicado { color: var(--ok); background: rgba(31,122,77,.08); } .e-ubicado::before { content: "✓"; }
+.e-noubicado { color: var(--aviso); background: rgba(184,106,0,.08); } .e-noubicado::before { content: "?"; }
+.e-fuera { color: var(--mal); } .e-fuera::before { content: "!"; }
+.e-noexigido, .e-noaplica { color: var(--neutro); } .e-noexigido::before, .e-noaplica::before { content: "–"; }
+.e-porrevisar { color: var(--tinta-2); border-style: dashed; } .e-porrevisar::before { content: "○"; }
+.marcas { display: flex; flex-wrap: wrap; gap: 6px; }
+.marca-v { font: 500 11px var(--mono); padding: 2px 8px; background: var(--tinta); color: #fff; border-radius: 2px; }
+.marca-v.no { background: transparent; color: var(--tinta-2); border: 1px solid var(--linea); }
+.marca-v.alerta { background: var(--aviso); }
+
+.ficha { background: var(--superficie); border: 1px solid var(--linea); border-top: 4px solid var(--eje, var(--oro)); padding: 18px; display: grid; gap: 13px; box-shadow: 0 10px 30px -18px rgba(12,29,56,.35); }
+.ficha h3 { font: 800 27px/1.05 var(--display); text-transform: uppercase; margin: 0; text-wrap: balance; }
+.meta { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 0; font-size: 14px; }
+.meta dt { color: var(--tinta-2); font: 500 12px/1.9 var(--mono); text-transform: uppercase; }
+.meta dd { margin: 0; }
+.norma { font: 500 13px var(--mono); background: rgba(18,34,60,.06); padding: 1px 6px; }
+.seccion-t { font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--tinta-2); border-bottom: 1px solid var(--linea); padding-bottom: 4px; margin: 0 0 8px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.chip { border: 1px solid var(--enlace); color: var(--enlace); background: transparent; padding: 3px 10px; cursor: pointer; font-size: 13px; border-radius: 99px; }
+.chip:hover { background: var(--enlace); color: #fff; }
+.chip.norma-chip { border-style: dashed; }
+.chip.mul { border-color: var(--multi-osc); color: var(--multi-osc); }
+.chip.mul:hover { background: var(--multi-osc); color: #fff; }
+.linea-t { list-style: none; margin: 0; padding: 0 0 0 16px; border-left: 2px solid var(--linea); display: grid; gap: 8px; }
+.linea-t li { position: relative; font-size: 14px; }
+.linea-t li::before { content: ""; position: absolute; left: -22px; top: 6px; width: 10px; height: 10px; background: var(--superficie); border: 2px solid var(--tinta); border-radius: 50%; }
+.linea-t li.vig::before { background: var(--eje, var(--oro)); border-color: var(--eje, var(--oro)); }
+.linea-t time { font: 500 12px var(--mono); color: var(--tinta-2); display: block; }
+.bit { display: grid; gap: 6px; }
+.bit-fila { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: start; padding: 8px 10px; border: 1px solid var(--linea); font-size: 14px; }
+.det { color: var(--tinta-2); font-size: 13px; }
+.dims { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 6px; }
+.dim { border: 1px solid var(--linea); padding: 6px 8px; font-size: 13px; display: grid; gap: 2px; }
+.dim b { font: 500 10.5px var(--mono); text-transform: uppercase; color: var(--tinta-2); }
+.dim.si { border-color: var(--ok); background: rgba(31,122,77,.05); }
+.dim.no { border-color: var(--mal); }
+.dim.sv { border-style: dashed; }
+
+/* ---- Hilos, vitrina con indicadores y hallazgos ---- */
+.graf { background: rgba(255,255,255,.04); padding: 10px 10px 4px; }
+.graf h4 { margin: 0 0 2px; font: 700 15px/1.2 var(--cuerpo); color: #F2F5FA; }
+.graf p { margin: 0 0 6px; font-size: 12px; color: #B8C6DA; }
+.graf svg { width: 100%; height: auto; display: block; }
+.leyenda-h { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 11.5px; color: #D5DEEA; margin: 4px 0 6px; }
+.leyenda-h i { display: inline-block; width: 18px; height: 0; border-top: 2px solid; vertical-align: middle; margin-right: 5px; }
+.leyenda-h i.d { border-top-style: dashed; }
+.multi3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+@media (max-width: 700px) { .multi3 { grid-template-columns: 1fr; } }
+.hz { border: 1px solid var(--linea); background: var(--superficie); padding: 12px 14px; display: grid; gap: 8px; border-left: 4px solid var(--multi-osc); }
+.hz h5 { margin: 0; font: 700 16px/1.25 var(--cuerpo); }
+.hz .tipo { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .07em; color: var(--multi-osc); }
+.hz dl { margin: 0; display: grid; gap: 6px; }
+.hz dt { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: .06em; color: var(--tinta-2); }
+.hz dd { margin: 0; font-size: 14px; }
+.hz dd.preg { font-weight: 600; color: var(--tinta); }
+.hz .f { font-size: 12.5px; margin: 0; padding-left: 18px; }
+.obj { border-top: 1px solid var(--linea); padding: 8px 0; }
+.obj summary { cursor: pointer; display: flex; gap: 8px; align-items: baseline; list-style: none; }
+.obj summary::-webkit-details-marker { display: none; }
+.obj summary code { font: 600 12px var(--mono); color: var(--terr-osc); white-space: nowrap; }
+.obj summary span { flex: 1; font-size: 14px; }
+.obj summary .on-chip { flex: none; font-size: 11px; }
+.on-chip { font: 500 11px var(--mono); padding: 1px 6px; border: 1px solid var(--oro-osc); color: var(--oro-osc); white-space: nowrap; }
+.on-chip.suelto { border-style: dashed; border-color: var(--multi-osc); color: var(--multi-osc); }
+.ind { display: grid; grid-template-columns: 1fr 150px; gap: 8px; align-items: center; padding: 6px 0 6px 18px; font-size: 13px; }
+.ind svg { width: 150px; height: 44px; }
+.ind .det { display: block; }
+.resumen-ind { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.resumen-ind div { background: var(--papel); padding: 6px 8px; }
+.resumen-ind b { display: block; font: 800 20px/1 var(--display); }
+.resumen-ind span { font-size: 11.5px; color: var(--tinta-2); }
+.ley-ind { display: flex; gap: 12px; flex-wrap: wrap; font-size: 11.5px; color: var(--tinta-2); }
+
+.metodo { background: var(--superficie); border: 1px solid var(--linea); padding: 16px 18px; margin-bottom: 18px; }
+.metodo h2 { margin: 0 0 6px; font: 800 26px/1.1 var(--display); text-transform: uppercase; }
+.metodo h3 { font: 700 18px var(--cuerpo); margin: 18px 0 6px; }
+.metodo h4 { font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; color: var(--tinta-2); margin: 14px 0 4px; }
+.kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 8px; }
+.kpi-c { background: var(--papel); padding: 10px; display: grid; gap: 2px; }
+.kpi-c code, .kpi-f code { font: 600 11px var(--mono); color: var(--multi-osc); }
+.kpi-c b { font: 800 26px/1 var(--display); }
+.kpi-c span { font-size: 12.5px; color: var(--tinta-2); }
+.kpi-f { border-top: 1px solid var(--linea); padding: 6px 0; }
+.kpi-f summary { cursor: pointer; }
+.kpi-f dl { display: grid; grid-template-columns: 150px 1fr; gap: 4px 12px; margin: 8px 0 4px 18px; font-size: 13.5px; }
+.kpi-f dt { font: 500 11px var(--mono); text-transform: uppercase; color: var(--tinta-2); padding-top: 2px; }
+.kpi-f dd { margin: 0; }
+.est { font: 500 10.5px var(--mono); padding: 1px 6px; border: 1px solid; margin-left: 6px; }
+.est.activo { color: var(--ok); } .est.piloto { color: var(--sector-osc); } .est.revision { color: var(--aviso); border-style: dashed; } .est.etapa2 { color: var(--neutro); border-style: dotted; }
+.det-m { font-size: 13px; color: var(--tinta-2); margin: 6px 0; }
+.resumen-ind code { font: 600 10.5px var(--mono); color: var(--multi-osc); display: block; }
+.nota { font-size: 13.5px; padding: 10px 12px; border: 1px dashed var(--tinta-2); }
+.nota.discrepancia { border: 1.5px solid var(--aviso); background: rgba(184,106,0,.06); }
+.nota.pista { border: 1.5px dashed var(--mal); background: rgba(179,38,30,.04); }
+.nota.observacion { border: 1.5px solid var(--tinta-2); background: rgba(18,34,60,.04); }
+.nota b { font: 500 11.5px var(--mono); text-transform: uppercase; display: block; margin-bottom: 2px; }
+.roles { display: grid; gap: 4px; font-size: 13.5px; margin: 0; padding: 0; list-style: none; }
+.roles li { display: grid; grid-template-columns: 90px 1fr; gap: 8px; }
+.roles b { font: 500 12px var(--mono); }
+.fuentes { font-size: 13px; margin: 0; padding-left: 18px; }
+.vacio { color: var(--tinta-2); font-size: 13.5px; }
+.niveles { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.niveles li { display: flex; justify-content: space-between; gap: 10px; padding: 7px 10px; border: 1px dashed var(--linea); font-size: 14px; }
+
+.leyenda { max-width: 1280px; margin: 0 auto; padding: 0 20px 14px; display: flex; flex-wrap: wrap; gap: 8px 14px; align-items: center; font-size: 13px; color: var(--tinta-2); }
+.leyenda .eje { display: inline-flex; align-items: center; gap: 6px; }
+.leyenda .eje i { width: 12px; height: 12px; display: inline-block; }
+.guia { max-width: 1280px; margin: 0 auto; padding: 4px 20px 40px; }
+.guia-in { border-top: 2px solid var(--tinta); padding-top: 14px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 28px; }
+.guia h2 { font: 800 22px/1 var(--display); text-transform: uppercase; margin: 0 0 4px; grid-column: 1 / -1; }
+.guia h3 { font: 500 12px var(--mono); text-transform: uppercase; letter-spacing: .08em; margin: 0 0 4px; color: var(--tinta-2); }
+.guia p { margin: 0; font-size: 14px; max-width: 60ch; }
+
+.tabla-cont { max-width: 1280px; margin: 0 auto; padding: 12px 20px 30px; overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; background: var(--superficie); font-size: 13.5px; }
+caption { text-align: left; padding-bottom: 6px; color: var(--tinta-2); font: 500 12px var(--mono); }
+th, td { text-align: left; padding: 7px 10px; border-bottom: 1px solid var(--linea); vertical-align: top; }
+th { font: 500 11.5px var(--mono); text-transform: uppercase; color: var(--tinta-2); border-bottom: 2px solid var(--tinta); }
+[hidden] { display: none !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hilo, .faro, .ventana.luz, .aparece { animation: none; }
+  .tarjeta { transition: none; }
+}
+</style>
+</head>
+<body>
+<div class="aviso" role="note">
+  <span><a href="../" style="color:inherit">← Qhawana</a> · <b>VERSIÓN PRELIMINAR</b> · sin revisión del comité · las cifras del piloto (Cajamarca y el hilo de anemia) están en cotejo con sus documentos</span>
+  <span>Corte del catálogo: __CORTE__ · <a href="__REPO__/tree/main/planificacion/catalogo" style="color:inherit">datos abiertos</a> · <a href="__REPO__/issues/new?template=correccion.yml" style="color:var(--oro)">reporta un error</a></span>
+</div>
+
+<header class="cab">
+  <div class="cab-in">
+    <div class="marca"><i><span style="background:var(--oro)"></span><span style="background:var(--sector)"></span><span style="background:var(--terr)"></span><span style="background:var(--multi)"></span></i>Qhawana · observatorio ciudadano</div>
+    <h1>Museo de la <em>planificación</em></h1>
+    <p class="tesis">Todo lo que el Estado peruano se propuso hacer por tu calidad de vida: quién lo planificó, cómo se conectan los planes de los sectores y de los territorios, y si alguien les hace seguimiento.</p>
+    <div class="contadores">__CONTADORES__</div>
+  </div>
+</header>
+
+<div class="nav" id="nav" hidden>
+  <div class="tabs" role="group" aria-label="Vistas">
+    <button data-v="edificio" aria-pressed="true"><i style="background:var(--oro)"></i>Plano</button>
+    <button data-v="sectores" aria-pressed="false"><i style="background:var(--sector)"></i>Necesidades y sectores</button>
+    <button data-v="territorio" aria-pressed="false"><i style="background:var(--terr)"></i>Territorio</button>
+    <button data-v="hilos" aria-pressed="false"><i style="background:var(--multi)"></i>Hilos</button>
+    <button data-v="tabla" aria-pressed="false"><i style="background:var(--tinta-2)"></i>Tabla y método</button>
+  </div>
+  <div class="migas" id="migas" aria-label="Ubicación"></div>
+</div>
+
+<main id="vista-museo" hidden>
+  <div class="escena">
+    <div id="lienzo">
+    <div id="resumen" class="resumen"></div>
+    <svg id="escena" viewBox="0 0 640 560" role="img" aria-label="Vista del museo"></svg>
+    </div>
+    <div class="escena-pie"><span id="pie-izq">CORTE ISOMÉTRICO · SINAPLAN</span><span id="pie-der">Clic en un ala para entrar</span></div>
+  </div>
+  <section class="panel" id="panel" aria-live="polite"></section>
+</main>
+
+<div class="leyenda" id="leyenda">
+  <span class="eje"><i style="background:var(--oro)"></i>Planes de país</span>
+  <span class="eje"><i style="background:var(--sector)"></i>Eje sectorial</span>
+  <span class="eje"><i style="background:var(--terr)"></i>Eje territorial</span>
+  <span class="eje"><i style="background:var(--multi)"></i>Multisectorial</span>
+  __LEYENDA__
+</div>
+
+<div class="tabla-cont" id="vista-tabla">__TABLA__</div>
+
+<section class="guia">
+  <div class="guia-in">
+    <h2>Cómo leer el museo</h2>
+    <div><h3>Dos ejes, no una escalera</h3><p>El planeamiento peruano baja por dos caminos que se cruzan. El sectorial va de las políticas nacionales al plan de cada sector y de sus entidades. El territorial va del plan regional a los provinciales, distritales y a las entidades de cada territorio. Los dos se alinean con los planes de país del atrio.</p></div>
+    <div><h3>Necesidades ciudadanas</h3><p>Las 40 políticas nacionales están agrupadas según lo que resuelven en la vida de las personas. La agrupación es de Qhawana y una política puede servir a más de una necesidad.</p></div>
+    <div><h3>Multisectorial</h3><p>Una política multisectorial compromete a varios ministerios. Las líneas magenta muestran a los sectores que la propia política declara como involucrados; solo se dibujan las que ya catalogamos.</p></div>
+    <div><h3>Vigencia y temporalidad</h3><p>Vigente: la fecha de corte cae dentro del horizonte. Horizonte vencido: el horizonte terminó y no ubicamos una prórroga. Corto plazo hasta 3 años, mediano hasta 6, largo más de 6, como en el observatorio de CEPAL.</p></div>
+    <div><h3>Seguimiento</h3><p>"No ubicado" significa que no lo encontramos a la fecha de corte, no que no exista: cualquiera puede aportar el enlace. Lo que dice un reporte es lo que la entidad informa de sí misma.</p></div>
+    <div><h3>Datos abiertos</h3><p>El catálogo son tablas abiertas con licencia CC BY 4.0, cada fila con su enlace oficial y fecha de consulta. Se publicarán en el repositorio de Qhawana.</p></div>
+  </div>
+</section>
+
+<script id="datos" type="application/json">__DATOS__</script>
+<script>
+const D = JSON.parse(document.getElementById("datos").textContent);
+const P = D.piezas, porId = Object.fromEntries(P.map(p => [p.id, p]));
+const SEC = D.sectores, secPor = Object.fromEntries(SEC.map(s => [s.cod, s]));
+const NEC = D.necesidades, necPor = Object.fromEntries(NEC.map(n => [n.cod, n]));
+const EJE_COLOR = { principal: "var(--oro)", sectorial: "var(--sector-osc)", territorial: "var(--terr-osc)", multi: "var(--multi-osc)" };
+const st = { vista: "edificio", foco: { tipo: "principal" }, pieza: "pgg" };
+
+const NS = "http://www.w3.org/2000/svg";
+const svg = document.getElementById("escena");
+const el = (tag, a, parent) => { const n = document.createElementNS(NS, tag); for (const k in a) n.setAttribute(k, a[k]); (parent || svg).appendChild(n); return n; };
+const txt = (x, y, s, cls, parent, extra) => { const t = el("text", Object.assign({ x, y, class: cls }, extra || {}), parent); t.textContent = s; return t; };
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ubicado = p => p.bitacora.some(b => b.estado === "ubicado");
+function defs() {
+  const d = el("defs", {});
+  d.innerHTML = `<filter id="brillo" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+  <radialGradient id="halo"><stop offset="0" stop-color="#FFE7A3" stop-opacity=".55"/><stop offset="1" stop-color="#FFE7A3" stop-opacity="0"/></radialGradient>
+  <pattern id="trama" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="rgba(180,221,132,.25)" stroke-width="1"/></pattern>`;
+}
+function clicable(g, fn, label) {
+  g.setAttribute("tabindex", 0); g.setAttribute("role", "button"); g.setAttribute("aria-label", label);
+  g.addEventListener("click", e => { e.stopPropagation(); fn(); });
+  g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); fn(); } });
+}
+
+/* ---------- Vista 1: edificio isométrico ---------- */
+const S = 16, CX = Math.cos(Math.PI / 6) * S, CY = .5 * S, OX = 320, OY = 70;
+const pt = (u, v, z) => [OX + (u - v) * CX, OY + (u + v) * CY - z];
+const poly = pts => pts.map(p => p.map(n => n.toFixed(1)).join(",")).join(" ");
+function caja(g, u, v, w, d, z0, h, fam) {
+  const z1 = z0 + h;
+  el("polygon", { points: poly([pt(u, v + d, z0), pt(u + w, v + d, z0), pt(u + w, v + d, z1), pt(u, v + d, z1)]), class: `cara ${fam}-l` }, g);
+  el("polygon", { points: poly([pt(u + w, v, z0), pt(u + w, v + d, z0), pt(u + w, v + d, z1), pt(u + w, v, z1)]), class: `cara ${fam}-r` }, g);
+  el("polygon", { points: poly([pt(u, v, z1), pt(u + w, v, z1), pt(u + w, v + d, z1), pt(u, v + d, z1)]), class: `cara ${fam}-t` }, g);
+}
+function ventanas(g, cara, u, v, w, d, z0, h, n, lit, d0) {
+  for (let i = 0; i < n; i++) {
+    const a = (i + .25) / n, b = (i + .75) / n, za = z0 + h * .3, zb = z0 + h * .72;
+    const P4 = cara === "r"
+      ? [pt(u + w, v + d * a, za), pt(u + w, v + d * b, za), pt(u + w, v + d * b, zb), pt(u + w, v + d * a, zb)]
+      : [pt(u + w * a, v + d, za), pt(u + w * b, v + d, za), pt(u + w * b, v + d, zb), pt(u + w * a, v + d, zb)];
+    el("polygon", { points: poly(P4), class: "ventana" + (i < lit ? " luz" : ""), style: `animation-delay:${d0 + i * .06}s` }, g);
+  }
+}
+const R = document.getElementById("resumen");
+const GEN_COLOR = { nuevo: "rgba(140,193,82,.75)", ampliado: "rgba(140,193,82,.25)", vencido: "rgba(240,160,48,.7)" };
+const GEN_TXT = { nuevo: "Plan nuevo (formulado desde 2022)", ampliado: "Plan antiguo con horizonte ampliado", vencido: "Horizonte vencido, sin reemplazo ubicado" };
+const leyendaGen = () => Object.keys(GEN_TXT).map(g => `<span class="gen"><i style="background:${GEN_COLOR[g]}"></i>${GEN_TXT[g]} (${P.filter(p => p.generacion === g).length})</span>`).join("");
+const lampara = p => `<span class="foco"><i class="${ubicado(p) ? "on" : p.estado === "noubicado" ? "warn" : ""}"></i>${esc(D.estados[p.estado][0])}</span>`;
+const kpi = (v, t) => `<div class="kpi"><b>${v}</b><span>${t}</span></div>`;
+function datosSectorial() {
+  const pol = P.filter(p => p.eje === "sectorial" && p.tipo.startsWith("Política"));
+  const porNec = NEC.map(n => { const q = pol.filter(p => p.necesidad === n.cod); return { n, s: q.filter(p => p.tipo.endsWith("sectorial") && !p.tipo.includes("multi")).length, m: q.filter(p => p.tipo.includes("multi")).length }; });
+  return { pol, porNec, multi: pol.filter(p => p.tipo.includes("multi")).length, vencidas: pol.filter(p => p.vigencia === "Horizonte vencido").length,
+           completos: new Set(P.filter(p => p.eje === "sectorial" && p.nivel >= 2).map(p => p.sector)).size };
+}
+function miniMapa(ancho) {
+  const M = D.mapa, [mw, mh] = M._size;
+  const reg = P.filter(p => p.eje === "territorial");
+  const paths = Object.entries(M).filter(([k]) => !k.startsWith("_")).map(([k, m]) => { const p = reg.find(r => r.dep === k); return `<path d="${m.d}" fill="${GEN_COLOR[p ? p.generacion : ""] || "rgba(140,193,82,.16)"}" stroke="rgba(198,232,160,.6)" stroke-width="1.2"/>`; }).join("");
+  return `<svg viewBox="0 0 ${mw} ${mh}" aria-hidden="true">${paths}<circle cx="${M._MML.cx}" cy="${M._MML.cy}" r="7" fill="var(--oro)"/></svg>`;
+}
+function vistaEdificio() {
+  svg.style.display = "none";
+  const princ = ["an", "vision", "pedn", "pgg"].map(id => porId[id]);
+  const rol = { an: ["El consenso", "2002"], vision: ["La visión", "2019"], pedn: ["El plan", "2022 · act. 2023"], pgg: ["Las prioridades del gobierno", "2026–2031"] };
+  const ds = datosSectorial(), max = Math.max(...ds.porNec.map(x => x.s + x.m));
+  const reg = P.filter(p => p.eje === "territorial"), regCat = reg.filter(p => p.catalogado).length;
+  const barras = ds.porNec.slice().sort((a, b) => (b.s + b.m) - (a.s + a.m)).map(x => {
+    const w = v => `${(v / max * 100).toFixed(1)}%`;
+    return `<div class="barra" data-nec="${x.n.cod}" title="${esc(x.n.nombre)}: ${x.s} sectoriales, ${x.m} multisectoriales"><span class="et">${esc(x.n.nombre)}</span><span class="pista">${x.s ? `<span class="seg s" style="width:${w(x.s)}">${x.s}</span>` : ""}${x.m ? `<span class="seg m" style="width:${w(x.m)}">${x.m}</span>` : ""}${!x.s && !x.m ? `<span class="det" style="color:#9FB3CF">sin política en la lista</span>` : ""}</span></div>`;
+  }).join("");
+  R.innerHTML = `
+  <div class="plano-t"><b>Plano del museo</b><span>Así baja el planeamiento del Estado · corte ${D.corte}</span></div>
+  <section class="sala atrio">
+    <div class="sala-cab"><h3>Atrio · planes de país</h3><small>Cada uno se apoya en el anterior</small></div>
+    <div class="cadena">${princ.map(p => `<button class="eslabon" data-pz="${p.id}" aria-pressed="${st.pieza === p.id}"><span class="rol">${rol[p.id][0]}</span><span class="n">${esc(p.corto)}</span><span class="a">${rol[p.id][1]}</span>${lampara(p)}</button>`).join("")}</div>
+  </section>
+  <div class="bifurca"><span>El PEDN se baja por dos caminos</span></div>
+  <div class="alas">
+    <section class="sala sec">
+      <div class="sala-cab"><h3>Ala sectorial</h3><small>Por necesidad ciudadana</small></div>
+      <div class="kpis">${kpi(ds.pol.length, "políticas nacionales vigentes en la lista de CEPLAN")}${kpi(ds.multi, "comprometen a varios ministerios")}${kpi(`${ds.completos}<small style="font-size:14px"> de ${SEC.length}</small>`, "sectores con su plan sectorial e institucional catalogados")}${kpi(ds.vencidas, "con horizonte vencido")}</div>
+      <div class="ley"><span><i style="background:#1B97A3"></i>Sectoriales</span><span><i style="background:#E2589B"></i>Multisectoriales</span></div>
+      <div class="barras">${barras}</div>
+      <button class="entrar" data-ir-vista="sectores">Entrar al ala sectorial →</button>
+    </section>
+    <section class="sala ter">
+      <div class="sala-cab"><h3>Ala territorial</h3><small>Por región</small></div>
+      <div class="kpis">${kpi(`${regCat}<small style="font-size:14px"> de 26</small>`, "planes regionales ubicados en una fuente oficial")}${kpi(reg.filter(p => p.generacion === "ampliado").length, "siguen con un plan de 2015-2016 ampliado hasta 2027")}${kpi(reg.filter(p => p.generacion === "vencido").length, "con horizonte vencido y sin reemplazo ubicado")}${kpi(reg.filter(p => p.norma_pendiente).length, "con la norma de aprobación por confirmar")}</div>
+      <div class="mini-mapa">${miniMapa()}<div><div class="niv" style="gap:4px">${leyendaGen()}</div><div class="niv" style="margin-top:8px">${["Planes regionales (PDRC)", "Planes provinciales", "Planes distritales", "PEI y POI subnacionales"].map((n, i) => `<div><span>${i + 1} · ${n}</span><em>${i === 0 ? regCat + " / 26" : "en obra"}</em><span class="bar"><i style="width:${i === 0 ? regCat / 26 * 100 : 0}%"></i></span></div>`).join("")}</div></div></div>
+      <button class="entrar" data-ir-vista="territorio">Entrar al ala territorial →</button>
+    </section>
+  </div>
+  <div class="sala sotano">Sótano en obra · etapa 2: cada plan frente a lo que se gastó (MEF)</div>`;
+  R.querySelectorAll("[data-pz]").forEach(b => b.addEventListener("click", () => enfocar({ tipo: "principal" }, b.dataset.pz)));
+  const fijarOrigen = el => { const r = el.closest(".sala").getBoundingClientRect(), L = lienzo.getBoundingClientRect(); origenZoom = `${((r.left + r.width / 2 - L.left) / L.width * 100).toFixed(1)}% ${((r.top + r.height / 2 - L.top) / L.height * 100).toFixed(1)}%`; };
+  R.querySelectorAll("[data-ir-vista]").forEach(b => b.addEventListener("click", () => { fijarOrigen(b); irVista(b.dataset.irVista); }));
+  R.querySelectorAll("[data-nec]").forEach(b => b.addEventListener("click", () => { fijarOrigen(b); const c = b.dataset.nec; zoom("edificio", "sectores", () => { cambiarVista("sectores"); enfocar({ tipo: "necesidad", cod: c }); }); }));
+  document.getElementById("pie-izq").textContent = "PLANO DEL MUSEO";
+  document.getElementById("pie-der").textContent = "Clic en un plan del atrio, en una necesidad o en un ala";
+}
+
+/* ---------- Vista 2: necesidades y sectores ---------- */
+function vistaSectores() {
+  svg.style.display = ""; svg.innerHTML = ""; defs();
+  const ds = datosSectorial();
+  R.innerHTML = `<div class="tira">${kpi(ds.pol.length, "políticas nacionales")}${kpi(ds.multi, "multisectoriales")}${kpi(NEC.length, "necesidades ciudadanas")}${kpi(SEC.length, "sectores del Ejecutivo")}</div>`;
+  document.getElementById("pie-izq").textContent = "ALA SECTORIAL";
+  txt(20, 24, "LO QUE NECESITAS", "t-rot t-luz", svg);
+  txt(20, 37, "12 necesidades · 40 políticas nacionales · lista de CEPLAN a junio de 2024", "t-sub t-suave", svg);
+  const W = 94, H = 66, G = 7, x0 = 20, y0 = 50;
+  const posN = {};
+  NEC.forEach((n, i) => {
+    const col = i % 6, row = Math.floor(i / 6), x = x0 + col * (W + G), y = y0 + row * (H + G);
+    const ps = P.filter(p => p.necesidad === n.cod && p.nivel === 1);
+    const sel = st.foco.tipo === "necesidad" && st.foco.cod === n.cod;
+    const g = el("g", { class: "nodo nec aparece" + (sel ? " sel" : ""), style: `animation-delay:${i * .04}s` });
+    el("rect", { x, y, width: W, height: H, rx: 3, class: "base" }, g);
+    const t = txt(x + 7, y + 16, n.nombre.toUpperCase(), "t-min t-luz", g);
+    if (n.nombre.length > 16) { t.textContent = ""; const [a, ...b] = n.nombre.toUpperCase().split(" "); const l1 = n.nombre.toUpperCase().slice(0, n.nombre.lastIndexOf(" ", 16)); txt(x + 7, y + 14, l1, "t-min t-luz", g); txt(x + 7, y + 25, n.nombre.toUpperCase().slice(l1.length + 1), "t-min t-luz", g); }
+    ps.forEach((p, k) => el("circle", { cx: x + 10 + (k % 8) * 10.5, cy: y + 38 + Math.floor(k / 8) * 11, r: 3.6, class: "lamp " + (ubicado(p) ? "on" : "off") }, g));
+    const npol = ps.filter(p => p.tipo.startsWith("Política")).length;
+    txt(x + W - 6, y + H - 6, npol + (npol === 1 ? " política" : " políticas"), "t-min t-suave", g, { "text-anchor": "end" });
+    posN[n.cod] = [x + W / 2, y + H];
+    clicable(g, () => enfocar({ tipo: "necesidad", cod: n.cod }), "Necesidad: " + n.nombre);
+  });
+  // sectores en fila
+  const ys = 470, xs0 = 30, dx = (640 - 60) / (SEC.length - 1);
+  const posS = {};
+  SEC.forEach((s, i) => posS[s.cod] = [xs0 + i * dx, ys]);
+  // vínculos
+  const capa = el("g", {});
+  const focoNec = st.foco.tipo === "necesidad" ? st.foco.cod : null, focoSec = st.foco.tipo === "sector" ? st.foco.cod : null;
+  const multiDe = {};
+  P.forEach(p => p.multi.forEach(m => { if (m.rol !== "Rector") (multiDe[p.id] = multiDe[p.id] || []).push(m.sector); }));
+  P.filter(p => p.eje === "sectorial" && p.nivel === 1).forEach(p => {
+    const a = posN[p.necesidad], b = posS[p.sector]; if (!a || !b) return;
+    const vivo = (focoNec && p.necesidad === focoNec) || (focoSec && p.sector === focoSec) || st.pieza === p.id;
+    const tenue = (focoNec || focoSec) && !vivo;
+    el("path", { d: `M${a[0]} ${a[1]} C${a[0]} ${a[1] + 120} ${b[0]} ${b[1] - 140} ${b[0]} ${b[1] - 16}`, class: "hilo sec" + (vivo ? " vivo" : "") + (tenue ? " tenue" : "") }, capa);
+    (multiDe[p.id] || []).forEach(c => {
+      const m = posS[c]; if (!m) return;
+      const vm = vivo || (focoSec === c);
+      el("path", { d: `M${b[0]} ${b[1] - 16} Q${(b[0] + m[0]) / 2} ${b[1] - 60 - Math.abs(b[0] - m[0]) * .35} ${m[0]} ${m[1] - 16}`, class: "hilo mul" + (vm ? " vivo" : "") + ((focoNec || focoSec) && !vm ? " tenue" : "") }, capa);
+    });
+  });
+  const lleno = new Set(P.filter(p => p.eje === "sectorial" && p.nivel >= 2).map(p => p.sector));
+  const multiSet = new Set(Object.values(multiDe).flat());
+  SEC.forEach((s, i) => {
+    const [x, y] = posS[s.cod];
+    const activo = focoSec === s.cod || (focoNec && P.some(p => p.necesidad === focoNec && p.nivel === 1 && p.sector === s.cod));
+    const g = el("g", { class: "nodo sect aparece" + (activo ? " activo" : "") + (lleno.has(s.cod) ? " lleno" : "") + (focoNec === "salud" && multiSet.has(s.cod) && !activo ? " multi" : ""), style: `animation-delay:${.3 + i * .03}s` });
+    const w = 9, h = 22;
+    el("path", { d: `M${x - w} ${y - h} L${x} ${y - h - 5} L${x + w} ${y - h} L${x} ${y - h + 5} Z`, class: "base top" }, g);
+    el("path", { d: `M${x - w} ${y - h} L${x} ${y - h + 5} L${x} ${y + 5} L${x - w} ${y} Z M${x} ${y - h + 5} L${x + w} ${y - h} L${x + w} ${y} L${x} ${y + 5} Z`, class: "base" }, g);
+    const n1 = P.filter(p => p.sector === s.cod && p.nivel === 1).length;
+    if (n1) txt(x, y - h - 9, String(n1), "t-min t-luz", g, { "text-anchor": "middle" });
+    txt(x + 3, y + 14, s.abr, "t-min t-suave", g, { transform: `rotate(55 ${x + 3} ${y + 14})` });
+    clicable(g, () => enfocar({ tipo: "sector", cod: s.cod }), "Sector: " + s.nombre);
+  });
+  txt(20, 538, "SECTORES DEL PODER EJECUTIVO · número de políticas que rige cada uno", "t-sub t-suave", svg);
+  document.getElementById("pie-der").textContent = "Clic en una necesidad o en un sector";
+}
+
+/* ---------- Vista 3: territorio ---------- */
+function vistaTerritorio() {
+  svg.style.display = ""; svg.innerHTML = ""; defs();
+  const rc = P.filter(p => p.eje === "territorial" && p.catalogado).length;
+  const rg = P.filter(p => p.eje === "territorial");
+  R.innerHTML = `<div class="tira">${kpi(`${rc}<small style="font-size:13px"> de 26</small>`, "planes regionales ubicados")}${kpi(rg.filter(p => p.generacion === "nuevo").length, "planes nuevos (desde 2022)")}${kpi(rg.filter(p => p.generacion === "ampliado").length, "planes antiguos ampliados")}${kpi(rg.filter(p => p.generacion === "vencido").length, "con horizonte vencido")}</div>`;
+  document.getElementById("pie-izq").textContent = "ALA TERRITORIAL";
+  const M = D.mapa, [mw, mh] = M._size, k = 520 / mh;
+  const g = el("g", { transform: `translate(20 22) scale(${k.toFixed(3)})` });
+  const reg = P.filter(p => p.eje === "territorial");
+  Object.entries(M).forEach(([nombre, m], i) => {
+    if (nombre.startsWith("_")) return;
+    const p = reg.find(r => r.dep === nombre);
+    const sel = st.foco.tipo === "region" && p && st.foco.cod === p.id;
+    const d = el("path", { d: m.d, class: "depto aparece" + (sel ? " sel" : "") + (p ? " g-" + p.generacion : ""), style: `animation-delay:${i * .025}s` }, g);
+    if (p && p.norma_pendiente) el("path", { d: m.d, fill: "url(#trama)", "pointer-events": "none" }, g);
+    if (p) { const t = el("title", {}, d); t.textContent = `${p.region}: ${p.nombre} · ${GEN_TXT[p.generacion]}`; clicable(d, () => enfocar({ tipo: "region", cod: p.id }, p.id), "Región: " + p.region); }
+  });
+  const mml = reg.find(r => r.dep === "_MML");
+  const c = el("circle", { cx: M._MML.cx, cy: M._MML.cy, r: 5 / k * .9, class: "mml", style: mml ? `fill:${GEN_COLOR[mml.generacion]}` : "" }, g);
+  if (mml) clicable(c, () => enfocar({ tipo: "region", cod: mml.id }, mml.id), "Lima Metropolitana");
+  const X = 20 + mw * k + 20;
+  txt(X, 40, "ALA TERRITORIAL", "t-rot t-luz", svg);
+  txt(X, 54, "26 pliegos regionales", "t-sub t-suave", svg);
+  const cat = reg.filter(p => p.catalogado).length;
+  D.niveles.territorial.slice(1).forEach((nv, i) => {
+    const y = 84 + i * 46;
+    el("rect", { x: X, y, width: 640 - X - 14, height: 38, fill: i === 0 ? "rgba(140,193,82,.14)" : "rgba(255,255,255,.04)", stroke: i === 0 ? "rgba(180,221,132,.6)" : "rgba(255,255,255,.25)", "stroke-dasharray": i === 0 ? "" : "3 3" });
+    txt(X + 8, y + 15, `${i + 1} · ${["Planes regionales (PDRC)", "Planes provinciales", "Planes distritales", "PEI y POI subnacionales"][i]}`, "t-min t-luz", svg);
+    txt(X + 8, y + 29, i === 0 ? `${cat} de 26 ubicados` : "en obra · se abre con equipo", "t-min t-suave", svg);
+  });
+  [["nuevo", "Plan nuevo"], ["ampliado", "Antiguo ampliado"], ["vencido", "Horizonte vencido"]].forEach(([g, n], i) => { el("rect", { x: X, y: 280 + i * 18, width: 11, height: 11, fill: GEN_COLOR[g], stroke: "rgba(255,255,255,.5)" }); txt(X + 17, 290 + i * 18, `${n} (${reg.filter(p => p.generacion === g).length})`, "t-min t-luz", svg); });
+  el("rect", { x: X, y: 336, width: 11, height: 11, fill: "url(#trama)", stroke: "rgba(255,255,255,.5)" }); txt(X + 17, 346, "Trama: norma por confirmar", "t-min t-suave", svg);
+  el("circle", { cx: X + 5.5, cy: 364, r: 5, class: "mml" }); txt(X + 17, 368, "Lima Metropolitana", "t-min t-suave", svg);
+  document.getElementById("pie-der").textContent = "Clic en un departamento";
+}
+
+/* ---------- Panel ---------- */
+const panel = document.getElementById("panel");
+const pill = e => { const [t, c, d] = D.estados[e]; return `<span class="estado ${c}" title="${esc(d)}">${esc(t)}</span>`; };
+const tarjeta = p => `<button class="tarjeta ${p.catalogado ? "" : "pendiente"}" style="--eje:${EJE_COLOR[p.eje]}" data-p="${p.id}" aria-pressed="${p.id === st.pieza}"><span class="tipo">${esc(p.tipo)}</span><span class="nom">${esc(p.corto)}</span>${pill(p.estado)}</button>`;
+function cabecera(eje, num, titulo, texto, extra) { return `<div class="cab-panel" style="--eje:${EJE_COLOR[eje]}"><div class="num">${num}</div><h2>${esc(titulo)}</h2>${texto ? `<p>${texto}</p>` : ""}${extra || ""}</div>`; }
+
+function pintarPanel() {
+  const f = st.foco; let h = "";
+  if (f.tipo === "principal") {
+    h += cabecera("principal", "Atrio · planes de país", "Planes de país", "Lo que orienta a todo el Estado: los consensos del Acuerdo Nacional, el plan de desarrollo al 2050 y la política del gobierno de turno.", `<p class="det">Contexto regional: <a href="${D.cepal}">ficha del Perú en el Observatorio Regional de Planificación de CEPAL</a>.</p>`);
+    h += `<div class="tarjetas">${P.filter(p => p.eje === "principal").map(tarjeta).join("")}</div>`;
+  } else if (f.tipo === "vista-sectores") {
+    h += cabecera("sectorial", "Ala sectorial", "Lo que necesitas", "Las 40 políticas nacionales vigentes en la lista de CEPLAN, agrupadas por la necesidad ciudadana a la que responden. Elige una necesidad para ver sus políticas y los sectores que las rigen, o un sector para ver todo lo que tiene a cargo.");
+    h += `<div class="tarjetas">${NEC.map(n => { const ps = P.filter(p => p.necesidad === n.cod && p.nivel === 1); return `<button class="tarjeta" style="--eje:var(--sector-osc)" data-n="${n.cod}"><span class="tipo">${ps.filter(p => p.tipo.startsWith("Política")).length} políticas</span><span class="nom">${esc(n.nombre)}</span><span class="det">${esc(n.desc)}</span></button>`; }).join("")}</div>`;
+  } else if (f.tipo === "necesidad") {
+    const n = necPor[f.cod], ps = P.filter(p => p.necesidad === n.cod);
+    const secs = [...new Set(ps.filter(p => p.nivel === 1).map(p => p.sector))].map(c => secPor[c]);
+    h += cabecera("sectorial", "Ala sectorial · necesidad", n.nombre, esc(n.desc), `<div class="chips" style="margin-top:6px">${secs.map(s => `<button class="chip" data-s="${s.cod}">${esc(s.abr)}</button>`).join("")}</div>`);
+    h += n.notas.map(x => `<div class="nota ${x.tipo}"><b>Observación</b>${esc(x.texto)}</div>`).join("");
+    [1, 2, 3].forEach(nv => { const q = ps.filter(p => p.nivel === nv); if (q.length) h += `<div class="grupo-t">${esc(D.niveles.sectorial[nv])}</div><div class="tarjetas">${q.map(tarjeta).join("")}</div>`; });
+  } else if (f.tipo === "sector") {
+    const s = secPor[f.cod], ps = P.filter(p => p.eje === "sectorial" && p.sector === s.cod);
+    const corres = P.filter(p => p.multi.some(m => m.sector === s.cod && m.rol !== "Rector"));
+    h += cabecera("sectorial", "Ala sectorial · sector", s.nombre, `${ps.filter(p => p.nivel === 1).length} políticas nacionales a su cargo como rector.`);
+    [1, 2, 3].forEach(nv => { const q = ps.filter(p => p.nivel === nv); h += `<div class="grupo-t">${esc(D.niveles.sectorial[nv])}</div>` + (q.length ? `<div class="tarjetas">${q.map(tarjeta).join("")}</div>` : `<p class="vacio">Por catalogar.</p>`); });
+    if (corres.length) h += `<div class="grupo-t">Participa en políticas de otros sectores</div><ul class="roles">${corres.map(p => { const m = p.multi.find(x => x.sector === s.cod); return `<li><b>${esc(p.corto)}</b><span>${esc(m.rol)} · <a href="${m.url}">evidencia</a></span></li>`; }).join("")}</ul>`;
+  } else if (f.tipo === "vista-territorio") {
+    h += cabecera("territorial", "Ala territorial", "Lo que heredan las nuevas autoridades", "Cada gobierno regional y la Municipalidad Metropolitana de Lima tiene su Plan de Desarrollo Regional Concertado. El 1 de enero de 2027 asumen nuevas autoridades: este es el estado de los planes que reciben, según fuentes oficiales al " + D.corte + ".");
+    ["nuevo", "ampliado", "vencido"].forEach(g => { const q = P.filter(p => p.generacion === g); if (q.length) h += `<div class="grupo-t">${GEN_TXT[g]} · ${q.length}</div><div class="chips">${q.map(p => `<button class="chip" data-reg="${p.id}">${esc(p.region)}${p.norma_pendiente ? " *" : ""}</button>`).join("")}</div>`; });
+    h += `<p class="det">* Norma de aprobación por confirmar. La evaluación de los planes regionales del año 2025 no es exigible: CEPLAN exoneró por única vez a los gobiernos regionales y locales.</p>`;
+  } else if (f.tipo === "vista-hilos") {
+    h += cabecera("multi", "Hilos · un indicador a través de los planes", "¿Hablan el mismo idioma los planes sobre anemia infantil?", "Seguimos un mismo problema por todos los niveles de planificación: el PEDN, las políticas nacionales, un plan multisectorial y los planes regionales piloto (Cajamarca, Piura y Puno). Cada hallazgo compara documentos oficiales y termina en una pregunta, no en una calificación.");
+    h += D.hallazgos.map(tarjetaHallazgo).join("");
+    h += `<p class="det">Piloto al ${D.corte}. Fuentes de las líneas: INEI (ENDES) y los documentos de cada plan, enlazados en cada hallazgo.</p>`;
+  } else if (f.tipo === "region") {
+    const p = porId[f.cod];
+    h += cabecera("territorial", "Ala territorial · región", p.region, esc(p.actores), "");
+    h += `<ul class="niveles">${D.niveles.territorial.slice(1).map((n, i) => `<li><span>${i + 1} · ${esc(n)}</span><span class="vacio">${i === 0 ? GEN_TXT[p.generacion] : "en obra"}</span></li>`).join("")}</ul>`;
+  }
+  const p = porId[st.pieza];
+  const muestraFicha = p && ((f.tipo === "principal" && p.eje === "principal") || (f.tipo === "necesidad" && p.necesidad === f.cod) || (f.tipo === "sector" && p.sector === f.cod) || (f.tipo === "region" && p.id === f.cod));
+  if (muestraFicha) h += ficha(p);
+  panel.innerHTML = h;
+  panel.querySelectorAll("[data-p]").forEach(b => b.addEventListener("click", () => { st.pieza = b.dataset.p; render(false); document.getElementById("ficha")?.scrollIntoView({ block: "nearest", behavior: "smooth" }); }));
+  panel.querySelectorAll("[data-n]").forEach(b => b.addEventListener("click", () => enfocar({ tipo: "necesidad", cod: b.dataset.n })));
+  panel.querySelectorAll("[data-s]").forEach(b => b.addEventListener("click", () => enfocar({ tipo: "sector", cod: b.dataset.s })));
+  panel.querySelectorAll("[data-reg]").forEach(b => b.addEventListener("click", () => enfocar({ tipo: "region", cod: b.dataset.reg }, b.dataset.reg)));
+  panel.querySelectorAll("[data-ir]").forEach(b => b.addEventListener("click", () => irPieza(b.dataset.ir)));
+}
+
+
+/* ---------- Hilos ---------- */
+const TIPO_HZ = { metas: "Metas que no conversan", medicion: "Distinta forma de medir", "hilo-suelto": "Hilo suelto", "sin-dato": "Sin dato" };
+function tarjetaHallazgo(x) {
+  return `<article class="hz"><span class="tipo">${TIPO_HZ[x.tipo] || x.tipo}</span><h5>${esc(x.titulo)}</h5>
+    <dl><dt>Lo que observamos</dt><dd>${esc(x.observamos)}</dd><dt>Por qué puede pasar</dt><dd>${esc(x.por_que)}</dd><dt>Pregunta abierta</dt><dd class="preg">${esc(x.pregunta)}</dd></dl>
+    <ul class="f">${x.fuentes.map(f => `<li><a href="${f.u}">${esc(f.t)}</a></li>`).join("")}</ul></article>`;
+}
+const COL_H = { pedn: "#BC8418", pndis: "#1B97A3", pmanemia: "#E2589B", pnmnna: "#5E9A2A", m363: "#E4EAF3", m251: "#8FA3BF", otra: "#B8C6DA" };
+function colorSerie(s) { return s.tipo === "medido" ? (s.criterio.includes("363") ? COL_H.m363 : COL_H.m251) : s.tipo === "meta-otra" ? COL_H.otra : COL_H[s.serie] || "#ccc"; }
+function grafico(series, o) {
+  const W = o.w, H = o.h, m = { l: 30, r: o.r ?? 118, t: 12, b: 22 }, iw = W - m.l - m.r, ih = H - m.t - m.b;
+  const corte = o.corte || 2031, x1 = o.x1 || 2050, frac = o.x1 > corte ? .8 : 1;
+  const X = a => m.l + (a <= corte ? (a - o.x0) / (corte - o.x0) * iw * frac : iw * frac + (a - corte) / (x1 - corte) * iw * (1 - frac));
+  const Y = v => m.t + ih - v / o.y1 * ih;
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(o.aria)}">`;
+  for (let v = 0; v <= o.y1; v += o.paso) s += `<line x1="${m.l}" x2="${m.l + iw}" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,${v ? .08 : .3})"/><text x="${m.l - 5}" y="${Y(v) + 3.5}" text-anchor="end" font-size="9.5" fill="#9FB0C8" font-family="IBM Plex Mono, ui-monospace, monospace">${v}%</text>`;
+  (o.ticks || [o.x0, 2025, 2030]).forEach(a => s += `<text x="${X(a)}" y="${H - 6}" text-anchor="middle" font-size="9.5" fill="#9FB0C8" font-family="IBM Plex Mono, ui-monospace, monospace">${a}</text>`);
+  if (frac < 1) s += `<line x1="${X(corte)}" x2="${X(corte)}" y1="${m.t}" y2="${m.t + ih}" stroke="rgba(255,255,255,.25)" stroke-dasharray="2 3"/><text x="${X(corte) + 3}" y="${m.t + 9}" font-size="9" fill="#9FB0C8">escala comprimida →</text>`;
+  const etiquetas = [];
+  series.forEach(se => {
+    const c = colorSerie(se), pts = se.puntos.filter(p => p.v != null), meta = se.tipo !== "medido";
+    if (pts.length > 1) s += `<polyline points="${pts.map(p => X(p.a) + "," + Y(p.v)).join(" ")}" fill="none" stroke="${c}" stroke-width="2" ${meta ? 'stroke-dasharray="5 4"' : ""} stroke-linejoin="round"/>`;
+    pts.forEach((p, i) => s += `<circle cx="${X(p.a)}" cy="${Y(p.v)}" r="${meta ? 4 : 3}" fill="${meta ? "#142C52" : c}" stroke="${c}" stroke-width="2"><title>${esc(se.etiqueta)} · ${p.a}: ${String(p.v).replace(".", ",")} %${meta && i === 0 && se.puntos.length > 1 && se.serie !== "pnmnna" ? " (línea de base)" : meta ? " (meta)" : ""}</title></circle>`);
+    const u = pts[pts.length - 1]; etiquetas.push({ y: Y(u.v), x: X(u.a), t: (o.corto ? o.corto(se) : se.etiqueta) + " " + String(u.v).replace(".", ",") + "%", c });
+  });
+  etiquetas.sort((a, b) => a.y - b.y); for (let i = 1; i < etiquetas.length; i++) if (etiquetas[i].y - etiquetas[i - 1].y < 11) etiquetas[i].y = etiquetas[i - 1].y + 11;
+  etiquetas.forEach(e => s += `<text x="${o.etqX ? o.etqX : e.x + 7}" y="${e.y + 3.5}" font-size="10" fill="${e.c}" font-family="IBM Plex Sans, system-ui, sans-serif">${esc(e.t)}</text>`);
+  return s + `</svg>`;
+}
+const CORTO_H = { pedn: "PEDN", pndis: "PNDIS", pmanemia: "Plan anemia", pnmnna: "PNMNNA" };
+function vistaHilos() {
+  svg.style.display = "none";
+  document.getElementById("pie-izq").textContent = "HILOS · ANEMIA INFANTIL";
+  document.getElementById("pie-der").textContent = "Pasa el cursor por un punto para ver su valor";
+  const H = D.hilo, nac = H.filter(s => s.ambito === "Perú");
+  const leyenda = nac.map(s => `<span><i class="${s.tipo === "medido" ? "" : "d"}" style="border-color:${colorSerie(s)}"></i>${esc(s.etiqueta)}${s.tipo === "medido" ? " (medido)" : " (meta)"}</span>`).join("");
+  const reg = ["Cajamarca", "Piura", "Puno"].map(r => {
+    const ss = H.filter(s => s.ambito === r), y1 = r === "Puno" ? 80 : 50;
+    const nota = r === "Cajamarca" ? "La meta del PDRC usa otro grupo de edad (6 a 59 meses) y no indica fuente: no se compara con ENDES." : "Metas del PDRC por catalogar: no pudimos abrir el documento completo.";
+    return `<div class="graf"><h4>${r}</h4><p>${nota}</p>${grafico(ss, { w: 260, h: 190, x0: 2019, x1: 2025, y1, paso: r === "Puno" ? 20 : 10, r: 8, ticks: [2019, 2022, 2025], aria: "Anemia infantil en " + r, corto: s => s.tipo === "medido" ? (s.criterio.includes("363") ? "anterior" : "OMS 2024") : "meta PDRC", etqX: null })}</div>`;
+  }).join("");
+  const KH = D.kpiHilo, pedn = KH.D4.ritmo[0], f2 = v => String(v).replace(".", ",");
+  R.innerHTML = `<div class="tira">${kpi(KH.A4.n, "A4 · instrumentos nacionales con meta para este indicador")}${kpi(f2(KH.A4.rango) + " pp", `A4 · distancia entre metas al 2030 (${f2(KH.A4.min2030)} % a ${f2(KH.A4.max2030)} %)`)}${kpi("−" + f2(pedn.exigido) + " pp/año", "D4 · ritmo que exige el PEDN entre 2021 y 2030")}${kpi("+" + f2(KH.D4.observado["RM 363-2022-MINSA"]) + " pp/año", "D4 · ritmo observado 2019-2024 (ENDES, criterio anterior)")}</div>
+    <div class="graf"><h4>Anemia en niñas y niños de 6 a 35 meses: lo medido y lo que se propuso cada plan</h4><p>Perú. Líneas continuas: lo que mide la ENDES con cada criterio. Líneas punteadas: metas de cada instrumento. Pasa el cursor por un punto para ver el valor.</p>
+    <div class="leyenda-h">${leyenda}</div><p style="margin:0 0 4px">Etiquetas: PNDIS = Política de Desarrollo e Inclusión Social; PNMNNA = Política de Niñas, Niños y Adolescentes; anterior / OMS 2024 = criterio de medición de la ENDES.</p>${grafico(nac, { w: 620, h: 300, x0: 2019, x1: 2050, corte: 2031, y1: 50, paso: 10, ticks: [2019, 2022, 2025, 2028, 2031, 2040, 2050], aria: "Anemia infantil en el Perú, medida y metas", r: 92, corto: s => s.tipo === "medido" ? (s.criterio.includes("363") ? "anterior" : "OMS 2024") : CORTO_H[s.serie] })}</div>
+    <div class="multi3">${reg}</div>
+    <p style="margin:0;font-size:12px;color:#B8C6DA">Fuentes: INEI, ENDES 2024 (cuadros 06A y 06.1A); PEDN al 2050; reportes de cumplimiento 2024 de la PNDIS y la PNMNNA; CEPLAN, ficha T13; Informe de evaluación del PDRC Cajamarca 2023-2024. La ENDES 2025 está por enlazar desde el INEI.</p>`;
+}
+function sparkInd(ind) {
+  const pts = [ind.lb, ...ind.metas, ...ind.obt].filter(p => p.v != null).map(p => p.v);
+  let lo = Math.min(...pts), hi = Math.max(...pts); if (hi === lo) { hi += 1; lo -= 1; } const pad = (hi - lo) * .15; lo -= pad; hi += pad;
+  const anios = [ind.lb.a, ...ind.metas.map(p => p.a)], a0 = Math.min(...anios), a1 = Math.max(...anios);
+  const X = a => 8 + (a - a0) / Math.max(1, a1 - a0) * 134, Y = v => 38 - (v - lo) / (hi - lo) * 32;
+  const metas = [ind.lb, ...ind.metas], ob = ind.obt.filter(p => p.v != null);
+  let s = `<svg viewBox="0 0 150 44" role="img" aria-label="Línea de base, metas y valores de ${esc(ind.nombre)}">`;
+  s += `<polyline points="${metas.map(p => X(p.a) + "," + Y(p.v)).join(" ")}" fill="none" stroke="#7D8899" stroke-width="1.5" stroke-dasharray="4 3"/>`;
+  s += metas.map((p, i) => `<circle cx="${X(p.a)}" cy="${Y(p.v)}" r="3.2" fill="${i ? "#fff" : "#7D8899"}" stroke="#7D8899" stroke-width="1.5"><title>${i ? "Meta" : "Línea de base"} ${p.a}: ${p.v}</title></circle>`).join("");
+  if (ob.length) s += `<polyline points="${[ind.lb, ...ob].map(p => X(p.a) + "," + Y(p.v)).join(" ")}" fill="none" stroke="#3F7A1F" stroke-width="2"/>` + ob.map(p => `<circle cx="${X(p.a)}" cy="${Y(p.v)}" r="3.2" fill="#3F7A1F"><title>Valor reportado ${p.a}: ${p.v}</title></circle>`).join("");
+  ind.obt.filter(p => p.v == null).forEach(p => s += `<text x="${X(p.a)}" y="43" text-anchor="middle" font-size="8" fill="#B3261E" font-family="IBM Plex Mono, ui-monospace, monospace">s/d</text>`);
+  return s + `</svg>`;
+}
+function seccionObjetivos(p) {
+  const todos = p.objetivos.flatMap(o => o.ind), sd = todos.filter(i => i.obt.some(x => x.v == null) && i.obt[i.obt.length - 1].v == null).length;
+  const sueltos = p.objetivos.filter(o => !o.on).length;
+  const ultimo = i => { const ok = i.obt.filter(x => x.v != null); return ok.length ? ok[ok.length - 1] : null; };
+  return `<div><h4 class="seccion-t">Qué se propuso · ${p.objetivos.length} objetivos, ${todos.length} indicadores</h4>
+    <div class="resumen-ind">${[["D1", "con línea de base y año"], ["D2", "con fuente declarada en el informe"], ["A1", "objetivos con vínculo declarado al PEDN"], ["G3", "indicadores con dato en el último periodo"], ["G4", "metas del último año alcanzadas, según el propio informe"]].map(([k, t]) => `<div><code>${k}</code><b>${p.kpi[k][0]}<small style="font-size:13px"> de ${p.kpi[k][1]}</small></b><span>${t}</span></div>`).join("")}<div><code>¿Cómo se calcula?</code><span><a href="#tabla">Fichas de los indicadores</a></span></div></div>
+    <div class="ley-ind" style="margin:8px 0 4px"><span>○ - - meta (● línea de base)</span><span style="color:#3F7A1F">● — valor reportado</span><span style="color:#B3261E">s/d sin dato</span></div>
+    ${p.objetivos.map(o => `<details class="obj"${o.ind.some(i => i.hilo) ? " open" : ""}><summary><code>${esc(o.cod)}</code><span>${esc(o.enun)}</span>${o.on ? `<span class="on-chip" title="${esc(D.on[o.on])}">↑ ${esc(o.on)}</span>` : `<span class="on-chip suelto" title="El informe no declara un objetivo nacional">sin hilo</span>`}</summary>
+      ${o.ind.map(i => { const u = ultimo(i), m = i.metas[i.metas.length - 1]; return `<div class="ind"><span>${esc(i.nombre)}<span class="det">Base ${i.lb.a}: ${String(i.lb.v).replace(".", ",")} · meta ${m.a}: ${String(m.v).replace(".", ",")} · ${u ? "reportado " + u.a + ": " + String(u.v).replace(".", ",") : "sin dato reportado"}${i.unidad === "%" ? " (%)" : ""}${i.hilo ? ` · <a href="#hilos">ver hilo de anemia</a>` : ""}</span></span>${sparkInd(i)}</div>`; }).join("")}</details>`).join("")}
+    <p class="det">Fuente: <a href="${p.objetivos[0].url}">informe de evaluación del plan</a>. Enunciados abreviados por Qhawana; el vínculo con el PEDN es el que declara el informe.</p></div>`;
+}
+
+function ficha(p) {
+  const hijos = P.filter(q => q.articula.some(a => a.sup === p.id));
+  const declarados = hijos.filter(q => q.articula.find(a => a.sup === p.id).base === "declarada");
+  const porNorma = hijos.length - declarados.length;
+  const arriba = p.articula.length ? p.articula.map(a => `<button class="chip${a.base === "norma" ? " norma-chip" : ""}" data-ir="${a.sup}">↑ ${esc(porId[a.sup].corto)}</button>${a.url ? ` <a href="${a.url}" class="det">evidencia</a>` : ""}`).join("") : `<span class="vacio">Cima de la cadena.</span>`;
+  const abajo = (declarados.map(q => `<button class="chip" data-ir="${q.id}">${esc(q.corto)}</button>`).join("") || "") + (porNorma ? `<span class="vacio">${declarados.length ? "y " : ""}${porNorma} piezas más por norma</span>` : "") || `<span class="vacio">Ninguna pieza se articula con esta todavía.</span>`;
+  const dims = D.dimensiones.map(dn => { const d = p.dims[dn]; if (!d) return `<div class="dim sv"><b>${esc(dn)}</b><span class="vacio">Sin verificar</span></div>`; const c = d.valor === "si" ? "si" : d.valor === "no" ? "no" : "sv", t = d.valor === "si" ? "Sí" : d.valor === "no" ? "No" : "Sin verificar"; return `<div class="dim ${c}"><b>${esc(dn)}</b><span>${d.url ? `<a href="${d.url}">${t}</a>` : t}</span></div>`; }).join("");
+  const TN = { discrepancia: "Dos fuentes oficiales difieren", pista: "Pista", observacion: "Observación" };
+  const multi = p.multi.filter(m => m.rol !== "Rector");
+  return `<article class="ficha" id="ficha" style="--eje:${EJE_COLOR[p.eje]}">
+    <div><div class="seccion-t" style="border:0;margin:0">${esc(p.tipo)}${p.sector ? " · " + esc(secPor[p.sector]?.nombre || p.sector) : ""}${p.necesidad ? " · " + esc(necPor[p.necesidad].nombre) : ""}</div><h3>${esc(p.nombre)}</h3></div>
+    <div class="marcas"><span class="marca-v ${p.vigencia === "Vigente" ? "" : p.vigencia === "Horizonte vencido" ? "alerta" : "no"}">${esc(p.vigencia)}</span><span class="marca-v no">${esc(p.temporalidad)}</span></div>
+    <p style="margin:0">${esc(p.resumen)}</p>
+    ${p.catalogado ? "" : `<div class="nota"><b>Vitrina por catalogar</b>La articulación que se muestra es la que exige la norma, no la que declara el plan.</div>`}
+    <dl class="meta"><dt>Actores</dt><dd>${esc(p.actores)}</dd><dt>Norma</dt><dd><span class="norma">${esc(p.norma)}</span></dd><dt>Horizonte</dt><dd>${esc(p.horizonte)}</dd></dl>
+    ${p.notas.map(n => `<div class="nota ${n.tipo}"><b>${TN[n.tipo]}</b>${esc(n.texto)}</div>`).join("")}
+    ${multi.length ? `<div><h4 class="seccion-t">Sectores involucrados que declara la política</h4><div class="chips">${multi.map(m => `<button class="chip mul" data-s="${m.sector}" title="${esc(m.rol)}">${esc(secPor[m.sector].abr)}</button>`).join("")}</div><p class="det" style="margin:6px 0 0"><a href="${multi[0].url}">Evidencia: texto de la política</a></p></div>` : ""}
+    ${p.objetivos.length ? seccionObjetivos(p) : (p.eje === "territorial" && ["Cajamarca", "Piura", "Puno"].includes(p.region) ? `<div><h4 class="seccion-t">Qué se propuso</h4><p class="vacio">Objetivos e indicadores por catalogar (región piloto; ver la observación).</p></div>` : "")}
+    ${D.hallazgos.filter(x => x.ambito === p.id).length ? `<div><h4 class="seccion-t">Hallazgos de articulación</h4><div style="display:grid;gap:8px">${D.hallazgos.filter(x => x.ambito === p.id).map(tarjetaHallazgo).join("")}</div></div>` : ""}
+    <div><h4 class="seccion-t">Articulación · hacia arriba</h4><div class="chips">${arriba}</div></div>
+    <div><h4 class="seccion-t">Hacia abajo · punteado: según la norma</h4><div class="chips">${abajo}</div></div>
+    ${p.catalogado && Object.keys(p.dims).length ? `<div><h4 class="seccion-t">Dimensiones presentes · cada sí enlaza su evidencia</h4><div class="dims">${dims}</div></div>` : ""}
+    ${p.versiones.length ? `<div><h4 class="seccion-t">Versiones</h4><ol class="linea-t">${p.versiones.map(v => `<li class="${v.vigente === "si" ? "vig" : ""}"><time>${esc(v.fecha)}${v.vigente === "si" ? " · vigente" : ""}</time>${v.url ? `<a href="${v.url}">${esc(v.descripcion)}</a>` : esc(v.descripcion)}${v.norma ? ` · <span class="norma">${esc(v.norma)}</span>` : ""}</li>`).join("")}</ol></div>` : ""}
+    <div><h4 class="seccion-t">Bitácora de seguimiento</h4><div class="bit">${p.bitacora.map(b => `<div class="bit-fila"><span>${b.url ? `<a href="${b.url}">${esc(b.tipo)}</a>` : esc(b.tipo)}<br><span class="det">Periodo: ${esc(b.periodo)}${b.publicado ? " · publicado " + esc(b.publicado) : ""}${b.nota ? " · " + esc(b.nota) : ""}</span></span>${pill(b.estado)}</div>`).join("")}</div></div>
+    ${p.fuentes.length ? `<div><h4 class="seccion-t">Fuentes · consultadas al ${D.corte}</h4><ul class="fuentes">${p.fuentes.map(x => `<li><a href="${x.url}">${esc(x.titulo)}</a></li>`).join("")}</ul></div>` : ""}
+  </article>`;
+}
+
+/* ---------- Navegación ---------- */
+const migas = document.getElementById("migas");
+function pintarMigas() {
+  const f = st.foco, partes = [["edificio", "Museo"]];
+  if (st.vista === "sectores") partes.push(["sectores", "Ala sectorial"]);
+  if (st.vista === "territorio") partes.push(["territorio", "Ala territorial"]);
+  if (st.vista === "hilos") partes.push(["hilos", "Hilos · anemia infantil"]);
+  if (st.vista === "edificio" && f.tipo === "principal") partes.push([null, "Atrio"]);
+  if (f.tipo === "necesidad") partes.push([null, necPor[f.cod].nombre]);
+  if (f.tipo === "sector") partes.push([null, secPor[f.cod].nombre]);
+  if (f.tipo === "region") partes.push([null, porId[f.cod].region]);
+  migas.innerHTML = partes.map(([v, t], i) => i < partes.length - 1 && v ? `<button data-mv="${v}">${esc(t)}</button> ›` : `<span>${esc(t)}</span>`).join(" ");
+  migas.querySelectorAll("[data-mv]").forEach(b => b.addEventListener("click", () => irVista(b.dataset.mv)));
+}
+function render(redibujar = true) {
+  if (true) ({ edificio: vistaEdificio, sectores: vistaSectores, territorio: vistaTerritorio, hilos: vistaHilos })[st.vista]?.();
+  pintarPanel(); pintarMigas();
+}
+const lienzo = document.getElementById("lienzo");
+const sinMovimiento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let origenZoom = null;
+function zoom(desde, hacia, fn) {
+  if (sinMovimiento || !lienzo.animate || desde === "tabla" || hacia === "tabla" || desde === hacia) { fn(); return; }
+  const entra = desde === "edificio";
+  if (origenZoom) lienzo.style.transformOrigin = origenZoom;
+  const a = lienzo.animate(entra ? [{ transform: "scale(1)", opacity: 1 }, { transform: "scale(1.6)", opacity: 0 }] : [{ transform: "scale(1)", opacity: 1 }, { transform: "scale(.85)", opacity: 0 }], { duration: 260, easing: "cubic-bezier(.4,0,.8,.6)", fill: "forwards" });
+  a.onfinish = () => {
+    fn();
+    lienzo.animate(entra ? [{ transform: "scale(.82)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }] : [{ transform: "scale(1.25)", opacity: 0 }, { transform: "scale(1)", opacity: 1 }], { duration: 380, easing: "cubic-bezier(.2,.7,.2,1)" });
+    a.cancel(); origenZoom = null;
+  };
+}
+function irVista(v) {
+  if (v === "tabla") { mostrar(false); st.vista = "tabla"; marcarTabs(); return; }
+  const previa = st.vista;
+  if (document.getElementById("vista-museo").hidden) { cambiarVista(v); return; }
+  zoom(previa, v, () => cambiarVista(v));
+}
+function cambiarVista(v) {
+  mostrar(true); st.vista = v;
+  st.foco = v === "sectores" ? { tipo: "vista-sectores" } : v === "territorio" ? { tipo: "vista-territorio" } : v === "hilos" ? { tipo: "vista-hilos" } : { tipo: "principal" };
+  if (v === "edificio") st.pieza = "pgg";
+  marcarTabs(); render(); if (location.hash !== "#" + v) history.replaceState(null, "", "#" + v);
+}
+function enfocar(f, pieza) {
+  st.foco = f;
+  if (pieza) st.pieza = pieza;
+  else if (f.tipo === "necesidad") st.pieza = (P.find(p => p.necesidad === f.cod && p.nivel === 1) || {}).id;
+  else if (f.tipo === "sector") st.pieza = (P.find(p => p.sector === f.cod) || {}).id;
+  render();
+}
+function irPieza(id) {
+  const p = porId[id]; st.pieza = id;
+  if (p.eje === "principal") { st.vista = "edificio"; st.foco = { tipo: "principal" }; }
+  else if (p.eje === "sectorial") { st.vista = "sectores"; st.foco = { tipo: "necesidad", cod: p.necesidad || "salud" }; }
+  else { st.vista = "territorio"; st.foco = { tipo: "region", cod: p.id }; }
+  marcarTabs(); render();
+}
+function mostrar(museo) { document.getElementById("vista-museo").hidden = !museo; document.getElementById("vista-tabla").hidden = museo; }
+function marcarTabs() { document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === st.vista)); }
+document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => irVista(b.dataset.v)));
+document.getElementById("nav").hidden = false;
+const h0 = location.hash.slice(1);
+irVista(["edificio", "sectores", "territorio", "hilos", "tabla"].includes(h0) ? h0 : "edificio");
+window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (h !== st.vista && ["edificio", "sectores", "territorio", "hilos", "tabla"].includes(h)) irVista(h); });
+</script>
+</body>
+</html>

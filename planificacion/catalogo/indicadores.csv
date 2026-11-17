@@ -1,0 +1,20 @@
+plan_id,objetivo,codigo,indicador,poblacion,lb_anio,lb_valor,metas,obtenidos,unidad,fuente_dato,hilo,avance_reportado
+pdrc-05,OER.01,IND.01.OER.01,Cuencas con plan de gestión de recursos hídricos aprobado e implementado,,2021,18.75,2023=25;2024=31.25,2023=18.75;2024=18.75,%,,,60
+pdrc-05,OER.02,IND.01.OER.02,Población afectada por emergencias de origen natural,,2020,0.08,2023=0.08;2024=0.07,2023=0.07;2024=0.07,%,,,100
+pdrc-05,OER.02,IND.02.OER.02,"Población urbana en barrios marginales, asentamientos improvisados o viviendas inadecuadas",,2021,56.6,2023=54.17;2024=53.42,2023=53.25;2024=50.05,%,,,100
+pdrc-05,OER.03,IND.01.OER.03,Población con algún problema de salud no crónico,,2021,32.2,2023=30.3;2024=29.4,2023=33.2;2024=,%,,,
+pdrc-05,OER.03,IND.02.OER.03,Población con acceso a seguro de salud,,2022,88.3,2023=89.2;2024=90.1,2023=91.3;2024=,%,,,
+pdrc-05,OER.03,IND.02.AER.03.04,Niñas y niños de 6 a 59 meses con anemia (indicador de una acción estratégica),6 a 59 meses,2021,20.0,2023=18.3;2024=17.4,2023=25.8;2024=27.6,%,,anemia,0
+pdrc-05,OER.04,IND.01.OER.04,Estudiantes de 2.º de secundaria con rendimiento satisfactorio en lectura y matemática,,2021,5.0,2023=5.7;2024=6.07,2023=;2024=,%,,,
+pdrc-05,OER.04,IND.02.OER.04,Estudiantes de 2.º y 4.º de primaria con rendimiento satisfactorio en lectura y matemática,,2020,16.7,2023=21.17;2024=22.14,2023=;2024=,%,,,
+pdrc-05,OER.05,IND.01.OER.05,Población de 15 años y más con percepción de inseguridad,,2021,83.5,2023=86.6;2024=81.2,2023=83;2024=,%,,,
+pdrc-05,OER.06,IND.01.OER.06,PEA ocupada adecuadamente empleada,,2021,37.8,2023=34.34;2024=34.99,2023=31.35;2024=31.98,%,,,91.41
+pdrc-05,OER.06,IND.02.OER.06,Tasa de desempleo,,2020,4.7,2023=3.1;2024=3.1,2023=4.1;2024=4.1,%,,,0
+pdrc-05,OER.07,IND.01.OER.07,Población adulta que considera buena o muy buena la gestión del Gobierno Regional,,2021,30.3,2023=34.15;2024=36.08,2023=22;2024=24.5,%,,,67.9
+pdrc-05,OER.08,IND.01.OER.08,"Inversión privada en investigación, desarrollo e innovación",,2022,0.0,2023=2.27;2024=4.54,2023=;2024=,%,,,
+pdrc-05,OER.09,IND.01.OER.09,Variación anual del PBI real departamental,,2021,11.1,2023=2.31;2024=2.62,2023=-0.5;2024=0.92,%,,,35.11
+pdrc-05,OER.10,IND.01.OER.10,Gasto público ambiental en el gasto total,,2018,0.98,2023=1.25;2024=1.31,2023=1.17;2024=0.74,%,,,56.35
+pdrc-05,OER.11,IND.01.OER.11,Superficie agrícola con cultivos destinados a la venta,,2021,58.1,2023=60.4;2024=61.6,2023=;2024=,%,,,
+pdrc-05,OER.11,IND.02.OER.11,Variación anual del volumen físico de la producción agropecuaria (canasta mínima),,2021,2.44,2023=2.33;2024=2.27,2023=0.11;2024=2.13,%,,,93.83
+pdrc-05,OER.12,IND.01.OER.12,Personas con discapacidad en edad de trabajar que se incorporan al mercado laboral,,2022,43.0,2023=43.8;2024=44.7,2023=20.94;2024=19.05,%,,,42.62
+pdrc-05,OER.13,IND.01.OER.13,Índice de infraestructura,,2022,4.7,2023=4.73;2024=4.75,2023=4.4;2024=5.4,índice,,,100
