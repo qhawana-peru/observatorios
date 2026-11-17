@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Observatorio del sistema de salud · Qhawana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Familia visual del Museo de la planificación: escenario nocturno azul institucional, rótulos mono, títulos Big Shoulders. */
+  --noche:#0C1D38; --noche-2:#142C52; --noche-3:#1E3B68;
+  --papel:#EEF1F6; --superficie:#FFFFFF; --tinta:#12223C; --tinta-2:#4A5B74; --linea:#C9D2DE;
+  --oro:#E9B44C; --enlace:#1F5FBF; --ok:#1F7A4D; --aviso:#B86A00; --mal:#B3261E; --neutro:#7D8899;
+  /* Carriles por régimen (sobre fondo noche) */
+  --sub:#8CC152; --esp:#E2589B; --con:#22B5C2; --pri:#E9B44C; --non:#9AA6B8; --rec:#EAF0F8;
+  --bol:#FF7A45; --reem:#7EE8C8; --minsa:#5B8DEF; --susalud:#A78BFA; --deb:#C9D6EA;
+  --display:"Big Shoulders Display","Arial Narrow",sans-serif;
+  --cuerpo:"IBM Plex Sans",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--papel);color:var(--tinta);font:15px/1.55 var(--cuerpo)}
+a{color:var(--enlace)}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--enlace);outline-offset:2px}
+
+.aviso{background:var(--noche);color:#C9D6EA;font:500 12px/1.4 var(--mono);padding:8px 20px;display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.aviso b{color:var(--oro);font-weight:500}
+header.cab{background:linear-gradient(180deg,var(--noche) 0%,var(--noche-2) 100%);color:#EAF0F8}
+.cab-in{max-width:1320px;margin:0 auto;padding:26px 20px 18px;display:grid;gap:14px}
+.marca{font:500 12px var(--mono);color:#9FB3CF;letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:10px}
+.marca i{display:inline-flex;gap:3px}.marca i span{width:9px;height:9px;display:block}
+h1{font:800 clamp(38px,5.6vw,70px)/.92 var(--display);text-transform:uppercase;margin:2px 0 4px;text-wrap:balance;letter-spacing:.01em}
+h1 em{font-style:normal;color:var(--bol)}
+.tesis{max-width:70ch;color:#C3D0E3;margin:0;font-size:16px}
+.contadores{display:flex;gap:8px;flex-wrap:wrap}
+.cont{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);padding:7px 12px;display:flex;align-items:baseline;gap:8px;max-width:360px}
+.cont b{font:800 24px/1 var(--display);font-variant-numeric:tabular-nums;color:#fff;white-space:nowrap}
+.cont b.bolv{color:var(--bol)}
+.cont span{font-size:12.5px;color:#B8C6DA;line-height:1.3}
+.cont small{display:block;font:400 10.5px var(--mono);color:#8296B3;margin-top:2px}
+.cont.corte{border-style:dashed}.cont.corte b{font:500 13px var(--mono);color:var(--oro)}
+
+.nav{max-width:1320px;margin:0 auto;padding:12px 20px 0;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.tabs{display:flex;gap:0;border:1.5px solid var(--tinta);background:var(--superficie);flex-wrap:wrap}
+.tabs button{border:0;background:transparent;padding:8px 14px;cursor:pointer;font:500 13px var(--mono);display:flex;gap:8px;align-items:center}
+.tabs button .n{opacity:.6}
+.tabs button[aria-pressed="true"]{background:var(--tinta);color:#fff}
+.como{font:500 12px var(--mono);color:var(--tinta-2)}
+
+main{max-width:1320px;margin:0 auto;padding:12px 20px 24px}
+.escena{position:relative;overflow:hidden;background:radial-gradient(120% 90% at 50% 20%,var(--noche-3) 0%,var(--noche) 70%);border-radius:4px;padding:14px 12px 10px;box-shadow:0 18px 40px -20px rgba(12,29,56,.6)}
+.lede{color:#EAF0F8;padding:2px 6px 6px;max-width:80ch}
+.lede .rot{font:800 22px/1 var(--display);letter-spacing:.07em;text-transform:uppercase;color:#fff;margin:0 0 6px}
+.lede p{margin:0;color:#C3D0E3;font-size:15.5px}
+svg#map{width:100%;height:auto;display:block;user-select:none}
+.escena-pie{display:flex;justify-content:space-between;gap:8px 16px;flex-wrap:wrap;font:11.5px var(--mono);color:#9FB3CF;padding:8px 6px 2px;border-top:1px solid rgba(255,255,255,.1)}
+.legend{display:flex;gap:6px 16px;flex-wrap:wrap;align-items:center}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:24px;height:0;border-top:2.2px solid #EAF0F8}
+.legend i.d{border-top-style:dashed}.legend i.p{border-top-style:dotted;border-top-width:3px}
+.legend i.b{border-color:var(--bol);border-top-style:dashed}.legend i.r{border-color:var(--reem);border-top-style:dashed}
+.legend .sw{width:10px;height:10px;display:inline-block}
+
+/* SVG sobre escenario */
+.node{cursor:pointer;transition:transform .75s cubic-bezier(.6,.05,.25,1),opacity .45s}
+.node rect.box{fill:rgba(255,255,255,.06);stroke-width:1.3;transition:fill .2s,stroke-width .2s}
+.node:hover rect.box,.node:focus rect.box{fill:rgba(255,255,255,.14);stroke-width:2.2}
+.node.sel rect.box{fill:rgba(255,255,255,.18);stroke-width:2.6}
+.node:focus{outline:none}
+.node text{pointer-events:none}
+.node .t{font:600 13.5px var(--cuerpo);fill:#EAF0F8}
+.node .st{font:400 10.3px var(--mono);fill:#9FB3CF}
+.node.hid{opacity:0;pointer-events:none}
+.node.dim{opacity:.2}
+.node.ghost rect.box{stroke-dasharray:5 4;fill:rgba(255,255,255,.02)}
+.edge{fill:none;stroke:rgba(234,240,248,.8);stroke-width:1.8;transition:opacity .3s;cursor:pointer}
+.edge.form{stroke:rgba(201,214,234,.45);stroke-width:1.4}
+.edge.compra{stroke-dasharray:7 5}
+.edge.sinvig{stroke-dasharray:2 5;stroke-width:2.4;stroke-linecap:round}
+.edge.bol{stroke:var(--bol);stroke-width:2;stroke-dasharray:3 7;stroke-linecap:round;animation:fluir 1.6s linear infinite}
+.edge.reem{stroke:var(--reem);stroke-dasharray:10 4 2 4;stroke-width:2}
+.edge.deb{stroke:var(--deb);stroke-dasharray:6 6}
+.edge.sup{stroke:rgba(233,180,76,.8);stroke-width:1.2;stroke-dasharray:1 4}
+.edge.dim{opacity:.07}
+.edge.hot{stroke-width:3.2}
+.hit{fill:none;stroke:transparent;stroke-width:14;cursor:pointer}
+@keyframes fluir{to{stroke-dashoffset:-20}}
+.elabel{font:500 10.5px var(--mono);fill:#C9D6EA;paint-order:stroke;stroke:var(--noche);stroke-width:4px;pointer-events:none}
+.layer{transition:opacity .35s}
+.rowlabel{font:800 13px var(--display);letter-spacing:.09em;text-transform:uppercase;fill:#9FB3CF}
+.rowsub{font:400 10.5px var(--mono);fill:#8296B3}
+.band text{font:500 11px var(--mono);fill:#0C1D38}
+.contour{fill:none;stroke:rgba(255,255,255,.5);stroke-width:1.2;stroke-dasharray:3 4}
+.ctext{font:400 10.5px var(--mono);fill:#9FB3CF}
+.bar rect{transition:height .8s cubic-bezier(.3,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.node,.bar rect,.layer{transition:none}.edge.bol{animation:none}}
+
+
+/* Pestaña mapa */
+#geo{padding:4px 4px 2px}
+.geo-ctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;margin:2px 2px 10px}
+.seg{display:flex;border:1px solid rgba(255,255,255,.35)}
+.seg button{border:0;background:transparent;color:#C9D6EA;padding:6px 11px;cursor:pointer;font:500 12px var(--mono)}
+.seg button[aria-pressed="true"]{background:#EAF0F8;color:var(--noche)}
+#geoRed{display:flex;flex-wrap:wrap;gap:6px}
+#geoRed button{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.05);color:#EAF0F8;padding:4px 10px;cursor:pointer;font-size:12.5px;border-radius:99px}
+#geoRed button b{font:500 11px var(--mono);color:#9FB3CF}
+#geoRed button i{width:9px;height:9px;border-radius:50%;display:inline-block;box-shadow:0 0 6px currentColor}
+#geoRed button[aria-pressed="false"]{opacity:.35}
+.geo-nota{font:400 11px var(--mono);color:#9FB3CF}
+#geoUno{display:grid;grid-template-columns:minmax(0,620px) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:960px){#geoUno{grid-template-columns:1fr}}
+#geoLienzo{position:relative}
+#geoCanvas{display:block;cursor:crosshair}
+#geoLupa{position:absolute;border:1px solid rgba(233,180,76,.8);pointer-events:none;box-shadow:0 8px 24px -8px rgba(0,0,0,.6)}
+#geoLupaRot{position:absolute;font:500 10.5px var(--mono);color:var(--oro);pointer-events:none;letter-spacing:.06em;text-transform:uppercase}
+#geoTip{position:absolute;display:none;pointer-events:none;background:var(--superficie);color:var(--tinta);border-top:3px solid var(--oro);padding:6px 9px;font-size:12.5px;max-width:240px;box-shadow:0 8px 20px -8px rgba(0,0,0,.6);z-index:3}
+#geoTip b{display:block;font-weight:600;line-height:1.2}
+#geoTip span{display:block;font:400 11px var(--mono);color:var(--tinta-2);margin-top:2px}
+#geoTip em{display:block;font-style:normal;font:500 10.5px var(--mono);color:var(--aviso);margin-top:2px}
+#geoLado{color:#EAF0F8;display:grid;gap:12px}
+.geo-k{font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#9FB3CF}
+.geo-lec{border:1px solid rgba(255,255,255,.16);border-top:3px solid var(--oro);background:rgba(255,255,255,.035);padding:12px 14px}
+.geo-lec p{margin:8px 0;color:#C9D6EA;font-size:14px}
+.geo-lec b{font:800 20px var(--display);color:#fff}
+.geo-src{font:400 11px var(--mono);color:#8296B3}
+.geo-card{border:1px solid rgba(255,255,255,.16);border-top:3px solid #EAF0F8;background:rgba(255,255,255,.05);padding:12px 14px}
+.geo-card h4{margin:2px 0 8px;font:800 26px/1 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.geo-mini{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:8px}
+.geo-mini div{background:rgba(255,255,255,.05);padding:6px 8px}
+.geo-mini b{display:block;font:800 22px/1 var(--display)}
+.geo-mini span{font-size:11.5px;color:#B8C6DA}
+.geo-t{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:6px}
+.geo-t th{font:500 10.5px var(--mono);text-transform:uppercase;color:#9FB3CF;text-align:left;border-bottom:1px solid rgba(255,255,255,.2);padding:3px 4px}
+.geo-t td{padding:3px 4px;border-bottom:1px solid rgba(255,255,255,.07);color:#DCE4EF}
+.geo-t .n{text-align:right;font-family:var(--mono)}
+.geo-t .sw{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+#panel .geo-card{background:var(--superficie);border:0;padding:0;color:var(--tinta)}
+#panel .geo-card h4{font-size:30px}
+#panel .geo-mini div{background:var(--papel)} #panel .geo-mini span{color:var(--tinta-2)}
+#panel .geo-t th{color:var(--tinta-2);border-color:var(--linea)} #panel .geo-t td{color:var(--tinta);border-color:var(--linea)}
+#panel .geo-src{color:var(--tinta-2)}
+#geoMulti{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:820px){#geoMulti{grid-template-columns:repeat(2,1fr)}}
+.geo-m{margin:0;border:1px solid rgba(255,255,255,.12);padding:8px;background:rgba(255,255,255,.02)}
+.geo-m figcaption{color:#EAF0F8;font-weight:600;font-size:13.5px;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.geo-m figcaption i{width:9px;height:9px;border-radius:50%;display:inline-block}
+.geo-m figcaption span{font:400 11px var(--mono);color:#9FB3CF;width:100%}
+.geo-err{color:#FFB4A0}
+#geoUno[hidden],#geoMulti[hidden],#geo[hidden]{display:none}
+
+/* Ficha (estilo museo), sobre el escenario */
+aside#panel{position:absolute;top:10px;right:10px;bottom:10px;width:min(420px,94%);background:var(--superficie);border:1px solid var(--linea);border-top:4px solid var(--eje,var(--oro));box-shadow:0 10px 30px -12px rgba(0,0,0,.55);transform:translateX(112%);transition:transform .35s ease;overflow:auto;padding:16px 18px 22px;z-index:5}
+aside#panel.open{transform:none}
+#panel .close{position:absolute;top:8px;right:10px;border:none;background:none;font-size:22px;cursor:pointer;color:var(--tinta-2)}
+#panel .kind{font:500 11.5px var(--mono);color:var(--tinta-2);text-transform:uppercase;letter-spacing:.08em}
+#panel h2{font:800 30px/1.02 var(--display);text-transform:uppercase;margin:4px 0 8px;text-wrap:balance}
+#panel h3{font:500 12px var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--tinta-2);border-bottom:1px solid var(--linea);padding-bottom:4px;margin:16px 0 8px}
+#panel p{margin:6px 0;font-size:14.5px}
+.fact{margin:8px 0;padding-left:10px;border-left:3px solid var(--eje,var(--oro))}
+.fact .v{font:800 24px/1.05 var(--display);font-variant-numeric:tabular-nums}
+.fact div:nth-child(2){font-size:14px}
+.src{font-size:12px;color:var(--tinta-2);margin-top:3px}
+.chip{display:inline-block;font:500 10px var(--mono);padding:1px 7px;border-radius:99px;border:1px solid;margin-right:5px;vertical-align:1px;text-transform:uppercase;letter-spacing:.04em}
+.chip.oficial{color:var(--ok);border-color:var(--ok);background:rgba(31,122,77,.06)}
+.chip.estudio{color:var(--enlace);border-color:var(--enlace)}
+.chip.empresa{color:var(--aviso);border-color:var(--aviso)}
+.chip.consultora{color:var(--tinta-2);border-color:var(--tinta-2)}
+.chip.pista{color:var(--mal);border-color:var(--mal);border-style:dashed}
+.pbox{border:1px dashed var(--aviso);background:rgba(184,106,0,.06);padding:8px 10px;margin:8px 0;font-size:13.5px}
+.tnote{font-size:12.5px;color:var(--tinta-2)}
+.rel{display:flex;flex-wrap:wrap;gap:6px}
+.rel button{border:1px solid var(--enlace);color:var(--enlace);background:transparent;padding:3px 10px;cursor:pointer;font-size:13px;border-radius:99px}
+.rel button:hover{background:var(--enlace);color:#fff}
+ul.norm{padding-left:18px;margin:4px 0;font-size:14px} ul.norm li{margin:3px 0}
+ul.norm li{font-family:var(--mono);font-size:12.5px}
+
+/* Tabla */
+#tablaView{display:none;background:var(--superficie);border:1px solid var(--linea);border-top:4px solid var(--tinta);padding:6px 18px 18px}
+#tablaView table{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0 18px}
+#tablaView th,#tablaView td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--linea);vertical-align:top}
+#tablaView th{font:500 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);border-bottom:1.5px solid var(--tinta)}
+#tablaView td.n{text-align:right;font-family:var(--mono)}
+#tablaView h3{font:800 24px var(--display);text-transform:uppercase;margin:14px 0 2px}
+
+footer{max-width:1320px;margin:6px auto 30px;padding:0 20px;display:grid;grid-template-columns:1.2fr 1fr;gap:28px;font-size:13px;color:var(--tinta-2)}
+footer h4{font:500 12px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--tinta);margin:0 0 6px;border-bottom:1px solid var(--linea);padding-bottom:4px}
+footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
+.gap li::marker{content:"○  "}
+@media (max-width:820px){
+  footer{grid-template-columns:1fr}
+  aside#panel{position:fixed;top:auto;left:0;right:0;bottom:0;width:auto;max-height:72vh;transform:translateY(105%)}
+  .escena{overflow-x:auto} svg#map{min-width:900px}
+}
+</style>
+</head>
+<body>
+<div class="aviso"><span><a href="../" style="color:#C9D6EA">← Qhawana</a> · <b>Versión preliminar · sin revisión del comité.</b> Solo documentos públicos; las cifras de prensa van aparte, como pistas por verificar.</span><span>Corte: 17/11/2026</span></div>
+<header class="cab"><div class="cab-in">
+  <div class="marca"><i><span style="background:var(--sub)"></span><span style="background:var(--esp)"></span><span style="background:var(--con)"></span><span style="background:var(--pri)"></span><span style="background:var(--bol)"></span></i>Qhawana · Observatorio del sistema de salud</div>
+  <h1>¿Quién financia, quién atiende y <em>quién termina pagando?</em></h1>
+  <p class="tesis">Mapa de los actores del sistema de salud del Perú: cómo está diseñado en la norma, por dónde circula realmente el dinero y dónde se filtra el gasto de bolsillo.</p>
+  <div class="contadores">
+    <div class="cont"><b>27 051</b><span>establecimientos de salud activos<small>SUSALUD · RENIPRESS · 16/11/2026</small></span></div>
+    <div class="cont"><b>63 %</b><span>son privados (17 039)<small>SUSALUD · RENIPRESS · 16/11/2026</small></span></div>
+    <div class="cont"><b class="bolv">S/ 11 297 M</b><span>de bolsillo; el 75,8 % lo pagaron personas con seguro<small>DIGEMID con ENAHO · 2019</small></span></div>
+    <div class="cont"><b>368</b><span>hospitales generales (II-1 a III-2); el 64 % es público<small>SUSALUD · RENIPRESS · 16/11/2026</small></span></div>
+    <div class="cont corte"><b>Corte RENIPRESS 16/11/2026</b></div>
+  </div>
+</div></header>
+
+<div class="nav">
+  <div class="tabs" role="group" aria-label="Vistas">
+    <button data-v="formal" aria-pressed="true"><span class="n">1</span>Diseño formal</button>
+    <button data-v="dinero" aria-pressed="false"><span class="n">2</span>Cómo circula el dinero</button>
+    <button data-v="bolsillo" aria-pressed="false"><span class="n">3</span>Dónde se filtra el bolsillo</button>
+    <button data-v="mapa" aria-pressed="false"><span class="n">4</span>Dónde están los prestadores</button>
+    <button data-v="tabla" aria-pressed="false"><span class="n">≡</span>Tabla</button>
+  </div>
+  <div class="como">Pasa el cursor para ver relaciones · clic en un actor o una flecha para abrir su ficha</div>
+</div>
+
+<main>
+<section class="escena" id="escena">
+  <div class="lede"><div class="rot" id="ledeRot"></div><p id="ledeText"></p></div>
+  <svg id="map" viewBox="0 0 1240 830" role="img" aria-labelledby="mapTitle">
+    <title id="mapTitle">Mapa de actores del sistema de salud del Perú</title>
+    <defs>
+      <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#EAF0F8"/></marker>
+      <marker id="ahg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8FA2BF"/></marker>
+      <marker id="ahb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#FF7A45"/></marker>
+      <marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7EE8C8"/></marker>
+      <marker id="ahd" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#C9D6EA"/></marker>
+    </defs>
+    <g id="bgA" class="layer"></g>
+    <g id="bgB" class="layer"></g>
+    <g id="edges" class="layer"></g>
+    <g id="bars" class="layer"></g>
+    <g id="nodes"></g>
+  </svg>
+  <div id="geo" hidden>
+    <div class="geo-ctl">
+      <div class="seg" id="geoMode" role="group" aria-label="Modo"><button data-m="todo" aria-pressed="true">Constelación</button><button data-m="redes" aria-pressed="false">Una red por mapa</button></div>
+      <div class="seg" id="geoCap" role="group" aria-label="Capacidad"><button data-c="0" aria-pressed="true">Todos</button><button data-c="1" aria-pressed="false">Con internamiento</button><button data-c="2" aria-pressed="false">Hospitales generales</button></div>
+      <span class="geo-nota" id="geoCapNota"></span>
+    </div>
+    <div id="geoRed" style="margin:0 2px 12px"></div>
+    <div id="geoUno"><div id="geoLienzo"><canvas id="geoCanvas" aria-label="Mapa de establecimientos de salud del Perú por red"></canvas><canvas id="geoLupa"></canvas><div id="geoLupaRot">Lupa · Lima y Callao</div><div id="geoTip"></div></div><div id="geoLado"><p class="geo-nota">Cargando 27 051 establecimientos…</p></div></div>
+    <div id="geoMulti" hidden></div>
+  </div>
+  <div class="escena-pie"><div class="legend" id="legend"></div><span id="pieNota">Grosor uniforme: faltan las Cuentas Nacionales de Salud</span></div>
+  <aside id="panel" aria-live="polite"><button class="close" aria-label="Cerrar ficha">×</button><div id="pbody"></div></aside>
+</section>
+<div id="tablaView"></div>
+</main>
+
+<footer>
+  <div>
+    <h4>Fuentes</h4>
+    <ol id="srcList"></ol>
+  </div>
+  <div>
+    <h4>Brechas de información por cerrar</h4>
+    <ul class="gap">
+      <li>Gasto de bolsillo por tipo de seguro posterior a 2019 (ENAHO 2023–2025), y por persona.</li>
+      <li>Cuentas Nacionales de Salud: montos de cada flujo entre fuentes, fondos y prestadores, para dar grosor real a las flechas.</li>
+      <li>Afiliados por IAFAS con fecha de corte (SUSALUD).</li>
+      <li>Desglose de pagos de SaludPol 2024–2025 por mecanismo, incluidos los reembolsos.</li>
+      <li>Montos anuales de reembolso de cada IAFAS y cómo los registra la ENAHO.</li>
+      <li>Tarifa por sesión de hemodiálisis en cada IAFAS pública.</li>
+      <li>Vigencia de los convenios SIS–EsSalud de 2013.</li>
+      <li>Camas de los establecimientos privados: el campo viene vacío en la descarga de RENIPRESS.</li>
+    </ul>
+    <h4 style="margin-top:14px">Método</h4>
+    <p style="margin:0">Arquitectura adaptada de Videnza Consultores (2020) con normativa vigente a octubre de 2026. Establecimientos: descarga completa de RENIPRESS del 16/11/2026, sin datos personales (se excluyen director, teléfono y RUC); los que no traen coordenadas se ubican en el centro de su distrito. Hospital general: categorías II-1, II-2, III-1 y III-2. Contornos departamentales: INEI (2007), vía el repositorio juaneladio/peru-geojson, simplificados; ese archivo mantiene su licencia MPL-2.0. Textos y datos de Qhawana: CC BY 4.0. Código: MIT.</p>
+  </div>
+</footer>
+
+<script>
+/* ---------- Pestaña 4: dónde están los prestadores (RENIPRESS, constelación) ---------- */
+const GEO = (function(){
+  const GRP = [
+    {n:'MINSA y gobiernos regionales',c:'#8CC152'},
+    {n:'EsSalud',c:'#22B5C2'},
+    {n:'Sanidades FFAA',c:'#E2589B'},
+    {n:'Sanidad PNP',c:'#F7A8CF'},
+    {n:'Privados',c:'#E9B44C'},
+    {n:'Municipales, INPE y otros',c:'#B8C2D3'}
+  ];
+  const CAPN = ['Todos los establecimientos','Con internamiento','Hospitales generales (II-1 a III-2)'];
+  const B = {lon0:-81.45, lon1:-68.55, lat0:-18.45, lat1:0.1};
+  const LUPA = {lon0:-77.22, lon1:-76.72, lat0:-12.33, lat1:-11.78};
+  const K = Math.cos(9.2*Math.PI/180);
+  let P=null, DEP=null, GJ=null, loaded=false, loading=null;
+  const st = {mode:'todo', cap:0, on:[1,1,1,1,1,1], hoverDep:null, selDep:null};
+  const $ = id => document.getElementById(id);
+  const fmt = n => Math.round(n).toLocaleString('es-PE').replace(/,/g,' ');
+  let proj=null, lupaProj=null, depPaths=[], grid=null, cv, ctx, lv, lctx;
+
+  function load(){
+    if(loading) return loading;
+    loading = Promise.all([
+      fetch('geo/puntos.json').then(r=>r.json()),
+      fetch('geo/departamentos.json').then(r=>r.json()),
+      fetch('geo/departamentos_contornos.json').then(r=>r.json())
+    ]).then(([p,d,g])=>{P=p;DEP=d;GJ=g;loaded=true;}).catch(e=>{
+      $('geoLado').innerHTML='<p class="geo-err">No se pudieron cargar los datos del mapa. Recarga la página.</p>'; throw e;});
+    return loading;
+  }
+  function vis(p){ return st.on[p[2]] && p[3]>=st.cap; }
+
+  function makeProj(w,h,b,pad){
+    const lw=(b.lon1-b.lon0)*K, lh=(b.lat1-b.lat0);
+    const s=Math.min((w-2*pad)/lw,(h-2*pad)/lh);
+    const ox=(w-lw*s)/2, oy=(h-lh*s)/2;
+    return {s, x:lon=>ox+(lon-b.lon0)*K*s, y:lat=>oy+(b.lat1-lat)*s};
+  }
+  function ring(coords,pr,path){ coords.forEach((c,i)=>{const x=pr.x(c[0]),y=pr.y(c[1]); i?path.lineTo(x,y):path.moveTo(x,y)}); path.closePath(); }
+  function depPath(f,pr){
+    const path=new Path2D(); const g=f.geometry;
+    const polys=g.type==='Polygon'?[g.coordinates]:g.coordinates;
+    polys.forEach(poly=>poly.forEach(r=>ring(r,pr,path))); return path;
+  }
+  function sizeCanvas(c,w,h){ const d=window.devicePixelRatio||1; c.width=w*d; c.height=h*d; c.style.width=w+'px'; c.style.height=h+'px'; const x=c.getContext('2d'); x.setTransform(d,0,0,d,0,0); return x; }
+
+  function drawDots(x,pr,pts,scale){
+    x.save(); x.globalCompositeOperation='lighter';
+    const R=[1.1,2.3,3.6].map(r=>r*scale);
+    // halos para hospitales e internamiento
+    pts.forEach(p=>{ if(p[3]===0) return; const px=pr.x(p[1]),py=pr.y(p[0]); x.fillStyle=GRP[p[2]].c+'26'; x.beginPath(); x.arc(px,py,R[p[3]]*2.6,0,6.283); x.fill(); });
+    pts.forEach(p=>{
+      const px=pr.x(p[1]),py=pr.y(p[0]),r=R[p[3]];
+      if(p[4]){ x.strokeStyle=GRP[p[2]].c+'99'; x.lineWidth=.7; x.beginPath(); x.arc(px,py,r+.6,0,6.283); x.stroke(); }
+      else { x.fillStyle=GRP[p[2]].c+(p[3]?'ff':'b3'); x.beginPath(); x.arc(px,py,r,0,6.283); x.fill(); }
+    });
+    x.restore();
+  }
+  function drawDeps(x,pr,paths,hl){
+    paths.forEach(d=>{ x.fillStyle = d.code===hl? 'rgba(255,255,255,.09)' : 'rgba(255,255,255,.025)'; x.fill(d.path);
+      x.strokeStyle = d.code===st.selDep? '#E9B44C' : 'rgba(201,214,234,.22)'; x.lineWidth = d.code===st.selDep?1.6:.7; x.stroke(d.path); });
+  }
+
+  function drawMain(){
+    const wrap=$('geoLienzo'); const w=Math.min(wrap.clientWidth,620), h=Math.round(w*1.38);
+    ctx=sizeCanvas(cv,w,h); proj=makeProj(w,h,B,10);
+    depPaths=GJ.features.map(f=>({code:f.properties.FIRST_IDDP,name:f.properties.NOMBDEP,path:depPath(f,proj)}));
+    ctx.clearRect(0,0,w,h); drawDeps(ctx,proj,depPaths,st.hoverDep);
+    const pts=P.filter(vis); drawDots(ctx,proj,pts,1);
+    // recuadro de la lupa
+    const lx0=proj.x(LUPA.lon0),lx1=proj.x(LUPA.lon1),ly0=proj.y(LUPA.lat1),ly1=proj.y(LUPA.lat0);
+    ctx.strokeStyle='rgba(233,180,76,.9)'; ctx.lineWidth=1; ctx.strokeRect(lx0,ly0,lx1-lx0,ly1-ly0);
+    // lupa
+    const lw=Math.round(w*.34), lh=Math.round(lw*1.15);
+    lctx=sizeCanvas(lv,lw,lh); lv.style.left='12px'; lv.style.top=Math.round(h*.62)+'px';
+    lupaProj=makeProj(lw,lh,LUPA,4); lctx.fillStyle='rgba(12,29,56,.92)'; lctx.fillRect(0,0,lw,lh);
+    const lpaths=GJ.features.filter(f=>['15','07'].includes(f.properties.FIRST_IDDP)).map(f=>({code:f.properties.FIRST_IDDP,path:depPath(f,lupaProj)}));
+    lctx.save(); lctx.beginPath(); lctx.rect(0,0,lw,lh); lctx.clip(); drawDeps(lctx,lupaProj,lpaths,null);
+    drawDots(lctx,lupaProj,pts.filter(p=>p[1]>LUPA.lon0-.05&&p[1]<LUPA.lon1+.05&&p[0]>LUPA.lat0-.05&&p[0]<LUPA.lat1+.05),1.15); lctx.restore();
+    $('geoLupaRot').style.left='12px'; $('geoLupaRot').style.top=(Math.round(h*.62)-20)+'px';
+    // conexión lupa
+    ctx.strokeStyle='rgba(233,180,76,.35)'; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.moveTo(lx0,ly1); ctx.lineTo(12+lw,Math.round(h*.62)); ctx.stroke(); ctx.setLineDash([]);
+    // índice espacial
+    grid=new Map(); const cell=12;
+    pts.forEach(p=>{const px=proj.x(p[1]),py=proj.y(p[0]);const k=(px/cell|0)+','+(py/cell|0);(grid.get(k)||grid.set(k,[]).get(k)).push([px,py,p,'m'])});
+    pts.forEach(p=>{const px=lupaProj.x(p[1])+12,py=lupaProj.y(p[0])+Math.round(h*.62); if(px<12||px>12+lw||py<Math.round(h*.62)||py>Math.round(h*.62)+lh) return; const k='L'+(px/cell|0)+','+(py/cell|0);(grid.get(k)||grid.set(k,[]).get(k)).push([px,py,p,'l'])});
+    st.lupaBox=[12,Math.round(h*.62),12+lw,Math.round(h*.62)+lh];
+  }
+  function nearest(mx,my){
+    const cell=12, inL = st.lupaBox && mx>=st.lupaBox[0]&&mx<=st.lupaBox[2]&&my>=st.lupaBox[1]&&my<=st.lupaBox[3];
+    let best=null,bd=49; const pre=inL?'L':'';
+    for(let i=-1;i<=1;i++)for(let j=-1;j<=1;j++){const a=grid.get(pre+((mx/cell|0)+i)+','+((my/cell|0)+j)); if(!a) continue; a.forEach(q=>{const d=(q[0]-mx)**2+(q[1]-my)**2; if(d<bd){bd=d;best=q}})}
+    return {best,inL};
+  }
+  function depAt(mx,my){ const d=window.devicePixelRatio||1; for(const p of depPaths){ if(ctx.isPointInPath(p.path,mx*d,my*d)) return p; } return null; }
+
+  function depStats(code){
+    const d=DEP[code]; const g=d.g; const sum=i=>[0,1,2,3,4,5].reduce((a,k)=>a+g[k][i],0);
+    return {nombre:d.nombre,g,n:sum(0),intern:sum(1),hosp:sum(2),approx:sum(4)};
+  }
+  function depCard(code){
+    const s=depStats(code); const pub=s.n-s.g[4][0];
+    const rows=GRP.map((G,i)=>`<tr><td><i class="sw" style="background:${G.c}"></i>${G.n}</td><td class="n">${fmt(s.g[i][0])}</td><td class="n">${fmt(s.g[i][1])}</td><td class="n">${fmt(s.g[i][2])}</td><td class="n">${i===4?'s. d.':fmt(s.g[i][3])}</td></tr>`).join('');
+    return `<div class="geo-card"><div class="geo-k">Departamento · ${code}</div><h4>${s.nombre}</h4>
+      <div class="geo-mini"><div><b>${fmt(s.n)}</b><span>establecimientos</span></div><div><b>${Math.round(s.g[4][0]/s.n*100)} %</b><span>privados</span></div><div><b>${fmt(s.hosp)}</b><span>hospitales generales</span></div></div>
+      <table class="geo-t"><thead><tr><th>Red</th><th class="n">Total</th><th class="n">Intern.</th><th class="n">Hosp.</th><th class="n">Camas</th></tr></thead><tbody>${rows}</tbody></table>
+      <div class="geo-src">SUSALUD · RENIPRESS · 16/11/2026. ${fmt(s.approx)} con ubicación aproximada.</div></div>`;
+  }
+  function lectura(){
+    const T=[0,1,2,3,4,5].map(i=>Object.values(DEP).reduce((a,d)=>a+d.g[i][2],0));
+    const pubH=T[0]+T[1]+T[2]+T[3]+T[5], allH=T.reduce((a,b)=>a+b,0);
+    const priv=Object.values(DEP).reduce((a,d)=>a+d.g[4][0],0);
+    const limaPriv=['15','07'].reduce((a,c)=>a+(DEP[c]?DEP[c].g[4][0]:0),0);
+    const limaPrivH=['15','07'].reduce((a,c)=>a+(DEP[c]?DEP[c].g[4][2]:0),0);
+    const cnt=i=>Object.values(DEP).filter(d=>d.g[i][0]>0).length;
+    const essH=Object.values(DEP).filter(d=>d.g[1][2]>0).length;
+    const privH0=Object.values(DEP).filter(d=>d.g[4][2]===0).length;
+    const ap=Object.values(DEP).reduce((a,d)=>a+[0,1,2,3,4,5].reduce((b,i)=>b+d.g[i][4],0),0);
+    return `<div class="geo-lec"><div class="geo-k">Lectura del corte</div>
+      <p><b>${Math.round(pubH/allH*100)} %</b> de los ${fmt(allH)} hospitales generales son públicos, aunque el ${Math.round(priv/P.length*100)} % de todos los establecimientos sea privado: la mayoría privada son consultorios.</p>
+      <p>Lima y Callao concentran el <b>${Math.round(limaPriv/priv*100)} %</b> de los establecimientos privados y el <b>${Math.round(limaPrivH/T[4]*100)} %</b> de los hospitales generales privados. En <b>${privH0}</b> de 25 departamentos no hay ningún hospital general privado.</p>
+      <p>EsSalud tiene al menos un hospital general en <b>${essH}</b> de 25 departamentos. La Sanidad PNP tiene establecimientos en <b>${cnt(3)}</b> y las Sanidades FFAA en <b>${cnt(2)}</b>.</p>
+      <p class="geo-src">Cálculos de Qhawana sobre RENIPRESS (16/11/2026). ${fmt(ap)} establecimientos (${Math.round(ap/P.length*100)} %, casi todos privados) no traen coordenadas y se ubican en el centro de su distrito.</p></div>`;
+  }
+  function counts(){
+    return GRP.map((G,i)=>P.filter(p=>p[2]===i&&p[3]>=st.cap).length);
+  }
+  function renderCtl(){
+    const c=counts();
+    $('geoRed').innerHTML=GRP.map((G,i)=>`<button data-g="${i}" aria-pressed="${st.on[i]?'true':'false'}"><i style="background:${G.c}"></i>${G.n}<b>${fmt(c[i])}</b></button>`).join('');
+    $('geoRed').querySelectorAll('button').forEach(b=>b.onclick=()=>{const i=+b.dataset.g; st.on[i]=st.on[i]?0:1; if(!st.on.some(Boolean)) st.on[i]=1; redraw();});
+    $('geoRed').ondblclick=null;
+    document.querySelectorAll('#geoCap button').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.c===st.cap?'true':'false'));
+    document.querySelectorAll('#geoMode button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.m===st.mode?'true':'false'));
+    $('geoCapNota').textContent=CAPN[st.cap]+' · '+fmt(c.reduce((a,b,i)=>a+(st.on[i]?b:0),0))+' visibles';
+  }
+  function drawMulti(){
+    const box=$('geoMulti'); box.innerHTML='';
+    GRP.forEach((G,i)=>{
+      const pts=P.filter(p=>p[2]===i&&p[3]>=st.cap);
+      const deps=new Set(pts.map(p=>p[5])).size;
+      const fig=document.createElement('figure'); fig.className='geo-m';
+      fig.innerHTML=`<figcaption><i style="background:${G.c}"></i>${G.n}<span>${fmt(pts.length)} · en ${deps} de 25 dptos.</span></figcaption>`;
+      const c=document.createElement('canvas'); fig.appendChild(c); box.appendChild(fig);
+      const w=Math.max(150,Math.floor((box.clientWidth-40)/3)-6), h=Math.round(w*1.3);
+      const x=sizeCanvas(c,w,h); const pr=makeProj(w,h,B,6);
+      const paths=GJ.features.map(f=>({code:f.properties.FIRST_IDDP,path:depPath(f,pr)}));
+      // departamentos sin presencia de esta red, marcados
+      const has=new Set(pts.map(p=>p[5]));
+      paths.forEach(d=>{ x.fillStyle= has.has(d.code)?'rgba(255,255,255,.035)':'rgba(255,122,69,.10)'; x.fill(d.path); x.strokeStyle='rgba(201,214,234,.2)'; x.lineWidth=.6; x.stroke(d.path); });
+      drawDots(x,pr,pts,0.9);
+    });
+  }
+  function redraw(){
+    if(!loaded) return;
+    renderCtl();
+    const multi=st.mode==='redes';
+    $('geoUno').hidden=multi; $('geoMulti').hidden=!multi;
+    if(multi){ drawMulti(); return; }
+    drawMain();
+    $('geoLado').innerHTML=(st.selDep?depCard(st.selDep):'')+lectura();
+  }
+  function bind(){
+    cv=$('geoCanvas'); lv=$('geoLupa');
+    document.querySelectorAll('#geoCap button').forEach(b=>b.onclick=()=>{st.cap=+b.dataset.c;redraw()});
+    document.querySelectorAll('#geoMode button').forEach(b=>b.onclick=()=>{st.mode=b.dataset.m;redraw()});
+    const tip=$('geoTip');
+    const onMove=e=>{
+      const r=cv.getBoundingClientRect(); const mx=e.clientX-r.left,my=e.clientY-r.top;
+      const {best}=nearest(mx,my); const d=depAt(mx,my); const code=d?d.code:null;
+      if(code!==st.hoverDep){st.hoverDep=code; drawMain();}
+      if(best){const p=best[2]; tip.innerHTML=`<b>${p[6]}</b><span>${GRP[p[2]].n} · ${p[7]} · ${p[8]}</span>${p[4]?'<em>Ubicación aproximada (centro del distrito)</em>':''}`; tip.style.display='block';}
+      else if(d){tip.innerHTML=`<b>${d.name}</b><span>Clic para ver su ficha</span>`; tip.style.display='block';}
+      else tip.style.display='none';
+      tip.style.left=Math.min(mx+14,cv.clientWidth-230)+'px'; tip.style.top=(my+14)+'px';
+    };
+    cv.addEventListener('mousemove',onMove);
+    cv.addEventListener('mouseleave',()=>{tip.style.display='none'; if(st.hoverDep){st.hoverDep=null;drawMain();}});
+    cv.addEventListener('click',e=>{const r=cv.getBoundingClientRect(); const mx=e.clientX-r.left,my=e.clientY-r.top;
+      const {best,inL}=nearest(mx,my); let code=best?best[2][5]:null; if(!code&&!inL){const d=depAt(mx,my); code=d?d.code:null;}
+      if(code){st.selDep=code; redraw();}});
+    let t; window.addEventListener('resize',()=>{clearTimeout(t);t=setTimeout(()=>{if(document.getElementById('geo').hidden===false)redraw()},150)});
+  }
+  let bound=false;
+  return { show(){ if(!bound){bind();bound=true;} load().then(redraw); } };
+})();
+</script>
+
+<script>
+const RENI = __RENI__;
+const fmt = n => n.toLocaleString('es-PE').replace(/,/g,' ');
+const R = k => RENI.inst[k];
+
+/* ---------- fuentes ---------- */
+const SRC = {
+  reni:{n:'SUSALUD, Registro Nacional de IPRESS (RENIPRESS), descarga completa del 16/11/2026',k:'oficial'},
+  digemid:{n:'DIGEMID (2021). Gasto de bolsillo en salud y medicamentos 2012–2019, con ENAHO',k:'oficial',u:'https://www.digemid.minsa.gob.pe/Archivos/Estudios/GASTO_BOLSILLO_2012-2019.pdf'},
+  essalud25:{n:'EsSalud (30/09/2025). Exposición ante la Comisión de Trabajo del Congreso',k:'oficial',u:'https://www.congreso.gob.pe/Docs/comisiones2025/trabajo/files/exposiciones/so-005-exposicion-essalud-30-09-2025.pdf'},
+  essalud13:{n:'EsSalud (2013). Intercambio prestacional EsSalud–SIS en 10 regiones',k:'oficial',u:'https://www.essalud.gob.pe/asegurados-de-essalud-y-sis-se-beneficiaran-con-intercambio-prestacional-en-10-regiones-del-pais/'},
+  sisol:{n:'SISOL. Plan Operativo Institucional 2025',k:'oficial',u:'https://pte.sisol.gob.pe/home/transparencia/documentos/POI2025.pdf'},
+  minsa23:{n:'MINSA (2023). Diagnóstico de brechas de infraestructura y equipamiento del sector salud 2024–2026',k:'oficial',u:'https://www.minsa.gob.pe/Recursos/OTRANS/08Proyectos/2022/Diagnostico-Infraestructura-Sector-Salud-2024-2026.pdf'},
+  fosmar:{n:'IAFAS FOSMAR (2025). Contrato del Plan de Salud Básico',k:'oficial',u:'https://www.iafasfosmar.pe/wp-content/uploads/2025/12/Poliza-Plan-Basico-noviembre-2025.pdf'},
+  iafasep:{n:'IAFAS del Ejército. Segunda capa',k:'oficial',u:'https://iafasep.gob.pe/plan-tu-salud/segunda-capa'},
+  hvrg:{n:'Hospital Víctor Ramos Guardia (2025). Convenio de intercambio prestacional con SaludPol',k:'oficial',u:'https://www.hospitalvrg.gob.pe/2025/08/13/convenio-de-intercambio-prestacional-entre-el-hospital-victor-ramos-guardia-de-huaraz-y-la-iafas-saludpol/'},
+  saludpol150:{n:'SaludPol. Reembolsos menores a S/ 150',k:'oficial',u:'https://www.saludpol.gob.pe/wp-content/uploads/2017/07/Reembolso_150_soles.pdf'},
+  dl1173:{n:'Decreto Legislativo 1173 (2013)',k:'oficial',u:'https://busquedas.elperuano.pe/dispositivo/NL/1025182-13'},
+  petrera:{n:'Petrera y Jiménez (2018). Determinantes del gasto de bolsillo en salud de la población pobre. Rev Panam Salud Publica 42:e20',k:'estudio',u:'https://scielosp.org/pdf/rpsp/2018.v42/e20'},
+  rimac:{n:'RIMAC EPS (2026). Manual del afiliado',k:'empresa',u:'https://imagescdn.rimac.com/blt9981822330e80c17/69fa5b6ac7c3ba7f7dd0767e/Manual_del_Afiliado_RIMAC_EPS_%281%29.pdf'},
+  saludpol23:{n:'SaludPol (2023). Presentación ante la Comisión de Salud y Población del Congreso',k:'oficial',u:'https://www.congreso.gob.pe/Docs/comisiones2023/Salud/files/saludpol_presentacion_comision_de_salud_saludpol.pdf'},
+  dirsapol23:{n:'DIRSAPOL (nov. 2023). Diagnóstico situacional ante la Comisión de Salud del Congreso',k:'oficial',u:'https://www.congreso.gob.pe/Docs/comisiones2023/Salud/files/dx._situacional_dirsapol_nov2023.pdf'},
+  saludpol24:{n:'SaludPol. Memoria Anual 2024',k:'oficial',u:'https://cdn.www.gob.pe/uploads/document/file/7906606/6656517-memoria_anual_2024_del_saludpol.pdf'},
+  saludpolreem:{n:'SaludPol (27/03/2025). Lineamientos que establecen el procedimiento de reembolso (Lineamiento 000002-2025-SALUDPOL/GG)',k:'oficial',u:'https://cdn.www.gob.pe/uploads/document/file/7844247/6614658-lineamientos_reembolso_saludpol.pdf'},
+  saludpolreem23:{n:'SaludPol (18/10/2023). Modificación del lineamiento de reembolso (Lineamiento 004-2023-SALUDPOL/GG)',k:'oficial',u:'https://cdn.www.gob.pe/uploads/document/file/5301244/4758416-modificacion-de-lineamiento-de-reembolso-107.pdf'},
+  iafasepreg:{n:'IAFAS del Ejército (FOSPEME). Reglamento del programa',k:'oficial',u:'https://iafasep.gob.pe/images/PDF/REGLAMENTO-_OFICIAL.pdf'},
+  fosfapreem:{n:'IAFAS FOSFAP. Directiva Administrativa 003-2026/IFGC, formato de solicitud de reembolso',k:'oficial',u:'https://iafasfap.site/'},
+  pacificoreem:{n:'Pacífico EPS. Solicitud de reembolso de atención médica',k:'empresa',u:'https://pacifico.com.pe/documents/28730/100877/Formato-de-reembolso/e2e0003b-1b83-471a-8e43-3dfa948051c5'},
+  essaludreem:{n:'Perú Gestiona (2026). Reembolso EsSalud: cómo solicitar el pago de gastos médicos (sitio no oficial)',k:'pista',u:'https://perugestiona.pe/salud-sis/essalud-reembolso/'},
+  dl1504:{n:'El Peruano. Norma que cita el DL 1161 modificado por el DL 1504: funciones rectoras del MINSA',k:'oficial',u:'https://busquedas.elperuano.pe/dispositivo/NL/1866899-12'},
+  ley30895:{n:'Ley 30895 (2018), que fortalece la función rectora del MINSA. Texto consolidado del Congreso',k:'oficial',u:'https://leyes.congreso.gob.pe/Documentos/2016_2021/ADLP/Texto_Consolidado/30895-TXM.pdf'},
+  susalud14:{n:'DS 031-2014-SA. Reglamento de infracciones y sanciones de SUSALUD',k:'oficial',u:'https://cdn.www.gob.pe/uploads/document/file/1039869/031-2014-SA.pdf'},
+  susalud24:{n:'SUSALUD (2024). Lineamientos para la organización y funcionamiento de las IAFAS privadas y mixtas: ámbito de aplicación',k:'oficial',u:'https://cdn.www.gob.pe/uploads/document/file/5564379/4950153-anexo-cuadro-comparativo-de-los-lineamientos.pdf'},
+  videnza:{n:'Videnza Consultores (2020). Sistema de salud en el Perú. Nota de política',k:'consultora'},
+  /* prensa: solo pistas */
+  ep24:{n:'El Peruano (2024). Policías podrán atenderse en la red de EsSalud',k:'pista',u:'https://www.elperuano.pe/noticia/260065-policias-y-sus-familias-podran-atenderse-en-la-red-medica-y-hospitalaria-del-seguro-social'},
+  ep26f:{n:'El Peruano (2026). SIS-FISSAL financió más de 510 mil atenciones de alto costo',k:'pista',u:'https://elperuano.pe/noticia/300747-sis-fissal-financio-mas-de-510-mil-atenciones-de-salud-de-alto-costo-en-lo-que-va-de-2026'},
+  ep26p:{n:'El Peruano (2026). Qué cambia en el fondo de salud de la PNP: Ley 32736',k:'pista',u:'https://www.elperuano.pe/noticia/300849-que-cambia-en-el-fondo-de-salud-de-la-pnp-conozca-los-alcances-de-la-ley-n-32736'},
+  atv:{n:'América TV (2026). Citas en EsSalud: promedio de espera',k:'pista',u:'https://www.americatv.com.pe/noticias/actualidad/citas-essalud-promedio-tarda-nacional-fue-23-dias-n521475'},
+  pana:{n:'Panamericana (2025). Contraloría alerta desabastecimiento de medicinas en EsSalud',k:'pista',u:'https://panamericana.pe/buenosdiasperu/nacionales/433313-contraloria-alerta-desabastecimiento-medicinas-hospitales-farmacias-essalud'},
+  larazon:{n:'La Razón (2025). SaludPol realiza Reembolsatón 2025',k:'pista',u:'https://larazon.pe/saludpol-realiza-reembolsaton-2025-mas-de-s-2-millones-seran-devueltos-a-la-familia-policial/'},
+  infobae23:{n:'Infobae (2023). SaludPol no cubre gastos médicos de policía en retiro',k:'pista',u:'https://www.infobae.com/peru/2023/09/04/pnp-denuncian-que-saludpol-no-cubre-gastos-medicos-de-policia-en-retiro-y-tiene-millonaria-deuda-con-clinica/'},
+  p21fac:{n:'Perú21 (2026). Exhortan al Congreso aprobar fondo de alto costo',k:'pista',u:'https://peru21.pe/peru/exhortan-al-congreso-poner-votacion-y-aprobar-fondo-de-alto-costo/'},
+  p21ap:{n:'Perú21 (2026). Aprueban elevar aporte a la salud de FFAA y PNP',k:'pista',u:'https://peru21.pe/policiales/aprueban-elevar-aporte-obligatorio-al-financiamiento-de-la-salud-ff-aa-y-pnp/'},
+  dyer:{n:'Dyer (2025). Sin fondo no hay sitio. Infobae',k:'pista',u:'https://www.infobae.com/peru/2025/07/10/sin-fondo-no-hay-sitio/'},
+  gest22:{n:'Gestión (2022). SISOL, SIS y EsSalud',k:'pista',u:'https://gestion.pe/economia/sisol-hospitales-de-la-solidaridad-sis-essalud-peru-municipalidad-de-lima-sistema-de-salud-peruanos-minsa-noticia/'},
+  gest23:{n:'Gestión (2023). Regiones con menos médicos por 10 000 habitantes',k:'pista',u:'https://gestion.pe/economia/estas-son-las-15-regiones-con-menos-medicos-por-10000-habitantes-en-peru-minsa-salud-noticia/'},
+  andina14:{n:'Andina (2014). Asegurados del SIS podrán atenderse en 27 centros SISOL',k:'pista',u:'https://andina.pe/agencia/noticia-asegurados-del-sis-podran-atenderse-27-centros-salud-sisol-505743.aspx'}
+};
+const KLAB={oficial:'oficial',estudio:'estudio',empresa:'documento de empresa',consultora:'consultora',pista:'prensa'};
+
+/* ---------- actores ---------- */
+// lanes (vista formal): centros x
+const L=[265,441.7,585,728.3,871.7,1015,1158.3]; const L56=943.3, L45=800;
+const Y={nat:32,reg:60,rec:118,sup:176,sbs:232,con:300,ase:410,pre:530,pob:646};
+const COL={min:'var(--minsa)',sus:'var(--susalud)',sub:'var(--sub)',esp:'var(--esp)',con:'var(--con)',pri:'var(--pri)',non:'var(--non)',rec:'var(--rec)',bol:'var(--bol)',deb:'var(--deb)'};
+
+const N = [
+ // rectoría y supervisión
+ {id:'rect',t:'MINSA · ente rector del Sistema Nacional de Salud',st:'Conduce, regula y supervisa el sistema, incluida la prestación en instituciones públicas, privadas y mixtas',c:'min',tint:'rgba(91,141,239,.22)',w:1066,A:[695,Y.rec],v:'AC',kind:'Rectoría',
+  d:'El Ministerio de Salud es el ente rector del Sistema Nacional de Salud: le corresponde conducirlo, regularlo y supervisarlo. Su rectoría alcanza la prestación de servicios en instituciones públicas, privadas y público-privadas, no solo en la red pública. Que el MINSA aparezca otra vez en la fila de conducción no es un error: además de rector de todo el sistema, conduce el financiamiento del SIS y del FISSAL.',
+  facts:[{v:'Ente rector',t:'del Sistema Nacional de Salud; funciones rectoras: conducir, regular y supervisar el sistema',s:'dl1504'},{v:'Público, privado y mixto',t:'alcance de la rectoría sobre la prestación de servicios (art. 4-A del DL 1161)',s:'ley30895'}],
+  norm:['DL 1161 (2013): Ley de Organización y Funciones del MINSA','Ley 30895 (2018): fortalece la función rectora del MINSA','DL 1504 (2020): modifica el art. 4-A, alcances de la rectoría']},
+ {id:'susalud',t:'SUSALUD · supervisa a todas las IAFAS, IPRESS y UGIPRESS',st:'Públicas, privadas y mixtas. Con las empresas de seguros su papel es acotado (protección del usuario); su solvencia la supervisa la SBS',c:'sus',tint:'rgba(167,139,250,.22)',w:1066,A:[695,Y.sup],v:'AC',kind:'Supervisión',
+  d:'La Superintendencia Nacional de Salud supervisa a todas las IAFAS, IPRESS y UGIPRESS, sean públicas, privadas o mixtas: SIS, FISSAL, IAFAS de las FFAA, SaludPol, EsSalud, EPS y los establecimientos de todas las redes. Lleva además el registro nacional de establecimientos (RENIPRESS). Con las empresas de seguros y las AFOCAT, que están bajo la SBS, su competencia es acotada: supervisa la protección de los usuarios y procesos específicos, como la oportunidad de pago a las IPRESS.',
+  facts:[{v:'Todas las IAFAS e IPRESS',t:'públicas, privadas y mixtas, como administrados de SUSALUD',s:'susalud14'},{v:fmt(RENI.total.n),t:'establecimientos de salud activos registrados en RENIPRESS',s:'reni'},{v:'Excepción',t:'las empresas de seguros y AFOCAT bajo la SBS quedan fuera de los lineamientos de organización de IAFAS de SUSALUD',s:'susalud24'}],
+  norm:['DL 1158 (2013): fortalecimiento y cambio de denominación de la Superintendencia (antes SUNASA)','DS 031-2014-SA: reglamento de infracciones y sanciones']},
+ {id:'sbs',t:'SBS',st:'Solvencia de aseguradoras',c:'pri',w:128,A:[L[5],Y.sbs],v:'AC',kind:'Supervisión · solo empresas de seguros',
+  d:'La Superintendencia de Banca, Seguros y AFP supervisa, en salud, solo a las empresas de seguros (y a las AFOCAT del SOAT): su organización y solvencia. No supervisa a las EPS, que están bajo SUSALUD, ni a ninguna IAFAS pública.',
+  facts:[{v:'Solo aseguradoras',t:'las empresas de seguros y AFOCAT están bajo el ámbito de supervisión de la SBS',s:'susalud24'}]},
+ // conducción
+ {id:'cminsa',t:'MINSA',st:'Conduce SIS y FISSAL',c:'sub',A:[L[0],Y.con],v:'AC',kind:'Conducción del financiamiento',d:'Conduce el financiamiento del régimen subsidiado y semicontributivo: el SIS y el FISSAL.'},
+ {id:'mindef',t:'MINDEF',st:'Conduce las IAFAS FFAA',c:'esp',A:[L[1],Y.con],v:'AC',kind:'Conducción del financiamiento',d:'Conduce las IAFAS de las Fuerzas Armadas. La misma institución conduce, financia y presta.'},
+ {id:'mininter',t:'MININTER',st:'Conduce SaludPol',c:'esp',A:[L[2],Y.con],v:'AC',kind:'Conducción del financiamiento',d:'Conduce SaludPol y la Sanidad de la PNP. Subsistema integrado.'},
+ {id:'mtpe',t:'MTPE',st:'Sector de EsSalud',c:'con',A:[L[3],Y.con],v:'AC',kind:'Conducción del financiamiento',d:'EsSalud está adscrito al sector Trabajo. Subsistema integrado.'},
+ {id:'cnone',t:'Sin conducción sectorial',st:'Las supervisa SUSALUD; a las aseguradoras, también la SBS',c:'pri',w:270,A:[L56,Y.con],v:'AC',kind:'Conducción del financiamiento',d:'Las EPS y los seguros privados no dependen de un ministerio. Están bajo la rectoría del MINSA y la supervisión de SUSALUD; las empresas de seguros, además, bajo la SBS.'},
+ // fuentes (solo vista dinero)
+ {id:'tesoro',t:'Tesoro público',st:'Recursos ordinarios',c:'sub',w:170,A:[200,70],B:[200,62],v:'B',kind:'Fuente de financiamiento',d:'Financia el régimen subsidiado y semicontributivo (SIS y FISSAL).'},
+ {id:'estado',t:'Estado como empleador',st:'Prima para FFAA y PNP',c:'esp',w:190,A:[440,70],B:[440,62],v:'B',kind:'Fuente de financiamiento',d:'El Estado paga, como empleador, el aporte a los fondos de salud de militares y policías.',
+  facts:[{v:'6 %',t:'prima del Estado en FOSMAR (plan básico)',s:'fosmar'}],
+  pistas:[{t:'El Congreso aprobó elevar el aporte estatal a FFAA y PNP de 6 % a 9 %. Una columna de la Asociación Médica Peruana dice que el Ejecutivo lo observó: vigencia por confirmar en El Peruano.',s:'p21ap'}]},
+ {id:'planilla',t:'Aporte de planilla',st:'9 % de la remuneración',c:'con',w:200,A:[720,70],B:[715,62],v:'B',kind:'Fuente de financiamiento',d:'Aporte del empleador por cada trabajador formal. Si el empleador contrata una EPS, el 9 % se reparte: 6,75 % para EsSalud y 2,25 % para la EPS.'},
+ {id:'primas',t:'Primas privadas',st:'Pago voluntario',c:'pri',w:160,A:[960,70],B:[960,62],v:'B',kind:'Fuente de financiamiento',d:'Lo que pagan personas o empresas por seguros privados y prepagas.'},
+ // IAFAS
+ {id:'sis',t:'SIS',st:'Seguro Integral',c:'sub',w:96,A:[212,Y.ase],B:[110,270],v:'ABC',kind:'IAFAS pública · subsidiado y semicontributivo',
+  d:'La única IAFAS pública que separa financiamiento y prestación: compra a la red del MINSA y de los gobiernos regionales. Desde el DU 017-2019 afilia a todo residente sin otro seguro.',
+  facts:[{v:'25,7 %',t:'del gasto de bolsillo de 2019 lo pagaron afiliados al SIS',s:'digemid'},{v:'28 % a 60 %',t:'reducción del gasto de bolsillo asociada a la afiliación; los afiliados pobres que pagaron gastaron S/ 285 en promedio (2014)',s:'petrera'}],
+  pistas:[{t:'El bolsillo se filtra por medicamentos sin stock que se compran en farmacias cercanas. Falta cuantificarlo con fuente oficial.',s:'petrera'}],
+  norm:['Ley 27657 (2002): fusiona el SEG y el SMI en el SIS','DL 1163 (2013)','DU 017-2019: afiliación de todo residente sin seguro']},
+ {id:'fissal',t:'FISSAL',st:'Alto costo',c:'sub',w:96,A:[318,Y.ase],B:[225,270],v:'ABC',kind:'IAFAS pública · alto costo',
+  d:'La única IAFAS pública creada para una función, el alto costo, y no para una población. Es un órgano desconcentrado del SIS y solo atiende a sus afiliados. Cubre los siete cánceres más frecuentes, la enfermedad renal crónica, las enfermedades raras y huérfanas y trasplantes renales, hepáticos y de progenitores hematopoyéticos.',
+  pistas:[{t:'510 837 atenciones a 141 313 asegurados hasta julio de 2026. Es una nota del diario oficial: falta el reporte primario del SIS.',s:'ep26f'},{t:'Compra prestaciones de alto costo (como hemodiálisis) a IPRESS privadas: por confirmar con contratos o tarifario publicados.'}],
+  norm:['Ley 27656 (2002): crea el Fondo Intangible Solidario de Salud','Ley 29761 (2011): unidad ejecutora e IAFAS de alto costo','DL 1163 (2013)']},
+ {id:'ffaa',t:'IAFAS FFAA',st:'FOSPEME · FOSMAR · FOSFAP',c:'esp',A:[L[1],Y.ase],B:[360,270],v:'ABC',kind:'IAFAS pública · contributivo especial',
+  d:'Los fondos de salud del Ejército, la Marina y la Fuerza Aérea. Nacieron como fondos institucionales cerrados y en 2013 recibieron personería jurídica. La misma institución conduce, financia y presta.',
+  facts:[{v:'Reembolso',t:'el reglamento de FOSPEME prevé el reembolso de gastos en medicamentos sustentados por el titular; FOSFAP tiene formato de solicitud de reembolso (2026)',s:'iafasepreg'},{v:'hasta 30 %',t:'copago para familiares de personal en actividad en establecimientos navales (FOSMAR, plan básico)',s:'fosmar'},{v:'hasta S/ 30 000',t:'«primera capa» a cargo del titular en el Ejército, según el grado',s:'iafasep'}],
+  norm:['DS 245-89-EF (1989): fondos de salud del personal militar','DL 1173 (2013): personería jurídica']},
+ {id:'saludpol',t:'SaludPol',st:'IAFAS de la PNP',c:'esp',A:[L[2],Y.ase],B:[495,270],v:'ABC',kind:'IAFAS pública · contributivo especial',
+  d:'Fondo de salud de policías y sus familias. Su red preferente es la Sanidad PNP (DIRSAPOL), pero la mayor parte de lo que paga va a otros prestadores: convenios con gobiernos regionales e IPRESS públicas, contratos y cartas de garantía con IPRESS privadas, y reembolsos.',
+  facts:[{v:'24,1 %',t:'del total pagado en 2024 fue a la DIRSAPOL (S/ 98,0 millones). Por confirmar en la tabla de pagos de la memoria: el resto del desglose aún no está catalogado.',s:'saludpol24'},
+         {v:'S/ 2 019 M',t:'en cartas de garantía emitidas entre 2018 y 2022 (S/ 640 M solo en 2020)',s:'saludpol23'},
+         {v:'S/ 321 M frente a S/ 23 M',t:'montos de 2021 con IPRESS privadas frente a IPRESS públicas, en la tabla de cartas de garantía',s:'saludpol23'},
+         {v:'42 convenios',t:'vigentes a octubre de 2023, con acceso a 2 018 IPRESS no PNP; además, contratos con 19 IPRESS privadas',s:'saludpol23'},
+         {v:'456 178',t:'asegurados en 2022 (titulares, retirados y derechohabientes)',s:'dirsapol23'},
+         {v:'Reembolso',t:'el asegurado puede pedir la devolución de lo que pagó adjuntando comprobante y receta; desde 2023 también por la app, con receta vale electrónica de la IPRESS PNP',s:'saludpolreem'}],
+  pistas:[{t:'Planteamiento por verificar: que lo pagado a la Sanidad PNP sea menor que lo pagado por convenios con gobiernos regionales y la red del MINSA. Los documentos de 2021–2023 muestran que la mayor parte iba a privados; falta el desglose 2024–2025 por convenio.'},{t:'Reembolso solo si el medicamento estaba «sin stock», con tope de 10 % de la UIT (S/ 530) en la campaña de 2025 y meses de demora.',s:'larazon'},{t:'Deudas con clínicas que terminan cobradas al paciente.',s:'infobae23'},{t:'Ley 32736 (2026) homologa el régimen de salud policial al modelo de las FFAA. Enlazar el texto de la ley.',s:'ep26p'}],
+  norm:['DL 1174 (2013): el FOSPOLI pasa a ser SaludPol','Ley 32736 (2026)']},
+ {id:'essalud',t:'EsSalud',st:'Seguro Social',c:'con',A:[L[3],Y.ase],B:[630,270],v:'ABC',kind:'IAFAS pública · contributivo',
+  d:'Seguridad social de trabajadores formales y sus familias, financiada con el 9 % de la planilla. Sin copago. Subsistema integrado con red propia.',
+  facts:[{v:'37,2 %',t:'del gasto de bolsillo de 2019 lo pagaron afiliados a EsSalud: más que quienes no tenían seguro (24,2 %)',s:'digemid'},{v:'759 402 de 1 006 734',t:'sesiones de hemodiálisis compradas a terceros entre enero y agosto de 2025 (75 %)',s:'essalud25'}],
+  pistas:[{t:'¿Reembolsa EsSalud? El análisis de base dice que no; sitios no oficiales describen reembolsos por medicamento sin stock y por lista de espera quirúrgica de 30 días o más. Falta la directiva de EsSalud.',s:'essaludreem'},{t:'23 días de espera promedio por cita en 2025.',s:'atv'},{t:'Desabastecimiento de medicamentos en 14 regiones, según la Contraloría. Ubicar el informe de control.',s:'pana'}],
+  norm:['Ley 26790 (1997): modernización de la seguridad social','Ley 27056 (1999): crea EsSalud, sucesor del IPSS']},
+ {id:'eps',t:'EPS',st:'Prestadoras de salud',c:'pri',A:[L[4],Y.ase],B:[765,270],v:'ABC',kind:'IAFAS privada · contributivo complementario',
+  d:'Cubren a trabajadores formales cuando su empleador las contrata, con el 2,25 % de la planilla. Comparten el aporte con EsSalud, pero no tienen red propia: compran a clínicas.',
+  facts:[{v:'S/ 35 + 10 %',t:'ejemplo de deducible por consulta y coaseguro en un plan EPS',s:'rimac'},{v:'Reembolso',t:'modalidad de atención en los planes que la incluyen, con medicamentos sustentados por receta y comprobante',s:'pacificoreem'}],
+  norm:['Ley 26790 (1997): crea las EPS']},
+ {id:'priv',t:'Seguros privados',st:'y prepagas',c:'pri',A:[L[5],Y.ase],B:[900,270],v:'ABC',kind:'IAFAS privada · voluntario',
+  d:'Se financian con primas. Tienen deducibles, coaseguros, exclusiones y preexistencias: el copago es parte del diseño.'},
+ {id:'ninguna',t:'Ninguna',st:'Sin IAFAS',c:'non',A:[L[6],Y.ase],v:'AC',kind:'Sin seguro · gasto directo',d:'Quien no está afiliado paga directamente al prestador.',
+  facts:[{v:'24,2 %',t:'del gasto de bolsillo de 2019 lo pagaron personas sin seguro',s:'digemid'}]},
+ {id:'fac',t:'Fondo de Alto Costo',st:'Proyecto de ley · en debate',c:'deb',w:150,A:[1090,270],B:[1090,270],v:'B',ghost:1,kind:'En debate · no existe aún',
+  d:'Propuesta de un fondo de segundo piso al que las IAFAS públicas pagarían una prima, para cubrir el 100 % del tratamiento de alto costo en cualquier red, a pacientes del SIS y de EsSalud. Financiamiento propuesto: primas de los seguros públicos y 1 % de la recaudación del IGV. Directorio con MINSA, MEF, SIS, EsSalud y pacientes. El proyecto no le asigna papel al FISSAL.',
+  pistas:[{t:'Seis proyectos de cinco bancadas desde 2022 (PL 1378 y acumulados). Aprobados en la Comisión de Salud en noviembre de 2024; a julio de 2026 sin votación en el Pleno. Enlazar el expediente del Congreso.',s:'p21fac'},{t:'Brecha de financiamiento del alto costo estimada en unos S/ 2 000 millones.',s:'dyer'}]},
+ // prestadores
+ {id:'pminsa',t:'Red MINSA y gobiernos regionales',st:'',c:'sub',w:190,A:[L[0],Y.pre],B:[140,500],v:'ABC',kind:'Prestación · red pública',
+  d:'Red preferente del SIS y del FISSAL. Fuera de Lima, es casi por completo red de los gobiernos regionales: 487 de los 514 establecimientos que RENIPRESS registra como MINSA están en el departamento de Lima.',
+  facts:[{v:fmt(R('GOBIERNO REGIONAL').n+R('MINSA').n),t:'establecimientos activos (gobiernos regionales '+fmt(R('GOBIERNO REGIONAL').n)+'; MINSA '+fmt(R('MINSA').n)+')',s:'reni'},
+         {v:fmt(R('GOBIERNO REGIONAL').camas+R('MINSA').camas),t:'camas registradas; '+fmt(R('GOBIERNO REGIONAL').hosp+R('MINSA').hosp)+' establecimientos de categoría II o III',s:'reni'},
+         {v:'94,5 % y 91,1 %',t:'del primer nivel y de los hospitales, con capacidad instalada inadecuada (dic. 2022)',s:'minsa23'}],
+  pistas:[{t:'9,7 médicos del sector público por cada 10 000 habitantes en 2023: de 6,0 en Piura a 15,1 en Moquegua. Buscar el dato en el registro del MINSA.',s:'gest23'}]},
+ {id:'pffaa',t:'Sanidades FFAA',st:'Ejército · Marina · FAP',c:'esp',A:[L[1],Y.pre],B:[315,500],v:'ABC',kind:'Prestación · red propia',
+  d:'Red preferente de las IAFAS de las Fuerzas Armadas. El reglamento permite el intercambio prestacional con MINSA y EsSalud, pero no se identificó ningún convenio vigente.',
+  facts:[{v:fmt(R('SANIDAD DEL EJERCITO DEL PERU').n+R('SANIDAD DE LA MARINA DE GUERRA DEL PERU').n+R('SANIDAD DE LA FUERZA AEREA DEL PERU').n),t:'establecimientos (Ejército '+R('SANIDAD DEL EJERCITO DEL PERU').n+', Marina '+R('SANIDAD DE LA MARINA DE GUERRA DEL PERU').n+', FAP '+R('SANIDAD DE LA FUERZA AEREA DEL PERU').n+')',s:'reni'},
+         {v:fmt(R('SANIDAD DEL EJERCITO DEL PERU').camas+R('SANIDAD DE LA MARINA DE GUERRA DEL PERU').camas+R('SANIDAD DE LA FUERZA AEREA DEL PERU').camas),t:'camas registradas',s:'reni'}]},
+ {id:'ppnp',t:'Sanidad PNP',st:'',c:'esp',A:[L[2],Y.pre],B:[450,500],v:'ABC',kind:'Prestación · red propia',d:'Red preferente de SaludPol, operada por la DIRSAPOL. SaludPol le paga por prestaciones valorizadas, con descuentos tras auditoría, y reconoce acceso limitado en sus IPRESS por desabastecimiento de productos farmacéuticos.',
+  facts:[{v:'S/ 98,0 M',t:'pagados por SaludPol a la DIRSAPOL en 2024 (24,1 % del total pagado)',s:'saludpol24'},{v:'S/ 252,4 M y S/ 50,5 M',t:'prestaciones valorizadas en 2022 y descuentos aplicados',s:'dirsapol23'},{v:fmt(R('SANIDAD DE LA POLICIA NACIONAL DEL PERU').n),t:'establecimientos; '+R('SANIDAD DE LA POLICIA NACIONAL DEL PERU').camas+' camas registradas',s:'reni'}]},
+ {id:'pessalud',t:'Red EsSalud',st:'',c:'con',A:[L[3],Y.pre],B:[585,500],v:'ABC',kind:'Prestación · red propia',d:'Red preferente de EsSalud.',
+  facts:[{v:fmt(R('ESSALUD').n),t:'establecimientos; '+R('ESSALUD').intern+' con internamiento y '+R('ESSALUD').hosp+' de categoría II o III',s:'reni'},{v:fmt(R('ESSALUD').camas),t:'camas registradas',s:'reni'}]},
+ {id:'pclin',t:'Clínicas privadas',st:'Compra',c:'pri',w:270,A:[L56,Y.pre],B:[795,500],v:'ABC',kind:'Prestación · privada',
+  d:'Prestadores privados: venden servicios a las EPS y a los seguros privados, y también a IAFAS públicas, además de cobrar directamente a los hogares. Incluye consultorios, policlínicos, clínicas, laboratorios y centros de imágenes.',
+  facts:[{v:fmt(R('PRIVADO').n),t:'establecimientos privados ('+Math.round(R('PRIVADO').lima/R('PRIVADO').n*100)+' % en el departamento de Lima)',s:'reni'},{v:fmt(R('PRIVADO').intern),t:'con internamiento; '+R('PRIVADO').hosp+' de categoría II o III. Sus camas no vienen informadas en la descarga.',s:'reni'}]},
+ {id:'pany',t:'Cualquier prestador',st:'',c:'non',A:[L[6],Y.pre],v:'AC',kind:'Prestación',d:'Sin seguro, la persona paga donde la atiendan, incluidos prestadores públicos.'},
+ {id:'pfarm',t:'Farmacias y boticas',st:'Solo bolsillo',c:'bol',A:[1010,500],B:[1010,500],v:'B',kind:'Prestación · medicamentos',
+  d:'Reciben dinero casi solo de los hogares. Ahí termina buena parte de lo que el seguro no entrega a tiempo.',
+  facts:[{v:'39,5 %',t:'del gasto de bolsillo de 2019 fue en medicamentos',s:'digemid'},{v:'87,9 %',t:'de esos medicamentos se compró en farmacias y boticas',s:'digemid'}]},
+ {id:'psisol',t:'SISOL y municipales',st:'Público, cobra tarifa',c:'bol',A:[1145,500],B:[1145,500],v:'B',kind:'Prestación · pública municipal',
+  d:'El Sistema Metropolitano de la Solidaridad es de la Municipalidad de Lima, pero se financia como un prestador privado. La propiedad pública no garantiza financiamiento público.',
+  facts:[{v:'S/ 304,5 M',t:'presupuesto 2025, todo de recursos directamente recaudados; el 90,8 % de tarifas a pacientes',s:'sisol'},{v:fmt(R('MUNICIPALIDAD PROVINCIAL').n+R('MUNICIPALIDAD DISTRITAL').n),t:'establecimientos municipales activos (provinciales '+R('MUNICIPALIDAD PROVINCIAL').n+', distritales '+R('MUNICIPALIDAD DISTRITAL').n+')',s:'reni'}],
+  pistas:[{t:'Según su gerencia, en 2022 el 59 % de sus pacientes tenía SIS y el 33 % EsSalud. Cifra declarada.',s:'gest22'},{t:'En 2013–2014 se anunció que los afiliados al SIS se atenderían sin pago en SISOL; no hay evidencia de que siga vigente.',s:'andina14'}]},
+ {id:'hogares',t:'Hogares',st:'Gasto de bolsillo',c:'bol',w:320,A:[620,740],B:[620,730],v:'B',kind:'Gasto de bolsillo',
+  d:'El bolsillo llega a todos los prestadores, incluidos los públicos. Ningún financiador le cierra la puerta: en unos entra por diseño (copagos) y en otros por falla (falta de medicamentos, esperas, reembolsos limitados).',
+  facts:[{v:'S/ 11 297 M',t:'pagaron los hogares de su bolsillo en 2019',s:'digemid'},{v:'75,8 %',t:'lo pagaron personas que sí tenían seguro',s:'digemid'}],
+  pistas:[{t:'Advertencia de método: parte de ese pago vuelve después por reembolso (SaludPol, IAFAS FFAA, EPS, seguros privados). Si la encuesta registra el pago y no la devolución, el bolsillo neto de esos grupos está sobrestimado. Hay que revisar cómo pregunta la ENAHO y cuánto reembolsa cada IAFAS al año.'}]},
+ // población
+ {id:'psis',t:'Residentes sin otro seguro',st:'DU 017-2019',c:'sub',w:190,A:[L[0],Y.pob],v:'AC',kind:'Población',d:'Población del SIS: todo residente que no tenga otro seguro.'},
+ {id:'pmil',t:'Militares',st:'y familias',c:'esp',A:[L[1],Y.pob],v:'AC',kind:'Población',d:'Población de las IAFAS de las FFAA.'},
+ {id:'ppol',t:'Policías',st:'y familias',c:'esp',A:[L[2],Y.pob],v:'AC',kind:'Población',d:'Población de SaludPol.'},
+ {id:'ptrab',t:'Trabajadores formales',st:'y familias',c:'con',w:270,A:[L45,Y.pob],v:'AC',kind:'Población',d:'Población de EsSalud. Si el empleador contrata una EPS, el trabajador tiene ambas coberturas.'},
+ {id:'ppriv',t:'Asegurados privados',st:'',c:'pri',A:[L[5],Y.pob],v:'AC',kind:'Población',d:'Personas con seguro privado o prepaga.'},
+ {id:'pnone',t:'No afiliados',st:'',c:'non',A:[L[6],Y.pob],v:'AC',kind:'Población',d:'Personas sin ningún seguro.'}
+];
+const NI={}; N.forEach(n=>{n.w=n.w||128;n.h=n.h||50;n.B=n.B||n.A;NI[n.id]=n});
+
+/* ---------- relaciones ---------- */
+// vista formal: c=conducción, a=afiliación, p=red preferente, s=supervisión (solo al enfocar)
+const EA=[
+ ['cminsa','sis','form'],['cminsa','fissal','form'],['mindef','ffaa','form'],['mininter','saludpol','form'],['mtpe','essalud','form'],['cnone','eps','form'],['cnone','priv','form'],
+ ['sis','pminsa','form'],['fissal','pminsa','form'],['ffaa','pffaa','form'],['saludpol','ppnp','form'],['essalud','pessalud','form'],['eps','pclin','form'],['priv','pclin','form'],['ninguna','pany','form'],
+ ['psis','sis','sup'],['pmil','ffaa','sup'],['ppol','saludpol','sup'],['ptrab','essalud','sup'],['ptrab','eps','sup'],['ppriv','priv','sup'],['pnone','ninguna','sup'],
+ ['rect','cminsa','sup'],['rect','mindef','sup'],['rect','mininter','sup'],['rect','mtpe','sup'],['rect','cnone','sup'],
+ ['susalud','sis','sup'],['susalud','pminsa','sup'],['susalud','pffaa','sup'],['susalud','ppnp','sup'],['susalud','pessalud','sup'],['susalud','pclin','sup'],['susalud','fissal','sup'],['susalud','ffaa','sup'],['susalud','saludpol','sup'],['susalud','essalud','sup'],['susalud','eps','sup'],['susalud','priv','sup'],
+ ['sbs','priv','sup']
+];
+// vista dinero con evidencia
+const EB=[
+ {f:'tesoro',to:'sis',k:'fin',e:'Recursos ordinarios para el régimen subsidiado.'},
+ {f:'tesoro',to:'fissal',k:'fin',e:'Recursos ordinarios para el alto costo de los afiliados al SIS.'},
+ {f:'estado',to:'ffaa',k:'fin',e:'Prima del Estado como empleador (6 % en FOSMAR).',s:'fosmar'},
+ {f:'estado',to:'saludpol',k:'fin',e:'Aporte del Estado como empleador del personal policial.'},
+ {f:'planilla',to:'essalud',k:'fin',lab:'9 % o 6,75 %',anc:'end',e:'9 % de la remuneración; 6,75 % si el empleador contrata una EPS.'},
+ {f:'planilla',to:'eps',k:'fin',lab:'2,25 %',e:'2,25 % de la remuneración cuando hay EPS.'},
+ {f:'primas',to:'priv',k:'fin',e:'Primas de seguros privados y prepagas.'},
+ {f:'sis',to:'pminsa',k:'pref',e:'Red preferente: el SIS compra a la red del MINSA y de los gobiernos regionales.'},
+ {f:'fissal',to:'pminsa',k:'pref',e:'Red preferente para el alto costo de los afiliados al SIS.'},
+ {f:'ffaa',to:'pffaa',k:'pref',e:'Red preferente: sanidades de las FFAA.'},
+ {f:'saludpol',to:'ppnp',k:'pref',e:'Red preferente: Sanidad PNP. En 2024 recibió S/ 98,0 millones, el 24,1 % de lo pagado por SaludPol.',s:'saludpol24'},
+ {f:'essalud',to:'pessalud',k:'pref',e:'Red preferente: red de EsSalud.'},
+ {f:'eps',to:'pclin',k:'pref',e:'Las EPS no tienen red propia: compran a clínicas.'},
+ {f:'priv',to:'pclin',k:'pref',e:'Compra a clínicas privadas.'},
+ {f:'essalud',to:'pclin',k:'compra',lab:'75 % hemodiálisis',e:'759 402 de 1 006 734 sesiones de hemodiálisis compradas a terceros entre enero y agosto de 2025.',s:'essalud25'},
+ {f:'fissal',to:'pclin',k:'compra',e:'Compra de prestaciones de alto costo, como hemodiálisis, a IPRESS privadas. Vigencia y montos por confirmar con contratos publicados.'},
+ {f:'ffaa',to:'pclin',k:'compra',e:'Cartas de garantía a clínicas privadas. Monto por documentar.'},
+ {f:'saludpol',to:'pclin',k:'compra',e:'Cartas de garantía (compra excepcional) y contratos con 19 IPRESS privadas. En 2021, S/ 321 millones con IPRESS privadas frente a S/ 23 millones con públicas; en 2018–2022 se emitieron cartas por S/ 2 019 millones.',s:'saludpol23'},
+ {f:'saludpol',to:'pessalud',k:'compra',e:'Convenio de diciembre de 2024: hasta 76 procedimientos en más de 360 centros de EsSalud. Plazo no publicado; falta el texto del convenio.',s:'ep24'},
+ {f:'saludpol',to:'pminsa',k:'compra',e:'Convenios con gobiernos regionales, UGIPRESS e IPRESS públicas: 42 vigentes a octubre de 2023, con acceso a 2 018 IPRESS no PNP (en 2023 se firmaron 8 con gobiernos regionales). Montos pagados por convenio: por catalogar desde la Memoria 2024.',s:'saludpol23'},
+ {f:'sis',to:'pessalud',k:'sinvig',e:'Convenios regionales de intercambio prestacional de agosto de 2013 en 10 regiones. Vigencia no verificada: si ya no operan, no hay intercambio estructural entre los dos subsistemas más grandes.',s:'essalud13'},
+ {f:'saludpol',to:'hogares',k:'reem',e:'Reembolso económico: el asegurado pide la devolución de lo que pagó (por ejemplo, medicamentos e insumos con receta) adjuntando comprobante y receta. Desde 2023 puede hacerse por la app con receta vale electrónica de la IPRESS PNP y comprobante electrónico. Montos anuales: por catalogar.',s:'saludpolreem'},
+ {f:'ffaa',to:'hogares',k:'reem',e:'Las IAFAS de las FFAA también reembolsan: el reglamento de FOSPEME prevé el reembolso de gastos en medicamentos sustentados por el titular, y FOSFAP tiene formato de solicitud de reembolso (Directiva 003-2026).',s:'iafasepreg'},
+ {f:'eps',to:'hogares',k:'reem',e:'Modalidad de reembolso en los planes EPS que la incluyen: medicamentos con receta y comprobante, con deducible y coaseguro según tarifario.',s:'pacificoreem'},
+ {f:'priv',to:'hogares',k:'reem',e:'Los seguros privados reembolsan atenciones fuera de red y medicamentos según la póliza, con deducible y coaseguro.',s:'pacificoreem'},
+ ...['pminsa','pffaa','ppnp','pessalud','pclin','pfarm','psisol'].map(p=>({f:'hogares',to:p,k:'bol',e:p==='pfarm'?'El 87,9 % de los medicamentos pagados de bolsillo se compró en farmacias y boticas (2019).':p==='psisol'?'El 90,8 % del presupuesto 2025 de SISOL proviene de tarifas a pacientes.':'Pago directo de los hogares a este prestador.',s:p==='psisol'?'sisol':'digemid'}))
+];
+const BOLS=[ // vista bolsillo: % del gasto de bolsillo 2019 según seguro de quien paga
+ {lab:'SIS',p:25.7,x:L[0],w:200,c:'sub',node:'sis',leak:'Medicamentos sin stock que se compran en farmacias cercanas. La afiliación reduce el bolsillo, pero no lo elimina.'},
+ {lab:'FFAA y PNP',p:3.1,x:(L[1]+L[2])/2,w:270,c:'esp',node:'ffaa',leak:'Por diseño: copago de hasta 30 % para familiares (FOSMAR) y «primera capa» de hasta S/ 30 000 (Ejército). Parte de lo pagado vuelve por reembolso (SaludPol y FFAA), lo que la encuesta puede no restar. El 3,1 % es la parte del total y junta FFAA y PNP: no permite decir que los policías gasten menos por persona.'},
+ {lab:'EsSalud',p:37.2,x:L45,w:270,c:'con',node:'essalud',leak:'Sin copago en el diseño. El bolsillo entra por la falla: esperas y desabastecimiento (pistas). No hay un reembolso documentado en fuente oficial (ver pista).'},
+ {lab:'Privado',p:7.5,x:L[5],w:128,c:'pri',node:'priv',leak:'Por diseño: deducibles, coaseguros, exclusiones y preexistencias.'},
+ {lab:'Sin seguro',p:24.2,x:L[6],w:128,c:'non',node:'ninguna',leak:'Pago directo a cualquier prestador.'}
+];
+
+/* ---------- vistas ---------- */
+const VIEWS={
+ formal:{key:'A',rot:'1 · Diseño formal',lede:'Por encima de todos, el MINSA rige y SUSALUD supervisa, públicos y privados por igual. Debajo, en la norma, cada fondo atiende a su población con su propia red, y tres subsistemas están integrados: la misma institución conduce, financia y presta.',
+   legend:'<span><span class="sw" style="background:var(--minsa)"></span>Rectoría (MINSA)</span><span><span class="sw" style="background:var(--susalud)"></span>Supervisión (SUSALUD)</span><span><i style="border-color:rgba(201,214,234,.55)"></i>Conduce · financia</span><span><i class="p" style="border-color:#E9B44C"></i>Rectoría, supervisión y afiliación (al enfocar)</span><span><span class="sw" style="background:var(--sub)"></span>Subsidiado</span><span><span class="sw" style="background:var(--esp)"></span>Contributivo especial</span><span><span class="sw" style="background:var(--con)"></span>Contributivo</span><span><span class="sw" style="background:var(--pri)"></span>Privado</span><span><span class="sw" style="background:var(--non)"></span>Sin IAFAS</span>'},
+ dinero:{key:'B',rot:'2 · Cómo circula el dinero',lede:'El dinero no respeta las columnas del diseño: los fondos compran fuera de su red, el intercambio entre subsistemas es escaso y los hogares pagan a todos los prestadores, incluidos los públicos.',
+   legend:'<span><i></i>Financiamiento y red preferente</span><span><i class="d"></i>Compra o intercambio vigente</span><span><i class="p"></i>Convenio sin vigencia verificada</span><span><i class="b"></i>Gasto de bolsillo</span><span><i class="r"></i>Reembolso al hogar</span><span><span class="sw" style="border:1.5px dashed var(--deb)"></span>Propuesta en debate</span>'},
+ bolsillo:{key:'C',rot:'3 · Dónde se filtra el bolsillo',lede:'Tres de cada cuatro soles de bolsillo los pagan personas con seguro. Los afiliados a EsSalud, sin copago y con 9 % de la planilla, pagan más que quienes no tienen ningún seguro.',
+   legend:'<span>Barras: participación de cada grupo en el gasto de bolsillo total de 2019, no gasto por persona: un grupo pequeño pesa poco aunque cada persona pague mucho. FFAA y PNP vienen juntos en la fuente. «Otro seguro»: 2,2 %. Fuente: DIGEMID con ENAHO.</span>'},
+ mapa:{rot:'4 · Dónde están los prestadores',lede:'Cada punto es un establecimiento registrado en RENIPRESS. Enciende y apaga redes, filtra por capacidad y compara: contar establecimientos no es lo mismo que contar hospitales.',
+   legend:'<span>Tamaño: hospital general &gt; con internamiento &gt; sin internamiento</span><span>Anillo: ubicación aproximada (centro del distrito)</span><span>En «una red por mapa», naranja tenue = departamento sin esa red</span>'},
+ tabla:{rot:'Tabla',lede:'La misma información en tablas, legible sin interacción.'}
+};
+
+/* ---------- dibujo ---------- */
+const svg=document.getElementById('map'), gN=document.getElementById('nodes'), gE=document.getElementById('edges'), gBars=document.getElementById('bars'), gA=document.getElementById('bgA'), gB=document.getElementById('bgB');
+const NS='http://www.w3.org/2000/svg';
+const el=(t,a={},p)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e};
+let view='formal', sel=null;
+
+function wrap(txt,max){const w=txt.split(' ');const out=[];let cur='';w.forEach(x=>{if((cur+' '+x).trim().length>max){out.push(cur.trim());cur=x}else cur+=' '+x});out.push(cur.trim());return out.filter(Boolean)}
+
+N.forEach(n=>{
+  const g=el('g',{class:'node'+(n.ghost?' ghost':''),tabindex:0,role:'button','aria-label':n.t+(n.st?', '+n.st:''),'data-id':n.id},gN);
+  n.g=g;
+  const lines=wrap(n.t,Math.floor(n.w/8.2));
+  const stl=n.st?wrap(n.st,Math.floor((n.w-12)/5.9)):[];
+  const h=Math.max(n.h,lines.length*15+stl.length*13+18); n.h=h;
+  const bx=el('rect',{class:'box',x:-n.w/2,y:-h/2,width:n.w,height:h,rx:8,stroke:COL[n.c]},g); if(n.tint) bx.style.fill=n.tint;
+  el('rect',{x:-n.w/2,y:-h/2,width:5,height:h,rx:2,fill:COL[n.c]},g);
+  let y=-(lines.length*15+stl.length*13)/2+11;
+  lines.forEach(l=>{const t=el('text',{class:'t','text-anchor':'middle',x:3,y},g);t.textContent=l;y+=15});
+  stl.forEach(l=>{const t=el('text',{class:'st','text-anchor':'middle',x:3,y},g);t.textContent=l;y+=13});
+  g.addEventListener('click',()=>openNode(n.id));
+  g.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openNode(n.id)}});
+  g.addEventListener('mouseenter',()=>focusOn(n.id)); g.addEventListener('mouseleave',()=>focusOn(sel));
+  g.addEventListener('focus',()=>focusOn(n.id));
+});
+
+function drawBackgrounds(){
+  // vista formal: etiquetas de fila, cabecera de dos niveles, contorno integrado
+  gA.innerHTML='';
+  [['Rectoría',Y.rec],['Supervisión',Y.sup],['Conducción',Y.con,'del financiamiento'],['Financiamiento',Y.ase,'IAFAS'],['Prestaciones',Y.pre,'red preferente'],['Población',Y.pob]].forEach(([t,y,sub])=>{
+    const tx=el('text',{class:'rowlabel',x:14,y:sub?y:y+4},gA);tx.textContent=t;
+    if(sub){const ts=el('text',{class:'rowsub',x:14,y:y+15},gA);ts.textContent=sub;}
+    if(y>=Y.con) el('line',{x1:14,x2:1226,y1:y+34,y2:y+34,stroke:'rgba(255,255,255,.07)'},gA)});
+  const sb=el('text',{class:'rowsub',x:14,y:Y.sbs+4},gA); sb.textContent='+ solo aseguradoras';
+  const band=(x1,x2,y,txt,c,op)=>{const g=el('g',{class:'band'},gA);el('rect',{x:x1+3,y:y-11,width:x2-x1-6,height:20,rx:4,fill:c,opacity:op},g);const t=el('text',{x:(x1+x2)/2,y:y+4,'text-anchor':'middle'},g);t.textContent=txt};
+  const e=i=>160+ (i===0?0: 210+(i-1)*143.33), r=i=>i===0?370:370+i*143.33;
+  const tl=el('text',{class:'rowlabel',x:14,y:Y.nat+4},gA);tl.textContent='Naturaleza';
+  const tr=el('text',{class:'rowlabel',x:14,y:Y.reg+4},gA);tr.textContent='Régimen';
+  band(160,r(3),Y.nat,'Pública','#C9D6EA',.9); band(r(3),r(5),Y.nat,'Privada','#E9B44C',.9); band(r(5),1230,Y.nat,'Sin IAFAS','#9AA6B8',.9);
+  band(160,r(0),Y.reg,'Subsidiado y semicontributivo','#8CC152',.9); band(r(0),r(2),Y.reg,'Contributivo especial','#E2589B',.9); band(r(2),r(3),Y.reg,'Contributivo','#22B5C2',.9); band(r(3),r(4),Y.reg,'Contrib. complem.','#E9B44C',.9); band(r(4),r(5),Y.reg,'Voluntario','#E9B44C',.65); band(r(5),1230,Y.reg,'Gasto directo','#9AA6B8',.9);
+  el('rect',{class:'contour',x:r(0)+6,y:Y.con-38,width:r(3)-r(0)-12,height:Y.pre-Y.con+80,rx:14},gA);
+  const ct=el('text',{class:'ctext',x:(r(0)+r(3))/2,y:Y.pre+62,'text-anchor':'middle'},gA);ct.textContent='Subsistema integrado: la misma institución conduce, financia y presta';
+  const sn=el('text',{class:'ctext',x:L[0],y:Y.pre+62,'text-anchor':'middle'},gA);sn.setAttribute('x',L[0]-10); sn.textContent='El SIS compra a otra red';
+  // vista dinero
+  gB.innerHTML='';
+  [['Fuentes',62],['Fondos',270],['Prestadores',500],['Hogares',730]].forEach(([t,y])=>{const tx=el('text',{class:'rowlabel',x:14,y:y-34},gB);tx.textContent=t});
+}
+
+function pos(n){const k=VIEWS[view].key;return k==='B'?n.B:n.A}
+function visible(n){const k=VIEWS[view].key;return k&&n.v.includes(k)}
+
+function layout(){
+  N.forEach(n=>{const [x,y]=pos(n);n.g.style.transform=`translate(${x}px,${y}px)`;n.g.classList.toggle('hid',!visible(n))});
+  gA.style.opacity=view==='formal'||view==='bolsillo'?1:0; gB.style.opacity=view==='dinero'?1:0;
+}
+
+function edgePath(a,b){
+  let [x1,y1]=pos(a);const [x2,y2]=pos(b);
+  if(a.w>600) x1=Math.max(x1-a.w/2+20,Math.min(x1+a.w/2-20,x2));
+  if(a.id==='hogares'){x1=x1+Math.max(-a.w/2+24,Math.min(a.w/2-24,(x2-x1)*0.35))}
+  let X2=x2; if(b.id==='hogares'){X2=x2+Math.max(-b.w/2+24,Math.min(b.w/2-24,(x1-x2)*0.45))}
+  let sy=y1+a.h/2, ty=y2-b.h/2;
+  if(y2<y1){sy=y1-a.h/2;ty=y2+b.h/2}
+  if(Math.abs(y2-y1)<5){ // misma fila
+    const s=x2>x1?1:-1; return {d:`M${x1+s*a.w/2},${y1} L${x2-s*b.w/2},${y2}`,mx:(x1+x2)/2,my:y1-6};
+  }
+  const my=(sy+ty)/2; return {d:`M${x1},${sy} C${x1},${my} ${X2},${my} ${X2},${ty}`,mx:(x1+X2)/2,my};
+}
+
+let edges=[];
+function drawEdges(){
+  gE.innerHTML=''; edges=[];
+  const k=VIEWS[view].key; if(!k) return;
+  if(k==='A'||k==='C'){
+    EA.forEach(([f,t,cls,up])=>{
+      const a=NI[f],b=NI[t]; const p=edgePath(a,b);
+      const path=el('path',{class:'edge '+cls,d:p.d,'marker-end':cls==='sup'?'':'url(#ahg)'},gE);
+      if(cls==='sup') path.style.opacity=0;
+      edges.push({f,t,path,k:cls});
+    });
+  } else {
+    EB.forEach(ed=>{
+      const a=NI[ed.f],b=NI[ed.to]; const p=edgePath(a,b);
+      const g=el('g',{},gE);
+      const mk=ed.k==='reem'?'url(#ahr)':ed.k==='bol'?'url(#ahb)':ed.k==='deb'?'url(#ahd)':'url(#ah)';
+      const path=el('path',{class:'edge '+ed.k,d:p.d,'marker-end':mk},g);
+      const hit=el('path',{class:'hit',d:p.d},g);
+      hit.addEventListener('click',()=>openEdge(ed));
+      hit.addEventListener('mouseenter',()=>{focusOn(null);edges.forEach(x=>x.path.classList.toggle('dim',x.ed!==ed));path.classList.add('hot')});
+      hit.addEventListener('mouseleave',()=>{path.classList.remove('hot');focusOn(sel)});
+      if(ed.lab){const t=el('text',{class:'elabel',x:ed.anc==='end'?p.mx-8:p.mx+8,y:p.my,'text-anchor':ed.anc||'start'},g);t.textContent=ed.lab}
+      edges.push({f:ed.f,t:ed.to,path,k:ed.k,ed});
+    });
+  }
+}
+
+function drawBars(){
+  gBars.innerHTML='';
+  if(view!=='bolsillo') return;
+  const top=Y.pob+40, sc=3.4;
+  const t0=el('text',{class:'rowlabel',x:14,y:top+14},gBars);t0.textContent='Gasto de bolsillo';
+  const t1=el('text',{class:'rowsub',x:14,y:top+30},gBars);t1.textContent='2019 · % del total';
+  const t2=el('text',{class:'rowsub',x:14,y:top+46},gBars);t2.textContent='no es gasto por persona';
+  BOLS.forEach((b,i)=>{
+    const g=el('g',{class:'bar',style:'cursor:pointer'},gBars);
+    const w=Math.min(b.w-30,110);
+    const r=el('rect',{x:b.x-w/2,y:top,width:w,height:0,rx:4,fill:COL[b.c],opacity:.88},g);
+    requestAnimationFrame(()=>setTimeout(()=>r.setAttribute('height',b.p*sc),60+i*80));
+    const v=el('text',{x:b.x,y:top+b.p*sc+22,'text-anchor':'middle','font-weight':'800','font-size':'26','font-family':'Big Shoulders Display, Arial Narrow, sans-serif',fill:COL[b.c]},g);v.textContent=String(b.p).replace('.',',')+' %';
+    const m=el('text',{x:b.x,y:top+b.p*sc+38,'text-anchor':'middle','font-size':'11','font-family':'IBM Plex Mono, monospace',fill:'#9FB3CF'},g);m.textContent='≈ S/ '+fmt(Math.round(11297*b.p/100))+' M';
+    g.addEventListener('click',()=>openNode(b.node));
+    const ti=el('title',{},g);ti.textContent=b.lab+': '+b.leak;
+  });
+}
+
+function neighbors(id){const s=new Set([id]);edges.forEach(e=>{if(e.f===id)s.add(e.t);if(e.t===id)s.add(e.f)});return s}
+function focusOn(id){
+  N.forEach(n=>n.g.classList.remove('dim'));
+  edges.forEach(e=>{e.path.classList.remove('dim','hot');if(e.k==='sup')e.path.style.opacity=0});
+  if(!id||!NI[id]||!visible(NI[id])) return;
+  const nb=neighbors(id);
+  N.forEach(n=>{if(visible(n)&&!nb.has(n.id))n.g.classList.add('dim')});
+  edges.forEach(e=>{const on=e.f===id||e.t===id;e.path.classList.toggle('dim',!on);e.path.classList.toggle('hot',on);if(e.k==='sup'&&on)e.path.style.opacity=1});
+}
+
+/* ---------- panel ---------- */
+const panel=document.getElementById('panel'), pbody=document.getElementById('pbody');
+panel.querySelector('.close').onclick=()=>{panel.classList.remove('open');setSel(null)};
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){panel.classList.remove('open');setSel(null)}});
+function setSel(id){N.forEach(n=>n.g.classList.toggle('sel',n.id===id));sel=id;focusOn(id)}
+function srcHTML(s){if(!s)return '<div class="src">Fuente por documentar</div>';const S=SRC[s];return `<div class="src"><span class="chip ${S.k}">${KLAB[S.k]}</span>${S.u?`<a href="${S.u}" target="_blank" rel="noopener">${S.n}</a>`:S.n}</div>`}
+function openNode(id){
+  const n=NI[id]; setSel(id); panel.style.setProperty('--eje',n.c==='rec'?'var(--tinta)':COL[n.c]);
+  const rel=[...new Set(EA.concat(EB.map(e=>[e.f,e.to])).flatMap(([f,t])=>f===id?[t]:t===id?[f]:[]))].filter(x=>NI[x]);
+  let h=`<div class="kind">${n.kind}</div><h2>${n.t}${n.st&&n.st!=='y familias'&&n.st!=='y prepagas'?'':' '+(n.st||'')}</h2><p>${n.d}</p>`;
+  if(n.facts&&n.facts.length){h+='<h3>Cifras con fuente</h3>'+n.facts.map(f=>`<div class="fact"><div class="v">${f.v}</div><div>${f.t}</div>${srcHTML(f.s)}</div>`).join('')}
+  if(view==='bolsillo'){const b=BOLS.find(b=>b.node===id);if(b)h+=`<h3>Dónde se filtra el bolsillo</h3><p>${b.leak}</p>`}
+  if(n.pistas&&n.pistas.length){h+='<h3>Pistas por verificar</h3><p class="tnote">No son cifras publicables: dicen qué buscar en una fuente oficial.</p>'+n.pistas.map(p=>`<div class="pbox">${p.t}${p.s?srcHTML(p.s):''}</div>`).join('')}
+  if(n.norm){h+='<h3>Base legal</h3><ul class="norm">'+n.norm.map(x=>`<li>${x}</li>`).join('')+'</ul><p class="tnote">Fechas de las leyes 26790, 27056, 27656 y 27657 por verificar en las normas originales.</p>'}
+  if(rel.length){h+='<h3>Se relaciona con</h3><div class="rel">'+rel.map(r=>`<button data-go="${r}">${NI[r].t}</button>`).join('')+'</div>'}
+  pbody.innerHTML=h; pbody.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>{const t=NI[b.dataset.go];if(!visible(t)){go(t.v.includes('A')?'formal':'dinero')}openNode(t.id)});
+  panel.classList.add('open'); panel.scrollTop=0;
+}
+function openEdge(ed){
+  setSel(null); panel.style.setProperty('--eje',ed.k==='bol'?'var(--bol)':ed.k==='reem'?'var(--reem)':'var(--tinta)');
+  const KN={reem:'Reembolso al hogar',fin:'Financiamiento',pref:'Red preferente',compra:'Compra o intercambio vigente',sinvig:'Convenio sin vigencia verificada',bol:'Gasto de bolsillo',deb:'Propuesta en debate'};
+  const S=ed.s&&SRC[ed.s];
+  let h=`<div class="kind">${KN[ed.k]}</div><h2>${NI[ed.f].t} → ${NI[ed.to].t}</h2>`;
+  h+= S&&S.k==='pista'?`<div class="pbox">${ed.e}${srcHTML(ed.s)}</div>`:`<p>${ed.e}</p>${ed.s?srcHTML(ed.s):(ed.k==='compra'?'<div class="src">Fuente por documentar</div>':'')}`;
+  h+=`<h3>Ver actores</h3><div class="rel"><button data-go="${ed.f}">${NI[ed.f].t}</button><button data-go="${ed.to}">${NI[ed.to].t}</button></div>`;
+  pbody.innerHTML=h; pbody.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>openNode(b.dataset.go));
+  panel.classList.add('open');
+}
+
+window.openDepFicha=function(html){ setSel(null); panel.style.setProperty('--eje','var(--oro)'); pbody.innerHTML=html; panel.classList.add('open'); panel.scrollTop=0; };
+/* ---------- tabla ---------- */
+function buildTable(){
+  const rows=[
+   ['SIS y FISSAL','Pública','Subsidiado y semicontributivo','MINSA','Red del MINSA y de los gobiernos regionales','Residentes sin otro seguro (DU 017-2019)'],
+   ['IAFAS FFAA (FOSPEME, FOSMAR, FOSFAP)','Pública','Contributivo especial','MINDEF','Sanidades de las FFAA','Militares y familias'],
+   ['SaludPol','Pública','Contributivo especial','MININTER','Sanidad PNP','Policías y familias'],
+   ['EsSalud','Pública','Contributivo (6,75 % de la planilla cuando hay EPS)','MTPE','Red EsSalud','Trabajadores formales y familias'],
+   ['EPS','Privada','Contributivo complementario (2,25 %)','Sin conducción sectorial','Clínicas privadas (compra)','Trabajadores formales afiliados por su empleador'],
+   ['Seguros privados y prepagas','Privada','Voluntario (primas)','Sin conducción sectorial','Clínicas privadas (compra)','Asegurados privados'],
+   ['Ninguna','—','Gasto directo','—','Cualquier prestador','No afiliados']];
+  const inst=Object.entries(RENI.inst).sort((a,b)=>b[1].n-a[1].n);
+  const cap=s=>s.toLowerCase().replace(/(^|\s)\S/g,m=>m.toUpperCase()).replace(/ De | Del | La /g,m=>m.toLowerCase()).replace('Minsa','MINSA').replace('Essalud','EsSalud').replace('Inpe','INPE');
+  document.getElementById('tablaView').innerHTML=
+   `<h3>Arquitectura formal</h3><p class="tnote">Adaptado de Videnza Consultores (2020), con normativa vigente a octubre de 2026.</p>
+    <table><thead><tr><th>IAFAS</th><th>Naturaleza</th><th>Régimen</th><th>Conduce el financiamiento</th><th>Red preferente</th><th>Población</th></tr></thead><tbody>${rows.map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('')}</tbody></table>
+    <h3>Establecimientos por institución</h3><p class="tnote">SUSALUD, RENIPRESS, descarga completa del ${RENI.corte} (${fmt(RENI.total.n)} establecimientos activos). Camas: las registradas en el archivo; los privados no las informan.</p>
+    <table><thead><tr><th>Institución</th><th class="n">Establecimientos</th><th class="n">Con internamiento</th><th class="n">Categoría II o III</th><th class="n">Camas registradas</th><th class="n">En el dpto. de Lima</th></tr></thead><tbody>${inst.map(([k,v])=>`<tr><td>${cap(k)}</td><td class="n">${fmt(v.n)}</td><td class="n">${fmt(v.intern)}</td><td class="n">${fmt(v.hosp)}</td><td class="n">${k==='PRIVADO'?'s. d.':fmt(v.camas)}</td><td class="n">${fmt(v.lima)}</td></tr>`).join('')}</tbody></table>
+    <h3>Gasto de bolsillo según el seguro de quien paga, 2019</h3><p class="tnote">DIGEMID con ENAHO. Total: S/ 11 297 millones. Montos: cálculo de Qhawana sobre los porcentajes.</p>
+    <table><thead><tr><th>Seguro</th><th class="n">% del total</th><th class="n">≈ Millones de soles</th></tr></thead><tbody>${[['EsSalud',37.2],['SIS',25.7],['Sin seguro',24.2],['Privado',7.5],['FFAA y PNP',3.1],['Otro seguro',2.2]].map(([a,b])=>`<tr><td>${a}</td><td class="n">${String(b).replace('.',',')}</td><td class="n">${fmt(Math.round(11297*b/100))}</td></tr>`).join('')}</tbody></table>`;
+}
+
+/* ---------- navegación ---------- */
+function go(v,fromHash){
+  if(!VIEWS[v]) v='formal';
+  const prev=view; view=v;
+  document.querySelectorAll('.tabs button').forEach(a=>a.setAttribute('aria-pressed',a.dataset.v===v?'true':'false'));
+  document.getElementById('ledeRot').textContent=VIEWS[v].rot||'';
+  document.getElementById('ledeText').textContent=VIEWS[v].lede;
+  document.getElementById('legend').innerHTML=VIEWS[v].legend||'';
+  const isT=v==='tabla';
+  document.getElementById('escena').style.display=isT?'none':'block'; document.getElementById('tablaView').style.display=isT?'block':'none';
+  if(!fromHash){try{history.replaceState(null,'','#'+v)}catch(e){location.hash=v}}
+  if(isT) return;
+  const isM=v==='mapa'; svg.style.display=isM?'none':'block'; document.getElementById('geo').hidden=!isM; document.getElementById('pieNota').style.display=isM?'none':'';
+  if(isM){ panel.classList.remove('open'); GEO.show(); return; }
+  svg.setAttribute('viewBox','0 0 1240 '+({formal:712,dinero:790,bolsillo:885}[v]));
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  gE.style.opacity=0; gBars.style.opacity=0;
+  layout();
+  setTimeout(()=>{drawEdges();drawBars();gE.style.opacity=1;gBars.style.opacity=1;focusOn(sel&&visible(NI[sel])?sel:null)}, (prev===v||reduce)?0:720);
+}
+document.querySelectorAll('.tabs button').forEach(a=>a.addEventListener('click',()=>go(a.dataset.v)));
+window.addEventListener('hashchange',()=>go(location.hash.slice(1),true));
+
+/* fuentes al pie */
+document.getElementById('srcList').innerHTML=Object.values(SRC).map(S=>`<li><span class="chip ${S.k}">${KLAB[S.k]}</span>${S.u?`<a href="${S.u}" target="_blank" rel="noopener">${S.n}</a>`:S.n}</li>`).join('');
+
+drawBackgrounds(); buildTable();
+const start=(location.hash||'').slice(1);
+view=VIEWS[start]?start:'formal';
+// primera carga sin animación
+N.forEach(n=>n.g.style.transition='none'); layout(); requestAnimationFrame(()=>N.forEach(n=>n.g.style.transition=''));
+go(view,true);
+</script>
+</body>
+</html>

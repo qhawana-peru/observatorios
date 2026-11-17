@@ -62,6 +62,7 @@ a.card:hover .go span{transform:translateX(4px)}
 .card.fuego{--accent:var(--fire);--soft:var(--fire-soft)}
 .card.nino{--accent:var(--sea);--soft:var(--sea-soft)}
 .card.plan{--accent:#E9B44C;--soft:#0C1D38}
+.card.salud{--accent:#5B8DEF;--soft:#0C1D38}
 .card.pronto{border-style:dashed}
 
 /* súmate */
@@ -158,6 +159,31 @@ footer{display:grid;gap:8px;color:var(--muted);font-size:.9rem;border-top:1px so
           <p class="go">Entrar <span aria-hidden="true">→</span></p>
         </div>
       </a>
+
+      <a class="card salud" href="salud/">
+        <div class="art" aria-hidden="true">
+          <svg viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice">
+            <rect width="320" height="180" fill="#0C1D38"/>
+            <rect x="34" y="18" width="252" height="16" rx="3" fill="#5B8DEF" opacity=".35" stroke="#5B8DEF"/>
+            <rect x="34" y="40" width="252" height="16" rx="3" fill="#A78BFA" opacity=".3" stroke="#A78BFA"/>
+            <g fill="none" stroke-width="2">
+              <rect x="34" y="72" width="56" height="20" rx="3" stroke="#8CC152"/><rect x="100" y="72" width="56" height="20" rx="3" stroke="#E2589B"/>
+              <rect x="166" y="72" width="56" height="20" rx="3" stroke="#22B5C2"/><rect x="232" y="72" width="54" height="20" rx="3" stroke="#E9B44C"/>
+              <path d="M62 92v18M128 92v18M194 92v18M259 92v18" stroke="rgba(234,240,248,.6)"/>
+              <path d="M62 110 C120 132 200 132 259 110" stroke="#E9B44C" stroke-dasharray="4 3"/>
+            </g>
+            <g fill="#FF7A45"><circle cx="160" cy="160" r="5"/></g>
+            <path d="M160 155 L62 112 M160 155 L128 112 M160 155 L194 112 M160 155 L259 112" stroke="#FF7A45" stroke-width="1.4" stroke-dasharray="2 4" fill="none"/>
+          </svg>
+        </div>
+        <div class="txt">
+          <span class="chip">Versión preliminar · sin revisión del comité</span>
+          <h3>Observatorio del sistema de salud</h3>
+          <p class="q">¿Quién financia, quién atiende y quién termina pagando?</p>
+          <p class="go">Entrar <span aria-hidden="true">→</span></p>
+        </div>
+      </a>
+
 
 
 
