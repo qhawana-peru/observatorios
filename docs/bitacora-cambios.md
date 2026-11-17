@@ -2,6 +2,11 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: salud, población sin seguro y gasto de bolsillo en el diseño formal (sin revisión de cuatro ojos)
+- **"No afiliados" pasa a "Sin seguro (con derecho al SIS)"**, por observación de Pepe. Desde el DU 017-2019 todo residente sin otro seguro tiene derecho al SIS, así que la norma ya no prevé esa población. La ficha muestra las dos cifras oficiales del INEI, que no coinciden: 5,2 % sin seguro en el Censo 2025 y 8,9 % en la ENAHO de enero a marzo de 2025 (censo frente a encuesta trimestral; seguro autodeclarado en ambas).
+- **"Ninguna" pasa a "Pago directo (sin IAFAS)"** y el régimen "Gasto directo" a **"Sin aseguramiento"**: el pago directo no es un régimen.
+- **Nueva franja transversal en la fila de población:** el gasto de bolsillo lo pagan afiliados de todos los regímenes y quienes no tienen seguro; no es una población ni parte del diseño. Remite a las vistas "Cómo circula el dinero" y "Dónde se filtra el bolsillo". No cambia ninguna cifra existente.
+
 ## 2026-11-17: ilustraciones nuevas en la portada (sin revisión del comité ni de cuatro ojos)
 - Por pedido de Pepe, las tarjetas del museo y de salud dejan de parecer organigramas. Museo: fachada de museo de noche, con frontón dorado, un plan iluminado en la entrada y estandartes turquesa y verde (sus alas sectorial y territorial). Salud: un electrocardiograma que termina en una moneda (S/) que cae a un bolsillo, por la pregunta de quién termina pagando. Animaciones suaves que se apagan si el usuario pidió reducir el movimiento. No cambian datos ni textos.
 

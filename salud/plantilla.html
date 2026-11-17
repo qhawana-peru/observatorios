@@ -478,6 +478,8 @@ const R = k => RENI.inst[k];
 /* ---------- fuentes ---------- */
 const SRC = {
   reni:{n:'SUSALUD, Registro Nacional de IPRESS (RENIPRESS), descarga completa del 16/11/2026',k:'oficial'},
+  censo25:{n:'INEI (2026). Censos Nacionales 2025: resultados por provincia y distrito (nota de prensa)',k:'oficial',u:'https://www.gob.pe/institucion/inei/noticias/1417313-censos-nacionales-2025-lima-metropolitana-continua-siendo-la-provincia-mas-poblada'},
+  enaho25:{n:'INEI (2025). Condiciones de vida en el Perú, enero-marzo 2025, ENAHO (nota de prensa)',k:'oficial',u:'https://www.gob.pe/institucion/inei/noticias/1192559-38-1-de-la-poblacion-con-algun-problema-de-salud-acudio-a-un-establecimiento-en-busca-de-atencion'},
   digemid:{n:'DIGEMID (2021). Gasto de bolsillo en salud y medicamentos 2012–2019, con ENAHO',k:'oficial',u:'https://www.digemid.minsa.gob.pe/Archivos/Estudios/GASTO_BOLSILLO_2012-2019.pdf'},
   essalud25:{n:'EsSalud (30/09/2025). Exposición ante la Comisión de Trabajo del Congreso',k:'oficial',u:'https://www.congreso.gob.pe/Docs/comisiones2025/trabajo/files/exposiciones/so-005-exposicion-essalud-30-09-2025.pdf'},
   essalud13:{n:'EsSalud (2013). Intercambio prestacional EsSalud–SIS en 10 regiones',k:'oficial',u:'https://www.essalud.gob.pe/asegurados-de-essalud-y-sis-se-beneficiaran-con-intercambio-prestacional-en-10-regiones-del-pais/'},
@@ -588,7 +590,7 @@ const N = [
   norm:['Ley 26790 (1997): crea las EPS']},
  {id:'priv',t:'Seguros privados',st:'y prepagas',c:'pri',A:[L[5],Y.ase],B:[900,270],v:'ABC',kind:'IAFAS privada · voluntario',
   d:'Se financian con primas. Tienen deducibles, coaseguros, exclusiones y preexistencias: el copago es parte del diseño.'},
- {id:'ninguna',t:'Ninguna',st:'Sin IAFAS',c:'non',A:[L[6],Y.ase],v:'AC',kind:'Sin seguro · gasto directo',d:'Quien no está afiliado paga directamente al prestador.',
+ {id:'ninguna',t:'Pago directo',st:'Sin IAFAS',c:'non',A:[L[6],Y.ase],v:'AC',kind:'Sin aseguramiento · pago directo',d:'Quien no tiene seguro paga directamente al prestador. Por norma tiene derecho a afiliarse al SIS (DU 017-2019). El pago directo no es exclusivo de esta columna: los afiliados de todos los regímenes también pagan de bolsillo (ver la franja de abajo y la vista «Dónde se filtra el bolsillo»).',
   facts:[{v:'24,2 %',t:'del gasto de bolsillo de 2019 lo pagaron personas sin seguro',s:'digemid'}]},
  {id:'fac',t:'Fondo de Alto Costo',st:'Proyecto de ley · en debate',c:'deb',w:150,A:[1090,270],B:[1090,270],v:'B',ghost:1,kind:'En debate · no existe aún',
   d:'Propuesta de un fondo de segundo piso al que las IAFAS públicas pagarían una prima, para cubrir el 100 % del tratamiento de alto costo en cualquier red, a pacientes del SIS y de EsSalud. Financiamiento propuesto: primas de los seguros públicos y 1 % de la recaudación del IGV. Directorio con MINSA, MEF, SIS, EsSalud y pacientes. El proyecto no le asigna papel al FISSAL.',
@@ -629,7 +631,9 @@ const N = [
  {id:'ppol',t:'Policías',st:'y familias',c:'esp',A:[L[2],Y.pob],v:'AC',kind:'Población',d:'Población de SaludPol.'},
  {id:'ptrab',t:'Trabajadores formales',st:'y familias',c:'con',w:270,A:[L45,Y.pob],v:'AC',kind:'Población',d:'Población de EsSalud. Si el empleador contrata una EPS, el trabajador tiene ambas coberturas.'},
  {id:'ppriv',t:'Asegurados privados',st:'',c:'pri',A:[L[5],Y.pob],v:'AC',kind:'Población',d:'Personas con seguro privado o prepaga.'},
- {id:'pnone',t:'No afiliados',st:'',c:'non',A:[L[6],Y.pob],v:'AC',kind:'Población',d:'Personas sin ningún seguro.'}
+ {id:'pnone',t:'Sin seguro',st:'con derecho al SIS',c:'non',A:[L[6],Y.pob],v:'AC',kind:'Población',
+  d:'En la norma esta población no debería existir: desde el DU 017-2019, todo residente sin otro seguro tiene derecho al SIS. En la práctica queda un grupo pequeño que declara no tener seguro. Dos fuentes oficiales del INEI dan cifras distintas: el censo pregunta una vez a toda la población y la ENAHO es una encuesta trimestral por muestra; en ambas el seguro es autodeclarado, así que puede incluir a personas afiliadas al SIS que no lo saben. No confundir con quienes pagan de bolsillo: esa conducta atraviesa a todas las poblaciones.',
+  facts:[{v:'5,2 %',t:'sin seguro de salud en el Censo 2025 (94,8 % con algún seguro)',s:'censo25'},{v:'8,9 %',t:'sin seguro en la ENAHO de enero a marzo de 2025 (91,1 % con algún seguro)',s:'enaho25'}]}
 ];
 const NI={}; N.forEach(n=>{n.w=n.w||128;n.h=n.h||50;n.B=n.B||n.A;NI[n.id]=n});
 
@@ -731,7 +735,12 @@ function drawBackgrounds(){
   const tl=el('text',{class:'rowlabel',x:14,y:Y.nat+4},gA);tl.textContent='Naturaleza';
   const tr=el('text',{class:'rowlabel',x:14,y:Y.reg+4},gA);tr.textContent='Régimen';
   band(160,r(3),Y.nat,'Pública','#C9D6EA',.9); band(r(3),r(5),Y.nat,'Privada','#E9B44C',.9); band(r(5),1230,Y.nat,'Sin IAFAS','#9AA6B8',.9);
-  band(160,r(0),Y.reg,'Subsidiado y semicontributivo','#8CC152',.9); band(r(0),r(2),Y.reg,'Contributivo especial','#E2589B',.9); band(r(2),r(3),Y.reg,'Contributivo','#22B5C2',.9); band(r(3),r(4),Y.reg,'Contrib. complem.','#E9B44C',.9); band(r(4),r(5),Y.reg,'Voluntario','#E9B44C',.65); band(r(5),1230,Y.reg,'Gasto directo','#9AA6B8',.9);
+  band(160,r(0),Y.reg,'Subsidiado y semicontributivo','#8CC152',.9); band(r(0),r(2),Y.reg,'Contributivo especial','#E2589B',.9); band(r(2),r(3),Y.reg,'Contributivo','#22B5C2',.9); band(r(3),r(4),Y.reg,'Contrib. complem.','#E9B44C',.9); band(r(4),r(5),Y.reg,'Voluntario','#E9B44C',.65); band(r(5),1230,Y.reg,'Sin aseguramiento','#9AA6B8',.9);
+  // franja transversal: el bolsillo no es una población ni parte del diseño
+  const fb=el('g',{id:'franjaBolsillo'},gA);
+  el('rect',{x:160,y:Y.pob+40,width:1068,height:26,rx:6,fill:'rgba(255,122,69,.08)',stroke:'#FF7A45','stroke-width':1.4,'stroke-dasharray':'6 4'},fb);
+  const tb=el('text',{x:694,y:Y.pob+57,'text-anchor':'middle',fill:'#FFB08F','font-size':12},fb);
+  tb.textContent='Gasto de bolsillo: lo pagan afiliados de todos los regímenes y quienes no tienen seguro · no es parte del diseño (ver «Cómo circula el dinero» y «Dónde se filtra el bolsillo»)';
   el('rect',{class:'contour',x:r(0)+6,y:Y.con-38,width:r(3)-r(0)-12,height:Y.pre-Y.con+80,rx:14},gA);
   const ct=el('text',{class:'ctext',x:(r(0)+r(3))/2,y:Y.pre+62,'text-anchor':'middle'},gA);ct.textContent='Subsistema integrado: la misma institución conduce, financia y presta';
   const sn=el('text',{class:'ctext',x:L[0],y:Y.pre+62,'text-anchor':'middle'},gA);sn.setAttribute('x',L[0]-10); sn.textContent='El SIS compra a otra red';
@@ -745,7 +754,8 @@ function visible(n){const k=VIEWS[view].key;return k&&n.v.includes(k)}
 
 function layout(){
   N.forEach(n=>{const [x,y]=pos(n);n.g.style.transform=`translate(${x}px,${y}px)`;n.g.classList.toggle('hid',!visible(n))});
-  gA.style.opacity=view==='formal'||view==='bolsillo'?1:0; gB.style.opacity=view==='dinero'?1:0;
+  gA.style.opacity=view==='formal'||view==='bolsillo'?1:0;
+  const fb=document.getElementById('franjaBolsillo'); if(fb) fb.style.opacity=view==='formal'?1:0; gB.style.opacity=view==='dinero'?1:0;
 }
 
 function edgePath(a,b){
@@ -856,7 +866,7 @@ function buildTable(){
    ['EsSalud','Pública','Contributivo (6,75 % de la planilla cuando hay EPS)','MTPE','Red EsSalud','Trabajadores formales y familias'],
    ['EPS','Privada','Contributivo complementario (2,25 %)','Sin conducción sectorial','Clínicas privadas (compra)','Trabajadores formales afiliados por su empleador'],
    ['Seguros privados y prepagas','Privada','Voluntario (primas)','Sin conducción sectorial','Clínicas privadas (compra)','Asegurados privados'],
-   ['Ninguna','—','Gasto directo','—','Cualquier prestador','No afiliados']];
+   ['Pago directo (sin IAFAS)','—','Sin aseguramiento','—','Cualquier prestador','Sin seguro (con derecho al SIS)']];
   const inst=Object.entries(RENI.inst).sort((a,b)=>b[1].n-a[1].n);
   const cap=s=>s.toLowerCase().replace(/(^|\s)\S/g,m=>m.toUpperCase()).replace(/ De | Del | La /g,m=>m.toLowerCase()).replace('Minsa','MINSA').replace('Essalud','EsSalud').replace('Inpe','INPE');
   document.getElementById('tablaView').innerHTML=
