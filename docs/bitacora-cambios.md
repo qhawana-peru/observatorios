@@ -2,6 +2,14 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: se publica el Observatorio del sistema de salud como versión preliminar (sin revisión del comité ni de cuatro ojos)
+- **Nuevo observatorio en `/salud/`**, por decisión de Pepe. Pregunta: ¿quién financia, quién atiende y quién termina pagando? Cinco vistas: diseño formal (rectoría del MINSA y supervisión de SUSALUD sobre todo el sistema; la SBS solo sobre las empresas de seguros), circulación del dinero (incluidos gasto de bolsillo y reembolsos), filtración del bolsillo, mapa de prestadores y tabla.
+- **Mapa de prestadores** con la descarga completa de RENIPRESS (SUSALUD) al 16/11/2026: 27 051 establecimientos. 7 003 (26 %, casi todos privados) no traen coordenadas y se ubican en el promedio de su distrito, marcados como aproximados. La descarga original no se sube porque trae datos personales (director, teléfono, RUC); se publica solo lo derivado (`salud/renipress.py`).
+- **Lectura del corte:** el 63 % de los establecimientos es privado, pero el 64 % de los 368 hospitales generales (II-1 a III-2) es público. 10 233 de los 17 039 privados son consultorios y 273 de los 404 privados de categoría II o III son especializados (II-E).
+- **Cifras de prensa solo como pistas** en las fichas (por ejemplo, las atenciones del FISSAL a julio de 2026 y la espera de citas en EsSalud). El gasto de bolsillo por seguro es de 2019 (DIGEMID) y se rotula como participación en el total, no gasto por persona.
+- **Licencia distinta en un archivo:** `salud/geo/departamentos_contornos.json` deriva de juaneladio/peru-geojson (límites del INEI) y mantiene su licencia MPL-2.0.
+- **Controles nuevos:** `herramientas/tests/test_salud.py` (puntos cuadran con el resumen y por departamento, coordenadas dentro del Perú, sin datos personales y generación de la página).
+
 ## 2026-11-17: se publica el Museo de la planificación como versión preliminar (sin revisión del comité ni de cuatro ojos)
 - **Nuevo observatorio en `/planificacion/`**, por decisión de Pepe. Inventario de planes del Estado: 4 planes de país, 40 políticas nacionales (lista de CEPLAN a junio de 2024), el sector Salud completo y los 26 planes regionales (PDRC), cada uno con su fuente oficial y su bitácora de seguimiento. Corte del catálogo: 16/11/2026.
 - **Piloto de indicadores y primer hilo:** objetivos e indicadores del PDRC Cajamarca (desde su informe de evaluación 2023-2024) y el hilo de la anemia infantil (PEDN, políticas nacionales, plan multisectorial, ENDES con los dos criterios de medición). Piura y Puno quedan "por catalogar": no se pudieron abrir sus documentos completos.

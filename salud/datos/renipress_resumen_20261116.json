@@ -1,0 +1,105 @@
+{
+ "inst": {
+  "ESSALUD": {
+   "n": 410,
+   "intern": 100,
+   "hosp": 80,
+   "camas": 8989,
+   "lima": 58,
+   "deps": 25
+  },
+  "GOBIERNO REGIONAL": {
+   "n": 8403,
+   "intern": 457,
+   "hosp": 155,
+   "camas": 16127,
+   "lima": 347,
+   "deps": 25
+  },
+  "INPE": {
+   "n": 58,
+   "intern": 0,
+   "hosp": 0,
+   "camas": 39,
+   "lima": 9,
+   "deps": 25
+  },
+  "MINSA": {
+   "n": 514,
+   "intern": 67,
+   "hosp": 29,
+   "camas": 6855,
+   "lima": 487,
+   "deps": 9
+  },
+  "MUNICIPALIDAD DISTRITAL": {
+   "n": 40,
+   "intern": 1,
+   "hosp": 1,
+   "camas": 22,
+   "lima": 18,
+   "deps": 9
+  },
+  "MUNICIPALIDAD PROVINCIAL": {
+   "n": 52,
+   "intern": 1,
+   "hosp": 1,
+   "camas": 21,
+   "lima": 31,
+   "deps": 14
+  },
+  "OTRO": {
+   "n": 234,
+   "intern": 8,
+   "hosp": 6,
+   "camas": 103,
+   "lima": 129,
+   "deps": 23
+  },
+  "PRIVADO": {
+   "n": 17039,
+   "intern": 496,
+   "hosp": 404,
+   "camas": 0,
+   "lima": 8740,
+   "deps": 25
+  },
+  "SANIDAD DE LA FUERZA AEREA DEL PERU": {
+   "n": 23,
+   "intern": 4,
+   "hosp": 1,
+   "camas": 322,
+   "lima": 8,
+   "deps": 12
+  },
+  "SANIDAD DE LA MARINA DE GUERRA DEL PERU": {
+   "n": 46,
+   "intern": 3,
+   "hosp": 1,
+   "camas": 371,
+   "lima": 3,
+   "deps": 11
+  },
+  "SANIDAD DE LA POLICIA NACIONAL DEL PERU": {
+   "n": 82,
+   "intern": 5,
+   "hosp": 5,
+   "camas": 298,
+   "lima": 19,
+   "deps": 25
+  },
+  "SANIDAD DEL EJERCITO DEL PERU": {
+   "n": 150,
+   "intern": 10,
+   "hosp": 4,
+   "camas": 796,
+   "lima": 31,
+   "deps": 25
+  }
+ },
+ "total": {
+  "n": 27051,
+  "deps": 25
+ },
+ "corte": "16/11/2026"
+}

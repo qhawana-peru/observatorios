@@ -1,4 +1,5 @@
-"""Genera el sitio público de Qhawana: portada, Observatorio El Niño, Monitor de incendios y Museo de la planificación.
+"""Genera el sitio público de Qhawana: portada, Observatorio El Niño, Monitor de incendios, Museo de la planificación
+y Observatorio del sistema de salud.
 
 Uso:
     python herramientas/construir_sitio.py            # escribe _site/
@@ -240,6 +241,11 @@ def main():
     museo = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(museo)
     museo.main(os.path.join(args.salida, "planificacion"), repo)
+    # Observatorio del sistema de salud: /salud/ con los datos del mapa en /salud/geo/ y abiertos en /salud/datos/.
+    spec = importlib.util.spec_from_file_location("salud_build", os.path.join(RAIZ, "salud", "build.py"))
+    salud = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(salud)
+    salud.main(os.path.join(args.salida, "salud"), repo)
     import sitio_incendios
     d = sitio_incendios.construir(args.salida)
     print(f"Incendios generado (corte {d['corte']}, {len(d['pistas'])} pistas vigentes). Portada en {args.salida}/index.html.")
