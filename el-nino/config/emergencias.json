@@ -1,14 +1,28 @@
 {
   "_ayuda": "Alcance de la sección de emergencias. 'desde': solo entran eventos ocurridos desde esta fecha (inicio de la declaratoria por peligro inminente ante El Niño 2026-2027, DS N.º 124-2026-PCM). 'regiones': regiones del piloto; las demás se muestran como 'fuera del piloto'. 'eventos': tipos de peligro que entran (vocabulario del COEN).",
   "desde": "2026-09-01",
-  "regiones": ["Tumbes", "Piura", "Lambayeque", "La Libertad"],
-  "eventos": ["lluvias intensas", "inundación", "huaico", "deslizamiento", "derrumbe", "desborde", "erosión", "activación de quebrada"],
+  "regiones": [
+    "Tumbes",
+    "Piura",
+    "Lambayeque",
+    "La Libertad"
+  ],
+  "eventos": [
+    "lluvias intensas",
+    "inundación",
+    "huaico",
+    "deslizamiento",
+    "derrumbe",
+    "desborde",
+    "erosión",
+    "activación de quebrada"
+  ],
   "revisado_hasta": "2026-10-23",
   "decreto": {
-    "norma": "DS N.º 124-2026-PCM",
-    "texto": "Estado de emergencia por peligro inminente ante intensas precipitaciones pluviales asociadas al Fenómeno El Niño 2026-2027, en 893 distritos de 22 departamentos y el Callao, por 60 días.",
-    "publicado": "2026-09-01",
-    "vence": "2026-10-30",
-    "url": "https://busquedas.elperuano.pe/dispositivo/NL/2549507-1"
+    "norma": "DS N.º 149-2026-PCM",
+    "texto": "Estado de emergencia por peligro inminente ante intensas precipitaciones pluviales asociadas al Fenómeno El Niño 2026-2027, en 1,380 distritos de 191 provincias (24 departamentos y el Callao), por 60 días calendario. Llega después del DS N.º 124-2026-PCM, que venció el 30 de octubre.",
+    "publicado": "2026-11-03",
+    "vence": "",
+    "url": "https://elperuano.pe/noticia/308230-fenomeno-el-nino-2026-2027-declaran-estado-de-emergencia-en-distritos-de-25-regiones"
   }
 }
