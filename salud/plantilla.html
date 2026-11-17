@@ -198,6 +198,7 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
   .escena{overflow-x:auto} svg#map{min-width:900px}
 }
 /* ---- vista 5: de qué morimos ---- */
+#mort[hidden]{display:none!important}
 #mort{padding:4px 2px 8px;color:#EAF0F8;display:grid;gap:14px}
 #mort .tira{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 @media(max-width:760px){#mort .tira{grid-template-columns:repeat(2,1fr)}}
@@ -241,7 +242,7 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
     <button data-v="dinero" aria-pressed="false"><span class="n">2</span>Cómo circula el dinero</button>
     <button data-v="bolsillo" aria-pressed="false"><span class="n">3</span>Dónde se filtra el bolsillo</button>
     <button data-v="mapa" aria-pressed="false"><span class="n">4</span>Dónde están los prestadores</button>
-    <button data-v="mortalidad" aria-pressed="false"><span class="n">5</span>De qué morimos</button>
+    <button data-v="mortalidad" aria-pressed="false"><span class="n">5</span>Mortalidad</button>
     <button data-v="tabla" aria-pressed="false"><span class="n">≡</span>Tabla</button>
   </div>
   <div class="como">Pasa el cursor para ver relaciones · clic en un actor o una flecha para abrir su ficha</div>
@@ -717,7 +718,7 @@ const VIEWS={
    legend:'<span>Barras: participación de cada grupo en el gasto de bolsillo total de 2019, no gasto por persona: un grupo pequeño pesa poco aunque cada persona pague mucho. FFAA y PNP vienen juntos en la fuente. «Otro seguro»: 2,2 %. Fuente: DIGEMID con ENAHO.</span>'},
  mapa:{rot:'4 · Dónde están los prestadores',lede:'Cada punto es un establecimiento registrado en RENIPRESS. Enciende y apaga redes, filtra por capacidad y compara: contar establecimientos no es lo mismo que contar hospitales.',
    legend:'<span>Tamaño: hospital general &gt; con internamiento &gt; sin internamiento</span><span>Anillo: ubicación aproximada (centro del distrito)</span><span>En «una red por mapa», naranja tenue = departamento sin esa red</span>'},
- mortalidad:{rot:'5 · De qué morimos',lede:'Primera capa de «De qué nos enfermamos y morimos»: las defunciones del archivo abierto del SINADEF, en tres grandes grupos de causas, con la calidad y el atraso del registro a la vista. Las capas de enfermedad (encuestas del INEI) y de consultas (red pública) vendrán después.',
+ mortalidad:{rot:'5 · Mortalidad',lede:'Primera capa de «De qué nos enfermamos y morimos»: las defunciones del archivo abierto del SINADEF, en tres grandes grupos de causas, con la calidad y el atraso del registro a la vista. Las capas de enfermedad (encuestas del INEI) y de consultas (red pública) vendrán después.',
    legend:'<span>Mortalidad proporcional: qué parte de las muertes registradas corresponde a cada grupo. No son tasas por habitante.</span>'},
  tabla:{rot:'Tabla',lede:'La misma información en tablas, legible sin interacción.'}
 };
@@ -948,7 +949,7 @@ const MORTV=(()=>{
       <div class="k"><b>${f1(pct(A.I,tot))} %</b><span>por enfermedades transmisibles, maternas, perinatales y nutricionales</span></div>
       <div class="k"><b>${f1(pct(A.X,tot))} %</b><span>con causa mal definida, poco informativa o sin código: el límite de lo que se puede saber</span></div>
     </div>
-    <div class="bloque"><h3>Cómo cambió de qué morimos, ${MORT.anios[0]}–${MORT.anios[MORT.anios.length-1]}</h3><p class="nota">Cada barra suma el 100 % de las muertes registradas del año. El salto de 2020 y 2021 es la COVID-19 (grupo de transmisibles). * ${MORT.parcial}: solo enero al ${MORT.hasta}. La cifra a la derecha es lo que contiene el archivo, no el total de muertes del país.</p>${ley()}${barras100(anios,{w:1200,etq:60})}</div>
+    <div class="bloque"><h3>Cómo cambiaron las causas de muerte, ${MORT.anios[0]}–${MORT.anios[MORT.anios.length-1]}</h3><p class="nota">Cada barra suma el 100 % de las muertes registradas del año. El salto de 2020 y 2021 es la COVID-19 (grupo de transmisibles). * ${MORT.parcial}: solo enero al ${MORT.hasta}. La cifra a la derecha es lo que contiene el archivo, no el total de muertes del país.</p>${ley()}${barras100(anios,{w:1200,etq:60})}</div>
     <div class="dos">
       <div class="bloque"><h3>Las causas, por subgrupo · ${anio}</h3><p class="nota">Color = gran grupo. Las causas mal definidas o sin código se muestran al final: no son una enfermedad, son lo que el registro no permite saber.</p>${ranking(MORT.sub[anio],tot)}</div>
       <div class="bloque"><h3>Según el seguro del fallecido · ${anio}</h3><p class="nota">Tal como figura en el certificado de defunción. Une esta vista con la de quién financia: qué enfermedades terminan en cada fondo.</p>${ley()}${barras100(seg,{w:560,etq:120})}</div>
