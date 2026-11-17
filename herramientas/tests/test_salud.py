@@ -91,3 +91,9 @@ class TestMortalidad(unittest.TestCase):
         self.assertIn(r["parcial"], r["anios"])
         self.assertNotEqual(r["ultimo"], r["parcial"])
         self.assertRegex(r["hasta"], r"^\d\d/\d\d/\d{4}$")
+
+    def test_la_vista_de_mortalidad_se_oculta_en_las_otras_pestanas(self):
+        with open(os.path.join(SA, "plantilla.html"), encoding="utf-8") as f:
+            html = f.read()
+        # #mort usa display:grid, que anula el atributo hidden si no hay una regla explícita.
+        self.assertIn("#mort[hidden]{display:none!important}", html)

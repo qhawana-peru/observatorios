@@ -2,6 +2,11 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17 · Salud: corrección de la vista 5 y nuevo nombre «Mortalidad»
+
+- Qué: los gráficos de mortalidad aparecían debajo de las otras pestañas después de visitarla (la regla `display:grid` anulaba el atributo `hidden`). Se agrega `#mort[hidden]{display:none}` y una prueba. La pestaña pasa a llamarse «Mortalidad», a pedido de Pepe.
+- Revisión: sin revisión de cuatro ojos (suspendida); preparado, revisado y unido por Claude.
+
 ## 2026-11-17 · Salud: vista 5 «De qué morimos» (SINADEF)
 
 - Qué: nueva vista en /salud/ con la mortalidad proporcional por tres grandes grupos de causas (transmisibles/maternas/perinatales/nutricionales; no transmisibles; lesiones) más un bloque de causas mal definidas o sin código; por año (2017–2024), subgrupo, seguro, edad y departamento; calidad del registro y alertas de cobertura.
