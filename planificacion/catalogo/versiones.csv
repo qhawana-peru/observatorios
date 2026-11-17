@@ -1,0 +1,36 @@
+plan_id,fecha,descripcion,norma,url,vigente
+an,2002-07-22,Suscripción del Acuerdo Nacional,,,si
+vision,2019-04-29,Aprobación por consenso en la sesión 126 del Foro del Acuerdo Nacional,Acta 126,https://acuerdonacional.pe/wp-content/uploads/2023/03/Acta-126-Vision-del-Peru-al-2050.pdf,si
+pedn,2022-07-28,Aprobación,DS 095-2022-PCM,https://busquedas.elperuano.pe/dispositivo/NL/2090829-7,no
+pedn,2023-09-14,Actualización,DS 103-2023-PCM,https://busquedas.elperuano.pe/dispositivo/NL/2215042-3/,si
+pedn,2026-07-14,Modificación de 26 fichas técnicas de indicadores,RPCD 046-2026/CEPLAN/PCD,https://busquedas.elperuano.pe/dispositivo/NL/2534766-1,
+pgg,2025-12-20,PGG anterior 2025-2026 (hasta julio de 2026),DS 141-2025-PCM,https://www.gob.pe/institucion/pcm/noticias/1317002-ejecutivo-aprueba-la-politica-general-de-gobierno-2025-2026,no
+pgg,2026-09-05,Publicación de la PGG 2026-2031 (aprobada en Consejo de Ministros el 04/09/2026),DS 127-2026-PCM,https://busquedas.elperuano.pe/dispositivo/NL/2551404-3,si
+pnms,2020,Aprobación,DS 026-2020-SA,https://observateperu.ins.gob.pe/sites/default/files/2024-10/Pol%C3%ADtica%20Nacional%20Multisectorial%20de%20Salud%20al%202030%20.pdf,si
+pem-pnms,2021-06-27,Aprobación (separata especial de El Peruano),DS 016-2021-SA,https://vlex.com.pe/vid/869835364,si
+pesem-salud,2016-06-02,PESEM 2016-2021,RM 367-2016/MINSA,https://www.minsa.gob.pe/transparencia/index.asp?op=1001,no
+pesem-salud,2022,Ampliación del horizonte del PESEM 2016-2021 al año 2025,RM 364-2022-MINSA,https://www.gob.pe/institucion/minsa/normas-legales/3002475-364-2022-minsa,no
+pesem-salud,2024-01-03,PESEM 2024-2030 (fecha de publicación en el portal del MINSA),RM 1174-2023/MINSA,https://www.minsa.gob.pe/transparencia/index.asp?op=1001,si
+pei-minsa,2024,PEI 2019-2027 ampliado,RM 172-2024-MINSA,https://cdn.www.gob.pe/uploads/document/file/6594276/5734282-resolucion-ministerial-n-172-2024-minsa.pdf,no
+pei-minsa,2025,PEI 2025-2030,Por confirmar,https://cdn.www.gob.pe/uploads/document/file/7566687/6425886-plan-estrategico-institucional-2025-2030-del-ministerio-de-salud.pdf,si
+pdrc-00,2022-10-29,PDRC de la Región Amazonas hasta 2025,OR 009-2022-GRA/CR,https://cdn.www.gob.pe/uploads/document/file/4432375/Acuerdo%20de%20Consejo%20032-2023%20CR.pdf,no
+pdrc-00,2026,"PDRC 2026-2040, con informe técnico de CEPLAN de abril de 2026",,https://busquedas.elperuano.pe/dispositivo/NL/2528461-1,si
+pdrc-01,2024-11-21,Publicación en El Peruano,,https://busquedas.elperuano.pe/dispositivo/NL/2346253-1,si
+pdrc-05,2023-08-10,Publicación en El Peruano,OR D4-2023-GR.CAJ/CR,https://busquedas.elperuano.pe/dispositivo/NL/2203132-1,si
+pdrc-06,2022-10-25,Ampliación del PDRC 2011-2021 hasta 2025,OR 009-2022,https://www.gob.pe/institucion/regioncallao/colecciones/10147-ordenanzas-del-consejo-regional,no
+pdrc-06,2023-05-19,Ampliación hasta 2027,OR 002-2023,https://hndac.gob.pe/wp-content/uploads/PLAN-DE-DESARROLLO-REGIONAL-CONCERTADO-ACTUALIZADO.pdf,no
+pdrc-06,2024-09-16,PDRC 2025-2034,OR 007-2024,https://busquedas.elperuano.pe/dispositivo/NL/2531967-1,si
+pdrc-07,2023-12-01,Publicación,OR 239-2023-CR/GR CUSCO,https://sinia.minam.gob.pe/normas/plan-desarrollo-regional-concertado-cusco-2033,si
+pdrc-09,2022-11-17,Publicación en El Peruano,OR 086-2022-GRH-CR,https://busquedas.elperuano.pe/dispositivo/NL/2194295-1,si
+pdrc-10,2022,Ampliación del PDRC 2016-2021 hasta 2025,OR 003-2022-GORE-ICA,https://juventud.gob.pe/normativa-joven-pdf/1/166.pdf,no
+pdrc-10,2023,Ampliación hasta 2027,,https://juventud.gob.pe/normativa-joven-pdf/1/166.pdf,si
+pdrc-12,2023-09-21,Publicación en El Peruano,OR 000007-2023-GRLL/CR,https://juventud.gob.pe/normativa-joven-pdf/1/105.pdf,si
+pdrc-15,2015-10-29,PDRC Loreto al 2021,OR 014-2015-GRL-CR,https://aplicaciones02.regionloreto.gob.pe/sites/default/files/normativa_regional/ordenanza_regional_no_014-2015.pdf,no
+pdrc-15,2023,Ampliación del horizonte al 2027 (acuerdo del Consejo Regional),,https://cdn.www.gob.pe/uploads/document/file/4631031/ACR%20N048.pdf,si
+pdrc-19,2017-02-27,PDRC Piura hacia el 2021,OR 381-2017/GRP-CR,https://sni.org.pe/ordenanza-que-aprueba-el-plan-de-desarrollo-regional-concertado-piura-hacia-el-2021/,no
+pdrc-19,2023-09-27,Ampliación del horizonte al 2027 (derogada en 2025),OR 488-2023/GRP-CR,https://juventud.gob.pe/normativa-joven-pdf/1/107.pdf,no
+pdrc-19,2025-08-29,"PDRC 2025-2034, publicado en El Peruano",OR 527-2025/GRP-CR,https://busquedas.elperuano.pe/dispositivo/NL/2431989-1,si
+pdrc-20,2025-09-03,Publicación en El Peruano,OR 000014-2025-GRP/GR PUNO,https://busquedas.elperuano.pe/dispositivo/NL/2433656-1,si
+pdrc-21,2018-11-19,PDRC San Martín al 2030,OR 030-2018-GRSM/CR,https://cdn.www.gob.pe/uploads/document/file/6166933/5440483-resolucion-n-055-2024-grsm-gtbm-t.pdf,no
+pdrc-21,2026,"PDRC al 2040, citado en una ordenanza regional de junio de 2026",,https://busquedas.elperuano.pe/dispositivo/NL/2535749-1,si
+pdrc-22,2024-02-23,Publicación en El Peruano,OR 001-2024-CR/GOB.REG.TACNA,https://juventud.gob.pe/normativa-joven-pdf/1/287.pdf,si

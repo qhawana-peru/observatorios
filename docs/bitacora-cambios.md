@@ -2,6 +2,13 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-17: se publica el Museo de la planificación como versión preliminar (sin revisión del comité ni de cuatro ojos)
+- **Nuevo observatorio en `/planificacion/`**, por decisión de Pepe. Inventario de planes del Estado: 4 planes de país, 40 políticas nacionales (lista de CEPLAN a junio de 2024), el sector Salud completo y los 26 planes regionales (PDRC), cada uno con su fuente oficial y su bitácora de seguimiento. Corte del catálogo: 16/11/2026.
+- **Piloto de indicadores y primer hilo:** objetivos e indicadores del PDRC Cajamarca (desde su informe de evaluación 2023-2024) y el hilo de la anemia infantil (PEDN, políticas nacionales, plan multisectorial, ENDES con los dos criterios de medición). Piura y Puno quedan "por catalogar": no se pudieron abrir sus documentos completos.
+- **27 indicadores del museo con ficha** (6 activos, 7 en piloto, 11 en revisión, 3 de etapa 2) y 4 descartados con su razón. Método en `docs/planificacion-metodologia.md`.
+- **Aviso visible en la página:** versión preliminar, sin revisión del comité; las cifras del piloto están en cotejo manual con sus documentos.
+- **Controles nuevos:** `herramientas/tests/test_planificacion.py` (identificadores únicos, referencias, 26 pliegos, fuente en cada pieza, hallazgos completos, estados de KPI y generación de la página).
+
 ## 2026-11-17: cortes del MEF del 16 y 17 nov, nueva declaratoria y diseño compartido con el museo (sin revisión de cuatro ojos)
 - **MEF: entran los cortes del 16 nov** (descarga del lunes, no publicada) **y del 17 nov** (lanzado a mano). Ambos pasan los seis controles. Al 17 nov: PIM S/ 5,106.6 M, devengado S/ 2,554.9 M (50,0 %). Nacional 41,0 %, municipal 54,9 %, regional 73,1 %. Avisos de cambio de PIM: proyectos del Gobierno Regional de Tumbes de S/ 4.4 M a 5.5 M (16 nov) y a 8.7 M (17 nov), +99 % en dos cortes; actividades municipales de Lambayeque +21 % (16 nov).
 - **Nueva declaratoria:** DS N.º 149-2026-PCM (3 nov), 60 días, 1,380 distritos de 191 provincias en 24 departamentos y el Callao. Se registra con la nota de El Peruano; falta enlazar la norma y su anexo, y confirmar si prorroga el DS N.º 124-2026-PCM (vencido el 30 oct) o es una declaratoria nueva. Entre el 31 oct y el 2 nov no hubo declaratoria vigente ubicada.

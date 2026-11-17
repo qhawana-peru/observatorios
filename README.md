@@ -20,12 +20,14 @@ De nadie en particular. Es un trabajo colectivo de las personas que deciden suma
 | --- | --- | --- |
 | **El Niño** (`el-nino/`) | ¿Qué hizo el Estado con el aviso que tuvo antes del Fenómeno El Niño 2026-2027? | En operación (fase 1) |
 | **Incendios forestales** (`incendios/`) | ¿Dónde y cuánto se quema, y qué tan lejos está el fin de la temporada? | Prototipo (Cusco y Cajamarca), con pistas por verificar |
+| **Museo de la planificación** (`planificacion/`) | ¿Qué se propuso el Estado, quién lo planificó, cómo se conectan sus planes y cuáles tienen seguimiento? | Versión preliminar, sin revisión del comité (lanzamiento previsto el 2 de enero de 2027) |
 
 ## El sitio
 
 - `/` portada con el menú de observatorios.
 - `/el-nino/` Observatorio El Niño (los datos siguen disponibles también en `/datos/` para no romper enlaces anteriores).
 - `/incendios/` Monitor de incendios forestales.
+- `/planificacion/` Museo de la planificación (catálogo abierto en `planificacion/catalogo/`; método en [docs/planificacion-metodologia.md](docs/planificacion-metodologia.md)).
 
 ## Pistas por verificar
 

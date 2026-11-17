@@ -1,0 +1,16 @@
+plan_id,tipo,texto
+vision,discrepancia,Dos fuentes oficiales dan fechas distintas. El acta de la sesión 126 del Foro del Acuerdo Nacional registra el lunes 29 de abril de 2019; el folleto 'Visión del país al 2050' del Acuerdo Nacional dice que se aprobó el 27 de febrero de 2019. No hay explicación documentada; el acta es el registro de la sesión.
+pgg,pista,"Pista corregida. La prensa informó metas con plazo a diciembre de 2026, julio de 2027 y 2031. El texto del DS 127-2026-PCM no fija metas, indicadores ni plazos; esos plazos se mencionaron en la exposición del presidente del Consejo de Ministros ante la Cámara de Diputados."
+pesem-salud,observacion,Superposición de horizontes: el PESEM 2016-2021 ampliado al 2025 (RM 364-2022-MINSA) y el PESEM 2024-2030 (RM 1174-2023/MINSA) cubren ambos 2024 y 2025. El informe de evaluación del año 2023 corresponde al plan ampliado. No hay explicación documentada de cuál rige en esos dos años.
+pei-minsa,observacion,Superposición de horizontes: el PEI 2019-2027 ampliado (RM 172-2024-MINSA) y el PEI 2025-2030 cubren ambos 2025 a 2027. Falta confirmar la norma que aprueba el PEI 2025-2030.
+pdrc-04,observacion,Plan formulado para 2016-2021 y ampliado hasta 2027. Lo cita el propio gobierno regional en su audiencia pública de 2025; falta ubicar la ordenanza de ampliación.
+pdrc-05,discrepancia,"El informe de evaluación de octubre de 2025 se titula ""PDRC al 2030"", aunque el plan aprobado es al 2033; también usa dos enunciados distintos para los objetivos 11 y 12."
+pdrc-06,discrepancia,Dos fuentes oficiales dan fechas distintas para la OR 007-2024: el portal gob.pe del Gobierno Regional la lista con fecha 20/06/2024; una ordenanza regional de 2026 y la audiencia pública de 2025 la citan con fecha 16/09/2024. No hay explicación documentada.
+pdrc-11,observacion,El Gobierno Regional cita el PDRC Junín al 2040 en sus documentos; falta ubicar la ordenanza que lo aprueba.
+pdrc-16,observacion,Es el último PDRC que ubicamos. No encontramos una ampliación ni un plan nuevo al 16/11/2026; puede existir y cualquiera puede aportar el enlace.
+pdrc-18,observacion,La aprobación la reportan la Mesa de Concertación y un documento del Congreso; falta ubicar la ordenanza regional.
+pdrc-19,observacion,El plan 2025-2034 derogó la ampliación al 2027. La versión 5 del museo mostraba a Piura con el plan antiguo ampliado; quedó corregido el 16/11/2026.
+pdrc-19,observacion,"El documento completo está en la plataforma gob.pe, pero no pudimos abrirlo con nuestras herramientas: sus objetivos e indicadores están por catalogar."
+pdrc-20,observacion,No pudimos abrir el documento completo del plan: la página del PDRC en el portal del Gobierno Regional no respondía al 16/11/2026. Sus objetivos e indicadores están por catalogar.
+pdrc-21,observacion,Documentos oficiales recientes citan dos planes: el PDRC al 2030 (OR 030-2018-GRSM/CR) y el PDRC al 2040. Falta ubicar la ordenanza que aprueba el plan al 2040.
+pdrc-25,observacion,"Es el último plan regional concertado de Lima Metropolitana que ubicamos. El PLANMET 2040 (Ordenanza 2499-2022) es un plan de desarrollo urbano, no un plan de desarrollo concertado. Puede existir uno vigente: cualquiera puede aportar el enlace."
