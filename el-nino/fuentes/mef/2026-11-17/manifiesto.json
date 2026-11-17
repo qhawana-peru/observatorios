@@ -1,0 +1,56 @@
+{
+  "fecha": "2026-11-17",
+  "descargado": "2026-11-17T08:11:15-05:00",
+  "fuente": "MEF, Consulta Amigable (exportación pública)",
+  "archivos": [
+    {
+      "codigo": "D1",
+      "archivo": "20261117_PP0068_D1_niveles_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=&y=2026&cpage=1&psize=400",
+      "bytes": 10211,
+      "sha256": "dcfb880acffca8facf759310f66bec2c8bae9a40cf86ad456de2447dfb7a6aee"
+    },
+    {
+      "codigo": "D2",
+      "archivo": "20261117_PP0068_D2_GR-actividades_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=R&2=99&3=&ap=Actividad&y=2026&cpage=1&psize=400",
+      "bytes": 45133,
+      "sha256": "a23a36078ed1aa0b351827583746fae835a3d321463a1103454e2d6a6e2ab841"
+    },
+    {
+      "codigo": "D3",
+      "archivo": "20261117_PP0068_D3_GR-proyectos_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=R&2=99&3=&ap=Proyecto&y=2026&cpage=1&psize=400",
+      "bytes": 32773,
+      "sha256": "2f3b1ca1bcb69bea6dad671c9a8d1b398b04f563158499ddc91e532a1729ed16"
+    },
+    {
+      "codigo": "D4",
+      "archivo": "20261117_PP0068_D4_GL-actividades_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=M&37=M&5=&ap=Actividad&y=2026&cpage=1&psize=400",
+      "bytes": 42657,
+      "sha256": "09a1a6a22b4764a875dc9b125d8c8e18a9829c4af2c5a69a4b05fa467b19cea8"
+    },
+    {
+      "codigo": "D5",
+      "archivo": "20261117_PP0068_D5_GL-proyectos_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=M&37=M&5=&ap=Proyecto&y=2026&cpage=1&psize=400",
+      "bytes": 41086,
+      "sha256": "ec508beff8f5a792d1f1c555d8ac2358f04ea2ebb8a0892c586e1a670ba2e5c1"
+    },
+    {
+      "codigo": "D6",
+      "archivo": "20261117_PP0068_D6_GN-actividades_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=E&2=&ap=Actividad&y=2026&cpage=1&psize=400",
+      "bytes": 26497,
+      "sha256": "e35e89ee13088aa37c885e16daf3b89f9267f95aba8b9a84a039a140127cacdd"
+    },
+    {
+      "codigo": "D7",
+      "archivo": "20261117_PP0068_D7_GN-proyectos_p1de1.xls",
+      "url": "https://apps5.mineco.gob.pe/transparencia/Navegador/Navegar_7.aspx?_tgt=xls&_uhc=yes&0=&30=0068&1=E&2=&ap=Proyecto&y=2026&cpage=1&psize=400",
+      "bytes": 13122,
+      "sha256": "f95d1c7174b659edac5681cba1b4d30dce48acc4a629a868663e23c2d37dd5aa"
+    }
+  ]
+}
