@@ -12,6 +12,9 @@ Lee:
   el-nino/config/emergencias.json      alcance de esa tabla y declaratoria vigente
   el-nino/config/contexto.json         pronóstico por región y planes aprobados
   el-nino/datos/exposicion_cenepred.csv  población expuesta según los escenarios del CENEPRED
+  el-nino/datos/riesgo_distritos_cenepred.csv  nivel de riesgo de cada distrito según el CENEPRED
+  el-nino/datos/riesgo_lima_cenepred.csv       riesgo por manzana de Lima y Callao, sumado por distrito
+  el-nino/config/riesgo.json           estudios del CENEPRED de la pestaña Riesgo
   el-nino/config/brechas.json          territorios de la sección de brechas (Lima y regiones críticas)
   el-nino/config/sitio.json            estado de publicación y dirección del repositorio
 y escribe _site/el-nino/index.html con sus datos abiertos. Luego llama a sitio_incendios.py,
@@ -122,9 +125,25 @@ def construir_datos() -> dict:
     emergencias = construir_emergencias()
     avisos = construir_avisos()
     brechas = construir_brechas(ult, emergencias, avisos)
-    return {"avisos": avisos, "brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
+    return {"avisos": avisos, "riesgo": construir_riesgo(), "brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
             "aprobado": sitio.get("estado") == "publicado", "niveles": niveles, "regiones": regiones,
             "serie": serie, "hechos": hechos, "emergencias": emergencias, "contexto": contexto, "_repo": sitio.get("repositorio", "#")}
+
+
+def construir_riesgo() -> dict:
+    """Zonas de riesgo por distrito (CENEPRED). Se envía compacto: una lista por distrito."""
+    with open(os.path.join(EN, "config", "riesgo.json"), encoding="utf-8") as f:
+        cfg = json.load(f)
+    n = lambda v: int(v) if v not in (None, "") else None
+    dist = []
+    for r in leer_csv(os.path.join(EN, "datos", "riesgo_distritos_cenepred.csv")):
+        dist.append([r["ubigeo"], r["dep"], r["prov"], r["dist"], n(r["pob"]), n(r["a_inu"]), n(r["a_mm"]),
+                     n(r["b_inu"]), n(r["b_pinu"]), n(r["b_mm"]), n(r["b_pmm"]), n(r["pc_inu"]) or 0, n(r["pc_mm"]) or 0])
+    lima = [[r["ubigeo"], r["prov"], r["dist"]] + [int(r[k]) for k in
+            ("pob_ma", "pob_a", "pob_m", "manz_ma", "ninos_0_5_ma", "mayores_65_ma", "eess_ma", "iiee_ma")]
+            for r in leer_csv(os.path.join(EN, "datos", "riesgo_lima_cenepred.csv"))]
+    return {"estudios": cfg["estudios"], "consultado": cfg["consultado"], "consultado_largo": etiqueta(cfg["consultado"], True),
+            "dist": dist, "lima": lima}
 
 
 def construir_emergencias() -> dict:

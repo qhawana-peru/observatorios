@@ -1,0 +1,16 @@
+{
+  "_ayuda": "Estudios del CENEPRED que alimentan la pestaña 'Riesgo' (zonas de riesgo por distrito). Cada estudio tiene su ficha en el SIGRID y su tabla en Excel; los CSV del repositorio se derivan de esos Excel (método en docs/el-nino-zonas-riesgo.md).",
+  "consultado": "2026-11-18",
+  "estudios": {
+    "A": {"corto": "Escenario El Niño (actualizado)", "titulo": "Estudio de escenarios de riesgo por inundaciones y movimientos en masa ante lluvias intensas asociadas al Fenómeno El Niño (actualizado en base al Informe Técnico N.º 69-2026/SENAMHI-DMA-SPC)",
+          "base": "Lluvias máximas de los Niños de 1983, 1998, 2017 y 2023", "unidad": "Distrito: el nivel se asigna a todo el distrito y la población es la del distrito completo",
+          "ficha": "https://sigrid.cenepred.gob.pe/sigridv3/documento/22169", "excel": "https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_climatico_llu/13_excel.zip"},
+    "B": {"corto": "Verano 2027 (actualización de octubre)", "titulo": "Estudio de escenarios de riesgo por lluvias para el verano 2027 (basado en el Informe Técnico N.º 13-2026/SENAMHI-DMA-SVC)",
+          "base": "Pronóstico de lluvias del SENAMHI para el verano 2027", "unidad": "Distrito, con la población que vive en las zonas de mayor susceptibilidad del distrito",
+          "ficha": "https://sigrid.cenepred.gob.pe/sigridv3/documento/23278", "excel": "https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_trimestral/103_tabla.zip"},
+    "L": {"corto": "Lima Metropolitana y Callao", "titulo": "Estudio de escenario de riesgo por inundaciones en Lima Metropolitana y la Provincia Constitucional del Callao en el marco del Fenómeno El Niño 2026-2027",
+          "base": "Lluvias previstas para El Niño 2026-2027", "unidad": "Manzana censal: solo las manzanas del área de estudio",
+          "ficha": "https://sigrid.cenepred.gob.pe/sigridv3/documento/23279", "excel": "https://sigrid.cenepred.gob.pe/sigridv3/storage/escenario_climatico_llu/17_excel.zip"}
+  },
+  "puntos_criticos": "Tramos críticos de la Autoridad Nacional del Agua (ANA) que el CENEPRED adjunta al estudio de verano 2027 (archivo Puntos_criticos_IT132026.xlsx)."
+}

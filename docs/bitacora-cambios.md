@@ -2,6 +2,19 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18: pestaña "Riesgo" con zonas de riesgo por distrito (sin revisión de cuatro ojos)
+- **Qué hay:**
+  - Nivel de riesgo por inundación y por movimientos en masa de los 1893 distritos del país, según dos estudios del CENEPRED: el escenario El Niño actualizado con el IT N.º 69-2026 del SENAMHI y el de verano 2027 de octubre (IT N.º 13-2026).
+  - Tramos críticos de la ANA por distrito.
+  - El estudio de Lima Metropolitana y Callao manzana por manzana (Censos 2025), sumado por distrito.
+- **Navegación:** departamento, provincia y búsqueda por distrito. La vista inicial muestra los 100 distritos en riesgo muy alto por inundación en los dos estudios.
+- **Pestañas:** Riesgo pasa a ser el paso 2. Respuesta pasa a 3 e Impacto a 4.
+- **Control:** los CSV cuadran exactamente con los totales impresos en las hojas de resumen de los Excel del CENEPRED (prueba nueva `test_zonas_riesgo.py`).
+- **Diferencias declaradas:**
+  - En el estudio de Lima, el PDF imprime 609 550 personas en riesgo muy alto y el Excel suma 609 586. Se publica el Excel.
+  - La cifra de 2,28 millones de personas de Lima en riesgo muy alto que citaba la prensa ya tiene fuente oficial: es el escenario El Niño actualizado, que cuenta la población completa de 18 distritos del departamento.
+- **Pendiente:** la pestaña Brechas sigue con la versión de mayo del escenario El Niño. Actualizarla cambia cifras publicadas y requiere decisión.
+
 ## 2026-11-18: título de la línea de tiempo (sin revisión de cuatro ojos)
 - "Aviso, decisiones y gasto en el mismo calendario" pasa a "Pronóstico, decisiones y gasto en una misma línea de tiempo". La franja superior del gráfico muestra el pronóstico del ENFEN, no los avisos del SENAMHI, que tienen su propia pestaña. El título anterior mezclaba los dos.
 
