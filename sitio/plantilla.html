@@ -212,7 +212,7 @@ svg text{font-family:var(--mono)}
 .br .yes{color:var(--obra);font-weight:700} .br .no{color:var(--alert);font-weight:700}
 .br .small{overflow-wrap:anywhere}
 
-/* pestañas del observatorio: la secuencia aviso → respuesta → impacto va numerada; el resto es de apoyo */
+/* pestañas del observatorio: la secuencia aviso → riesgo → respuesta → impacto va numerada; el resto es de apoyo */
 .obs-tabs{display:flex;gap:6px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);scrollbar-width:thin}
 .obs-tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;font:600 .95rem var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 16px;border-radius:99px;cursor:pointer;white-space:nowrap}
 .obs-tab .n{font:700 .78rem var(--mono);width:1.4rem;height:1.4rem;border-radius:50%;display:inline-grid;place-items:center;background:var(--sunk);color:var(--ink)}
@@ -223,6 +223,25 @@ svg text{font-family:var(--mono)}
 .obs-sig{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;font-size:.95rem}
 .obs-sig button{font:inherit;color:var(--sea);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
 
+/* pestaña Riesgo: zonas de riesgo del CENEPRED por distrito */
+.rz-ctl{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:end}
+.rz-ctl label{display:grid;gap:4px;font-size:.86rem;color:var(--muted);min-width:0}
+.rz-ctl input[type=search]{font:inherit;font-size:1rem;padding:10px 14px;border:1.5px solid var(--ink);background:var(--surface);color:var(--ink);min-height:44px;width:min(100%,260px)}
+.rz-ctl .chk{display:flex;gap:8px;align-items:center;color:var(--ink);font-size:.95rem;min-height:44px}
+.rz-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);background:var(--surface)}
+.rz-t{border-collapse:collapse;width:100%;font-size:.92rem}
+.rz-t th,.rz-t td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.rz-t th{font:600 .74rem var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--sunk);position:sticky;top:0}
+.rz-t td:first-child{min-width:9.5em}
+.rz-t td.n,.rz-t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.rz-t td .sub{display:block;font-size:.8rem;color:var(--muted)}
+.nv{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-size:.84rem}
+.nv::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c,var(--m0))}
+.nv4{--c:var(--m3);font-weight:700} .nv3{--c:var(--m2)} .nv2{--c:var(--m1)} .nv1{--c:var(--m0)} .nv0{color:var(--muted)}
+.rz-mas{font:inherit;color:var(--sea);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;justify-self:start}
+.rz-cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:14px}
+.rz-cmp .av-tile{border-top-color:var(--m3)}
+#rz-tiles .big,.rz-cmp .big{display:flex;flex-wrap:wrap;align-items:baseline;gap:0 4px}
 footer{border-top:2px solid var(--ink);padding-top:22px;display:grid;gap:10px;font-size:.88rem;color:var(--muted)}
 footer strong{color:var(--ink)}
 
@@ -250,8 +269,9 @@ footer strong{color:var(--ink)}
   <nav class="obs-tabs" role="tablist" aria-label="Secciones del observatorio">
     <button type="button" class="obs-tab" role="tab" id="tab-resumen" data-ir="resumen" aria-controls="panel-resumen" aria-selected="false">Resumen</button>
     <button type="button" class="obs-tab" role="tab" id="tab-avisos" data-ir="avisos" aria-controls="panel-avisos" aria-selected="false"><span class="n">1</span>Aviso</button>
-    <button type="button" class="obs-tab" role="tab" id="tab-presupuesto" data-ir="presupuesto" aria-controls="panel-presupuesto" aria-selected="false"><span class="n">2</span>Respuesta</button>
-    <button type="button" class="obs-tab" role="tab" id="tab-emergencias" data-ir="emergencias" aria-controls="panel-emergencias" aria-selected="false"><span class="n">3</span>Impacto</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-riesgo" data-ir="riesgo" aria-controls="panel-riesgo" aria-selected="false"><span class="n">2</span>Riesgo</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-presupuesto" data-ir="presupuesto" aria-controls="panel-presupuesto" aria-selected="false"><span class="n">3</span>Respuesta</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-emergencias" data-ir="emergencias" aria-controls="panel-emergencias" aria-selected="false"><span class="n">4</span>Impacto</button>
     <button type="button" class="obs-tab" role="tab" id="tab-brechas" data-ir="brechas" aria-controls="panel-brechas" aria-selected="false">Brechas</button>
     <button type="button" class="obs-tab" role="tab" id="tab-calendario" data-ir="calendario" aria-controls="panel-calendario" aria-selected="false">Calendario</button>
     <button type="button" class="obs-tab" role="tab" id="tab-metodo" data-ir="metodo" aria-controls="panel-metodo" aria-selected="false">Método</button>
@@ -320,6 +340,38 @@ footer strong{color:var(--ink)}
         <span><span class="sw" style="background:var(--gasto)"></span>Gasto corriente (actividades)</span>
       </div>
     </article>
+  </section>
+
+  <section style="--eje:var(--m3)" aria-labelledby="h-riesgo" data-tab="riesgo" id="riesgo-sec">
+    <div class="sec-head">
+      <h2 id="h-riesgo">Zonas de riesgo: dónde puede golpear El Niño</h2>
+      <p class="muted">El CENEPRED clasifica cada distrito del país por su riesgo ante inundaciones y ante movimientos en masa (huaicos y deslizamientos). Hay tres estudios oficiales vigentes y cada uno parte de una base distinta. Aquí se muestran juntos, sin elegir uno. Consultados en el SIGRID el <span id="rz-fecha">—</span>.</p>
+    </div>
+    <div class="av-tiles" id="rz-tiles"></div>
+    <h3>Lima Metropolitana y Callao</h3>
+    <div class="rz-cmp" id="rz-lima-cmp"></div>
+    <p class="small muted">El estudio de Lima mira manzana por manzana y cuenta solo a quienes viven en las manzanas de riesgo. El escenario El Niño trabaja por distrito y cuenta a todo el distrito. Por eso sus cifras no se pueden comparar ni sumar. Una diferencia menor: el PDF del estudio de Lima imprime 609 550 personas en riesgo muy alto y 520 734 en alto, mientras que su Excel suma 609 586 y 520 849. Usamos el Excel porque es el único que trae el detalle por distrito.</p>
+    <div class="rz-wrap"><table class="rz-t" id="rz-lima"></table></div>
+    <button type="button" class="rz-mas" id="rz-lima-mas">Ver los distritos restantes</button>
+    <h3>Todo el país, distrito por distrito</h3>
+    <div class="rz-ctl">
+      <label>Departamento<select id="rz-dep"></select></label>
+      <label>Provincia<select id="rz-prov" disabled></select></label>
+      <label>Buscar distrito<input type="search" id="rz-q" placeholder="Ej.: Chulucanas" autocomplete="off"></label>
+      <label class="chk"><input type="checkbox" id="rz-ma"> Solo con algún riesgo muy alto</label>
+    </div>
+    <p class="small" id="rz-cuenta" aria-live="polite">—</p>
+    <div class="rz-wrap"><table class="rz-t" id="rz-tabla"></table></div>
+    <button type="button" class="rz-mas" id="rz-mas" hidden>Mostrar más distritos</button>
+    <ul class="rules">
+      <li><b>Qué es cada estudio.</b> <span id="rz-estudios"></span></li>
+      <li><b>Riesgo no es daño.</b> Un distrito en riesgo muy alto es uno donde el CENEPRED espera los peores efectos si llueve como prevé el escenario. No significa que ya esté afectado. Para lo que sí ocurrió, mira la pestaña Impacto.</li>
+      <li><b>Por qué los estudios no coinciden.</b> El escenario El Niño repite las lluvias máximas de los Niños de 1983, 1998, 2017 y 2023 y cuenta la población de todo el distrito. El de verano 2027 parte del pronóstico vigente del SENAMHI y cuenta solo a la población de las zonas más susceptibles. Un distrito puede estar en riesgo muy alto en uno y no en el otro.</li>
+      <li><b>Puntos críticos.</b> Son tramos de ríos y quebradas que la Autoridad Nacional del Agua (ANA) identificó para obras o actividades de prevención. El CENEPRED los adjunta al estudio de verano 2027. Se muestran 4202 tramos por inundación y 984 por movimientos en masa. Unos pocos registros traen un código de distrito que no figura en la lista del INEI y quedan fuera.</li>
+      <li><b>Versión del escenario El Niño.</b> Esta pestaña usa la actualización del escenario El Niño basada en el informe técnico N.º 69-2026 del SENAMHI. La pestaña Brechas todavía usa la versión de mayo, transcrita del PDF; su actualización está pendiente.</li>
+      <li><b>No es una evaluación de necesidades.</b> Sirve para saber dónde mirar primero. La evaluación de daños y necesidades la hacen el INDECI y los gobiernos locales.</li>
+      <li><b>Datos abiertos.</b> <a href="__REPO__/blob/main/el-nino/datos/riesgo_distritos_cenepred.csv">riesgo_distritos_cenepred.csv</a> (1893 distritos) y <a href="__REPO__/blob/main/el-nino/datos/riesgo_lima_cenepred.csv">riesgo_lima_cenepred.csv</a> (50 distritos de Lima y Callao). Método en <a href="__REPO__/blob/main/docs/el-nino-zonas-riesgo.md">el-nino-zonas-riesgo.md</a>.</li>
+    </ul>
   </section>
 
   <section style="--eje:var(--turq)" aria-labelledby="h-rank" data-tab="presupuesto">
@@ -730,6 +782,72 @@ renderLog();
   document.getElementById("br-notas").innerHTML=nota.map(n=>`<li>${n}</li>`).join("");
 })();
 
+/* --- pestaña Riesgo: zonas de riesgo del CENEPRED --- */
+(function(){
+  const R=DATA.riesgo; if(!R) return;
+  const $=id=>document.getElementById(id), fmt=n=>n==null?"—":n.toLocaleString("es-PE");
+  const tc=t=>t.toLowerCase().replace(/(^|[\s(-])([a-záéíóúñü])/g,(m,a,b)=>a+b.toUpperCase()).replace(/ (De|Del|La|Las|Los|Y|El)(?= )/g,m=>m.toLowerCase());
+  const NV=["","Bajo","Medio","Alto","Muy alto"];
+  const nv=v=>v?`<span class="nv nv${v}">${NV[v]}</span>`:`<span class="nv nv0">s. d.</span>`;
+  // [ubigeo,dep,prov,dist,pob,a_inu,a_mm,b_inu,b_pinu,b_mm,b_pmm,pc_inu,pc_mm]
+  const D=R.dist, E=R.estudios;
+  $("rz-fecha").textContent=R.consultado_largo;
+  $("rz-estudios").innerHTML=Object.entries(E).map(([k,e])=>`<a href="${e.ficha}">${e.corto}</a>: ${e.base.toLowerCase()}. ${e.unidad}.`).join(" ");
+  const cnt=f=>D.filter(f).length, sum=(f,i)=>D.filter(f).reduce((s,d)=>s+(d[i]||0),0);
+  const L=R.lima, lMA=L.reduce((s,d)=>s+d[3],0), lA=L.reduce((s,d)=>s+d[4],0);
+  const isLM=d=>d[1]==="CALLAO"||(d[1]==="LIMA"&&d[2]==="LIMA");
+  $("rz-tiles").innerHTML=[
+    [cnt(d=>d[5]===4), "distritos", `en riesgo muy alto por inundación según el escenario El Niño; <b>${cnt(d=>d[7]===4)}</b> según verano 2027 y <b>${cnt(d=>d[5]===4&&d[7]===4)}</b> en ambos.`],
+    [cnt(d=>d[6]===4), "distritos", `en riesgo muy alto por huaicos y deslizamientos según el escenario El Niño; <b>${cnt(d=>d[9]===4)}</b> según verano 2027.`],
+    [fmt(sum(d=>d[7]===4,8)), "personas", `viven en las zonas más susceptibles de los distritos con riesgo muy alto por inundación (verano 2027).`]
+  ].map(([n,u,t])=>`<div class="av-tile" style="border-top-color:var(--m3)"><span class="big">${n}<small>${u}</small></span><span class="small">${t}</span></div>`).join("");
+  // Lima: tres maneras de contar
+  const aLM=D.filter(d=>isLM(d)&&d[5]===4), bLM=D.filter(d=>isLM(d)&&d[7]===4);
+  $("rz-lima-cmp").innerHTML=[
+    [fmt(lMA), `personas en <b>manzanas</b> de riesgo muy alto (y ${fmt(lA)} en riesgo alto), en ${L.filter(d=>d[3]>0).length} distritos.`, E.L],
+    [fmt(aLM.reduce((s,d)=>s+(d[4]||0),0)), `personas en los <b>${aLM.length} distritos</b> que el escenario El Niño pone en riesgo muy alto. Cuenta a todo el distrito.`, E.A],
+    [fmt(bLM.reduce((s,d)=>s+(d[8]||0),0)), `personas en las zonas más susceptibles de los <b>${bLM.length} distritos</b> en riesgo muy alto según verano 2027.`, E.B]
+  ].map(([n,t,e])=>`<div class="av-tile"><span class="big">${n}</span><span class="small">${t}</span><a class="small" href="${e.ficha}">${e.corto}</a></div>`).join("");
+  const byU=Object.fromEntries(D.map(d=>[d[0],d]));
+  // [ubigeo,prov,dist,pob_ma,pob_a,pob_m,manz_ma,n05,m65,eess,iiee]
+  $("rz-lima").innerHTML=`<thead><tr><th>Distrito</th><th class="n">Riesgo muy alto</th><th class="n">Riesgo alto</th><th class="n">Niños de 0 a 5</th><th class="n">Mayores de 65</th><th class="n">Est. de salud</th><th class="n">Colegios</th><th>Distrito según El Niño</th></tr>
+    <tr><th></th><th class="n" colspan="6" style="text-align:left">personas y locales en manzanas de riesgo · las cuatro últimas columnas, solo en riesgo muy alto</th><th></th></tr></thead><tbody>`+
+    L.filter(d=>d[3]+d[4]>0).sort((a,b)=>b[3]-a[3]||b[4]-a[4]).map((d,i)=>`<tr${i>=15?' class="rz-extra" hidden':""}><td>${tc(d[2])}<span class="sub">${d[1]==="CALLAO"?"Callao":"Lima"}</span></td><td class="n"><b>${fmt(d[3])}</b></td><td class="n">${fmt(d[4])}</td><td class="n">${fmt(d[7])}</td><td class="n">${fmt(d[8])}</td><td class="n">${fmt(d[9])}</td><td class="n">${fmt(d[10])}</td><td>${nv((byU[d[0]]||[])[5])}</td></tr>`).join("")+"</tbody>";
+  const lm=$("rz-lima-mas"), extra=[...document.querySelectorAll("#rz-lima .rz-extra")];
+  if(!extra.length) lm.hidden=true; else lm.textContent=`Ver los ${extra.length} distritos restantes`;
+  lm.addEventListener("click",()=>{ extra.forEach(r=>r.hidden=false); lm.hidden=true; });
+  // explorador nacional
+  const deps=[...new Set(D.map(d=>d[1]))].sort();
+  const sd=$("rz-dep"), sp=$("rz-prov"), q=$("rz-q"), ma=$("rz-ma");
+  sd.innerHTML=`<option value="*">Mayor riesgo del país</option><option value="">Todo el país</option>`+deps.map(d=>`<option value="${d}">${tc(d)}</option>`).join("");
+  let lim=60;
+  const norm=t=>t.normalize("NFD").replace(/[̀-ͯ]/g,"").toUpperCase();
+  function filas(){
+    const dep=sd.value, pr=sp.value, qq=norm(q.value.trim());
+    let F=D;
+    if(dep==="*") F=F.filter(d=>d[5]===4&&d[7]===4);
+    else if(dep) F=F.filter(d=>d[1]===dep);
+    if(dep&&dep!=="*"&&pr) F=F.filter(d=>d[2]===pr);
+    if(qq) F=(dep==="*"?D:F).filter(d=>norm(d[3]).includes(qq));
+    if(ma.checked) F=F.filter(d=>[5,6,7,9].some(i=>d[i]===4));
+    const peso=d=>(d[5]===4)+(d[7]===4)+(d[6]===4)+(d[9]===4);
+    return F.slice().sort(dep==="*"||!dep?((a,b)=>(b[8]||0)-(a[8]||0)||peso(b)-peso(a)):((a,b)=>a[2].localeCompare(b[2])||peso(b)-peso(a)||(b[4]||0)-(a[4]||0)));
+  }
+  function pinta(){
+    const F=filas();
+    const lugar=sd.value==="*"?"en riesgo muy alto por inundación en los dos estudios":sd.value?`en ${tc(sd.value)}${sp.value?" · provincia "+tc(sp.value):""}`:"en todo el país";
+    $("rz-cuenta").innerHTML=`<b>${F.length}</b> distritos ${q.value.trim()?"que coinciden con la búsqueda ":""}${lugar}${ma.checked?", con al menos un riesgo muy alto":""}.`;
+    $("rz-tabla").innerHTML=`<thead><tr><th>Distrito</th><th class="n">Población</th><th>Inundación<span class="sub">El Niño · Verano 2027</span></th><th class="n">En zonas más susceptibles<span class="sub">inundación, verano 2027</span></th><th>Huaicos y deslizamientos<span class="sub">El Niño · Verano 2027</span></th><th class="n">Puntos críticos ANA<span class="sub">inundación · huaico</span></th></tr></thead><tbody>`+
+      F.slice(0,lim).map(d=>`<tr><td>${tc(d[3])}<span class="sub">${tc(d[2])}, ${tc(d[1])}</span></td><td class="n">${fmt(d[4])}</td><td>${nv(d[5])}<br>${nv(d[7])}</td><td class="n">${fmt(d[8])}</td><td>${nv(d[6])}<br>${nv(d[9])}</td><td class="n">${d[11]||"–"} · ${d[12]||"–"}</td></tr>`).join("")+"</tbody>";
+    $("rz-mas").hidden=F.length<=lim; $("rz-mas").textContent=`Mostrar más distritos (${F.length-lim} restantes)`;
+  }
+  sd.addEventListener("change",()=>{ const dep=sd.value; lim=60;
+    sp.disabled=!dep||dep==="*"; sp.innerHTML=`<option value="">Todas</option>`+(sp.disabled?"":[...new Set(D.filter(d=>d[1]===dep).map(d=>d[2]))].sort().map(p=>`<option value="${p}">${tc(p)}</option>`).join("")); pinta(); });
+  sp.addEventListener("change",()=>{lim=60;pinta();}); q.addEventListener("input",()=>{lim=60;pinta();}); ma.addEventListener("change",()=>{lim=60;pinta();});
+  $("rz-mas").addEventListener("click",()=>{lim+=200;pinta();});
+  sp.innerHTML=`<option value="">Todas</option>`; pinta();
+})();
+
 /* --- pestañas: cada sección con data-tab va a su panel; la dirección (#avisos, #brechas…) abre la pestaña --- */
 (function(){
   const nav=document.querySelector(".obs-tabs"); if(!nav) return;
@@ -745,7 +863,7 @@ renderLog();
     d.innerHTML=(i>0?`<button type="button" data-ir="${ids[i-1]}">← ${tabs[i-1].textContent}</button>`:"<span></span>")+(i<ids.length-1?`<button type="button" data-ir="${ids[i+1]}">${tabs[i+1].textContent} →</button>`:"");
     paneles[id].appendChild(d); });
   // direcciones antiguas o de elementos dentro de un panel
-  const VIEJAS={region:"resumen","avisos-sec":"avisos","emergencias-sec":"emergencias","brechas-sec":"brechas"};
+  const VIEJAS={region:"resumen","riesgo-sec":"riesgo","avisos-sec":"avisos","emergencias-sec":"emergencias","brechas-sec":"brechas"};
   function destino(h){ if(ids.includes(h)) return [h,null]; if(VIEJAS[h]) return [VIEJAS[h],h==="region"?h:null];
     const el=h&&document.getElementById(h); const p=el&&el.closest(".obs-panel"); return p?[p.id.slice(6),h]:[ids[0],null]; }
   function abrir(id, foco, desplazar){
