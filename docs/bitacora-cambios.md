@@ -2,6 +2,15 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18: MEF 18 nov, ENFEN N.º 20 y emergencias del INDECI al 18 nov (sin revisión de cuatro ojos)
+- **MEF 18 nov:** pasa los seis controles. PIM S/ 5,120.6 M; devengado S/ 2,580.9 M (50,4 %). Nacional 41,4 %, municipal 55,2 %, regional 73,4 %. Aviso: actividades municipales de Cusco +30 % de PIM.
+- **ENFEN N.º 20 (13 nov):** se registra leyendo la página oficial del ENFEN. Niño Costero extraordinario hasta febrero de 2027, debilitándose hasta julio; Niño global muy fuerte hasta febrero. Los ríos Tumbes y Piura, muy superiores a lo normal; Chillón, Rímac y Lurín, superiores desde enero (el N.º 19 decía diciembre), y se suman Pisco e Ica. Las fichas regionales pasan del pronóstico del N.º 17 al del N.º 20, y la etiqueta lee la fuente de `contexto.json` en vez de un texto fijo.
+- **Declaratoria:** los reportes del INDECI dicen que el DS N.º 149-2026-PCM rige del 4 nov 2026 al 2 ene 2027. Falta enlazar la norma.
+- **Emergencias:** se archivan 50 reportes nuevos del COEN (Tumbes, Piura, Lambayeque y La Libertad) con su PDF y su huella. La tabla pasa de 10 a 49 emergencias incluidas: Tumbes 26, Piura 19, Lambayeque 2 y La Libertad 2. Se actualizan siete filas existentes con versiones posteriores de sus reportes.
+- **Regla nueva contra duplicados:** el INDECI publica reportes departamentales que agrupan emergencias. Se cuenta cada emergencia una vez según su código del SINPAD; los reportes de Zarumilla (N.º 15878) y Máncora (N.º 15632) quedan excluidos porque sus códigos y cifras están dentro de los departamentales N.º 15734 y N.º 15591. El reporte departamental de Piura N.º 15631 trae cifras solo en texto y puede repetir el de Yamango: se muestra sin sumar.
+- **Discrepancia de Lagunas:** el reporte N.º 2 (N.º 15568) ya no cita el DS N.º 140-2026-PCM.
+- **Pendiente:** la búsqueda del portal del INDECI no devuelve todos los reportes; esta revisión cubre los que devuelve por región.
+
 ## 2026-11-17: avisos del SENAMHI de lluvias y ríos (sin revisión de cuatro ojos)
 - Nueva sección en El Niño: 37 avisos de lluvia (10 rojos) y 87 avisos de ríos (8 rojos) desde el 1 set 2026, con calendario por departamento y lista de avisos de ríos recientes. Sugerencia externa de monitorear lluvias; se descartó Meteored (privado, pronóstico de modelo) y se usaron los avisos oficiales.
 - Cada aviso de lluvia se cruza con los límites del INEI que publica el SENAMHI: un día cuenta si al menos el 5 % del departamento está bajo ese nivel. El nivel máximo de cada mapa coincide con el de la tabla del SENAMHI en los 37 avisos.

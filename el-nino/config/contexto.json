@@ -1,19 +1,21 @@
 {
   "_fuentes": {
-    "pronostico": "Comunicado Oficial ENFEN N° 19-2026 (30 oct 2026)",
+    "pronostico": "Comunicado Oficial ENFEN N° 20-2026 (13 nov 2026)",
     "plan": "El Peruano, 27 jun 2026: el Ejecutivo informa los gobiernos regionales con plan de gestión del riesgo aprobado"
   },
   "pronostico": {
-    "Tumbes": "Lluvias sobre lo normal desde noviembre, con episodios moderados a fuertes; río Tumbes sobre lo normal.",
-    "Piura": "Lluvias sobre lo normal desde noviembre, con episodios moderados a fuertes; ríos Chira y Piura sobre lo normal.",
-    "Lambayeque": "Lluvias sobre lo normal desde noviembre; río La Leche sobre lo normal.",
-    "La Libertad": "Lluvias sobre lo normal desde noviembre; río Jequetepeque sobre lo normal.",
-    "Cajamarca": "Valles andinos del norte con lluvias sobre lo normal (cuenca del Jequetepeque).",
-    "Áncash": "Costa con lluvias sobre lo normal.",
-    "Lima": "Costa central con lluvias sobre lo normal desde noviembre y en el verano 2027.",
-    "Lima Metropolitana": "Lluvias sobre lo normal desde noviembre; ríos Chillón, Rímac y Lurín con caudales más altos desde diciembre.",
-    "Callao": "Lluvias sobre lo normal desde noviembre; ríos Chillón y Rímac con caudales más altos desde diciembre.",
-    "Puno": "Lluvias bajo lo normal en la región del Titicaca; afluentes del lago bajo lo normal."
+    "Tumbes": "Lluvias sobre lo normal hasta enero, con más episodios moderados a fuertes; caudal del río Tumbes muy superior a lo normal.",
+    "Piura": "Lluvias sobre lo normal hasta enero, con más episodios moderados a fuertes; caudales del Chira sobre lo normal y del Piura muy superior.",
+    "Lambayeque": "Lluvias sobre lo normal hasta enero; río La Leche sobre lo normal. El embalse Tinajones no alcanzaría todavía sus niveles normales de operación.",
+    "La Libertad": "Lluvias sobre lo normal hasta enero; río Jequetepeque sobre lo normal.",
+    "Cajamarca": "Sierra norte occidental con lluvias sobre lo normal (cuenca del Jequetepeque).",
+    "Áncash": "Costa central y sierra central occidental con lluvias sobre lo normal.",
+    "Lima": "Costa central y sierra central occidental con lluvias sobre lo normal; ríos Chillón, Rímac y Lurín con caudales superiores desde enero de 2027.",
+    "Lima Metropolitana": "Lluvias sobre lo normal; ríos Chillón, Rímac y Lurín con caudales superiores desde enero de 2027.",
+    "Callao": "Lluvias sobre lo normal; ríos Chillón y Rímac con caudales superiores desde enero de 2027. Nivel del mar elevado y mayor probabilidad de oleajes anómalos en diciembre y enero.",
+    "Puno": "Lluvias bajo lo normal en la región del Titicaca; afluentes del lago bajo lo normal, lo que afecta la recuperación de su nivel.",
+    "Ica": "Lluvias sobre lo normal en el verano de 2027; ríos Pisco e Ica con caudales superiores desde enero de 2027.",
+    "Tacna": "El embalse Paucarani podría seguir descendiendo hasta niveles muy bajos."
   },
   "plan_aprobado": [
     "Áncash",

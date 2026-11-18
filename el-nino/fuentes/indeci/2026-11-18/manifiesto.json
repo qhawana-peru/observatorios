@@ -1,0 +1,549 @@
+{
+  "fecha": "2026-11-18",
+  "descargado": "2026-11-18T15:26:09-05:00",
+  "fuente": "INDECI, COEN: reportes de emergencia (PDF publicados en portal.indeci.gob.pe)",
+  "archivos": [
+    {
+      "numero": "14589",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14589-20OCT2026-LLUVIAS-INTENSAS-EN-LA-PROVINCIA-DE-PIURA-PIURA-2.pdf",
+      "bytes": 804964,
+      "sha256": "87a77822d13f82c20e804bee52d70224b2172dafb8b12e78537b8997dd742e0a",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14589-20OCT2026-LLUVIAS-INTENSAS-EN-LA-PROVINCIA-DE-PIURA-PIURA-2.pdf"
+    },
+    {
+      "numero": "14720",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14720-22OCT2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-7.pdf",
+      "bytes": 1988762,
+      "sha256": "b001ea8e26603ea63117524d897e8de65dcfb55a9e2898dfa5e74edde7f94952",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14720-22OCT2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-7.pdf"
+    },
+    {
+      "numero": "14810",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14810-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LAGUNAS-PIURA-1.pdf",
+      "bytes": 749019,
+      "sha256": "d36bea8b166b4c7124872b97797126dd7c372e7505838cd436536401e70c8994",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14810-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LAGUNAS-PIURA-1.pdf"
+    },
+    {
+      "numero": "13164",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13164-30SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-1.pdf",
+      "bytes": 721607,
+      "sha256": "bb5dcbac2f1f093c4518aa4e05c2920e4944bb47151f1cd08e459e8f3e9db160",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-13164-30SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MANCORA-PIURA-1.pdf"
+    },
+    {
+      "numero": "14554",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14554-20OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-2.pdf",
+      "error": "HTTP Error 404: Not Found"
+    },
+    {
+      "numero": "13212",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-13212-1OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-ALTO-PIURA-1.pdf",
+      "bytes": 570194,
+      "sha256": "ff26c644337ba475e4927b10c005757b0b7c136b82eb1546a2fb1d4d7a966d15",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-13212-1OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-ALTO-PIURA-1.pdf"
+    },
+    {
+      "numero": "14038",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/05/REPORTE-COMPLEMENTARIO-N.º-14038-13OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LALAQUIZ-PIURA-4.pdf",
+      "bytes": 711862,
+      "sha256": "06a8e19ece48507729284dc630890d3a1d3a3218a98c53fc86efba1f2fb989f9",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14038-13OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LALAQUIZ-PIURA-4.pdf"
+    },
+    {
+      "numero": "14037",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/05/REPORTE-COMPLEMENTARIO-N.º-14037-13OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-7.pdf",
+      "bytes": 945416,
+      "sha256": "4344dde18db1e73601aeba84de51292eb0e6cd9b9a88d8225dec7966445be58d",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14037-13OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MANCORA-PIURA-7.pdf"
+    },
+    {
+      "numero": "2421",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/04/INFORME-DE-EMERGENCIA-N.º-2421-9OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SONDOR-PIURA-4.pdf",
+      "bytes": 986495,
+      "sha256": "8b5ce7e5322fe2bb3ebacf80076b10e7eb46ecf717eb55e1a0ec036e9935fc91",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/INFORME-DE-EMERGENCIA-N.o-2421-9OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SONDOR-PIURA-4.pdf"
+    },
+    {
+      "numero": "13232",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/04/REPORTE-COMPLEMENTARIO-N.º-13232-1OCT2026-DERRUMBE-DE-CERRO-EN-EL-DISTRITO-DE-HUARMACA-PIURA-3.pdf",
+      "bytes": 753549,
+      "sha256": "05c78647ece9358c0ece7ca504670d495ee01c14619aba080b8a6a3c456ff21a",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-13232-1OCT2026-DERRUMBE-DE-CERRO-EN-EL-DISTRITO-DE-HUARMACA-PIURA-3.pdf"
+    },
+    {
+      "numero": "14800",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14800-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-1.pdf",
+      "bytes": 353436,
+      "sha256": "f8799db9841719a762740af52f8fc82434e9e50baae022396b7d1c34eb51e0ba",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14800-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-1.pdf"
+    },
+    {
+      "numero": "14665",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14665-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MATAPALO-TUMBES-1.pdf",
+      "bytes": 566623,
+      "sha256": "4f6760b9904e7a99dc165be3a5784e060b5b92b91565018e0ae7425373b03f23",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14665-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MATAPALO-TUMBES-1.pdf"
+    },
+    {
+      "numero": "14667",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14667-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES1.pdf",
+      "bytes": 559233,
+      "sha256": "5ccc331e9822694e5ce4bc7b0664fe827d484682a24b1ff3f06f5ed9daec9b15",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14667-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES1.pdf"
+    },
+    {
+      "numero": "1078",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-PRELIMINAR-N.º-1078-20OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES.pdf",
+      "bytes": 361212,
+      "sha256": "120f7c978f2cb58b450f9bc1222660171353e046a37fdbcdbf680941ada7cc79",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-PRELIMINAR-N.o-1078-20OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES.pdf"
+    },
+    {
+      "numero": "14663",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14663-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-1.pdf",
+      "bytes": 709332,
+      "sha256": "ff40e317a1b8bdf73db9ebe46bb32455a95b99a6ca5c338c89c17776bf06a8a1",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-14663-21OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-1.pdf"
+    },
+    {
+      "numero": "13112",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13112-28SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-1.pdf",
+      "bytes": 653352,
+      "sha256": "d09473288ad04cc3a4d5ea0666c5748b9e4564800f7c2c5e7e449c04cb035ab4",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-13112-28SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-1.pdf"
+    },
+    {
+      "numero": "13111",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13111-28SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf",
+      "bytes": 609025,
+      "sha256": "3b4da80172b59e0d81b2f60284bb3139c956bfdfad0954a424965a97e17deaa3",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-13111-28SET2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf"
+    },
+    {
+      "numero": "11297",
+      "region": "La Libertad",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/08/REPORTE-COMPLEMENTARIO-N.º-11297-28AGO2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-PÍAS-LA-LIBERTAD-2.pdf",
+      "bytes": 691640,
+      "sha256": "788a7b9933f567433df5ab11b451e499300e79f394c71fb6b4ee0ff17ac936c4",
+      "ya_archivado": "el-nino/fuentes/indeci/2026-10-23/REPORTE-COMPLEMENTARIO-N.o-11297-28AGO2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-PIAS-LA-LIBERTAD-2.pdf"
+    },
+    {
+      "numero": "16084",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16084-18NOV2026-INUNDACIÓN-POR-DESBORDE-DE-RÍO-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf",
+      "bytes": 372107,
+      "sha256": "253ab6a8872e21fa17badc9eef0f934181856e3176b33c4925424924511db5c9",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16084-18NOV2026-INUNDACION-POR-DESBORDE-DE-RIO-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf"
+    },
+    {
+      "numero": "16036",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16036-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASITAS-TUMBES-2.pdf",
+      "bytes": 580764,
+      "sha256": "56e320964beb2afc3cf32bbbbe04b8b0bca50876a44a09f590725711e8cdf3b6",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16036-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASITAS-TUMBES-2.pdf"
+    },
+    {
+      "numero": "16013",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16013-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-AGUAS-VERDES-TUMBES-1.pdf",
+      "bytes": 354813,
+      "sha256": "3d8288c1ee38d2a5519898edf19b91c43bffa7bf079316bb1d70be8599a5022a",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16013-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-AGUAS-VERDES-TUMBES-1.pdf"
+    },
+    {
+      "numero": "15970",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15970-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-3.pdf",
+      "bytes": 877962,
+      "sha256": "396a739bc4c371d35cfedf3ce7a6f8e4ff1ec420d9b29680546963f7ea75f94e",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15970-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-3.pdf"
+    },
+    {
+      "numero": "1138",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-PRELIMINAR-N.º-1138-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JUAN-DE-LA-VIRGEN-TUMBES1.pdf",
+      "bytes": 406388,
+      "sha256": "a65603535fd9b38cfef8016d2c05f29acb9909ebb3ba4f906535eb34196c6a86",
+      "archivo": "REPORTE-PRELIMINAR-N.o-1138-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JUAN-DE-LA-VIRGEN-TUMBES1.pdf"
+    },
+    {
+      "numero": "15967",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15967-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CORRALES-TUMBES-1.pdf",
+      "bytes": 365922,
+      "sha256": "c3a120af07185bd0e33c6b12ba72e9b14f92c6b506b2eb503cface8fa90347bd",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15967-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CORRALES-TUMBES-1.pdf"
+    },
+    {
+      "numero": "15963",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15963-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES.pdf",
+      "bytes": 597538,
+      "sha256": "b90719be4cc7378dac86a62d554c374300c7c498889dc66c9d017d3589fe014d",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15963-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES.pdf"
+    },
+    {
+      "numero": "15879",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15879-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CANOAS-DE-PUNTA-SAL-TUMBES-5.pdf",
+      "bytes": 632013,
+      "sha256": "7ff7b0511cf0ad6d4925f93ba397742503f732f9cd2ac7b2246572e49b768628",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15879-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CANOAS-DE-PUNTA-SAL-TUMBES-5.pdf"
+    },
+    {
+      "numero": "15878",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15878-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-ZARUMILLA-TUMBES-3.pdf",
+      "bytes": 643577,
+      "sha256": "75b028caed47ab59473d04867d6371af1157fd7fca989491e7b7a9ca8bbf2336",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15878-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-ZARUMILLA-TUMBES-3.pdf"
+    },
+    {
+      "numero": "15876",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15876-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-AGUAS-VERDES-TUMBES-2.pdf",
+      "bytes": 572861,
+      "sha256": "6ad81edef41d789042584434a39ee7a4dd1181028ebd88292b00dffde314e747",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15876-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-AGUAS-VERDES-TUMBES-2.pdf"
+    },
+    {
+      "numero": "2574",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/INFORME-DE-EMERGENCIA-N.º-2574-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-1.pdf",
+      "bytes": 657361,
+      "sha256": "05cb82b04a1f65de5b0a4bce18897478d8a1c705b9b722def3a4af56b73d7fe7",
+      "archivo": "INFORME-DE-EMERGENCIA-N.o-2574-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-1.pdf"
+    },
+    {
+      "numero": "15775",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15775-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASITAS-TUMBES.pdf",
+      "bytes": 402618,
+      "sha256": "3e40062c45870cb82f4f093df954995ca70826173beab2fe0a7380cdf38f3f3a",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15775-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASITAS-TUMBES.pdf"
+    },
+    {
+      "numero": "15773",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15773-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASITAS-TUMBES.pdf",
+      "bytes": 368463,
+      "sha256": "7130321836ccb639448f692265dd28919f6b2a1941b833943636c6d6ce533124",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15773-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASITAS-TUMBES.pdf"
+    },
+    {
+      "numero": "15734",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15734-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-TUMBES-TUMBES-16.pdf",
+      "bytes": 1689020,
+      "sha256": "eef77931d08d09f810927ba853435b70b8287f2a094ebfafd62ee8a3eea388dd",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15734-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-TUMBES-TUMBES-16.pdf"
+    },
+    {
+      "numero": "15733",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15733-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CORRALES-TUMBES-3.pdf",
+      "bytes": 698894,
+      "sha256": "45d29098c60d75a89acc3724dc3bf55f86179373d4185d4209fc5d660cbb7316",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15733-10NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CORRALES-TUMBES-3.pdf"
+    },
+    {
+      "numero": "15717",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15717-9NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JUAN-DE-LA-VIRGEN-TUMBES-2.pdf",
+      "bytes": 694855,
+      "sha256": "c194156504193ed82d90445247188df66c219daf0a8524867792200b98597869",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15717-9NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JUAN-DE-LA-VIRGEN-TUMBES-2.pdf"
+    },
+    {
+      "numero": "15711",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15711-9NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-4.pdf",
+      "bytes": 673721,
+      "sha256": "32dca8f5b85ff00f5f094d6c689e5122bd388b4d8b49c4c80670cf258b647fd2",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15711-9NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-4.pdf"
+    },
+    {
+      "numero": "15708",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15708-9NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-ZORRITOS-TUMBES-3.pdf",
+      "bytes": 714244,
+      "sha256": "f089e86acd0c19b7cc1b946af5cd55da1b4104fddb32b84e16e28ee7f0d1ced3",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15708-9NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-ZORRITOS-TUMBES-3.pdf"
+    },
+    {
+      "numero": "15633",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15633-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-1.pdf",
+      "bytes": 376336,
+      "sha256": "6dbfd86ed3b3a76b0d7dbaa23f5715347a3f6f2697bf9b23197e0b573a1da0d2",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15633-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-TUMBES-TUMBES-1.pdf"
+    },
+    {
+      "numero": "15349",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-15349-1NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-2.pdf",
+      "bytes": 405043,
+      "sha256": "8816309a992c213fe6d1e37f1b9b657624c1b3d06d1e5ec48fb51f509514d3a8",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15349-1NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-2.pdf"
+    },
+    {
+      "numero": "15155",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15155-28OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JUAN-DE-LA-VIRGEN-TUMBES-1.pdf",
+      "bytes": 461547,
+      "sha256": "d7cb29f0f97ca7cea1273b674fcb3eb1e6034bfa1c1eabf296b0db51d6db01f1",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15155-28OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JUAN-DE-LA-VIRGEN-TUMBES-1.pdf"
+    },
+    {
+      "numero": "15152",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15152-28OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf",
+      "bytes": 628862,
+      "sha256": "02f4f6117e318899a8efc8eb742a44534f65ad5b7d56b5adc5a0667c00086197",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15152-28OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES-1.pdf"
+    },
+    {
+      "numero": "14937",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14937-25OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES2.pdf",
+      "bytes": 601606,
+      "sha256": "633c026bd8e7be8f7f11c34ae9f7fd059eecd3e5cd13be8479c6641f6f8cf5a5",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-14937-25OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-PAMPAS-DE-HOSPITAL-TUMBES2.pdf"
+    },
+    {
+      "numero": "14920",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14920-25OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-AGUAS-VERDES-TUMBES-1.pdf",
+      "bytes": 432764,
+      "sha256": "8648ca5f16c144abcf88ff1d8b5693947011706be8e2b42ea93fbf72cecc4fb0",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-14920-25OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-AGUAS-VERDES-TUMBES-1.pdf"
+    },
+    {
+      "numero": "14863",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14863-24OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-2.pdf",
+      "bytes": 895244,
+      "sha256": "51d5c39befc280ddd111bdc04299f2e56311decbfe258dabef02c52edbad616e",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-14863-24OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LA-CRUZ-TUMBES-2.pdf"
+    },
+    {
+      "numero": "14853",
+      "region": "Tumbes",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-14853-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-2.pdf",
+      "bytes": 903359,
+      "sha256": "06a0d7bf5125f3f932231a596ee848d01fc8251e3f5947516e491fc67670fb38",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-14853-23OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-JACINTO-TUMBES-2.pdf"
+    },
+    {
+      "numero": "16074",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16074-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LANCONES-PIURA-1.pdf",
+      "bytes": 604048,
+      "sha256": "7fefc717558a408792ca15a881706a4c20f328e554318b4ab4d756c5ebd11167",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16074-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LANCONES-PIURA-1.pdf"
+    },
+    {
+      "numero": "16071",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16071-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-BUENOS-AIRES-PIURA-2.pdf",
+      "bytes": 838864,
+      "sha256": "098c399e09518c200e5fe38d87cf8908a461b9c8ed4c2df968104663a4dbb09c",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16071-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-BUENOS-AIRES-PIURA-2.pdf"
+    },
+    {
+      "numero": "16060",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16060-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-QUERECOTILLO-PIURA-2.pdf",
+      "bytes": 539725,
+      "sha256": "1d4866a6ce72c30425d9589c28f860a2bb4a4574f8924452dd0dd93e0f791b7b",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16060-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-QUERECOTILLO-PIURA-2.pdf"
+    },
+    {
+      "numero": "15971",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15971-15NOV2026-HUAICO-EN-EL-DEPARTAMENTO-DE-PIURA-1.pdf",
+      "bytes": 331479,
+      "sha256": "afd27c581506ae6309ba0edb53e62f34c1fbcacc4109be38153f9055c1e8fd25",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15971-15NOV2026-HUAICO-EN-EL-DEPARTAMENTO-DE-PIURA-1.pdf"
+    },
+    {
+      "numero": "2577",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/INFORME-DE-EMERGENCIA-N.º-2577-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-MIGUEL-DE-EL-FAIQUE-PIURA-1.pdf",
+      "bytes": 452621,
+      "sha256": "6a3ab9bfec54e8f185ecd943e16187cb973f308271644dc98c11803cce13d324",
+      "archivo": "INFORME-DE-EMERGENCIA-N.o-2577-15NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SAN-MIGUEL-DE-EL-FAIQUE-PIURA-1.pdf"
+    },
+    {
+      "numero": "15821",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15821-11NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LOBITOS-PIURA-2.pdf",
+      "bytes": 513050,
+      "sha256": "7197eda95341eeeaa9d4a7f97970f68490dde8d20dd292f4912bd22720f160bd",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15821-11NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LOBITOS-PIURA-2.pdf"
+    },
+    {
+      "numero": "15632",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15632-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MÁNCORA-PIURA-4.pdf",
+      "bytes": 441574,
+      "sha256": "34dd16cba804091b50b57282f478f118789733fdaf62b5ef0077db4faad46564",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15632-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MANCORA-PIURA-4.pdf"
+    },
+    {
+      "numero": "15631",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15631-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-1.pdf",
+      "bytes": 366069,
+      "sha256": "f1d0b36c2edfc5c3c1741145ad13018694c0ace138bf73bb77a5ae4fdd31aed6",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15631-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-1.pdf"
+    },
+    {
+      "numero": "15610",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15610-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SALITRAL-PIURA-2.pdf",
+      "bytes": 350796,
+      "sha256": "8585cc733d072dc33ecebe5e292bb484fcd6b5b40ae3a8fba256c9dbad07eba4",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15610-7NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SALITRAL-PIURA-2.pdf"
+    },
+    {
+      "numero": "15591",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15591-6NOV2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-16.pdf",
+      "bytes": 1014587,
+      "sha256": "837527cbf2746b455f5ad51d6e7a299c362162115d14834fa16c3c58c4047769",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15591-6NOV2026-LLUVIAS-INTENSAS-EN-EL-DEPARTAMENTO-DE-PIURA-16.pdf"
+    },
+    {
+      "numero": "15571",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15571-6NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-BUENOS-AIRES-PIURA-4.pdf",
+      "bytes": 435116,
+      "sha256": "a0fa2782591156bd5bcdaa525c0d95fa9fc6932e3f94fa9ecb42663241e3b4ee",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15571-6NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-BUENOS-AIRES-PIURA-4.pdf"
+    },
+    {
+      "numero": "15570",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15570-6NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MONTERO-PIURA-2.pdf",
+      "bytes": 364979,
+      "sha256": "3b1466992c16b8ceccf64d2e1c6c22faae001c42f7226d049fc3466c589fde99",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15570-6NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-MONTERO-PIURA-2.pdf"
+    },
+    {
+      "numero": "15568",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15568-6NOVT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LAGUNAS-PIURA-2.pdf",
+      "bytes": 431931,
+      "sha256": "5d06dfe8ad3a7a738246a2a6448a749797887946726968f4466dc0c6352b77b9",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15568-6NOVT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-LAGUNAS-PIURA-2.pdf"
+    },
+    {
+      "numero": "15528",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15528-5NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-TALLÁN-PIURA-1.pdf",
+      "bytes": 482315,
+      "sha256": "873e3fc77657f31953997283d7a08725023f6a9d7ad612e9f01f80ca96bc7440",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15528-5NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-TALLAN-PIURA-1.pdf"
+    },
+    {
+      "numero": "2546",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/INFORME-DE-EMERGENCIA-N.º-2546-4NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-CARMEN-DE-LA-FRONTERA-PIURA-1.pdf",
+      "bytes": 826970,
+      "sha256": "8a2dc006d3bdf8d11287240940ba96bb88b99a201d96aa4aa4a476b23e21d841",
+      "archivo": "INFORME-DE-EMERGENCIA-N.o-2546-4NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-EL-CARMEN-DE-LA-FRONTERA-PIURA-1.pdf"
+    },
+    {
+      "numero": "15450",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15450-3NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CANCHAQUE-PIURA-3.pdf",
+      "bytes": 877897,
+      "sha256": "d72b7d442495730b552aeefe91f42b5894f374092064662366a9b5fe3eda0ea5",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15450-3NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CANCHAQUE-PIURA-3.pdf"
+    },
+    {
+      "numero": "15405",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15405-3NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-YAMANGO-PIURA-1.pdf",
+      "bytes": 392211,
+      "sha256": "7fdabb98e87ffd560923a26afa5e122e03a7d3b9dc5051f1462537332a1213c8",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15405-3NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-YAMANGO-PIURA-1.pdf"
+    },
+    {
+      "numero": "15224",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-15224-29OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SANTO-DOMINGO-PIURA-1.pdf",
+      "bytes": 704693,
+      "sha256": "07532ec97b3afa4a54dc031b7c146f4250a1989ae0f39d78b8afead17157a79f",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15224-29OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-SANTO-DOMINGO-PIURA-1.pdf"
+    },
+    {
+      "numero": "14938",
+      "region": "Piura",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/10/REPORTE-COMPLEMENTARIO-N.º-14938-25OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-HUARMACA-PIURA-5.pdf",
+      "bytes": 688621,
+      "sha256": "9aa3625d29abf899f81d0a40d3e4d1e36d80c47d8e3840b3921159bda015d4e6",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-14938-25OCT2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-HUARMACA-PIURA-5.pdf"
+    },
+    {
+      "numero": "16075",
+      "region": "Lambayeque",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16075-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-OLMOS-LAMBAYEQUE-2.pdf",
+      "bytes": 686071,
+      "sha256": "3912cef5330c951ede6a18997efc7cf584b5e4ad8b267395895d3f83f1d3a99b",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16075-17NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-OLMOS-LAMBAYEQUE-2.pdf"
+    },
+    {
+      "numero": "15888",
+      "region": "Lambayeque",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15888-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-OYOTÚN-LAMBAYEQUE-2.pdf",
+      "bytes": 401671,
+      "sha256": "520b29e7e1bcea7e446098381ba8e7c337b2e7a4de23f15778693499315a1710",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15888-13NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-OYOTUN-LAMBAYEQUE-2.pdf"
+    },
+    {
+      "numero": "16005",
+      "region": "La Libertad",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-16005-16NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASCAS-LA-LIBERTAD2.pdf",
+      "bytes": 547390,
+      "sha256": "a8c453e9220abb7dae3b04a8f39f457c95f7e9b9f3377071290848b4977f9124",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-16005-16NOV2026-LLUVIAS-INTENSAS-EN-EL-DISTRITO-DE-CASCAS-LA-LIBERTAD2.pdf"
+    },
+    {
+      "numero": "15991",
+      "region": "La Libertad",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/11/REPORTE-COMPLEMENTARIO-N.º-15991-16NOV2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-SAYAPULLO-LA-LIBERTAD-1.pdf",
+      "bytes": 769444,
+      "sha256": "b750c2a4ddea8bed5112707e4dd28c5111231be48f280a15aa5d0b15bc6c0482",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-15991-16NOV2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-SAYAPULLO-LA-LIBERTAD-1.pdf"
+    },
+    {
+      "numero": "13954",
+      "region": "La Libertad",
+      "url": "https://portal.indeci.gob.pe/wp-content/uploads/2026/09/REPORTE-COMPLEMENTARIO-N.º-13954-12OCT2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-PÍAS-LA-LIBERTAD-6.pdf",
+      "bytes": 713414,
+      "sha256": "a322a1513a45e0d007d4cfdc334c752dccc853b71e0dd4a1b335f6d764cc7f81",
+      "archivo": "REPORTE-COMPLEMENTARIO-N.o-13954-12OCT2026-DESLIZAMIENTO-EN-EL-DISTRITO-DE-PIAS-LA-LIBERTAD-6.pdf"
+    }
+  ]
+}
