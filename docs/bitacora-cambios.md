@@ -2,6 +2,12 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18: El Niño en pestañas (sin revisión de cuatro ojos)
+- **Qué cambia:** la página de El Niño deja de ser una sola columna larga. Se organiza en siete pestañas. **Resumen** reúne lo esencial y la ficha por región. Siguen tres pestañas numeradas con la secuencia del observatorio: **1 Aviso** (avisos del SENAMHI), **2 Respuesta** (presupuesto de los 26 gobiernos) y **3 Impacto** (emergencias del INDECI). Después vienen **Brechas**, **Calendario** y **Método**.
+- **No cambian cifras ni textos:** solo se mueven las secciones existentes.
+- **Enlaces:** cada pestaña tiene su dirección (`#avisos`, `#brechas`, `#metodo`…) y la dirección antigua `#region` abre Resumen. Al final de cada pestaña hay botones para ir a la anterior y a la siguiente. Con JavaScript desactivado, la página se ve como antes, en una sola columna.
+- **Accesibilidad:** las pestañas usan los roles `tablist`, `tab` y `tabpanel` y se recorren con las flechas del teclado.
+
 ## 2026-11-18: MEF 18 nov, ENFEN N.º 20 y emergencias del INDECI al 18 nov (sin revisión de cuatro ojos)
 - **MEF 18 nov:** pasa los seis controles. PIM S/ 5,120.6 M; devengado S/ 2,580.9 M (50,4 %). Nacional 41,4 %, municipal 55,2 %, regional 73,4 %. Aviso: actividades municipales de Cusco +30 % de PIM.
 - **ENFEN N.º 20 (13 nov):** se registra leyendo la página oficial del ENFEN. Niño Costero extraordinario hasta febrero de 2027, debilitándose hasta julio; Niño global muy fuerte hasta febrero. Los ríos Tumbes y Piura, muy superiores a lo normal; Chillón, Rímac y Lurín, superiores desde enero (el N.º 19 decía diciembre), y se suman Pisco e Ica. Las fichas regionales pasan del pronóstico del N.º 17 al del N.º 20, y la etiqueta lee la fuente de `contexto.json` en vez de un texto fijo.

@@ -212,6 +212,17 @@ svg text{font-family:var(--mono)}
 .br .yes{color:var(--obra);font-weight:700} .br .no{color:var(--alert);font-weight:700}
 .br .small{overflow-wrap:anywhere}
 
+/* pestañas del observatorio: la secuencia aviso → respuesta → impacto va numerada; el resto es de apoyo */
+.obs-tabs{display:flex;gap:6px;overflow-x:auto;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line);scrollbar-width:thin}
+.obs-tab{flex:0 0 auto;display:inline-flex;align-items:center;gap:8px;font:600 .95rem var(--body);border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:8px 16px;border-radius:99px;cursor:pointer;white-space:nowrap}
+.obs-tab .n{font:700 .78rem var(--mono);width:1.4rem;height:1.4rem;border-radius:50%;display:inline-grid;place-items:center;background:var(--sunk);color:var(--ink)}
+.obs-tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.obs-tab[aria-selected="true"] .n{background:var(--oro);color:#12223C}
+.obs-tab:focus-visible{outline:3px solid var(--turq);outline-offset:2px}
+.obs-panel{display:grid;gap:56px}
+.obs-sig{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;border-top:1px solid var(--line);padding-top:16px;font-size:.95rem}
+.obs-sig button{font:inherit;color:var(--sea);background:none;border:0;padding:6px 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+
 footer{border-top:2px solid var(--ink);padding-top:22px;display:grid;gap:10px;font-size:.88rem;color:var(--muted)}
 footer strong{color:var(--ink)}
 
@@ -236,7 +247,17 @@ footer strong{color:var(--ink)}
     </header>
   </div>
 
-  <section style="--eje:var(--oro)" aria-labelledby="h-resumen">
+  <nav class="obs-tabs" role="tablist" aria-label="Secciones del observatorio">
+    <button type="button" class="obs-tab" role="tab" id="tab-resumen" data-ir="resumen" aria-controls="panel-resumen" aria-selected="false">Resumen</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-avisos" data-ir="avisos" aria-controls="panel-avisos" aria-selected="false"><span class="n">1</span>Aviso</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-presupuesto" data-ir="presupuesto" aria-controls="panel-presupuesto" aria-selected="false"><span class="n">2</span>Respuesta</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-emergencias" data-ir="emergencias" aria-controls="panel-emergencias" aria-selected="false"><span class="n">3</span>Impacto</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-brechas" data-ir="brechas" aria-controls="panel-brechas" aria-selected="false">Brechas</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-calendario" data-ir="calendario" aria-controls="panel-calendario" aria-selected="false">Calendario</button>
+    <button type="button" class="obs-tab" role="tab" id="tab-metodo" data-ir="metodo" aria-controls="panel-metodo" aria-selected="false">Método</button>
+  </nav>
+
+  <section style="--eje:var(--oro)" aria-labelledby="h-resumen" data-tab="resumen">
     <div class="sec-head">
       <h2 id="h-resumen">Lo esencial, en tres respuestas</h2>
       <p class="muted">Cifras del Ministerio de Economía al <b id="corte-largo">—</b>, para el programa de reducción de vulnerabilidad y atención de emergencias por desastres (PP 0068).</p>
@@ -261,7 +282,7 @@ footer strong{color:var(--ink)}
     </div>
   </section>
 
-  <section style="--eje:var(--verde)" aria-labelledby="h-region" id="region">
+  <section style="--eje:var(--verde)" aria-labelledby="h-region" data-tab="resumen" id="region">
     <div class="sec-head">
       <h2 id="h-region">Mira tu región</h2>
       <p class="muted">Cada región tiene dos actores: su gobierno regional y sus municipalidades. Aquí ves a los dos por separado.</p>
@@ -301,7 +322,7 @@ footer strong{color:var(--ink)}
     </article>
   </section>
 
-  <section style="--eje:var(--turq)" aria-labelledby="h-rank">
+  <section style="--eje:var(--turq)" aria-labelledby="h-rank" data-tab="presupuesto">
     <div class="sec-head">
       <h2 id="h-rank">Los 26 gobiernos del nivel regional, de menor a mayor avance</h2>
       <p class="muted">25 gobiernos regionales y la Municipalidad Metropolitana de Lima, que el MEF cuenta en el mismo nivel. A la derecha, cuánto dinero tienen asignado.</p>
@@ -315,7 +336,7 @@ footer strong{color:var(--ink)}
     <p class="small muted" id="rank-note">—</p>
   </section>
 
-  <section style="--eje:var(--turq)" aria-labelledby="h-avisos" id="avisos">
+  <section style="--eje:var(--turq)" aria-labelledby="h-avisos" data-tab="avisos" id="avisos-sec">
     <div class="sec-head">
       <h2 id="h-avisos">Avisos del SENAMHI: lluvias y ríos</h2>
       <p class="muted">Lo que el Estado advirtió antes de cada evento. El SENAMHI emite avisos de lluvia por zonas y avisos hidrológicos por estación de río, con niveles amarillo, naranja y rojo. Aquí están todos los emitidos desde el 1 de septiembre de 2026, con el departamento al que alcanzan.</p>
@@ -335,7 +356,7 @@ footer strong{color:var(--ink)}
     </ul>
   </section>
 
-  <section style="--eje:var(--magenta)" aria-labelledby="h-emerg" id="emergencias">
+  <section style="--eje:var(--magenta)" aria-labelledby="h-emerg" data-tab="emergencias" id="emergencias-sec">
     <div class="sec-head">
       <h2 id="h-emerg">Emergencias registradas durante El Niño 2026-2027</h2>
       <p class="muted">Piloto en la costa norte: <span id="em-regs-txt">—</span>. Reportes del Centro de Operaciones de Emergencia Nacional (COEN) del INDECI sobre lluvias y sus efectos ocurridos desde el <span id="em-desde">—</span>, revisados hasta el <span id="em-rev">—</span>.</p>
@@ -353,7 +374,7 @@ footer strong{color:var(--ink)}
     </ul>
   </section>
 
-  <section style="--eje:var(--oro)" aria-labelledby="h-brechas" id="brechas">
+  <section style="--eje:var(--oro)" aria-labelledby="h-brechas" data-tab="brechas" id="brechas-sec">
     <div class="sec-head">
       <h2 id="h-brechas">Brechas: cuánta gente está expuesta y qué se ha hecho</h2>
       <p class="muted">Lima y cinco regiones de la costa con más población en riesgo. Cada ficha pone lado a lado la exposición que calculó el CENEPRED y la respuesta que se puede medir con datos públicos. No hay puntaje ni ranking: las cifras quedan a la vista para que cada quien saque sus conclusiones.</p>
@@ -363,7 +384,7 @@ footer strong{color:var(--ink)}
     <ul class="method" id="br-notas"></ul>
   </section>
 
-  <section style="--eje:var(--turq)" aria-labelledby="h-linea">
+  <section style="--eje:var(--turq)" aria-labelledby="h-linea" data-tab="calendario">
     <div class="sec-head">
       <h2 id="h-linea">Aviso, decisiones y gasto en el mismo calendario</h2>
       <p class="muted">Arriba, lo que pronosticaba el ENFEN. Al medio, lo que decidió o advirtió el Estado. Abajo, cuánto del presupuesto se había usado en cada corte.</p>
@@ -387,7 +408,7 @@ footer strong{color:var(--ink)}
     <button type="button" class="chip more" id="log-more">Ver todo</button>
   </section>
 
-  <section style="--eje:var(--muted)" aria-labelledby="h-leer">
+  <section style="--eje:var(--muted)" aria-labelledby="h-leer" data-tab="metodo">
     <div class="sec-head">
       <h2 id="h-leer">Cómo leer estas cifras</h2>
     </div>
@@ -707,5 +728,40 @@ renderLog();
     `<b>Respuesta.</b> Presupuesto del PP 0068 del gobierno regional y de las municipalidades del departamento (MEF). El programa cubre todos los peligros, no solo El Niño. Planes: lista que publicó el Ejecutivo el 27 de junio de 2026. Pronóstico: ${B.fuente_pronostico}.`,
     `<b>Si quieres ayudar.</b> Esta sección muestra dónde hay más gente expuesta y cuánto se ha avanzado. No dice qué necesita cada familia: esa evaluación la hacen el INDECI y los gobiernos locales. Para actuar en un distrito, revisa el estudio del CENEPRED (trae la lista de distritos) y coordina con la plataforma de defensa civil de la zona.`];
   document.getElementById("br-notas").innerHTML=nota.map(n=>`<li>${n}</li>`).join("");
+})();
+
+/* --- pestañas: cada sección con data-tab va a su panel; la dirección (#avisos, #brechas…) abre la pestaña --- */
+(function(){
+  const nav=document.querySelector(".obs-tabs"); if(!nav) return;
+  const tabs=[...nav.querySelectorAll(".obs-tab")], ids=tabs.map(t=>t.dataset.ir);
+  const paneles={};
+  ids.forEach(id=>{ const p=document.createElement("div"); p.className="obs-panel"; p.id="panel-"+id; p.setAttribute("role","tabpanel"); p.setAttribute("aria-labelledby","tab-"+id); paneles[id]=p; });
+  const secs=[...document.querySelectorAll("section[data-tab]")];
+  secs[0].parentNode.insertBefore(paneles[ids[0]], secs[0]);
+  let ultimo=paneles[ids[0]];
+  ids.slice(1).forEach(id=>{ ultimo.after(paneles[id]); ultimo=paneles[id]; });
+  secs.forEach(sc=>paneles[sc.dataset.tab].appendChild(sc));
+  ids.forEach((id,i)=>{ const d=document.createElement("div"); d.className="obs-sig";
+    d.innerHTML=(i>0?`<button type="button" data-ir="${ids[i-1]}">← ${tabs[i-1].textContent}</button>`:"<span></span>")+(i<ids.length-1?`<button type="button" data-ir="${ids[i+1]}">${tabs[i+1].textContent} →</button>`:"");
+    paneles[id].appendChild(d); });
+  // direcciones antiguas o de elementos dentro de un panel
+  const VIEJAS={region:"resumen","avisos-sec":"avisos","emergencias-sec":"emergencias","brechas-sec":"brechas"};
+  function destino(h){ if(ids.includes(h)) return [h,null]; if(VIEJAS[h]) return [VIEJAS[h],h==="region"?h:null];
+    const el=h&&document.getElementById(h); const p=el&&el.closest(".obs-panel"); return p?[p.id.slice(6),h]:[ids[0],null]; }
+  function abrir(id, foco, desplazar){
+    tabs.forEach(t=>{const on=t.dataset.ir===id; t.setAttribute("aria-selected",on); t.tabIndex=on?0:-1;});
+    ids.forEach(i=>paneles[i].hidden=i!==id);
+    const t=tabs[ids.indexOf(id)]; t.scrollIntoView({block:"nearest",inline:"nearest"});
+    if(foco){ const el=document.getElementById(foco); if(el) el.scrollIntoView({block:"start"}); }
+    else if(desplazar){ const y=nav.getBoundingClientRect().top+window.scrollY; if(window.scrollY>y) window.scrollTo({top:y}); }
+  }
+  function ir(id){ if(location.hash!=="#"+id) history.replaceState(null,"","#"+id); abrir(id,null,true); }
+  document.addEventListener("click",e=>{ const b=e.target.closest("[data-ir]"); if(b){ e.preventDefault(); ir(b.dataset.ir); }
+    const a=e.target.closest('a[href^="#"]'); if(a&&!b){ const [id,f]=destino(a.getAttribute("href").slice(1)); if(f||ids.includes(a.getAttribute("href").slice(1))){ e.preventDefault(); history.replaceState(null,"",a.getAttribute("href")); abrir(id,f,true);} } });
+  nav.addEventListener("keydown",e=>{ const i=tabs.indexOf(document.activeElement); if(i<0) return;
+    const j=e.key==="ArrowRight"?(i+1)%tabs.length:e.key==="ArrowLeft"?(i-1+tabs.length)%tabs.length:e.key==="Home"?0:e.key==="End"?tabs.length-1:-1;
+    if(j>=0){ e.preventDefault(); tabs[j].focus(); ir(ids[j]); } });
+  const desdeHash=()=>{ const [id,f]=destino(decodeURIComponent(location.hash.slice(1))); abrir(id,f,false); };
+  window.addEventListener("hashchange",desdeHash); desdeHash();
 })();
 </script>
