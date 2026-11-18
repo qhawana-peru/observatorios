@@ -347,6 +347,7 @@ footer strong{color:var(--ink)}
     <ul class="rules">
       <li><b>Durante no es lo mismo que por.</b> El ENFEN y el SENAMHI atribuyen a El Niño costero el régimen de lluvias de esta temporada, no cada evento. Aquí se registra lo que ocurrió mientras el fenómeno está en curso.</li>
       <li><b>Cifras preliminares.</b> El INDECI actualiza cada reporte mientras avanza la evaluación de daños. Mostramos la última versión archivada y guardamos el PDF original de cada una.</li>
+      <li><b>Sin contar dos veces.</b> El INDECI publica reportes departamentales que agrupan varias emergencias. Cada emergencia se cuenta una sola vez según su código del SINPAD: si un reporte distrital ya está dentro de uno departamental, se excluye y se explica en la tabla abierta.</li>
       <li><b>Un espacio vacío no es un cero.</b> Si el reporte describe un daño sin contarlo, no ponemos número.</li>
       <li><b>Gasto y daños, uno al lado del otro.</b> Esta sección no dice que una emergencia ocurrió por falta de gasto: para eso haría falta saber qué obra o actividad habría evitado ese daño, y estas fuentes no lo dicen.</li>
     </ul>
@@ -486,7 +487,7 @@ function showRegion(code){
   document.getElementById("f-mu-note").textContent=`${fmtM(m[1])} usados de ${fmtM(m[0])}, sumando todas sus municipalidades.`;
   const f=document.getElementById("f-facts"); f.innerHTML="";
   const add=(col,html)=>{const d=document.createElement("div");d.className="fact";d.innerHTML=`<span class="dot" style="background:${col}"></span><span>${html}</span>`;f.appendChild(d)};
-  add("var(--m3)", `<b>Pronóstico (ENFEN N° 17, 28 set):</b> ${EXP[o.r]||"el comunicado no la menciona entre las zonas con lluvias fuera de lo normal."}`);
+  add("var(--m3)", `<b>Pronóstico (${DATA.contexto._fuentes.pronostico.replace("Comunicado Oficial ENFEN ","ENFEN ").replace(/ \((.*)\)$/,", $1")}):</b> ${EXP[o.r]||"el comunicado no la menciona entre las zonas con lluvias fuera de lo normal."}`);
   if(!isMML) add("var(--gov)", `<b>Plan de gestión del riesgo al 27 de junio:</b> ${PLAN_OK.includes(o.r)?'<span class="pill ok">aprobado</span>':'<span class="pill no">no figuraba entre los aprobados</span>'} <span class="small muted">según el Ejecutivo</span>`);
   if(DATA.emergencias.regiones.includes(o.r)){const ev=DATA.emergencias.eventos.filter(e=>e.region===o.r);const af=ev.map(e=>e.personas_afectadas).filter(v=>v!=null).reduce((a,b)=>a+b,0);
     add("var(--m3)", ev.length?`<b>Emergencias por lluvias desde el ${DATA.emergencias.desde_largo.replace(/ de 2026$/,"")}:</b> ${ev.length}, con ${af.toLocaleString("es-PE")} personas afectadas según el INDECI. <a href="#emergencias">Ver detalle</a>`:`<b>Emergencias por lluvias desde el ${DATA.emergencias.desde_largo.replace(/ de 2026$/,"")}:</b> no encontramos reportes del INDECI en el periodo revisado.`);}
@@ -532,7 +533,7 @@ sel.value=start; showRegion(start);
 /* --- emergencias --- */
 const EM=DATA.emergencias;
 const nf=v=>v==null?null:(Number.isInteger(v)?v.toLocaleString("es-PE"):String(v).replace(".",","));
-const sumK=(ev,k)=>{const xs=ev.map(e=>e[k]).filter(v=>v!=null);return xs.length?xs.reduce((a,b)=>a+b,0):null};
+const sumK=(ev,k)=>{const xs=ev.map(e=>e[k]).filter(v=>v!=null);return xs.length?Math.round(xs.reduce((a,b)=>a+b,0)*100)/100:null};
 const emOf=r=>EM.eventos.filter(e=>e.region===r);
 let emSel=null;
 (function(){
@@ -551,7 +552,7 @@ let emSel=null;
     const af=sumK(ev,"personas_afectadas"), dm=sumK(ev,"personas_damnificadas"), vi=sumK(ev,"viviendas_afectadas"), ie=sumK(ev,"iiee_afectadas"), es=sumK(ev,"eess_afectados");
     const det=[af!=null?`${nf(af)} personas afectadas`:null, dm?`${nf(dm)} damnificadas`:null, vi!=null?`${nf(vi)} viviendas afectadas`:null,
                ie?`${nf(ie)} locales escolares`:null, es?`${nf(es)} establecimientos de salud`:null].filter(Boolean).join(" · ");
-    b.innerHTML=`<h3>${r}</h3><p class="big num">${ev.length}<small>${ev.length===1?"emergencia":"emergencias"}</small></p><p class="small muted">${ev.length?det:"No encontramos reportes del COEN sobre lluvias en el periodo revisado. Si conoces uno, repórtalo."}</p>`;
+    b.innerHTML=`<h3>${r}</h3><p class="big num">${ev.length}<small>${ev.length===1?"emergencia":"emergencias"}</small></p><p class="small muted">${ev.length?(det||"Sin cifras de personas ni viviendas; los daños están en la lista."):"No encontramos reportes del COEN sobre lluvias en el periodo revisado. Si conoces uno, repórtalo."}</p>`;
     b.onclick=()=>{emSel=emSel===r?null:r;renderEm()};
     box.appendChild(b);
   });
