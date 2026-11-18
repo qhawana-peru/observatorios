@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18: salud, se quita la etiqueta «75 % hemodiálisis» (sin revisión del comité ni de cuatro ojos)
+- En «Cómo circula el dinero», la etiqueta de la línea EsSalud → clínicas privadas caía junto a la línea del FISSAL y parecía suya. Se quita la etiqueta; la línea y su explicación al pasar el cursor se mantienen. Observación de Pepe.
+
 ## 2026-11-18: pestaña "Riesgo" con zonas de riesgo por distrito (sin revisión de cuatro ojos)
 - **Qué hay:**
   - Nivel de riesgo por inundación y por movimientos en masa de los 1893 distritos del país, según dos estudios del CENEPRED: el escenario El Niño actualizado con el IT N.º 69-2026 del SENAMHI y el de verano 2027 de octubre (IT N.º 13-2026).
