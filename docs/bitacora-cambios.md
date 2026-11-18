@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18: título de la línea de tiempo (sin revisión de cuatro ojos)
+- "Aviso, decisiones y gasto en el mismo calendario" pasa a "Pronóstico, decisiones y gasto en una misma línea de tiempo". La franja superior del gráfico muestra el pronóstico del ENFEN, no los avisos del SENAMHI, que tienen su propia pestaña. El título anterior mezclaba los dos.
+
 ## 2026-11-18: El Niño en pestañas (sin revisión de cuatro ojos)
 - **Qué cambia:** la página de El Niño deja de ser una sola columna larga. Se organiza en siete pestañas. **Resumen** reúne lo esencial y la ficha por región. Siguen tres pestañas numeradas con la secuencia del observatorio: **1 Aviso** (avisos del SENAMHI), **2 Respuesta** (presupuesto de los 26 gobiernos) y **3 Impacto** (emergencias del INDECI). Después vienen **Brechas**, **Calendario** y **Método**.
 - **No cambian cifras ni textos:** solo se mueven las secciones existentes.
