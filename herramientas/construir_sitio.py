@@ -105,6 +105,19 @@ def construir_datos() -> dict:
                          "t": [a["pim"] + p["pim"], a["devengado"] + p["devengado"]],
                          "a": [a["pim"], a["devengado"]], "p": [p["pim"], p["devengado"]], "m": m})
 
+    # Referencia "hace un mes": el último corte al menos 28 días antes del actual. Sirve para marcar a quien recibió
+    # presupuesto nuevo, porque un aumento grande del PIM baja el porcentaje aunque el gasto siga subiendo.
+    lim = (date.fromisoformat(corte) - timedelta(days=28)).isoformat()
+    previas = [f for f in fechas if f <= lim]
+    if previas:
+        f0 = previas[-1]
+        ant = {(r["archivo"], r["codigo"]): r for r in por_fecha[f0] if r["archivo"] in ("D2", "D3")}
+        for g in regiones:
+            a0 = ant.get(("D2", g["c"]), {"pim": 0, "devengado": 0})
+            p0 = ant.get(("D3", g["c"]), {"pim": 0, "devengado": 0})
+            g["h"] = {"f": f0, "t": [a0["pim"] + p0["pim"], a0["devengado"] + p0["devengado"]],
+                      "a": [a0["pim"], a0["devengado"]], "p": [p0["pim"], p0["devengado"]]}
+
     serie = []
     for f in fechas:
         rs = por_fecha[f]
