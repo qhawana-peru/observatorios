@@ -2,6 +2,12 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18 (noche): correcciones de lectura (sin revisión de cuatro ojos)
+- **Fecha de "hoy":** el sitio calculaba el día con la hora del servidor (UTC) y marcaba el 19 nov cuando en Lima era 18. Ahora usa la hora de Lima.
+- **Avisos de ríos:** se separan los 66 de crecida o nivel del río de los 21 de bajante (20 de Loreto), y se dice de qué río son los 8 rojos (3 Tumbes, 3 Nanay, 2 Huallaga). Se corrige el plural de "aviso vigente".
+- **Riesgo (CENEPRED):** cada celda dice "El Niño" o "Verano" en su línea; los encabezados ya no salen pegados. Se aclara que la población del distrito (estudio El Niño) y las personas en zonas más susceptibles (estudio verano 2027) vienen de bases distintas: en 155 distritos la segunda es mayor que la primera. Consulta pendiente al CENEPRED sobre la base de población del estudio de verano.
+- **Lima y Callao:** la tarjeta de 1,822,466 personas dice que es la población total de los 6 distritos, no el número de personas en riesgo.
+
 ## 2026-11-18: salud, se quita la etiqueta «75 % hemodiálisis» (sin revisión del comité ni de cuatro ojos)
 - En «Cómo circula el dinero», la etiqueta de la línea EsSalud → clínicas privadas caía junto a la línea del FISSAL y parecía suya. Se quita la etiqueta; la línea y su explicación al pasar el cursor se mantienen. Observación de Pepe.
 
