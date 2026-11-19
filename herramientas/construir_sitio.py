@@ -27,7 +27,7 @@ import csv
 import json
 import os
 import shutil
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from collections import defaultdict
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -172,12 +172,21 @@ def construir_emergencias() -> dict:
 UMBRAL_AREA = 5.0  # % del departamento bajo el nivel para contar el día (método en docs/el-nino-avisos.md)
 
 
+def rojos_por_rio(rios) -> str:
+    """Texto como '3 del río Tumbes (Tumbes) y 3 del río Nanay (Loreto)'."""
+    from collections import Counter
+    c = Counter((r["rio"], (r["departamento"] or "").title()) for r in rios if r["nivel"] == "ROJO")
+    partes = [f"{n} del río {rio}" + (f" ({dep})" if dep else "") for (rio, dep), n in c.most_common()]
+    return " y ".join([", ".join(partes[:-1]), partes[-1]]) if len(partes) > 1 else (partes[0] if partes else "ninguno")
+
+
 def construir_avisos(hoy: date | None = None) -> dict:
     """Avisos del SENAMHI desde el 1 set 2026.
 
     Lluvia: por departamento y día, el nivel más alto que cubre al menos UMBRAL_AREA % de su superficie, entre todos
     los avisos de ese día. Ríos: lista de avisos hidrológicos con su estación, cuenca y departamento."""
-    hoy = hoy or date.today()
+    # La fecha de hoy es la de Lima (UTC-5), no la del servidor: GitHub corre en hora UTC.
+    hoy = hoy or (datetime.now(timezone.utc) - timedelta(hours=5)).date()
     filas = leer_csv(os.path.join(EN, "datos", "avisos_senamhi_lluvia.csv"))
     rios = leer_csv(os.path.join(EN, "datos", "avisos_senamhi_rios.csv"))
     nivel = {}
@@ -211,6 +220,8 @@ def construir_avisos(hoy: date | None = None) -> dict:
                    "vigentes": sorted([{"n": k, "nivel": v[0], "inicio": v[1], "fin": v[2]} for k, v in avisos.items() if v[2] >= hoy_s],
                                       key=lambda x: x["inicio"])},
         "rios": {"total": len(rios), "rojos": sum(r["nivel"] == "ROJO" for r in rios),
+                 "bajante": sum(r["tipo"] == "descenso" for r in rios),
+                 "rojos_por_rio": rojos_por_rio(rios),
                  "vigentes": sum(r["fin"] >= hoy_s for r in rios),
                  "lista": [{k: r[k] for k in ("aviso", "rio", "estacion", "tipo", "inicio", "fin", "nivel", "departamento", "cuenca")}
                            for r in sorted(rios, key=lambda r: (r["inicio"], r["aviso"]), reverse=True)]},

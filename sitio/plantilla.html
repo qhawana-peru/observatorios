@@ -234,7 +234,9 @@ svg text{font-family:var(--mono)}
 .rz-t th{font:600 .74rem var(--mono);text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--sunk);position:sticky;top:0}
 .rz-t td:first-child{min-width:9.5em}
 .rz-t td.n,.rz-t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-.rz-t td .sub{display:block;font-size:.8rem;color:var(--muted)}
+.rz-t td .sub,.rz-t th .sub{display:block;font-size:.8rem;color:var(--muted);font-weight:400}
+.rz-t .et{display:inline-block;min-width:4.6em;font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.rz-t td .linea{display:block;white-space:nowrap}
 .nv{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-size:.84rem}
 .nv::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c,var(--m0))}
 .nv4{--c:var(--m3);font-weight:700} .nv3{--c:var(--m2)} .nv2{--c:var(--m1)} .nv1{--c:var(--m0)} .nv0{color:var(--muted)}
@@ -366,6 +368,8 @@ footer strong{color:var(--ink)}
     <ul class="rules">
       <li><b>Qué es cada estudio.</b> <span id="rz-estudios"></span></li>
       <li><b>Riesgo no es daño.</b> Un distrito en riesgo muy alto es uno donde el CENEPRED espera los peores efectos si llueve como prevé el escenario. No significa que ya esté afectado. Para lo que sí ocurrió, mira la pestaña Impacto.</li>
+      <li><b>Cada celda de riesgo tiene dos líneas:</b> arriba, el escenario El Niño; abajo, el de verano 2027. Cuando no coinciden, se muestran los dos sin elegir.</li>
+      <li><b>Dos poblaciones que no se comparan.</b> "Población del distrito" viene del estudio El Niño; "personas en zonas más susceptibles", del estudio de verano 2027, que usa otra base de población. Por eso en algunos distritos la segunda cifra es mayor que la primera. Estamos consultando al CENEPRED de qué censo o proyección sale.</li>
       <li><b>Por qué los estudios no coinciden.</b> El escenario El Niño repite las lluvias máximas de los Niños de 1983, 1998, 2017 y 2023 y cuenta la población de todo el distrito. El de verano 2027 parte del pronóstico vigente del SENAMHI y cuenta solo a la población de las zonas más susceptibles. Un distrito puede estar en riesgo muy alto en uno y no en el otro.</li>
       <li><b>Puntos críticos.</b> Son tramos de ríos y quebradas que la Autoridad Nacional del Agua (ANA) identificó para obras o actividades de prevención. El CENEPRED los adjunta al estudio de verano 2027. Se muestran 4202 tramos por inundación y 984 por movimientos en masa. Unos pocos registros traen un código de distrito que no figura en la lista del INEI y quedan fuera.</li>
       <li><b>Versión del escenario El Niño.</b> Esta pestaña usa la actualización del escenario El Niño basada en el informe técnico N.º 69-2026 del SENAMHI. La pestaña Brechas todavía usa la versión de mayo, transcrita del PDF; su actualización está pendiente.</li>
@@ -718,9 +722,9 @@ renderLog();
   const vig=A.lluvia.vigentes;
   document.getElementById("av-tiles").innerHTML=[
     [`${A.lluvia.total}`,"avisos de lluvia",`${A.lluvia.rojos} en rojo y ${A.lluvia.naranjas} en naranja desde el 1 set`],
-    [`${A.rios.total}`,"avisos de ríos",`${A.rios.rojos} en rojo desde el 1 set`],
-    [`${vig.length}`,"avisos de lluvia vigentes",vig.length?vig.map(v=>`N.º ${v.n} (${v.nivel.toLowerCase()}) hasta el ${fc(v.fin)}`).join("; "):"Ninguno al "+fc(A.hoy)],
-    [`${A.rios.vigentes}`,"avisos de ríos vigentes",`Al ${fc(A.hoy)}`]
+    [`${A.rios.total}`,"avisos de ríos",`${A.rios.total-A.rios.bajante} por crecida o nivel del río y ${A.rios.bajante} por bajante desde el 1 set. ${A.rios.rojos} en rojo: ${A.rios.rojos_por_rio}.`],
+    [`${vig.length}`,vig.length===1?"aviso de lluvia vigente":"avisos de lluvia vigentes",vig.length?vig.map(v=>`N.º ${v.n} (${v.nivel.toLowerCase()}) hasta el ${fc(v.fin)}`).join("; "):"Ninguno al "+fc(A.hoy)],
+    [`${A.rios.vigentes}`,A.rios.vigentes===1?"aviso de ríos vigente":"avisos de ríos vigentes",`Al ${fc(A.hoy)}`]
   ].map(([n,u,t])=>`<div class="av-tile"><p class="big">${n} <small>${u}</small></p><p class="small muted">${t}</p></div>`).join("");
   document.getElementById("av-legend").innerHTML=`<span><i style="background:var(--m1)"></i><b>Amarillo:</b> puede haber lluvias peligrosas, pero normales en esa zona</span><span><i style="background:var(--m2)"></i><b>Naranja:</b> se pronostican lluvias peligrosas; seguir las indicaciones de las autoridades</span><span><i style="background:var(--m3)"></i><b>Rojo:</b> se pronostican lluvias de gran magnitud; máxima precaución</span><span><i style="background:var(--sunk)"></i>Sin aviso</span><span><i style="background:var(--m2);opacity:.45"></i>Días por venir (aviso vigente)</span><span class="small muted" style="flex-basis:100%">Definiciones del SENAMHI. Un departamento cuenta un día con aviso cuando al menos el 5 % de su superficie está bajo ese color; si hay dos avisos, vale el más alto.</span>`;
   const BRD=new Set((DATA.brechas?DATA.brechas.territorios:[]).flatMap(t=>t.cenepred));
@@ -734,7 +738,7 @@ renderLog();
     h+=[...cad].map((c,i)=>{const f=A.dias[i];return `<i class="l${c}${f>A.hoy?" fut":""}${f===A.hoy?" hoy":""}" title="${nom(dep)}, ${fc(f)}: ${["sin aviso","","amarillo","naranja","rojo"][+c]}"></i>`}).join("");
   });
   cal.innerHTML=h;
-  document.getElementById("av-cal-nota").textContent=`Del ${fc(A.desde)} al ${fc(A.dias[A.dias.length-1])}. El recuadro marca hoy (${fc(A.hoy)}). En negrita, las regiones de la sección Brechas. Los departamentos sin ningún día con aviso no aparecen.`;
+  document.getElementById("av-cal-nota").textContent=`Del ${fc(A.desde)} al ${fc(A.dias[A.dias.length-1])}. El recuadro marca el día de la última actualización (${fc(A.hoy)}, hora de Lima). En negrita, las regiones de la sección Brechas. Los departamentos sin ningún día con aviso no aparecen.`;
   const lim=new Date(A.hoy); lim.setDate(lim.getDate()-14); const ls=lim.toISOString().slice(0,10);
   const T={"incremento":"Crecida (incremento)","descenso":"Bajante (descenso)","situación actual":"Situación actual"};
   const rs=A.rios.lista.filter(r=>r.fin>=ls);
@@ -805,7 +809,7 @@ renderLog();
   const aLM=D.filter(d=>isLM(d)&&d[5]===4), bLM=D.filter(d=>isLM(d)&&d[7]===4);
   $("rz-lima-cmp").innerHTML=[
     [fmt(lMA), `personas en <b>manzanas</b> de riesgo muy alto (y ${fmt(lA)} en riesgo alto), en ${L.filter(d=>d[3]>0).length} distritos.`, E.L],
-    [fmt(aLM.reduce((s,d)=>s+(d[4]||0),0)), `personas en los <b>${aLM.length} distritos</b> que el escenario El Niño pone en riesgo muy alto. Cuenta a todo el distrito.`, E.A],
+    [fmt(aLM.reduce((s,d)=>s+(d[4]||0),0)), `es la <b>población total</b> de los <b>${aLM.length} distritos</b> que el escenario El Niño pone en riesgo muy alto. No es el número de personas en riesgo: el estudio califica el distrito completo.`, E.A],
     [fmt(bLM.reduce((s,d)=>s+(d[8]||0),0)), `personas en las zonas más susceptibles de los <b>${bLM.length} distritos</b> en riesgo muy alto según verano 2027.`, E.B]
   ].map(([n,t,e])=>`<div class="av-tile"><span class="big">${n}</span><span class="small">${t}</span><a class="small" href="${e.ficha}">${e.corto}</a></div>`).join("");
   const byU=Object.fromEntries(D.map(d=>[d[0],d]));
@@ -837,8 +841,8 @@ renderLog();
     const F=filas();
     const lugar=sd.value==="*"?"en riesgo muy alto por inundación en los dos estudios":sd.value?`en ${tc(sd.value)}${sp.value?" · provincia "+tc(sp.value):""}`:"en todo el país";
     $("rz-cuenta").innerHTML=`<b>${F.length}</b> distritos ${q.value.trim()?"que coinciden con la búsqueda ":""}${lugar}${ma.checked?", con al menos un riesgo muy alto":""}.`;
-    $("rz-tabla").innerHTML=`<thead><tr><th>Distrito</th><th class="n">Población</th><th>Inundación<span class="sub">El Niño · Verano 2027</span></th><th class="n">En zonas más susceptibles<span class="sub">inundación, verano 2027</span></th><th>Huaicos y deslizamientos<span class="sub">El Niño · Verano 2027</span></th><th class="n">Puntos críticos ANA<span class="sub">inundación · huaico</span></th></tr></thead><tbody>`+
-      F.slice(0,lim).map(d=>`<tr><td>${tc(d[3])}<span class="sub">${tc(d[2])}, ${tc(d[1])}</span></td><td class="n">${fmt(d[4])}</td><td>${nv(d[5])}<br>${nv(d[7])}</td><td class="n">${fmt(d[8])}</td><td>${nv(d[6])}<br>${nv(d[9])}</td><td class="n">${d[11]||"–"} · ${d[12]||"–"}</td></tr>`).join("")+"</tbody>";
+    $("rz-tabla").innerHTML=`<thead><tr><th>Distrito</th><th class="n">Población del distrito<span class="sub">estudio El Niño</span></th><th>Riesgo de inundación<span class="sub">según cada estudio</span></th><th class="n">Personas en zonas más susceptibles<span class="sub">inundación · estudio verano 2027</span></th><th>Riesgo de huaicos y deslizamientos<span class="sub">según cada estudio</span></th><th class="n">Puntos críticos ANA<span class="sub">inundación · huaico</span></th></tr></thead><tbody>`+
+      F.slice(0,lim).map(d=>`<tr><td>${tc(d[3])}<span class="sub">${tc(d[2])}, ${tc(d[1])}</span></td><td class="n">${fmt(d[4])}</td><td><span class="linea"><span class="et">El Niño</span>${nv(d[5])}</span><span class="linea"><span class="et">Verano</span>${nv(d[7])}</span></td><td class="n">${fmt(d[8])}</td><td><span class="linea"><span class="et">El Niño</span>${nv(d[6])}</span><span class="linea"><span class="et">Verano</span>${nv(d[9])}</span></td><td class="n">${d[11]||"–"} · ${d[12]||"–"}</td></tr>`).join("")+"</tbody>";
     $("rz-mas").hidden=F.length<=lim; $("rz-mas").textContent=`Mostrar más distritos (${F.length-lim} restantes)`;
   }
   sd.addEventListener("change",()=>{ const dep=sd.value; lim=60;
