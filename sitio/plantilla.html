@@ -121,6 +121,7 @@ select{font:inherit;font-size:1rem;padding:10px 14px;border-radius:0;border:1.5p
 .rank{list-style:none;margin:0;padding:0}
 .rank li{display:grid;grid-template-columns:minmax(0,11.5rem) 1fr 4.2rem;gap:12px;align-items:center;padding:7px 18px;font-size:.92rem}
 .rank li:nth-child(odd){background:color-mix(in srgb,var(--sunk) 45%,transparent)}
+.rank .nuevo{display:block;width:max-content;max-width:100%;margin-top:3px;font:500 11px var(--mono);color:var(--sun);border:1px solid var(--sun);border-radius:6px;padding:1px 8px;white-space:normal}
 .rank li.sel{outline:2px solid var(--oro);outline-offset:-2px}
 .rank .n{overflow-wrap:anywhere}
 .rank .bar{height:12px;border-radius:0;background:var(--sunk);overflow:hidden}
@@ -582,13 +583,22 @@ function rankOrder(k){
   return [...REG].map(o=>({c:o.c,r:o.r,v:o[k],has:o[k][0]>0,pc:o[k][0]>0?o[k][1]/o[k][0]*100:null}))
     .sort((a,b)=>(a.pc==null)-(b.pc==null)|| (a.pc??0)-(b.pc??0));
 }
+/* Marca de presupuesto nuevo: el PIM subió al menos 20 % y S/ 1 M frente al corte de hace un mes. */
+function nuevo(x){
+  const o=REG.find(g=>g.c===x.c); if(!o||!o.h) return "";
+  const [p0,d0]=o.h[mode], [p1]=o[mode], dif=p1-p0;
+  if(!(p0>0? (dif>=1e6 && dif/p0>=.2) : p1>=1e6)) return "";
+  const antes=p0>0?`; antes iba en ${(d0/p0*100).toFixed(0)} %`:"";
+  const f=o.h.f.split("-"), MES=["ene","feb","mar","abr","may","jun","jul","ago","set","oct","nov","dic"];
+  return `<span class="nuevo" title="El presupuesto subió de ${fmtM(p0)} a ${fmtM(p1)} desde el ${+f[2]} ${MES[+f[1]-1]}${antes}. Un aumento así baja el porcentaje aunque el gasto siga subiendo.">+${fmtM(dif)} desde el ${+f[2]} ${MES[+f[1]-1]}${antes}</span>`;
+}
 function drawRank(){
   const el=document.getElementById("rank"); el.innerHTML="";
   const col= mode==="p"?"var(--obra)":mode==="a"?"var(--gasto)":"var(--sea)";
   rankOrder(mode).forEach(x=>{
     const li=document.createElement("li"); li.dataset.c=x.c;
     li.innerHTML = x.has
-      ? `<span class="n">${x.r}</span><span class="bar" aria-hidden="true"><i style="width:${x.pc}%;background:${col}"></i></span><span class="v">${x.pc.toFixed(1).replace(".",",")} %<small>${fmtM(x.v[0])}</small></span>`
+      ? `<span class="n">${x.r}${nuevo(x)}</span><span class="bar" aria-hidden="true"><i style="width:${x.pc}%;background:${col}"></i></span><span class="v">${x.pc.toFixed(1).replace(".",",")} %<small>${fmtM(x.v[0])}</small></span>`
       : `<span class="n">${x.r}</span><span class="na">sin obras en el programa</span><span class="v">—</span>`;
     li.style.cursor="pointer"; li.onclick=()=>{sel.value=x.c;showRegion(x.c);document.getElementById("region").scrollIntoView({behavior:"smooth",block:"start"})};
     el.appendChild(li);
@@ -596,9 +606,9 @@ function drawRank(){
   const R=LV.R, ica=REG.find(o=>o.c==="449");
   const sinIca = (R.t[1]-ica.t[1])/(R.t[0]-ica.t[0])*100;
   document.getElementById("rank-note").textContent = mode==="t"
-    ? `En conjunto, el nivel regional va en ${fmtPct(R.t[1],R.t[0])} %. Ica tiene ${Math.round(ica.t[0]/R.t[0]*100)} % del dinero de todo el nivel; sin Ica, el avance baja a ${sinIca.toFixed(1).replace(".",",")} %. Toca una fila para ver esa región arriba.`
-    : mode==="p" ? `Obras del nivel regional en conjunto: ${fmtPct(R.p[1],R.p[0])} % usado de ${fmtM(R.p[0])}. Toca una fila para ver esa región arriba.`
-    : `Gasto corriente del nivel regional en conjunto: ${fmtPct(R.a[1],R.a[0])} % usado de ${fmtM(R.a[0])}. Toca una fila para ver esa región arriba.`;
+    ? `${document.querySelector("#rank .nuevo")?"La etiqueta \u201c+S/ … desde el …\u201d marca a quien recibió presupuesto nuevo en el último mes (al menos 20 % y S/ 1 M más): su porcentaje baja aunque siga gastando. ":""}En conjunto, el nivel regional va en ${fmtPct(R.t[1],R.t[0])} %. Ica tiene ${Math.round(ica.t[0]/R.t[0]*100)} % del dinero de todo el nivel; sin Ica, el avance baja a ${sinIca.toFixed(1).replace(".",",")} %. Toca una fila para ver esa región arriba.`
+    : mode==="p" ? `${document.querySelector("#rank .nuevo")?"La etiqueta marca a quien recibió presupuesto nuevo para obras en el último mes. ":""}Obras del nivel regional en conjunto: ${fmtPct(R.p[1],R.p[0])} % usado de ${fmtM(R.p[0])}. Toca una fila para ver esa región arriba.`
+    : `${document.querySelector("#rank .nuevo")?"La etiqueta marca a quien recibió presupuesto nuevo para gasto corriente en el último mes. ":""}Gasto corriente del nivel regional en conjunto: ${fmtPct(R.a[1],R.a[0])} % usado de ${fmtM(R.a[0])}. Toca una fila para ver esa región arriba.`;
   const cur=sel.value; document.querySelectorAll("#rank li").forEach(li=>li.classList.toggle("sel",li.dataset.c===cur));
 }
 document.querySelectorAll("[data-mode]").forEach(b=>b.onclick=()=>{mode=b.dataset.mode;document.querySelectorAll("[data-mode]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));drawRank()});

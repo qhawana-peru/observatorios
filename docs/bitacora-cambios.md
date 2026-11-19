@@ -2,6 +2,11 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-18 (noche): marca de presupuesto nuevo en el ranking regional (sin revisión de cuatro ojos)
+- En el ranking de los 26 gobiernos del nivel regional, una etiqueta marca a quien recibió presupuesto nuevo en el último mes: el PIM subió al menos 20 % y S/ 1 M frente al último corte con 28 días o más de antigüedad (hoy, el 19 oct). Dice cuánto subió y en qué porcentaje iba antes. Funciona en las tres vistas: todo el programa, obras y gasto corriente.
+- Motivo: La Libertad aparece última (23,8 %) porque su PIM pasó de S/ 15 M a S/ 36,8 M desde el 19 oct, no porque haya dejado de gastar. Al 18 nov se marcan La Libertad, Lambayeque y Junín (todo el programa), Tumbes y Junín (obras), y La Libertad, Lambayeque y Piura (gasto corriente).
+- El umbral (20 % y S/ 1 M) es una decisión editorial; queda para revisión del comité.
+
 ## 2026-11-18 (noche): correcciones de lectura (sin revisión de cuatro ojos)
 - **Fecha de "hoy":** el sitio calculaba el día con la hora del servidor (UTC) y marcaba el 19 nov cuando en Lima era 18. Ahora usa la hora de Lima.
 - **Avisos de ríos:** se separan los 66 de crecida o nivel del río de los 21 de bajante (20 de Loreto), y se dice de qué río son los 8 rojos (3 Tumbes, 3 Nanay, 2 Huallaga). Se corrige el plural de "aviso vigente".
