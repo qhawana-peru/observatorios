@@ -61,7 +61,8 @@ def huellas_archivadas() -> dict:
     vistas = {}
     for m in glob.glob(os.path.join(FUENTES, "*", "manifiesto.json")):
         for a in json.load(open(m, encoding="utf-8")).get("archivos", []):
-            if a.get("sha256"):
+            # Una entrada "ya_archivado" apunta a un PDF guardado en una fecha anterior: no tiene "archivo" propio.
+            if a.get("sha256") and a.get("archivo"):
                 vistas[a["sha256"]] = os.path.relpath(os.path.join(os.path.dirname(m), a["archivo"]), RAIZ)
     return vistas
 
