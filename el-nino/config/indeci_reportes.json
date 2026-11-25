@@ -1,5 +1,5 @@
 {
-  "_ayuda": "Reportes del COEN-INDECI que se archivan. Cada entrada es el PDF de un reporte (su nombre incluye el número). Al agregar una entrada en una rama, la automatización 'Descargar reportes de INDECI' baja el PDF original y lo guarda con su huella en el-nino/fuentes/indeci/. Ver docs/el-nino-guia-emergencias.md.",
+  "_ayuda": "Reportes del COEN-INDECI que se archivan. Cada entrada es el PDF de un reporte (su nombre incluye el número). Al agregar una entrada en una rama, la automatización 'Descargar reportes de INDECI' baja el PDF original y lo guarda con su huella en el-nino/fuentes/indeci/. Ver docs/el-nino-guia-emergencias.md. Si la descarga falla, se vuelve a lanzar con cualquier cambio en este archivo.",
   "reportes": [
     {
       "numero": "14589",
