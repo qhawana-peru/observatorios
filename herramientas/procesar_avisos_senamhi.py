@@ -15,7 +15,7 @@ DATOS = os.path.join(RAIZ, "el-nino", "datos")
 URLM = ("https://idesep.senamhi.gob.pe/geoserver/g_aviso/ows?service=WFS&version=1.0.0&request=GetFeature"
         "&typeName=g_aviso:view_aviso&outputFormat=application/json&viewparams=qry:{n}_{m}_{a}")
 # Estaciones hidrológicas: ubicación del mapa de estaciones del SENAMHI cruzada con los límites del INEI (IDESEP),
-# verificada el 17 nov 2026 contra la capa aviso_hidro_pub. Una estación nueva se agrega aquí (manual 06, parte D).
+# verificada el 17 nov 2026 (y el 25 nov para las dos últimas) contra la capa aviso_hidro_pub. Una estación nueva se agrega aquí (manual 06, parte D).
 EST = {"BORJA": ("LORETO", "DATEM DEL MARAÑON", "Intercuenca 49877"), "BELLAVISTA": ("LORETO", "MAYNAS", "Cuenca Napo"),
        "EL TIGRE": ("TUMBES", "TUMBES", "Cuenca Tumbes"), "CABO INGA": ("TUMBES", "TUMBES", "Cuenca Tumbes"),
        "ALAMOR": ("PIURA", "SULLANA", "Cuenca Chira"), "CAÑAD": ("CAJAMARCA", "SANTA CRUZ", "Cuenca Chancay-Lambayeque"),
@@ -23,7 +23,9 @@ EST = {"BORJA": ("LORETO", "DATEM DEL MARAÑON", "Intercuenca 49877"), "BELLAVIS
        "ENAPU PERÚ": ("LORETO", "MAYNAS", "Cuenca Itaya"), "PTE. AGUAYTÍA": ("UCAYALI", "PADRE ABAD", "Cuenca Aguaytía"),
        "SAN REGIS": ("LORETO", "LORETO", "Intercuenca Bajo Marañón"), "LAGUNAS": ("LORETO", "ALTO AMAZONAS", "Intercuenca Bajo Huallga"),
        "PUERTO ALEGRIA": ("LORETO", "MARISCAL RAMON CASTILLA", "Intercuenca 4977"), "NAUTA": ("LORETO", "LORETO", "Intercuenca Bajo Marañón"),
-       "HUALLAPE": ("CAJAMARCA", "JAEN", "Cuenca Chinchipe")}
+       "HUALLAPE": ("CAJAMARCA", "JAEN", "Cuenca Chinchipe"),
+       # Agregadas el 25 nov 2026 (mapa de estaciones del SENAMHI + provincias del INEI en IDESEP):
+       "HACIENDA BARRIOS": ("PIURA", "MORROPON", "Cuenca Piura"), "PTE. SIMÓN RODRÍGUEZ": ("PIURA", "PAITA", "Cuenca Chira")}
 
 
 def lluvia(ruta):

@@ -237,6 +237,7 @@ svg text{font-family:var(--mono)}
 .rz-t td.n,.rz-t th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 .rz-t td .sub,.rz-t th .sub{display:block;font-size:.8rem;color:var(--muted);font-weight:400}
 .rz-t .et{display:inline-block;min-width:4.6em;font:500 11px var(--mono);color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.rz-t tr.tot td{font-weight:600;border-top:2px solid var(--line)}
 .rz-t td .linea{display:block;white-space:nowrap}
 .nv{display:inline-flex;align-items:center;gap:5px;white-space:nowrap;font-size:.84rem}
 .nv::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c,var(--m0))}
@@ -428,6 +429,20 @@ footer strong{color:var(--ink)}
       <li><b>Sin contar dos veces.</b> El INDECI publica reportes departamentales que agrupan varias emergencias. Cada emergencia se cuenta una sola vez según su código del SINPAD: si un reporte distrital ya está dentro de uno departamental, se excluye y se explica en la tabla abierta.</li>
       <li><b>Un espacio vacío no es un cero.</b> Si el reporte describe un daño sin contarlo, no ponemos número.</li>
       <li><b>Gasto y daños, uno al lado del otro.</b> Esta sección no dice que una emergencia ocurrió por falta de gasto: para eso haría falta saber qué obra o actividad habría evitado ese daño, y estas fuentes no lo dicen.</li>
+    </ul>
+  </section>
+
+  <section style="--eje:var(--magenta)" aria-labelledby="h-dengue" data-tab="emergencias" id="dengue-sec">
+    <div class="sec-head">
+      <h2 id="h-dengue">Dengue en las regiones del piloto</h2>
+      <p class="muted">Casos confirmados y probables acumulados hasta la semana epidemiológica <span class="dg-se">—</span> de cada año, para comparar periodos iguales. Fuente: <a id="dg-src" target="_blank" rel="noopener">—</a>, corte al <span id="dg-corte">—</span>.</p>
+    </div>
+    <p class="alertbox" id="dg-alerta">—</p>
+    <div class="rz-wrap"><table class="rz-t" id="dg-tabla"></table></div>
+    <ul class="rules">
+      <li><b>¿Está relacionado con El Niño? Es probable, pero aquí no se demuestra.</b> El CDC-MINSA atribuyó en parte las epidemias de 2023 y 2024 a El Niño costero y al ciclón Yaku, y en octubre emitió una alerta epidemiológica por El Niño 2026-2027. El calor y las lluvias favorecen al zancudo que transmite el dengue. Pero en el número de casos también influyen el serotipo que circula, cuántas personas ya tuvieron dengue, el almacenamiento de agua y el control del vector. Estas tablas muestran coincidencia en el tiempo y en el lugar, no causa.</li>
+      <li><b>Lo llamativo es la época.</b> El dengue en la costa norte suele subir entre enero y mayo. Que la semana <span class="dg-se">—</span> tenga muchos más casos que la misma semana de años anteriores, incluido 2023, es lo que hace pensar en el calor anómalo que reporta el ENFEN, aunque no lo prueba.</li>
+      <li><b>Cuidado con el porcentaje.</b> 2025 tuvo muy pocos casos, así que el aumento frente a 2025 se ve enorme. Por eso la tabla muestra también 2023 y 2024.</li>
     </ul>
   </section>
 
@@ -643,7 +658,7 @@ let emSel=null;
     b.onclick=()=>{emSel=emSel===r?null:r;renderEm()};
     box.appendChild(b);
   });
-  document.getElementById("em-excl").innerHTML=`${EM.excluidos} reportes encontrados no se cuentan porque los eventos ocurrieron antes del ${EM.desde_largo}: sobre todo, lluvias de enero y febrero que el INDECI siguió actualizando en setiembre y octubre con fecha nueva. Están en la <a href="__REPO__/blob/main/el-nino/datos/emergencias.csv" target="_blank" rel="noopener">tabla abierta</a> con el motivo. El seguimiento de las otras regiones empieza después del piloto.`;
+  document.getElementById("em-excl").innerHTML=`${EM.excluidos} reportes encontrados no se cuentan: o el evento ocurrió antes del ${EM.desde_largo} (sobre todo, lluvias de enero y febrero que el INDECI siguió actualizando con fecha nueva), o la emergencia ya está dentro de un reporte departamental. Están en la <a href="__REPO__/blob/main/el-nino/datos/emergencias.csv" target="_blank" rel="noopener">tabla abierta</a> con el motivo. El seguimiento de las otras regiones empieza después del piloto.`;
   renderEm();
 })();
 function renderEm(){
@@ -862,6 +877,19 @@ renderLog();
   sp.innerHTML=`<option value="">Todas</option>`; pinta();
 })();
 
+/* --- dengue (CDC-MINSA) --- */
+(()=>{const DG=DATA.dengue; if(!DG) return;
+  document.querySelectorAll(".dg-se").forEach(e=>e.textContent=DG.se);
+  const a=document.getElementById("dg-src"); a.href=DG.url; a.textContent=DG.fuente;
+  document.getElementById("dg-corte").textContent=DG.corte_largo;
+  const N=DG.nacional, t=DG.tabla["PERÚ"];
+  document.getElementById("dg-alerta").innerHTML=`<b>Perú: ${t["2026"].toLocaleString("es-PE")} casos y ${N.defunciones_hasta_se["2026"]} defunciones hasta la semana ${DG.se}</b><span>Solo en la semana ${DG.se} hubo ${N.casos_en_la_se["2026"].toLocaleString("es-PE")} casos; en la misma semana de 2023 fueron ${N.casos_en_la_se["2023"].toLocaleString("es-PE")} y en 2025, ${N.casos_en_la_se["2025"].toLocaleString("es-PE")}. Las cuatro regiones del piloto suman ${["LA LIBERTAD","PIURA","LAMBAYEQUE","TUMBES"].reduce((s,k)=>s+DG.tabla[k]["2026"],0).toLocaleString("es-PE")} casos: más de la mitad del país.</span>`;
+  const regs=[["LA LIBERTAD","La Libertad"],["PIURA","Piura"],["LAMBAYEQUE","Lambayeque"],["TUMBES","Tumbes"],["PERÚ","Perú (total)"]];
+  const an=["2023","2024","2025","2026"];
+  document.getElementById("dg-tabla").innerHTML=`<thead><tr><th>Región</th>${an.map(y=>`<th class="n">${y}${y==="2023"?'<span class="sub">El Niño costero y Yaku</span>':""}</th>`).join("")}<th class="n">2026 frente a 2025</th></tr></thead><tbody>`+
+    regs.map(([k,n])=>{const r=DG.tabla[k], x=r["2025"]?r["2026"]/r["2025"]:null, v=x==null?null:(x>=10?Math.round(x):x.toFixed(1).replace(".",","));
+      return `<tr${k==="PERÚ"?' class="tot"':""}><td>${n}</td>${an.map(y=>`<td class="n">${r[y].toLocaleString("es-PE")}</td>`).join("")}<td class="n">${v==null?"—":x>=2?v+" veces":"+"+Math.round((x-1)*100)+" %"}</td></tr>`}).join("")+"</tbody>";
+})();
 /* --- pestañas: cada sección con data-tab va a su panel; la dirección (#avisos, #brechas…) abre la pestaña --- */
 (function(){
   const nav=document.querySelector(".obs-tabs"); if(!nav) return;
