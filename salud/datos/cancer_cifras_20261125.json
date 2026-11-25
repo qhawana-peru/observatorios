@@ -1,0 +1,445 @@
+{
+ "corte": "2026-11-25",
+ "fuentes": {
+  "globocan": {
+   "n": "IARC/OMS, GLOBOCAN 2022, ficha Perú (Global Cancer Observatory)",
+   "u": "https://gco.iarc.who.int/media/globocan/factsheets/populations/604-peru-fact-sheet.pdf",
+   "k": "oficial"
+  },
+  "iarc26": {
+   "n": "OMS/IARC, «Cuatro de cada diez casos de cáncer podrían prevenirse», 3/02/2026 (Nature Medicine)",
+   "u": "https://www.who.int/es/news/item/03-02-2026-four-in-ten-cancer-cases-could-be-prevented-globally",
+   "k": "oficial"
+  },
+  "delacruz": {
+   "n": "De La Cruz-Vargas y otros, BMC Cancer 24:477, 15/04/2024 (Perú, prepandemia, 15 años a más)",
+   "u": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11020925/",
+   "k": "estudio"
+  },
+  "pp24iii": {
+   "n": "MINSA-OGPPM, Reporte de seguimiento PP 0024 Prevención y Control del Cáncer, III trimestre 2025 (SIAF al 02/10/2025; ENDES 2024; HIS 2024)",
+   "u": "https://www.minsa.gob.pe/presupuestales/doc2025/reporte-seguimiento/Reporte_PP_0024_2025_III.pdf",
+   "k": "oficial"
+  },
+  "dpcan25": {
+   "n": "MINSA-DGIESP-DPCAN ante la Comisión Especial de Cáncer del Congreso, «Demanda adicional de presupuesto 2026» (Transparencia Económica al 12/06/2025; vigilancia CDC al 30/04/2025; HIS marzo 2025)",
+   "u": "https://www.congreso.gob.pe/Docs/comisiones2023/cem-seguimiento-prevencion-cancer/files/presentacion_14ord.pdf",
+   "k": "oficial"
+  },
+  "cdcI24": {
+   "n": "CDC-MINSA, Sala situacional de cáncer, I trimestre 2024",
+   "u": "https://www.dge.gob.pe/portal/docs/vigilancia/sala/2024/SE24/cancer.pdf",
+   "k": "oficial"
+  },
+  "cdcS24": {
+   "n": "CDC-MINSA, Sala situacional de cáncer, I semestre 2024",
+   "u": "https://www.dge.gob.pe/portal/docs/vigilancia/sala/2024/SE32/cancer.pdf",
+   "k": "oficial"
+  },
+  "ds004": {
+   "n": "DS 004-2022-SA, Reglamento de la Ley 31336, Ley Nacional del Cáncer (El Peruano, 30/03/2022), artículo 7",
+   "u": "https://www.congreso.gob.pe/Docs/DGP/DIDP/files/ds_004-2022-sa.pdf",
+   "k": "oficial"
+  },
+  "ds018": {
+   "n": "DS 018-2024-SA, modifica los artículos 4, 5, 10, 13, 14, 22, 23 y 41 del Reglamento (El Peruano, 17/10/2024)",
+   "u": "https://busquedas.elperuano.pe/dispositivo/NL/2335273-1",
+   "k": "oficial"
+  },
+  "inei60": {
+   "n": "INEI, Informe técnico «Situación de la población adulta mayor», II trimestre 2025 (proyecciones, Boletín 24)",
+   "u": "https://www.inei.gob.pe/media/MenuRecursivo/boletines/informetecnico_situacionpoblacionadultamayor_iit25.pdf",
+   "k": "oficial"
+  },
+  "ineicenso": {
+   "n": "INEI, nota de prensa «Población del Perú totalizó 34 157 732 habitantes al 2025» (Censos Nacionales 2025)",
+   "u": "https://www.gob.pe/institucion/inei/noticias/1399446-inei-poblacion-del-peru-totalizo-34-millones-157-mil-732-habitantes-al-2025",
+   "k": "oficial"
+  },
+  "gestion": {
+   "n": "Gestión, 12/09/2026, «Cáncer en Perú: más de 77 mil nuevos casos…» (no indica la fuente de la cifra)",
+   "u": "https://gestion.pe/peru/cancer-en-peru-mas-de-77-mil-nuevos-casos-y-el-reto-que-persiste-para-detectarlo-a-tiempo-noticia/",
+   "k": "pista"
+  },
+  "correo": {
+   "n": "Correo, «Cáncer en Perú: tres factores clave…» (cita un informe imPACT con OIEA/OMS/IARC: 83 922 casos en 2030)",
+   "u": "https://diariocorreo.pe/salud/cancer-en-peru-tres-factores-clave-tras-el-diagnostico-y-la-deteccion-temprana-noticia/",
+   "k": "pista"
+  }
+ },
+ "cabecera": [
+  {
+   "v": "72 827",
+   "t": "casos nuevos de cáncer estimados en 2022 (39 103 en mujeres, 33 724 en hombres)",
+   "s": "globocan"
+  },
+  {
+   "v": "35 934",
+   "t": "muertes por cáncer estimadas en 2022",
+   "s": "globocan"
+  },
+  {
+   "v": "43,1 %",
+   "t": "de los casos registrados por la vigilancia tenía estadio clínico (I trimestre 2024): de los demás no se sabe en qué etapa llegaron",
+   "s": "cdcI24"
+  },
+  {
+   "v": "59,1 %",
+   "t": "de los casos con estadio llegó en etapa III o IV (I trimestre 2024)",
+   "s": "cdcI24"
+  }
+ ],
+ "ruta": [
+  {
+   "id": "prevenir",
+   "t": "Prevenir",
+   "p": "Evitar que el cáncer aparezca",
+   "ind": [
+    {
+     "v": "38,5 %",
+     "t": "de los casos nuevos en el Perú se atribuye a factores de riesgo modificables (42 % en mujeres, 34,5 % en hombres); 43,4 % de las muertes",
+     "s": "delacruz",
+     "nota": "Estimación prepandemia, población de 15 años a más."
+    },
+    {
+     "v": "37 %",
+     "t": "de los casos nuevos del mundo en 2022 (unos 7,1 millones) se vinculó a causas prevenibles: tabaco, infecciones, alcohol y otras",
+     "s": "iarc26"
+    },
+    {
+     "v": "96,2 % · 58,9 %",
+     "t": "vacunación contra el VPH: el indicador del programa da 96,2 % de niñas de 9 a 13 años protegidas en 2024; la meta física de 2025 registra 803 404 personas protegidas de 1 364 934 programadas al primer semestre",
+     "s": "pp24iii",
+     "nota": "Dos cifras oficiales del mismo reporte que no se pueden comparar: cambian el denominador y la población objetivo (desde 2024 la vacuna se amplió a niñas, niños y adolescentes de 9 a 18 años). El reporte no publica el denominador del indicador."
+    }
+   ]
+  },
+  {
+   "id": "detectar",
+   "t": "Detectar",
+   "p": "Encontrarlo antes de los síntomas",
+   "ind": [
+    {
+     "v": "89,8 %",
+     "t": "de mujeres de 30 a 49 años declara tamizaje de cuello uterino (ENDES 2024)",
+     "s": "pp24iii"
+    },
+    {
+     "v": "19,4 %",
+     "t": "de mujeres declara examen clínico de mama (ENDES 2024)",
+     "s": "pp24iii",
+     "nota": "El propio reporte dice 30 a 49 años en el texto y 30 a 59 en el gráfico."
+    },
+    {
+     "v": "23 668",
+     "t": "mamografías de tamizaje registradas en la red pública en 2024, frente a 421 633 exámenes clínicos de mama (HIS)",
+     "s": "dpcan25"
+    }
+   ]
+  },
+  {
+   "id": "diagnosticar",
+   "t": "Diagnosticar",
+   "p": "Confirmar y saber en qué etapa",
+   "ind": [
+    {
+     "v": "76,5 %",
+     "t": "de los casos registrados se detectó por síntomas (presentación clínica); 5,6 % por tamizaje (I semestre 2024)",
+     "s": "cdcS24"
+    },
+    {
+     "v": "66,1 % · 72,0 %",
+     "t": "de los casos de cuello uterino y de mama, respectivamente, se detectó por síntomas; por tamizaje, 21,9 % y 7,9 %",
+     "s": "dpcan25",
+     "nota": "El documento no indica el periodo de estos totales (9 367 y 7 784 casos)."
+    },
+    {
+     "v": "102 días",
+     "t": "mediana desde el inicio de los síntomas hasta el diagnóstico en 2024 (120 en 2023)",
+     "s": "dpcan25"
+    }
+   ]
+  },
+  {
+   "id": "tratar",
+   "t": "Tratar",
+   "p": "Empezar a tiempo y sin cortes",
+   "ind": [
+    {
+     "v": "22 días",
+     "t": "mediana desde el diagnóstico hasta el inicio del tratamiento en 2024 (27 en 2023)",
+     "s": "dpcan25"
+    },
+    {
+     "v": "68",
+     "t": "registros hospitalarios de cáncer en 25 regiones alimentan estos tiempos: MINSA, gobiernos regionales, FFAA y PNP; no incluyen al INEN ni a EsSalud",
+     "s": "dpcan25"
+    }
+   ]
+  },
+  {
+   "id": "financiar",
+   "t": "Financiar",
+   "p": "Quién paga cada tramo",
+   "ind": [
+    {
+     "v": "S/ 1 586 M",
+     "t": "presupuesto (PIM) del programa presupuestal 0024 en 2024, el doble que en 2022 (S/ 812 M)",
+     "s": "dpcan25",
+     "nota": "Otro reporte oficial del MINSA da S/ 1 456 M para 2024: ver el gráfico."
+    },
+    {
+     "v": "S/ 515 M",
+     "t": "del presupuesto de 2023 llegó como asignación adicional por la Ley de Presupuesto (art. 37 de la Ley 31638)",
+     "s": "dpcan25"
+    },
+    {
+     "v": "art. 7",
+     "t": "del reglamento de la Ley del Cáncer: reglas de cobertura distintas para IAFAS privadas, SIS-FISSAL e IAFAS públicas",
+     "s": "ds004"
+    }
+   ]
+  }
+ ],
+ "tiempos": {
+  "s": "dpcan25",
+  "anios": [
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   "2025*"
+  ],
+  "diag": [
+   120,
+   150,
+   120,
+   120,
+   102,
+   90
+  ],
+  "trat": [
+   17,
+   19,
+   28,
+   27,
+   22,
+   8
+  ],
+  "nDiag": [
+   2415,
+   3458,
+   5586,
+   8706,
+   8472,
+   1508
+  ],
+  "nTrat": [
+   3699,
+   5869,
+   5966,
+   7353,
+   7124,
+   816
+  ],
+  "nota": "* 2025: solo hasta el 30/04/2025, con pocos casos válidos; no se compara. Diagnóstico: desde el inicio de los síntomas. Tratamiento: el documento no define el punto de partida; se entiende desde el diagnóstico."
+ },
+ "presupuesto": {
+  "anios": [
+   2020,
+   2021,
+   2022,
+   2023,
+   2024,
+   2025
+  ],
+  "a": {
+   "n": "DGIESP ante el Congreso (Transparencia Económica, 12/06/2025)",
+   "s": "dpcan25",
+   "pim": [
+    694.7,
+    790.8,
+    812.3,
+    1131.3,
+    1586.2,
+    1586.2
+   ],
+   "dev": [
+    626.1,
+    733.2,
+    759.4,
+    1072.6,
+    1505.4,
+    null
+   ]
+  },
+  "b": {
+   "n": "OGPPM, reporte de seguimiento (SIAF, 02/10/2025)",
+   "s": "pp24iii",
+   "pim": [
+    659.1,
+    780.2,
+    802.0,
+    1075.8,
+    1456.4,
+    1574.8
+   ],
+   "dev": [
+    595.6,
+    724.4,
+    751.6,
+    1018.3,
+    1376.2,
+    null
+   ]
+  },
+  "nota": "2025 en curso: el devengado no se grafica. Las dos series son oficiales y no coinciden (hasta S/ 130 M en 2024). No se elige una: hay que preguntar al MINSA o reproducirlas en la Consulta Amigable del MEF, con el mismo corte y los mismos niveles de gobierno."
+ },
+ "norma": [
+  {
+   "n": "7.2",
+   "q": "IAFAS privadas",
+   "t": "Deben asegurar la integralidad de la cobertura oncológica en sus pólizas, incluidos los tratamientos reconocidos en guías de práctica clínica internacionales."
+  },
+  {
+   "n": "7.3",
+   "q": "SIS y FISSAL",
+   "t": "Se considera prioritariamente el costo por paquete de atención, de acuerdo con la normativa vigente."
+  },
+  {
+   "n": "7.4",
+   "q": "IAFAS públicas",
+   "t": "Mientras no se aprueben las guías de práctica clínica, financian los tratamientos indicados por el médico tratante dentro de la cobertura de su plan."
+  }
+ ],
+ "normaNota": "Resumen de Qhawana; el texto está en el DS 004-2022-SA. El DS 018-2024-SA modificó otros artículos del reglamento (4, 5, 10, 13, 14, 22, 23 y 41), no el 7. La pregunta que abre: tres reglas para la misma enfermedad según quién asegura al paciente. Para las aseguradoras privadas, la obligación es amplia y puede encarecer primas; para el SIS y el FISSAL, la referencia es el paquete tarifado; para las demás públicas, el criterio del médico mientras falten guías. Qhawana no toma partido: muestra el texto y lo que se sabe de su costo.",
+ "contraste": [
+  {
+   "c": "72 827 casos nuevos en 2022",
+   "e": "coincide",
+   "o": "72 827 (39 103 mujeres, 33 724 hombres), estimación de GLOBOCAN 2022.",
+   "s": "globocan"
+  },
+  {
+   "c": "77 485 casos nuevos en 2024",
+   "e": "pendiente",
+   "o": "No se encontró la fuente. GLOBOCAN publica estimaciones para 2022. Una nota de prensa da 77 845 para 2024 sin decir de dónde sale.",
+   "s": "gestion"
+  },
+  {
+   "c": "90 000 casos en 2030 (45 000 por sexo)",
+   "e": "no",
+   "o": "El informe imPACT (OIEA, OMS, IARC), citado por la prensa, proyecta 83 922 para 2030. El reparto exacto 45 000 / 45 000 parece un relleno, no un dato.",
+   "s": "correo"
+  },
+  {
+   "c": "«10 casos nuevos cada hora»",
+   "e": "matiz",
+   "o": "Es una división: 72 827 casos al año dan 8,3 por hora; solo con 90 000 se llega a 10.",
+   "s": "globocan"
+  },
+  {
+   "c": "Personas de 60 años a más: 7 % (2025) y 16 % (2050)",
+   "e": "no",
+   "o": "INEI: 14,3 % en 2025 según proyecciones y 14,8 % según el Censo 2025. Hacia 2050 la proyección se acerca a uno de cada cuatro. Las cifras quizá correspondan a otro grupo de edad.",
+   "s": "inei60"
+  },
+  {
+   "c": "Carga de enfermedad 1990 → 2019: no transmisibles de 36 % a 71 %",
+   "e": "pendiente",
+   "o": "Citado a un documento de la PUCP (2025); hay que verificarlo en el estudio de Carga Global de Enfermedad (IHME) y decir si es AVISA o muertes.",
+   "s": null
+  },
+  {
+   "c": "80 % detectado por síntomas y 7 % por tamizaje (2025)",
+   "e": "matiz",
+   "o": "El último documento publicado por el CDC da 76,5 % y 5,6 % para el I semestre de 2024. La cifra de 2025 circula (columna en El Comercio) pero no se halló en una publicación del CDC; quizá esté en su tablero.",
+   "s": "cdcS24"
+  },
+  {
+   "c": "Mama: 76 % por síntomas y 12 % por tamizaje (2025)",
+   "e": "pendiente",
+   "o": "El MINSA ante el Congreso da 72,0 % y 7,9 %, sin periodo. Falta la fuente de 2025.",
+   "s": "dpcan25"
+  },
+  {
+   "c": "53 % sin estadio y 58 % en etapa avanzada (2024)",
+   "e": "matiz",
+   "o": "CDC: 56,9 % sin estadio y 59,1 % avanzado en el I trimestre 2024; el MINSA da 50,7 % con estadio para todo 2024. Ninguna cifra incluye al INEN ni a EsSalud.",
+   "s": "cdcI24"
+  },
+  {
+   "c": "37 % de los casos del mundo, prevenibles",
+   "e": "coincide",
+   "o": "OMS/IARC, 3 de febrero de 2026: 37 % de los casos nuevos de 2022.",
+   "s": "iarc26"
+  },
+  {
+   "c": "38,5 % de los casos del Perú, asociados a factores modificables",
+   "e": "coincide",
+   "o": "Estudio publicado en BMC Cancer (2024), prepandemia, 15 años a más.",
+   "s": "delacruz"
+  },
+  {
+   "c": "Presupuesto del PP 0024: S/ 791 M (2021) a S/ 1 586 M (2024)",
+   "e": "matiz",
+   "o": "Coincide con la serie de la DGIESP (2024: S/ 1 586,2 M). Otro reporte oficial del MINSA da S/ 1 456,4 M: las dos fuentes no cuadran.",
+   "s": "dpcan25"
+  },
+  {
+   "c": "Etapa avanzada 63 %, 59 %, 52 %, 58 % (2021–2024) junto al presupuesto",
+   "e": "pendiente",
+   "o": "No se halló la serie. Aunque se halle, no permite medir el efecto del presupuesto: el estadio falta en cerca de la mitad de los casos y la vigilancia deja fuera al INEN y a EsSalud.",
+   "s": null
+  },
+  {
+   "c": "Brecha de financiamiento de S/ 2 400 M (2018)",
+   "e": "pendiente",
+   "o": "Es una «estimación propia» del autor, sin documento público. No se publica hasta conocer el método.",
+   "s": null
+  },
+  {
+   "c": "19,4 % de mujeres con examen de mama",
+   "e": "coincide",
+   "o": "ENDES 2024 (el rango de edad varía dentro del mismo reporte: 30–49 o 30–59).",
+   "s": "pp24iii"
+  },
+  {
+   "c": "65,9 % de cobertura de vacunación contra el VPH",
+   "e": "no",
+   "o": "No aparece en los reportes oficiales revisados: 96,2 % (indicador 2024), 100 % (I semestre 2025) o 58,9 % (meta física 2025). Depende del denominador.",
+   "s": "pp24iii"
+  },
+  {
+   "c": "Estándar MINSA de 65 días hasta el tratamiento",
+   "e": "pendiente",
+   "o": "Atribuido a la NTS 218-MINSA/DGIESP-2024 (RM 876-2024-MINSA). Falta leer el texto de la norma.",
+   "s": null
+  },
+  {
+   "c": "Medianas de 102 y 22 días (2024)",
+   "e": "matiz",
+   "o": "Coinciden, pero 102 días es desde los síntomas (no desde la sospecha) y no incluye al INEN ni a EsSalud.",
+   "s": "dpcan25"
+  },
+  {
+   "c": "Reglamento: coberturas distintas para privadas, SIS-FISSAL y públicas",
+   "e": "coincide",
+   "o": "Artículo 7, numerales 7.2 a 7.4 del DS 004-2022-SA. No lo cambió el DS 018-2024-SA.",
+   "s": "ds004"
+  }
+ ],
+ "pendientes": [
+  "Carga de enfermedad del Perú 1990–2019 (IHME, GBD Compare): proporción de AVISA por gran grupo.",
+  "Proyección de casos 2024 y 2030 en el Global Cancer Observatory (Cancer Today y Cancer Tomorrow) y el informe imPACT 2024 del Perú.",
+  "Proyección del INEI por edad simple (Boletín 24) para 2050: 60 años a más, 65 a más y 70 a más.",
+  "Sala situacional o tablero del CDC con el año 2025 completo: método de detección, estadio y tiempos.",
+  "Texto de la NTS 218-MINSA/DGIESP-2024: plazos máximos de atención oncológica.",
+  "PP 0024 en la Consulta Amigable del MEF (PIA, PIM y devengado por nivel de gobierno) para explicar por qué difieren las dos series del MINSA.",
+  "Denominador del indicador de vacunación contra el VPH (RM 218-2024-MINSA) y su cambio de población objetivo.",
+  "Datos de cáncer del INEN y de EsSalud, que no entran en la vigilancia del CDC.",
+  "Gasto en cáncer por IAFAS (SIS-FISSAL, EsSalud, SaludPol, FFAA, privadas): solo de documentos públicos.",
+  "Estudio que respalde la brecha de S/ 2 400 M de 2018, si existe."
+ ]
+}

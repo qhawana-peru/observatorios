@@ -199,6 +199,45 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
 }
 /* ---- vista 5: de qué morimos ---- */
 #mort[hidden]{display:none!important}
+#canc[hidden]{display:none!important}
+#canc{padding:4px 2px 8px;color:#EAF0F8;display:grid;gap:14px}
+#canc .tira{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:760px){#canc .tira{grid-template-columns:repeat(2,1fr)}}
+#canc .k{background:rgba(255,255,255,.05);padding:8px 10px}
+#canc .k b{display:block;font:800 24px/1 var(--display);font-variant-numeric:tabular-nums}
+#canc .k span{font-size:12px;color:#B8C6DA;line-height:1.3;display:block;margin-top:3px}
+#canc .bloque{background:rgba(255,255,255,.035);padding:12px 14px}
+#canc h3{margin:0 0 2px;font:700 15px/1.25 var(--sans,system-ui);color:#F2F5FA}
+#canc .nota{margin:0 0 8px;font-size:12.5px;color:#B8C6DA;line-height:1.45}
+#canc svg{width:100%;height:auto;display:block}
+#canc .dos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:900px){#canc .dos{grid-template-columns:1fr}}
+#canc table{width:100%;border-collapse:collapse;font-size:12.5px}
+#canc th,#canc td{padding:6px 6px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left;vertical-align:top}
+#canc .fte{font-size:11px;color:#8FA2BF;margin-top:3px;line-height:1.35}
+#canc .fte a{color:#9FC7FF}
+#canc .ruta{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:10px;padding-top:40px}
+#canc .ruta:before{content:"";position:absolute;left:10%;right:10%;top:15px;height:2px;background:linear-gradient(90deg,#8CC152,#22B5C2,#5B8DEF,#A78BFA,#E9B44C)}
+#canc .est{position:relative;background:rgba(255,255,255,.04);padding:10px 10px 8px;border-top:3px solid var(--c)}
+#canc .est .hito{position:absolute;top:-38px;left:50%;transform:translateX(-50%);width:26px;height:26px;border-radius:50%;background:#0F1B33;border:2px solid var(--c);display:grid;place-items:center;font:700 12px var(--mono,monospace);color:var(--c)}
+#canc .est h4{margin:0;font:800 19px/1 var(--display);text-transform:uppercase;letter-spacing:.02em;color:var(--c)}
+#canc .est .sub{font-size:11.5px;color:#9FB0C8;margin:2px 0 8px}
+#canc .ind{border-top:1px solid rgba(255,255,255,.07);padding:7px 0}
+#canc .ind b{display:block;font:800 20px/1.05 var(--display);font-variant-numeric:tabular-nums}
+#canc .ind p{margin:2px 0 0;font-size:12px;line-height:1.35;color:#D5DEEA}
+#canc .ind .ojo{font-size:11.5px;color:#FFC59E;margin-top:3px;line-height:1.35}
+@media(max-width:1000px){#canc .ruta{grid-template-columns:1fr 1fr}#canc .ruta:before{display:none}#canc .est .hito{position:static;transform:none;margin-bottom:6px}}
+@media(max-width:560px){#canc .ruta{grid-template-columns:1fr}}
+#canc .sello{display:inline-block;font:600 10.5px/1 var(--mono,monospace);padding:4px 6px;border:1px solid var(--c);color:var(--c);white-space:nowrap;text-transform:uppercase;letter-spacing:.03em}
+#canc .filtros{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 8px}
+#canc .filtros button{background:transparent;border:1px solid rgba(255,255,255,.25);color:#D5DEEA;font:12px var(--mono,monospace);padding:5px 9px;cursor:pointer}
+#canc .filtros button[aria-pressed="true"]{background:rgba(255,255,255,.12);border-color:#EAF0F8;color:#fff}
+#canc .norma{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:900px){#canc .norma{grid-template-columns:1fr}}
+#canc .norma div{background:rgba(255,255,255,.04);padding:10px;border-left:3px solid var(--c)}
+#canc .norma b{font:800 18px var(--display);color:var(--c)}
+#canc .metodo{font-size:12.5px;color:#C9D6EA;line-height:1.5}
+#canc .metodo li{margin:3px 0}
 #mort{padding:4px 2px 8px;color:#EAF0F8;display:grid;gap:14px}
 #mort .tira{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
 @media(max-width:760px){#mort .tira{grid-template-columns:repeat(2,1fr)}}
@@ -243,6 +282,7 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
     <button data-v="bolsillo" aria-pressed="false"><span class="n">3</span>Dónde se filtra el bolsillo</button>
     <button data-v="mapa" aria-pressed="false"><span class="n">4</span>Dónde están los prestadores</button>
     <button data-v="mortalidad" aria-pressed="false"><span class="n">5</span>Mortalidad</button>
+    <button data-v="cancer" aria-pressed="false"><span class="n">6</span>Cáncer: cifras y respaldo</button>
     <button data-v="tabla" aria-pressed="false"><span class="n">≡</span>Tabla</button>
   </div>
   <div class="como">Pasa el cursor para ver relaciones · clic en un actor o una flecha para abrir su ficha</div>
@@ -277,6 +317,7 @@ footer ol,footer ul{margin:0;padding-left:18px} footer li{margin:3px 0}
     <div id="geoMulti" hidden></div>
   </div>
   <div id="mort" hidden></div>
+  <div id="canc" hidden></div>
   <div class="escena-pie"><div class="legend" id="legend"></div><span id="pieNota">Grosor uniforme: faltan las Cuentas Nacionales de Salud</span></div>
   <aside id="panel" aria-live="polite"><button class="close" aria-label="Cerrar ficha">×</button><div id="pbody"></div></aside>
 </section>
@@ -720,6 +761,8 @@ const VIEWS={
    legend:'<span>Tamaño: hospital general &gt; con internamiento &gt; sin internamiento</span><span>Anillo: ubicación aproximada (centro del distrito)</span><span>En «una red por mapa», naranja tenue = departamento sin esa red</span>'},
  mortalidad:{rot:'5 · Mortalidad',lede:'Primera capa de «De qué nos enfermamos y morimos»: las defunciones del archivo abierto del SINADEF, en tres grandes grupos de causas, con la calidad y el atraso del registro a la vista. Las capas de enfermedad (encuestas del INEI) y de consultas (red pública) vendrán después.',
    legend:'<span>Mortalidad proporcional: qué parte de las muertes registradas corresponde a cada grupo. No son tasas por habitante.</span>'},
+ cancer:{rot:'6 · Cáncer: cifras y respaldo',lede:'Las cifras del cáncer que circulan en el debate sobre la Ley Nacional del Cáncer, puestas a prueba: qué dice la fuente oficial, dónde no coincide y qué falta buscar. Ordenadas por el recorrido del paciente, de la prevención al financiamiento.',
+   legend:'<span>Sellos: coincide · coincide con matices · no coincide · pendiente (sin fuente pública hallada)</span>'},
  tabla:{rot:'Tabla',lede:'La misma información en tablas, legible sin interacción.'}
 };
 
@@ -984,6 +1027,59 @@ const MORTV=(()=>{
   return {show(){ render(); }};
 })();
 
+/* ---------- vista 6 · cáncer: cifras y respaldo ---------- */
+const CANC=__CANCER__;
+const CANCV=(()=>{
+  const R=document.getElementById('canc');
+  const EST={coincide:{t:'Coincide',c:'#6FCF97'},matiz:{t:'Coincide con matices',c:'#E9B44C'},no:{t:'No coincide',c:'#FF7A45'},pendiente:{t:'Pendiente',c:'#9AA6B8'}};
+  const COL={prevenir:'#8CC152',detectar:'#22B5C2',diagnosticar:'#5B8DEF',tratar:'#A78BFA',financiar:'#E9B44C'};
+  const KL={oficial:'oficial',estudio:'estudio',pista:'prensa (pista)'};
+  const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const fte=k=>{ if(!k) return '<div class="fte">Sin fuente pública hallada</div>'; const S=CANC.fuentes[k]; return `<div class="fte">${KL[S.k]||S.k} · <a href="${S.u}" target="_blank" rel="noopener">${esc(S.n)}</a></div>`; };
+  const nf=x=>{const [e,d]=(Math.round(x*10)/10).toFixed(1).split('.');return e.replace(/\B(?=(\d{3})+(?!\d))/g,' ')+(d!=='0'?','+d:'');};
+  let filtro='todas';
+  function lineas(cfg){ // cfg: {w,h,xs,series:[{n,c,v,dash}],ymax,unid}
+    const {w=560,h=230,xs,series,ymax,unid=''}=cfg, l=44,r=16,t=14,b=28, W=w-l-r, H=h-t-b;
+    const X=i=>l+W*i/(xs.length-1), Y=v=>t+H*(1-v/ymax);
+    let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="${esc(cfg.aria||'')}">`;
+    for(let k=0;k<=4;k++){const v=ymax*k/4; s+=`<line x1="${l}" x2="${w-r}" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.08)"/><text x="${l-6}" y="${Y(v)+4}" text-anchor="end" font-size="10.5" fill="#8FA2BF" font-family="IBM Plex Mono, monospace">${nf(Math.round(v))}</text>`;}
+    xs.forEach((x,i)=>{s+=`<text x="${X(i)}" y="${h-8}" text-anchor="middle" font-size="11" fill="#B8C6DA" font-family="IBM Plex Mono, monospace">${x}</text>`;});
+    series.forEach(S=>{ const pts=S.v.map((v,i)=>v==null?null:[X(i),Y(v)]); const seg=pts.filter(Boolean);
+      s+=`<polyline points="${seg.map(p=>p.join(',')).join(' ')}" fill="none" stroke="${S.c}" stroke-width="2.2" ${S.dash?'stroke-dasharray="5 4"':''}/>`;
+      pts.forEach((p,i)=>{ if(!p) return; s+=`<circle cx="${p[0]}" cy="${p[1]}" r="3.4" fill="${S.c}"><title>${esc(S.n)} · ${xs[i]}: ${nf(S.v[i])}${unid}</title></circle>`; });
+      const u=seg[seg.length-1]; if(S.lab) s+=`<text x="${u[0]-4}" y="${u[1]+(S.below?18:-8)}" text-anchor="end" font-size="11" fill="${S.c}">${esc(S.lab)}</text>`; });
+    return s+'</svg>';
+  }
+  function contraste(){
+    const lista=CANC.contraste.filter(x=>filtro==='todas'||x.e===filtro);
+    return `<table><thead><tr><th style="width:30%">Cifra que circula</th><th style="width:15%">Resultado</th><th>Lo que encontramos</th></tr></thead><tbody>${lista.map(x=>`<tr><td>${esc(x.c)}</td><td><span class="sello" style="--c:${EST[x.e].c}">${EST[x.e].t}</span></td><td>${esc(x.o)}${fte(x.s)}</td></tr>`).join('')}</tbody></table>`;
+  }
+  function render(){
+    const T=CANC.tiempos, P=CANC.presupuesto, cnt=k=>CANC.contraste.filter(x=>x.e===k).length;
+    R.innerHTML=`
+    <div class="tira">${CANC.cabecera.map(k=>`<div class="k"><b>${esc(k.v)}</b><span>${esc(k.t)}</span>${fte(k.s)}</div>`).join('')}</div>
+    <div class="bloque"><h3>El recorrido del paciente, tramo por tramo</h3><p class="nota">Cada tramo con lo que se puede afirmar con fuente oficial o estudio publicado. En naranja, lo que obliga a leer la cifra con cuidado.</p>
+      <div class="ruta">${CANC.ruta.map((e,i)=>`<div class="est" style="--c:${COL[e.id]}"><div class="hito">${i+1}</div><h4>${esc(e.t)}</h4><div class="sub">${esc(e.p)}</div>${e.ind.map(x=>`<div class="ind"><b>${esc(x.v)}</b><p>${esc(x.t)}</p>${x.nota?`<div class="ojo">${esc(x.nota)}</div>`:''}${fte(x.s)}</div>`).join('')}</div>`).join('')}</div></div>
+    <div class="dos">
+      <div class="bloque"><h3>Cuánto se demora: medianas en días</h3><p class="nota">Registros hospitalarios de la red pública (MINSA, gobiernos regionales, FFAA, PNP). ${esc(T.nota)}</p>
+        ${lineas({xs:T.anios.slice(0,5),ymax:160,unid:' días',aria:'Medianas de días hasta diagnóstico y tratamiento',series:[{n:'Síntomas → diagnóstico',c:'#5B8DEF',v:T.diag.slice(0,5),lab:'síntomas → diagnóstico'},{n:'Diagnóstico → tratamiento',c:'#A78BFA',v:T.trat.slice(0,5),lab:'diagnóstico → tratamiento'}]})}
+        <p class="nota" style="margin-top:6px">Casos con dato válido en 2024: ${nf(T.nDiag[4])} para el diagnóstico y ${nf(T.nTrat[4])} para el tratamiento.</p>${fte(T.s)}</div>
+      <div class="bloque"><h3>Presupuesto del programa 0024: dos fuentes oficiales</h3><p class="nota">PIM en millones de soles: línea continua, la serie de la DGIESP; discontinua, la del reporte de seguimiento de la OGPPM. ${esc(P.nota)}</p>
+        ${lineas({xs:P.anios,ymax:1800,unid:' M',aria:'Presupuesto PP 0024 según dos fuentes',series:[{n:P.a.n,c:'#E9B44C',v:P.a.pim,lab:'DGIESP'},{n:P.b.n,c:'#22B5C2',v:P.b.pim,dash:1,lab:'OGPPM',below:1}]})}
+        ${fte(P.a.s)}${fte(P.b.s)}</div>
+    </div>
+    <div class="bloque"><h3>Las reglas de cobertura: artículo 7 del reglamento</h3><p class="nota">${esc(CANC.normaNota)}</p>
+      <div class="norma">${CANC.norma.map((n,i)=>`<div style="--c:${['#E9B44C','#8CC152','#E2589B'][i]}"><b>${n.n}</b> · <span style="font-weight:700">${esc(n.q)}</span><p style="margin:4px 0 0;font-size:12.5px;line-height:1.4">${esc(n.t)}</p></div>`).join('')}</div>${fte('ds004')}${fte('ds018')}</div>
+    <div class="bloque"><h3>Cifras que circulan, puestas a prueba</h3><p class="nota">Cifras usadas en presentaciones y notas recientes sobre el cáncer en el Perú, contrastadas con la fuente oficial al ${CANC.corte}. La prensa sirve como pista, no como respaldo.</p>
+      <div class="filtros" role="group" aria-label="Filtrar por resultado"><button data-f="todas" aria-pressed="${filtro==='todas'}">Todas (${CANC.contraste.length})</button>${Object.keys(EST).map(k=>`<button data-f="${k}" aria-pressed="${filtro===k}">${EST[k].t} (${cnt(k)})</button>`).join('')}</div>
+      <div id="cancTabla">${contraste()}</div></div>
+    <div class="bloque metodo"><h3>Lo que falta buscar</h3><ul>${CANC.pendientes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul>
+      <p class="nota" style="margin-top:8px">Cómo se hizo: cada cifra se buscó en la fuente que la produce (IARC, INEI, CDC, MINSA, normas en El Peruano). «Coincide con matices» = el número existe, pero con otra definición, periodo o cobertura. «Pendiente» = no se halló una fuente pública; no se usa hasta encontrarla. Datos: <a href="datos/cancer_cifras_20261125.json" style="color:#9FC7FF">cifras y fuentes en JSON</a>.</p></div>`;
+    R.querySelectorAll('.filtros button').forEach(b=>b.addEventListener('click',()=>{filtro=b.dataset.f; R.querySelectorAll('.filtros button').forEach(x=>x.setAttribute('aria-pressed',x.dataset.f===filtro)); R.querySelector('#cancTabla').innerHTML=contraste();}));
+  }
+  return {show(){ render(); }};
+})();
+
 /* ---------- navegación ---------- */
 function go(v,fromHash){
   if(!VIEWS[v]) v='formal';
@@ -996,9 +1092,10 @@ function go(v,fromHash){
   document.getElementById('escena').style.display=isT?'none':'block'; document.getElementById('tablaView').style.display=isT?'block':'none';
   if(!fromHash){try{history.replaceState(null,'','#'+v)}catch(e){location.hash=v}}
   if(isT) return;
-  const isM=v==='mapa', isMo=v==='mortalidad'; svg.style.display=(isM||isMo)?'none':'block'; document.getElementById('geo').hidden=!isM; document.getElementById('mort').hidden=!isMo; document.getElementById('pieNota').style.display=(isM||isMo)?'none':'';
+  const isM=v==='mapa', isMo=v==='mortalidad', isC=v==='cancer'; svg.style.display=(isM||isMo||isC)?'none':'block'; document.getElementById('geo').hidden=!isM; document.getElementById('mort').hidden=!isMo; document.getElementById('canc').hidden=!isC; document.getElementById('pieNota').style.display=(isM||isMo||isC)?'none':'';
   if(isM){ panel.classList.remove('open'); GEO.show(); return; }
   if(isMo){ panel.classList.remove('open'); MORTV.show(); return; }
+  if(isC){ panel.classList.remove('open'); CANCV.show(); return; }
   svg.setAttribute('viewBox','0 0 1240 '+({formal:712,dinero:790,bolsillo:885}[v]));
   const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   gE.style.opacity=0; gBars.style.opacity=0;

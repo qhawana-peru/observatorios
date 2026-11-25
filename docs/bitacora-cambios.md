@@ -2,6 +2,9 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-25: salud, vista 6 «Cáncer: cifras y respaldo» (sin revisión del comité ni de cuatro ojos)
+- A pedido de Pepe, a partir de una presentación sobre cáncer de un evento privado del 18/11/2026 (no se cita ni se reproduce). Cada cifra se buscó en su fuente: GLOBOCAN 2022, OMS/IARC 2026, BMC Cancer 2024, CDC-MINSA (salas situacionales 2024), reportes del PP 0024 (OGPPM y DGIESP ante el Congreso), INEI y los DS 004-2022-SA y 018-2024-SA. De 19 cifras: 5 coinciden, 6 con matices, 3 no coinciden y 5 quedan pendientes. Las dos series oficiales del presupuesto del PP 0024 no cuadran (hasta S/ 130 M en 2024): se muestran ambas. Datos en `salud/datos/cancer_cifras_20261125.json`.
+
 ## 2026-11-18 (noche): marca de presupuesto nuevo en el ranking regional (sin revisión de cuatro ojos)
 - En el ranking de los 26 gobiernos del nivel regional, una etiqueta marca a quien recibió presupuesto nuevo en el último mes: el PIM subió al menos 20 % y S/ 1 M frente al último corte con 28 días o más de antigüedad (hoy, el 19 oct). Dice cuánto subió y en qué porcentaje iba antes. Funciona en las tres vistas: todo el programa, obras y gasto corriente.
 - Motivo: La Libertad aparece última (23,8 %) porque su PIM pasó de S/ 15 M a S/ 36,8 M desde el 19 oct, no porque haya dejado de gastar. Al 18 nov se marcan La Libertad, Lambayeque y Junín (todo el programa), Tumbes y Junín (obras), y La Libertad, Lambayeque y Piura (gasto corriente).
