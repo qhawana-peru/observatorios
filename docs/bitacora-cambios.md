@@ -11,7 +11,7 @@ Toda corrección, cambio de método o decisión editorial que afecte lo publicad
 - **Avisos del SENAMHI** al 25 nov: 39 de lluvia (el N.º 481, en rojo, vigente hasta el 26 nov; Tumbes 99 % en rojo) y 110 de ríos. Se ubican dos estaciones nuevas de Piura: Hacienda Barrios (río Bigote, Morropón) y Puente Simón Rodríguez (río Chira, Paita).
 - **Nuevo, dengue (piloto):** casos del CDC-MINSA hasta la semana 45, por región y año, en la pestaña Impacto. Se dice explícitamente que muestra coincidencia, no causa. Método en `docs/el-nino-dengue.md`.
 - **Corrección técnica:** la descarga de reportes del INDECI fallaba cuando un manifiesto anterior tenía entradas "ya archivadas" sin archivo propio. Se corrige en `herramientas/descargar_indeci.py`.
-- ENFEN: sigue vigente el comunicado N.º 20 (13 nov); el siguiente se espera hacia el 27 nov.
+- ENFEN: sigue vigente el comunicado N.º 20 (13 nov); el siguiente sale el lunes 30 nov, según el propio comunicado.
 
 ## 2026-11-25: salud, vista 6 «Cáncer: cifras y respaldo» (sin revisión del comité ni de cuatro ojos)
 - A pedido de Pepe, a partir de una presentación sobre cáncer de un evento privado del 18/11/2026 (no se cita ni se reproduce). Cada cifra se buscó en su fuente: GLOBOCAN 2022, OMS/IARC 2026, BMC Cancer 2024, CDC-MINSA (salas situacionales 2024), reportes del PP 0024 (OGPPM y DGIESP ante el Congreso), INEI y los DS 004-2022-SA y 018-2024-SA. De 19 cifras: 5 coinciden, 5 con matices, 3 no coinciden y 6 quedan pendientes. Las dos series oficiales del presupuesto del PP 0024 no cuadran (hasta S/ 130 M en 2024): se muestran ambas. Datos en `salud/datos/cancer_cifras_20261125.json`.
