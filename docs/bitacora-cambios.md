@@ -2,6 +2,17 @@
 
 Toda corrección, cambio de método o decisión editorial que afecte lo publicado, con fecha y qué cambió. Lo más reciente arriba.
 
+## 2026-11-25: El Niño, actualización y dengue (sin revisión de cuatro ojos)
+- **Presupuesto (MEF):** cortes del 23 y 25 nov. Al 25 nov, 52,1 % del PP 0068 (PIM S/ 5,155.8 M; devengado S/ 2,684.0 M). Nacional 43,3 %, municipal 56,6 %, regional 74,1 %. La Libertad sigue última (23,0 %): su PIM subió otra vez, a S/ 39,0 M.
+- **Emergencias (INDECI):** 24 reportes nuevos, archivados con su huella en `el-nino/fuentes/indeci/2026-11-25/`. Pasan de 49 a 56 emergencias en el piloto (Tumbes 26, Piura 23, Lambayeque 5, La Libertad 2) y de 2,8 mil a 4,642 personas afectadas. Lo que más sube es el reporte departamental de Piura (N.º 18): de 109 a 357 personas afectadas.
+- **Dos fuentes del INDECI que no coinciden (Máncora):** el reporte distrital da 126 personas y 64 viviendas afectadas; el departamental, 120 y 30. Se cuenta el departamental, que es el que agrupa, y la tabla abierta muestra ambos con su hora de corte.
+- **Excluido por fecha:** el informe N.º 2603 (San Juan de la Virgen) trae como fecha de ocurrencia el 5 jun 2026, antes del inicio del periodo.
+- **DS 149-2026-PCM:** se enlaza el texto en El Peruano. Dice 60 días calendario sin fecha de inicio. Los reportes del INDECI dan dos plazos distintos (4 nov a 2 ene hasta el 18 nov; 3 nov a 1 ene después); se muestran ambos.
+- **Avisos del SENAMHI** al 25 nov: 39 de lluvia (el N.º 481, en rojo, vigente hasta el 26 nov; Tumbes 99 % en rojo) y 110 de ríos. Se ubican dos estaciones nuevas de Piura: Hacienda Barrios (río Bigote, Morropón) y Puente Simón Rodríguez (río Chira, Paita).
+- **Nuevo, dengue (piloto):** casos del CDC-MINSA hasta la semana 45, por región y año, en la pestaña Impacto. Se dice explícitamente que muestra coincidencia, no causa. Método en `docs/el-nino-dengue.md`.
+- **Corrección técnica:** la descarga de reportes del INDECI fallaba cuando un manifiesto anterior tenía entradas "ya archivadas" sin archivo propio. Se corrige en `herramientas/descargar_indeci.py`.
+- ENFEN: sigue vigente el comunicado N.º 20 (13 nov); el siguiente se espera hacia el 27 nov.
+
 ## 2026-11-25: salud, vista 6 «Cáncer: cifras y respaldo» (sin revisión del comité ni de cuatro ojos)
 - A pedido de Pepe, a partir de una presentación sobre cáncer de un evento privado del 18/11/2026 (no se cita ni se reproduce). Cada cifra se buscó en su fuente: GLOBOCAN 2022, OMS/IARC 2026, BMC Cancer 2024, CDC-MINSA (salas situacionales 2024), reportes del PP 0024 (OGPPM y DGIESP ante el Congreso), INEI y los DS 004-2022-SA y 018-2024-SA. De 19 cifras: 5 coinciden, 5 con matices, 3 no coinciden y 6 quedan pendientes. Las dos series oficiales del presupuesto del PP 0024 no cuadran (hasta S/ 130 M en 2024): se muestran ambas. Datos en `salud/datos/cancer_cifras_20261125.json`.
 

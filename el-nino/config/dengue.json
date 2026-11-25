@@ -1,0 +1,21 @@
+{
+  "_ayuda": "Dengue en el Observatorio El Niño (piloto, desde el 25 nov 2026). Cifras de la Sala situacional de enfermedades metaxénicas del CDC-MINSA (casos confirmados y probables; defunciones por dengue y en investigación). Se copian a mano de la pestaña 'Tablas' cada semana a el-nino/datos/dengue_cdc.csv. Ver docs/el-nino-dengue.md.",
+  "fuente": "CDC-MINSA, Sala situacional de enfermedades metaxénicas (dengue)",
+  "url": "https://app7.dge.gob.pe/maps2/shiny_metaxenicas_web/",
+  "se": 45,
+  "corte": "2026-11-14",
+  "actualizado_fuente": "2026-11-20",
+  "consultado": "2026-11-25",
+  "nacional": {
+    "defunciones_hasta_se": {"2023": 435, "2024": 253, "2025": 52, "2026": 148},
+    "casos_en_la_se": {"2021": 986, "2022": 1001, "2023": 1556, "2024": 824, "2025": 288, "2026": 9313},
+    "defunciones_en_la_se": {"2023": 3, "2024": 1, "2025": 0, "2026": 19},
+    "incidencia_hasta_se": {"2023": 730.58, "2024": 775.11, "2025": 97.88, "2026": 325.05}
+  },
+  "alertas": [
+    {"codigo": "AE-CDC N.º 001-2026", "fecha": "2026-01-09", "url": "https://epipublic.dge.gob.pe/uploads/alertas/alertas_20261_09_145341.pdf",
+     "dice": "La alta transmisión de 2023 y 2024 estuvo influida por factores climáticos, en particular El Niño y el ciclón Yaku; la transmisión estacional se intensifica con condiciones cálidas y húmedas."},
+    {"codigo": "Alerta epidemiológica N.º 008-2026 (CDC-MINSA)", "fecha": "2026-10-20", "url": "",
+     "dice": "Alerta por riesgo de aumento de enfermedades ante El Niño 2026-2027 (dengue, leptospirosis, diarreas). Falta archivar el PDF oficial; por ahora solo se conoce por la nota de la Agencia Andina."}
+  ]
+}

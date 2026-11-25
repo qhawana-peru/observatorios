@@ -138,7 +138,7 @@ def construir_datos() -> dict:
     emergencias = construir_emergencias()
     avisos = construir_avisos()
     brechas = construir_brechas(ult, emergencias, avisos)
-    return {"avisos": avisos, "riesgo": construir_riesgo(), "brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
+    return {"dengue": construir_dengue(), "avisos": avisos, "riesgo": construir_riesgo(), "brechas": brechas, "corte": corte, "corte_corto": etiqueta(corte), "corte_largo": etiqueta(corte, True),
             "aprobado": sitio.get("estado") == "publicado", "niveles": niveles, "regiones": regiones,
             "serie": serie, "hechos": hechos, "emergencias": emergencias, "contexto": contexto, "_repo": sitio.get("repositorio", "#")}
 
@@ -157,6 +157,17 @@ def construir_riesgo() -> dict:
             for r in leer_csv(os.path.join(EN, "datos", "riesgo_lima_cenepred.csv"))]
     return {"estudios": cfg["estudios"], "consultado": cfg["consultado"], "consultado_largo": etiqueta(cfg["consultado"], True),
             "dist": dist, "lima": lima}
+
+
+def construir_dengue() -> dict:
+    """Dengue (CDC-MINSA): casos acumulados hasta la misma semana epidemiológica, por departamento y año."""
+    with open(os.path.join(EN, "config", "dengue.json"), encoding="utf-8") as f:
+        cfg = json.load(f)
+    tabla = {}
+    for r in leer_csv(os.path.join(EN, "datos", "dengue_cdc.csv")):
+        tabla.setdefault(r["departamento"], {})[r["anio"]] = int(r["casos_hasta_se"])
+    return {k: cfg[k] for k in ("fuente", "url", "se", "nacional", "alertas")} | {
+        "corte_largo": etiqueta(cfg["corte"], True), "consultado_largo": etiqueta(cfg["consultado"], True), "tabla": tabla}
 
 
 def construir_emergencias() -> dict:
