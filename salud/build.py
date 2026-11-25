@@ -16,6 +16,7 @@ import shutil
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RESUMEN = "renipress_resumen_20261116.json"
+CANCER = "cancer_cifras_20261125.json"
 
 
 def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
@@ -29,6 +30,9 @@ def main(salida=None, repo="https://github.com/qhawana-peru/observatorios"):
     with open(os.path.join(AQUI, "datos", "mortalidad_sinadef_resumen.json"), encoding="utf-8") as f:
         mort = json.load(f)
     html = html.replace("__MORT__", json.dumps(mort, ensure_ascii=False, separators=(",", ":")))
+    with open(os.path.join(AQUI, "datos", CANCER), encoding="utf-8") as f:
+        cancer = json.load(f)
+    html = html.replace("__CANCER__", json.dumps(cancer, ensure_ascii=False, separators=(",", ":")))
     html = html.replace("__REPO__", repo)
     with open(os.path.join(salida, "index.html"), "w", encoding="utf-8") as f:
         f.write(html)

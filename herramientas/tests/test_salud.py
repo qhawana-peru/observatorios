@@ -97,3 +97,33 @@ class TestMortalidad(unittest.TestCase):
             html = f.read()
         # #mort usa display:grid, que anula el atributo hidden si no hay una regla explícita.
         self.assertIn("#mort[hidden]{display:none!important}", html)
+
+
+class TestCancer(unittest.TestCase):
+    def test_cifras_con_estado_y_fuente_valida(self):
+        d = cargar("datos", "cancer_cifras_20261125.json")
+        fuentes = d["fuentes"]
+        self.assertTrue(all(f["k"] in ("oficial", "estudio", "pista") and f["u"].startswith("https://") for f in fuentes.values()))
+        for x in d["contraste"]:
+            self.assertIn(x["e"], ("coincide", "matiz", "no", "pendiente"))
+            # Lo que coincide necesita una fuente oficial o un estudio, nunca solo prensa.
+            if x["e"] == "coincide":
+                self.assertIn(fuentes[x["s"]]["k"], ("oficial", "estudio"), x["c"])
+            if x["s"]:
+                self.assertIn(x["s"], fuentes)
+        for est in d["ruta"]:
+            for i in est["ind"]:
+                self.assertIn(fuentes[i["s"]]["k"], ("oficial", "estudio"), i["t"])
+
+    def test_la_vista_de_cancer_se_oculta_y_se_inyecta(self):
+        with open(os.path.join(SA, "plantilla.html"), encoding="utf-8") as f:
+            html = f.read()
+        self.assertIn("#canc[hidden]{display:none!important}", html)
+        spec = importlib.util.spec_from_file_location("salud_build", os.path.join(SA, "build.py"))
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        with tempfile.TemporaryDirectory() as tmp:
+            m.main(tmp)
+            out = open(os.path.join(tmp, "index.html"), encoding="utf-8").read()
+            self.assertNotIn("__CANCER__", out)
+            self.assertTrue(os.path.exists(os.path.join(tmp, "datos", "cancer_cifras_20261125.json")))

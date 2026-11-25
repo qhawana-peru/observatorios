@@ -10,7 +10,9 @@ Estado: **versión preliminar, sin revisión del comité.** Corte de establecimi
 2. **Cómo circula el dinero.** Fuentes, fondos y prestadores: red preferente, compras e intercambio vigentes, convenios sin vigencia verificada, gasto de bolsillo de los hogares y reembolsos. El grosor de las flechas no es proporcional al monto: faltan las Cuentas Nacionales de Salud.
 3. **Dónde se filtra el bolsillo.** Gasto de bolsillo de 2019 según el seguro de quien paga (DIGEMID con ENAHO). Es participación en el total, no gasto por persona.
 4. **Dónde están los prestadores.** Los 27 051 establecimientos de RENIPRESS por red y capacidad, con lupa de Lima y Callao y una vista de «una red por mapa».
-5. **Tabla.** La misma información sin interacción.
+5. **Mortalidad.** Defunciones del archivo abierto del SINADEF por grandes grupos de causas, con la calidad y el atraso del registro a la vista.
+6. **Cáncer: cifras y respaldo.** El recorrido del paciente (prevenir, detectar, diagnosticar, tratar, financiar) con indicadores de fuente oficial o estudio publicado; medianas de días hasta el diagnóstico y el tratamiento; el presupuesto del PP 0024 según dos fuentes oficiales que no coinciden; el artículo 7 del reglamento de la Ley 31336; y una tabla que pone a prueba las cifras que circulan en el debate (coincide, con matices, no coincide, pendiente), con la lista de lo que falta buscar.
+7. **Tabla.** La misma información sin interacción.
 
 Cada actor y cada flecha tienen una ficha con sus cifras y su fuente, rotulada por tipo (oficial, estudio, documento de empresa, consultora). Las cifras de prensa aparecen aparte, como **pistas por verificar**, y nunca en titulares ni cálculos.
 
@@ -32,6 +34,7 @@ El sitio completo lo genera `herramientas/construir_sitio.py`, que llama a `buil
 - `geo/puntos.json`: un registro por establecimiento, en este orden: latitud, longitud, red (0 MINSA y gobiernos regionales, 1 EsSalud, 2 Sanidades FFAA, 3 Sanidad PNP, 4 privados, 5 municipales, INPE y otros), capacidad (2 hospital general, 1 con internamiento, 0 sin internamiento), ubicación aproximada (1 o 0), código de departamento, nombre, categoría y distrito.
 - `geo/departamentos.json`: resumen por departamento y red.
 - `geo/departamentos_contornos.json`: contornos departamentales.
+- `datos/cancer_cifras_20261125.json`: cifras de la vista 6, cada una con su fuente (tipo y enlace), el resultado de la contrastación y los pendientes. Se edita a mano: cada cambio debe citar el documento.
 
 **Definiciones.** Hospital general: categorías II-1, II-2, III-1 y III-2 (los II-E y III-E son establecimientos especializados). Ubicación aproximada: 7 003 establecimientos (26 %, casi todos privados) no traen coordenadas; se ubican en el promedio de los demás establecimientos de su distrito, con un desplazamiento fijo, y se dibujan como anillos. El campo de camas viene vacío para los establecimientos privados.
 
